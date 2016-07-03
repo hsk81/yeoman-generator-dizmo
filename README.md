@@ -276,7 +276,7 @@ Once your dizmo is build, a `build/` folder with the following structure will be
 
 ## Advanced sub-generators
 
-Once you have accommodated yourself with the basics of dizmo development, you can go further and try out the advanced `dizmo:ext`, `dizmo:ext-coffee-script`, `dizmo:ext-type-script` and `dizmo:with-libs` sub-generators.
+Once you have accommodated yourself with the basics of dizmo development, you can go further and try out the advanced `dizmo:ext`, `dizmo:ext-coffee-script`, and `dizmo:ext-type-script` sub-generators.
 
 It's in theory possible to run the advanced sub-generators even after having edited the basic skeleton, but only as long as the original directory structure has been left in place. Using this feature you can later-on convert your basic dizmo projects to more advanced ones.
 
