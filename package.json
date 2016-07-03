@@ -38,5 +38,5 @@
   "scripts": {
     "prepublish": "gulp prepublish"
   },
-  "version": "2.4.6"
+  "version": "2.4.7"
 }
