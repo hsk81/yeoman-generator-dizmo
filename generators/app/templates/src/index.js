@@ -1,16 +1,18 @@
-var assert = require('assert');
-
 window.showBack = function () {
     dizmo.showBack();
 };
-assert.ok(typeof window.showBack === 'function');
-
 window.showFront = function () {
     dizmo.showFront();
 };
-assert.ok(typeof window.showBack === 'function');
 
-window.document.addEventListener('dizmoready', function () {
+window.i18n(function (err, t) {
+    var cell = document.getElementsByClassName('table-cell')[0];
+    cell.textContent = t('greeting');
+    var done = document.getElementById('done');
+    done.textContent = t('done');
+});
+
+document.addEventListener('dizmoready', function () {
     document.getElementById('done').onclick = function () {
         dizmo.showFront();
     };

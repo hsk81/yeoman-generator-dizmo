@@ -119,7 +119,7 @@ After you have answered the last question, the generator will create the project
         ├── index.html
         ├── index.js
         ├── lib
-        │   └── lodash-*.min.js
+        │   └── i18n-*.min.js
         └── style
             └── style.css
 
@@ -256,7 +256,7 @@ Once your dizmo is build, a `build/` folder with the following structure will be
     │   ├── index.html
     │   ├── index.js
     │   ├── lib
-    │   │   └── lodash-*.min.js
+    │   │   └── i18n-*.min.js
     │   └── style
     │       └── style.css
     └── MyDizmo-0.0.0.dzm
@@ -271,7 +271,7 @@ Once your dizmo is build, a `build/` folder with the following structure will be
 * `MyDizmo/help.zip`: a ZIP archive of the original `help` folder;
 * `MyDizmo/index.html`: the main HTML script;
 * `MyDizmo/index.js`: the main JavaScript;
-* `MyDizmo/lib/lodash-*.min.js`: a sample third party library;
+* `MyDizmo/lib/i18n-*.min.js`: [i18next](http://i18next.com/) internationalization wrapper;
 * `MyDizmo/style/style.css`: CSS style sheets.
 
 ## Advanced sub-generators

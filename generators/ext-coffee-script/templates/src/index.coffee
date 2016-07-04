@@ -1,21 +1,20 @@
-assert = require('assert')
-
 window.showBack = ->
     dizmo.showBack()
     return
-
-assert.ok typeof window.showBack == 'function'
 
 window.showFront = ->
     dizmo.showFront()
     return
 
-assert.ok typeof window.showBack == 'function'
+window.i18n (err, t) ->
+    cell = document.getElementsByClassName('table-cell')[0]
+    cell.textContent = t('greeting')
+    done = document.getElementById('done')
+    done.textContent = t('done')
+    return
 
 window.document.addEventListener 'dizmoready', ->
-
     document.getElementById('done').onclick = ->
         dizmo.showFront()
         return
-
     return

@@ -5,8 +5,10 @@
         "node": true
     },
     "globals": {
-        "assert": false,
+        "i18n": false,
         "dizmo": false,
-        "viewer": false
+        "viewer": false,
+        "showBack": false,
+        "showFront": false
     }
 }
