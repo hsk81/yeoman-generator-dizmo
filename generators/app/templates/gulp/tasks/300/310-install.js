@@ -11,11 +11,11 @@ var install = function (result) {
         install_to, pkg.dizmo.settings['bundle-identifier']))) : result;
 };
 
-gulp.task('install:rebuild', ['build'], function () {
+gulp.task('install', ['build'], function () {
     return install(gulp.src(
         'build/{0}/**/*'.replace('{0}', pkg.name)));
 });
-gulp.task('install', function () {
+gulp.task('install:only', function () {
     return install(gulp.src(
         'build/{0}/**/*'.replace('{0}', pkg.name)));
 });
