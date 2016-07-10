@@ -8,7 +8,7 @@ window.showFront = () => {
     dizmo.showFront();
 };
 
-window.i18n((err, t) => {
+window.i18n((err:string, t:(key:string, options?:any) => string) => {
     let cell = document.getElementsByClassName('table-cell')[0];
     cell.textContent = t('greeting');
     let done = document.getElementById('done');
