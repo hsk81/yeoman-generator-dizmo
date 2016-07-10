@@ -141,8 +141,11 @@ module.exports = yeoman.generators.Base.extend({
             this.templatePath('gulp/'),
             this.destinationPath('gulp/'));
         this.fs.copy(
-            this.templatePath('help/'),
+            this.templatePath('help/**/*.png'),
             this.destinationPath('help/'));
+        this.fs.copyTpl(
+            this.templatePath('help/**/*.md'),
+            this.destinationPath('help/'), this.properties);
         this.fs.copy(
             this.templatePath('src/'),
             this.destinationPath('src/'));

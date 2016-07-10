@@ -1,4 +1,4 @@
-# (Display Name of the dizmo)
+# <%= dizmoName %>
 
 **Table of contents**
 
