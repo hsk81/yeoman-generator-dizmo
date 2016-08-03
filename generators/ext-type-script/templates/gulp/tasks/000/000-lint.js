@@ -12,8 +12,11 @@ gulp.task('lint:js', function () {
 gulp.task('lint:ts', function () {
     return gulp.src([
         './src/**/*.ts', '!src/lib/**', '!build/**', '!node_modules/**'])
-        .pipe(gulp_tslint({configuration: 'tslint.json'}))
-        .pipe(gulp_tslint.report("verbose", {emitError: false}));
+        .pipe(gulp_tslint({
+            configuration: 'tslint.json',
+            formatter: 'verbose'
+        }))
+        .pipe(gulp_tslint.report({emitError: false}));
 });
 
 gulp.task('lint', ['lint:ts', 'lint:js']);
