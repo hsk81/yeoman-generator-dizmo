@@ -1,44 +1,44 @@
 {
-    "author": {
-        "email": "hasan.karahan@blackhan.com",
-        "name": "Hasan Karahan",
-        "url": "http://www.blackhan.com/"
-    },
-    "dependencies": {
-        "chalk": "^1.1.3",
-        "lodash": "^4.13.1",
-        "rimraf": "^2.5.2",
-        "shelljs": "^0.7.0",
-        "yeoman-generator": "^0.24.1",
-        "yosay": "^1.2.0"
-    },
-    "description": "Dizmo generator",
-    "devDependencies": {
-        "gulp": "^3.9.1",
-        "gulp-eslint": "^3.0.1",
-        "gulp-exclude-gitignore": "^1.0.0",
-        "gulp-nsp": "^2.4.1",
-        "yeoman-assert": "^2.2.1"
-    },
-    "files": [
-        "generators/app",
-        "generators/ext",
-        "generators/ext-coffe-script",
-        "generators/ext-type-script"
-    ],
-    "homepage": "https://github.com/dizmo/yeoman-generator-dizmo",
-    "keywords": [
-        "yeoman-generator",
-        "dizmo"
-    ],
-    "license": "ISC",
-    "name": "generator-dizmo",
-    "repository": {
-        "type": "git",
-        "url": "https://github.com/dizmo/yeoman-generator-dizmo"
-    },
-    "scripts": {
-        "prepublish": "gulp prepublish"
-    },
-    "version": "2.5.7"
+  "author": {
+    "email": "hasan.karahan@blackhan.com",
+    "name": "Hasan Karahan",
+    "url": "http://www.blackhan.com/"
+  },
+  "dependencies": {
+    "chalk": "^1.1.3",
+    "lodash": "^4.13.1",
+    "rimraf": "^2.5.2",
+    "shelljs": "^0.7.0",
+    "yeoman-generator": "^0.24.1",
+    "yosay": "^1.2.0"
+  },
+  "description": "Dizmo generator",
+  "devDependencies": {
+    "gulp": "^3.9.1",
+    "gulp-eslint": "^3.0.1",
+    "gulp-exclude-gitignore": "^1.0.0",
+    "gulp-nsp": "^2.4.1",
+    "yeoman-assert": "^2.2.1"
+  },
+  "files": [
+    "generators/app",
+    "generators/ext",
+    "generators/ext-coffe-script",
+    "generators/ext-type-script"
+  ],
+  "homepage": "https://github.com/dizmo/yeoman-generator-dizmo",
+  "keywords": [
+    "yeoman-generator",
+    "dizmo"
+  ],
+  "license": "ISC",
+  "name": "generator-dizmo",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/dizmo/yeoman-generator-dizmo"
+  },
+  "scripts": {
+    "prepublish": "gulp prepublish"
+  },
+  "version": "2.5.8"
 }
