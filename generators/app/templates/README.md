@@ -45,7 +45,7 @@ The `dizmo` section in `package.json` can be extended with default values, which
                 "username": "my-username"
             },
             "urls": {
-                "upload": "http://store-api.dizmo.com"
+                "upload": "https://store-api.dizmo.com"
             }
         }
     }

@@ -1,17 +1,27 @@
 'use strict';
 
 var chalk = require('chalk'),
+    generators = require('yeoman-generator'),
     lodash = require('lodash'),
     os = require('os'),
     path = require('path'),
     process = require('process'),
     shell = require('shelljs'),
-    yeoman = require('yeoman-generator'),
     yosay = require('yosay');
 
-module.exports = yeoman.generators.Base.extend({
+function mine (fn) {
+    return function () {
+        return fn.apply(this, [this].concat(
+            Array.prototype.slice.call(
+                arguments
+            )
+        ));
+    };
+}
+
+module.exports = generators.Base.extend({
     constructor: function () {
-        yeoman.generators.Base.apply(this, arguments);
+        generators.Base.apply(this, arguments);
 
         this.option('install-to', {
             defaults: process.env.DIZMO_INSTALL_TO || '',
@@ -58,12 +68,11 @@ module.exports = yeoman.generators.Base.extend({
         });
     },
 
-    prompting: function () {
-        var self = this,
-            done = this.async();
-
+    prompting: mine(function (self) {
         this.log(yosay(
-            'Welcome to the awesome ' + chalk.green.bold('dizmo') + ' generator!'
+            'Welcome to the awesome {0} generator!'.replace(
+                '{0}', chalk.green.bold('dizmo')
+            )
         ));
 
         var prompts = [{
@@ -105,14 +114,13 @@ module.exports = yeoman.generators.Base.extend({
             default: this.personEmail
         }];
 
-        this.prompt(prompts, function (properties) {
-            this.properties = lodash.assign(properties, {
-                installTo: this.options['install-to'],
+        return this.prompt(prompts).then(function (properties) {
+            self.properties = lodash.assign(properties, {
+                installTo: self.options['install-to'],
                 _: lodash
             });
-            done();
-        }.bind(this));
-    },
+        });
+    }),
 
     configuring: function () {
         var bundle_id = path.parse(this.properties.bundleId);

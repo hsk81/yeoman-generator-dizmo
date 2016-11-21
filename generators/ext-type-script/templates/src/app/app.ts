@@ -1,5 +1,5 @@
-import window from './window';
 import dizmo from './dizmo';
+import window from './window';
 
 window.showBack = () => {
     dizmo.showBack();

@@ -1,6 +1,6 @@
 'use strict';
 
-var yeoman = require('yeoman-generator'),
+var generators = require('yeoman-generator'),
     lodash = require('lodash'),
     rimraf = require('rimraf');
 
@@ -19,7 +19,7 @@ function sort(dictionary) {
     return sorted;
 }
 
-module.exports = yeoman.generators.Base.extend({
+module.exports = generators.Base.extend({
     configuring: function () {
         var pkg = this.fs.readJSON(
             this.destinationPath('package.json'));

@@ -1,6 +1,6 @@
 'use strict';
 
-var yeoman = require('yeoman-generator'),
+var generators = require('yeoman-generator'),
     lodash = require('lodash'),
     rimraf = require('rimraf');
 
@@ -19,7 +19,7 @@ function sort(dictionary) {
     return sorted;
 }
 
-module.exports = yeoman.generators.Base.extend({
+module.exports = generators.Base.extend({
     configuring: function () {
         var pkg = this.fs.readJSON(
             this.destinationPath('package.json'));
@@ -32,14 +32,14 @@ module.exports = yeoman.generators.Base.extend({
         pkg.devDependencies = sort(
             lodash.assign(pkg.devDependencies, {
                 'gulp-eslint': '^3.0.1',
-                'gulp-tslint': '^6.0.2',
-                'gulp-htmlmin': '^2.0.0',
+                'gulp-tslint': '^7.0.0',
+                'gulp-htmlmin': '^3.0.0',
                 'gulp-sass': '^2.3.2',
-                'gulp-sourcemaps': '^1.6.0',
+                'gulp-sourcemaps': '^2.2.0',
                 'gulp-uglify': '^2.0.0',
-                'tsify': '^1.0.3',
-                'tslint': '^3.14.0',
-                'typescript': '^1.8.10',
+                'tsify': '^2.0.3',
+                'tslint': '^4.0.1',
+                'typescript': '^2.0.10',
                 'vinyl-buffer': '^1.0.0'
             })
         );

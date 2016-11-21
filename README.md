@@ -180,7 +180,7 @@ The `dizmo` section in `package.json` can be extended with default values, which
                 "username": "my-username"
             },
             "urls": {
-                "upload": "http://store-api.dizmo.com"
+                "upload": "https://store-api.dizmo.com"
             }
         }
     }
@@ -393,7 +393,7 @@ npm install --save jquery
 ```
 Then in your code you can get a reference with:
 ```
-var jQuery = require('jquery');
+var $ = require('jquery');
 ```
 If you want to remove an installed library just run:
 ```

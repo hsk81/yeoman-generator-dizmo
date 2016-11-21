@@ -1,0 +1,8 @@
+{
+"version": 3,
+"mappings": "AAAA,cAAe;EACb,wBAAwB,EAAE,mCAAmC;;AAG/D,UAAW;EACT,MAAM,EAAE,IAAI;EACZ,MAAM,EAAE,CAAC;EACT,OAAO,EAAE,CAAC;EACV,KAAK,EAAE,IAAI;;AAGb,MAAO;EACL,MAAM,EAAE,IAAI;EACZ,KAAK,EAAE,IAAI;EACX,gBAAU;IACR,OAAO,EAAE,KAAK;IACd,MAAM,EAAE,IAAI;IACZ,KAAK,EAAE,IAAI;IACX,+BAAe;MACb,OAAO,EAAE,UAAU;MACnB,SAAS,EAAE,GAAG;MACd,WAAW,EAAE,IAAI;MACjB,UAAU,EAAE,MAAM;MAClB,cAAc,EAAE,MAAM;;AAK5B,KAAM;EACJ,MAAM,EAAE,IAAI;EACZ,KAAK,EAAE,IAAI;EACX,gBAAW;IACT,MAAM,EAAE,IAAI;IACZ,IAAI,EAAE,CAAC;IACP,QAAQ,EAAE,QAAQ;IAClB,UAAU,EAAE,MAAM;IAClB,KAAK,EAAE,IAAI;IACX,4BAAY;MACV,WAAW,EAAE,IAAI",
+"sources": ["style.scss"],
+"sourcesContent": [".no-dizmo-drag {\n  -webkit-dashboard-region: dashboard-region(control rectangle);\n}\n\nhtml, body {\n  height: 100%;\n  margin: 0;\n  padding: 0;\n  width: 100%;\n}\n\n#front {\n  height: 100%;\n  width: 100%;\n  div.table {\n    display: table;\n    height: 100%;\n    width: 100%;\n    div.table-cell {\n      display: table-cell;\n      font-size: 3em;\n      font-weight: bold;\n      text-align: center;\n      vertical-align: middle;\n    }\n  }\n}\n\n#back {\n  height: 100%;\n  width: 100%;\n  div.footer {\n    bottom: 10px;\n    left: 0;\n    position: absolute;\n    text-align: center;\n    width: 100%;\n    button#done {\n      line-height: 26px;\n    }\n  }\n}\n"],
+"names": [],
+"file": "style.css"
+}
