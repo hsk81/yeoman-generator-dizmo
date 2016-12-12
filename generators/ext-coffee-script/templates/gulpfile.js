@@ -1,5 +1,6 @@
 var gulp = require('gulp');
 
+require('./gulp/tasks/000/000-lint.js');
 require('./gulp/tasks/000/010-build.js');
 require('./gulp/tasks/000/020-clean.js');
 require('./gulp/tasks/100/110-process-help.js');

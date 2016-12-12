@@ -33,10 +33,10 @@ module.exports = generators.Base.extend({
             lodash.assign(pkg.devDependencies, {
                 'coffeeify': '^2.0.1',
                 'gulp-coffeelint': '^0.6.0',
-                'gulp-htmlmin': '^2.0.0',
-                'gulp-sass': '^2.3.2',
+                'gulp-htmlmin': '^3.0.0',
+                'gulp-sass': '^3.0.0',
                 'gulp-sourcemaps': '^1.6.0',
-                'gulp-uglify': '^1.5.3',
+                'gulp-uglify': '^2.0.0',
                 'vinyl-buffer': '^1.0.0'
             })
         );
@@ -48,6 +48,9 @@ module.exports = generators.Base.extend({
     },
 
     writing: function () {
+        this.fs.copy(
+            this.templatePath('gulpfile.js'),
+            this.destinationPath('gulpfile.js'));
         this.fs.copy(
             this.templatePath('gulp/'),
             this.destinationPath('gulp/'));

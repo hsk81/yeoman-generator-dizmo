@@ -33,7 +33,7 @@ module.exports = generators.Base.extend({
             lodash.assign(pkg.devDependencies, {
                 'gulp-eslint': '^3.0.1',
                 'gulp-htmlmin': '^3.0.0',
-                'gulp-sass': '^2.3.2',
+                'gulp-sass': '^3.0.0',
                 'gulp-sourcemaps': '^2.2.0',
                 'gulp-uglify': '^2.0.0',
                 'vinyl-buffer': '^1.0.0'
@@ -47,6 +47,9 @@ module.exports = generators.Base.extend({
     },
 
     writing: function () {
+        this.fs.copy(
+            this.templatePath('gulpfile.js'),
+            this.destinationPath('gulpfile.js'));
         this.fs.copy(
             this.templatePath('gulp/'),
             this.destinationPath('gulp/'));
