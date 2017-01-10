@@ -29,7 +29,8 @@
   "homepage": "https://github.com/dizmo/yeoman-generator-dizmo",
   "keywords": [
     "yeoman-generator",
-    "dizmo", "generator",
+    "dizmo",
+    "generator",
     "dizmoGen"
   ],
   "license": "ISC",
@@ -41,5 +42,5 @@
   "scripts": {
     "prepublish": "gulp prepublish"
   },
-  "version": "3.0.0"
+  "version": "3.0.1"
 }
