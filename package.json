@@ -12,7 +12,7 @@
     "yeoman-generator": "^0.24.1",
     "yosay": "^1.2.0"
   },
-  "description": "Dizmo generator",
+  "description": "dizmoGen: a generator for dizmo projects",
   "devDependencies": {
     "gulp": "^3.9.1",
     "gulp-eslint": "^3.0.1",
@@ -29,7 +29,8 @@
   "homepage": "https://github.com/dizmo/yeoman-generator-dizmo",
   "keywords": [
     "yeoman-generator",
-    "dizmo"
+    "dizmo", "generator",
+    "dizmoGen"
   ],
   "license": "ISC",
   "name": "generator-dizmo",
