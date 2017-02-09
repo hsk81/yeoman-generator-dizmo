@@ -1,4 +1,5 @@
 var pkg = require('../../package.js'),
+    fs = require('fs'),
     lodash = require('lodash'),
     path = require('path');
 var gulp = require('gulp'),
@@ -10,8 +11,17 @@ gulp.task('process-properties', function () {
         return lodash.upperFirst(lodash.camelCase(key));
     });
 
-    return gulp.src('.info.plist')
-        .pipe(gulp_plist(settings))
-        .pipe(gulp_rename('Info.plist'))
-        .pipe(gulp.dest(path.join('build', pkg.name)));
+    var self = this, on_stat = function (error, stat) {
+        if (error === null) {
+            return gulp.src('.info.plist')
+                .pipe(gulp_plist(settings))
+                .pipe(gulp_rename('Info.plist'))
+                .pipe(gulp.dest(path.join('build', pkg.name)));
+        } else {
+           self.emit('error', error);
+        }
+    };
+
+    fs.stat('.info.plist', on_stat);
 });
+
