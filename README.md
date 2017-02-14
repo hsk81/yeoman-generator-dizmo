@@ -158,7 +158,7 @@ In addition to the default entries of [npm] the `package.json` file contains a `
         }
     }
 
-Lets have a look at each entry:
+And here is a list of available options:
 
 * `install-to`: Your dizmoViewer caches locally installed dizmos in a location that looks on Unix likes system similar like this:
 ```
@@ -175,12 +175,8 @@ The `dizmo` section in `package.json` can be extended with default values, which
 
     {
         "dizmo": {
-            "credentials": {
-                "password": "my-password",
-                "username": "my-username"
-            },
-            "urls": {
-                "upload": "https://store-api.dizmo.com"
+            "installt-to": "..",
+            "settings": {
             }
         }
     }
