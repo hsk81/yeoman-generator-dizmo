@@ -426,7 +426,7 @@ In such a case just run `npm install` to ensure that all the required dependenci
 
 ## License
 
- © 2016 [dizmo AG, Switzerland](http://dizmo.com/)
+ © 2017 [dizmo AG, Switzerland](http://dizmo.com/)
 
 [npm-image]: https://badge.fury.io/js/generator-dizmo.svg
 [npm-url]: https://npmjs.org/package/generator-dizmo
