@@ -33,19 +33,14 @@ module.exports = generators.Base.extend({
             desc: 'GIT repository initialization',
             type: Boolean
         });
-        this.option('ext', {
+        this.option('coffee-script', {
             defaults: false,
-            desc: 'Extended sub-generator with SASS etc.',
+            desc: 'Sub-generator with CoffeeScript',
             type: Boolean
         });
-        this.option('ext-coffee-script', {
+        this.option('type-script', {
             defaults: false,
-            desc: 'Extended sub-generator incl. CoffeeScript',
-            type: Boolean
-        });
-        this.option('ext-type-script', {
-            defaults: false,
-            desc: 'Extended sub-generator incl. TypeScript',
+            desc: 'Sub-generator with TypeScript',
             type: Boolean
         });
 
@@ -164,6 +159,9 @@ module.exports = generators.Base.extend({
             this.templatePath('gulpfile.js'),
             this.destinationPath('gulpfile.js'));
         this.fs.copy(
+            this.templatePath('.eslintrc.json'),
+            this.destinationPath('.eslintrc.json'));
+        this.fs.copy(
             this.templatePath('.info.plist'),
             this.destinationPath('.info.plist'));
         this.fs.copyTpl(
@@ -194,21 +192,14 @@ module.exports = generators.Base.extend({
     },
 
     end: function () {
-        if (this.options['ext']) {
-            this.composeWith('dizmo:ext', {
-                args: this.args, options: lodash.assign(this.options, {
-                    force: true
-                })
-            });
-        }
-        if (this.options['ext-coffee-script']) {
+        if (this.options['coffee-script']) {
             this.composeWith('dizmo:ext-coffee-script', {
                 args: this.args, options: lodash.assign(this.options, {
                     force: true
                 })
             });
         }
-        if (this.options['ext-type-script']) {
+        if (this.options['type-script']) {
             this.composeWith('dizmo:ext-type-script', {
                 args: this.args, options: lodash.assign(this.options, {
                     force: true

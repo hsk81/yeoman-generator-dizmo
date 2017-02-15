@@ -22,7 +22,6 @@
   },
   "files": [
     "generators/app",
-    "generators/ext",
     "generators/ext-coffe-script",
     "generators/ext-type-script"
   ],

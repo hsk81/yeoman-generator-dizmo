@@ -3,6 +3,8 @@ var gulp = require('gulp'),
 
 gulp.task('build', gulp_sync.sync([
     [
+        'lint'
+    ], [
         'clean'
     ], [
         'process-help',

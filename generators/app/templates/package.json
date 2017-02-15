@@ -1,23 +1,30 @@
 {
     "description": "<%= dizmoDescription %>",
     "devDependencies": {
-        "browserify": "^13.1.0",
+        "browserify": "^14.1.0",
         "gulp": "^3.9.1",
         "gulp-copy": "^1.0.0",
+        "gulp-eslint": "^3.0.1",
+        "gulp-htmlmin": "^3.0.0",
         "gulp-plist": "^0.1.0",
         "gulp-rename": "^1.2.2",
+        "gulp-sass": "^3.1.0",
+        "gulp-sourcemaps": "^2.4.1",
         "gulp-sync": "^0.1.4",
-        "gulp-util": "^3.0.7",
+        "gulp-uglify": "^2.0.1",
+        "gulp-util": "^3.0.8",
         "gulp-ver": "^0.1.0",
-        "gulp-zip": "^3.2.0",
-        "lodash": "^4.14.1",
+        "gulp-zip": "^4.0.0",
+        "lodash": "^4.17.4",
         "rimraf": "^2.5.4",
+        "vinyl-buffer": "^1.0.0",
         "vinyl-source-stream": "^1.1.0",
-        "watchify": "^3.7.0"
+        "watchify": "^3.9.0"
     },
     "dizmo": {
         "install-to": "<%= installTo %>",
         "settings": {
+            "bundle-name": "<%= dizmoName %>",
             "bundle-identifier": "<%= bundleId %>",
             "height": 240,
             "width": 480
@@ -41,6 +48,7 @@
     "scripts": {
         "clean": "node ./node_modules/gulp/bin/gulp.js clean",
         "install": "node ./node_modules/gulp/bin/gulp.js install",
+        "lint": "node ./node_modules/gulp/bin/gulp.js lint",
         "make": "node ./node_modules/gulp/bin/gulp.js",
         "test": "exit 0",
         "watch": "node ./node_modules/gulp/bin/gulp.js watch"

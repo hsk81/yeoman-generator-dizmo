@@ -24,20 +24,11 @@ module.exports = generators.Base.extend({
         var pkg = this.fs.readJSON(
             this.destinationPath('package.json'));
 
-        pkg.scripts = sort(
-            lodash.assign(pkg.scripts, {
-                'lint': 'node ./node_modules/gulp/bin/gulp.js lint'
-            })
-        );
+        delete pkg.devDependencies['gulp-eslint'];
         pkg.devDependencies = sort(
             lodash.assign(pkg.devDependencies, {
                 'coffeeify': '^2.0.1',
-                'gulp-coffeelint': '^0.6.0',
-                'gulp-htmlmin': '^3.0.0',
-                'gulp-sass': '^3.0.0',
-                'gulp-sourcemaps': '^1.6.0',
-                'gulp-uglify': '^2.0.0',
-                'vinyl-buffer': '^1.0.0'
+                'gulp-coffeelint': '^0.6.0'
             })
         );
 
@@ -48,9 +39,6 @@ module.exports = generators.Base.extend({
     },
 
     writing: function () {
-        this.fs.copy(
-            this.templatePath('gulpfile.js'),
-            this.destinationPath('gulpfile.js'));
         this.fs.copy(
             this.templatePath('gulp/'),
             this.destinationPath('gulp/'));
@@ -68,8 +56,8 @@ module.exports = generators.Base.extend({
 
     end: function () {
         rimraf.sync(
-            this.destinationPath('src/index.js'));
+            this.destinationPath('.eslintrc.json'));
         rimraf.sync(
-            this.destinationPath('src/style/style.css'));
+            this.destinationPath('src/index.js'));
     }
 });
