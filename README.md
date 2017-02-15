@@ -158,7 +158,7 @@ In addition to the default entries of [npm] the `package.json` file contains a `
         }
     }
 
-Lets have a look at each entry:
+And here is a list of available options:
 
 * `install-to`: Your dizmoViewer caches locally installed dizmos in a location that looks on Unix likes system similar like this:
 ```
@@ -175,12 +175,8 @@ The `dizmo` section in `package.json` can be extended with default values, which
 
     {
         "dizmo": {
-            "credentials": {
-                "password": "my-password",
-                "username": "my-username"
-            },
-            "urls": {
-                "upload": "https://store-api.dizmo.com"
+            "installt-to": "..",
+            "settings": {
             }
         }
     }
@@ -411,7 +407,7 @@ Or you can simply drop a library into the `src/lib/` sub-directory and reference
 ### Did I forget to run `npm install`?
 
 If `npm install` is *not* run before attempting to build a dizmo, then a message similar to the one below might be produced:
-{code}
+```bash
 error Darwin 13.4.0
 error argv "/usr/local/bin/node" "/usr/local/bin/npm" "run" "make"
 error node v4.2.6
@@ -420,13 +416,13 @@ error code ELIFECYCLE
 error MyDizmo@0.0.0 make: `node ./node_modules/gulp/bin/gulp.js`
 error Exit status 1
 error Failed at the MyDizmo@0.0.0 make script 'node ./node_modules/gulp/bin/gulp.js'.
-{code}
+```
 
 In such a case just run `npm install` to ensure that all the required dependencies get installed locally.
 
 ## License
 
- © 2016 [dizmo AG, Switzerland](http://dizmo.com/)
+ © 2017 [dizmo AG, Switzerland](http://dizmo.com/)
 
 [npm-image]: https://badge.fury.io/js/generator-dizmo.svg
 [npm-url]: https://npmjs.org/package/generator-dizmo
