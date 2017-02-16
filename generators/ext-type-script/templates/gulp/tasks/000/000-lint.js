@@ -1,22 +1,26 @@
-var gulp = require('gulp'),
-    gulp_eslint = require('gulp-eslint'),
+var pkg = require('../../package.js'),
+    gulp = require('gulp'),
     gulp_tslint = require("gulp-tslint");
 
-gulp.task('lint:js', function () {
-    return gulp.src([
-        './src/**/*.js', '!src/lib/**', '!build/**', '!node_modules/**'])
-        .pipe(gulp_eslint())
-        .pipe(gulp_eslint.format());
-});
-
 gulp.task('lint:ts', function () {
-    return gulp.src([
-        './src/**/*.ts', '!src/lib/**', '!build/**', '!node_modules/**'])
-        .pipe(gulp_tslint({
-            configuration: 'tslint.json',
-            formatter: 'verbose'
-        }))
-        .pipe(gulp_tslint.report({emitError: false}));
+    var tslint = [{
+        configuration: 'tslint.json',
+        formatter: 'verbose'
+    }];
+    if (pkg.dizmo && pkg.dizmo.build) {
+        var build = pkg.dizmo.build;
+        if (build.lint !== null && typeof build.lint === 'object') {
+            tslint = build.lint;
+        } else if (build.lint === false) {
+            tslint = false;
+        }
+    }
+    if (tslint) {
+        return gulp.src([
+            './src/**/*.ts', '!src/lib/**', '!build/**', '!node_modules/**'])
+            .pipe(gulp_tslint.apply(this, tslint))
+            .pipe(gulp_tslint.report({emitError: false}));
+    }
 });
 
-gulp.task('lint', ['lint:ts', 'lint:js']);
+gulp.task('lint', ['lint:ts']);

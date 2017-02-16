@@ -25,7 +25,7 @@ gulp.task('process-scripts', function () {
             .pipe(source('index.js'))
             .pipe(buffer())
             .pipe(gulp_sourcemaps.init({loadMaps: true}))
-            .pipe(gulp_uglify(uglify))
+            .pipe(gulp_uglify.apply(this, uglify))
             .pipe(gulp_sourcemaps.write('./'))
             .pipe(gulp.dest(path.join('build', pkg.name)));
     } else {

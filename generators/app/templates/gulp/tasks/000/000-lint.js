@@ -15,7 +15,7 @@ gulp.task('lint:js', function () {
     if (eslint || eslint === undefined) {
         return gulp.src([
             './src/**/*.js', '!src/lib/**', '!build/**', '!node_modules/**'])
-            .pipe(gulp_eslint(eslint))
+            .pipe(gulp_eslint.apply(this, eslint))
             .pipe(gulp_eslint.format());
     }
 });

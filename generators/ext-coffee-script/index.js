@@ -33,7 +33,7 @@ module.exports = generators.Base.extend({
         );
 
         this.fs.writeJSON(
-            this.destinationPath('package.json'), sort(pkg), null, 4);
+            this.destinationPath('package.json'), sort(pkg), null, 2);
 
         return pkg;
     },

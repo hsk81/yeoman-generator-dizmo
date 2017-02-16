@@ -15,13 +15,28 @@ var watched = watchify(browserify({
 }).transform(require('coffeeify')));
 
 var on_watch = function () {
-    return watched.bundle()
-        .pipe(source('index.js'))
-        .pipe(buffer())
-        .pipe(gulp_sourcemaps.init({loadMaps: true}))
-        .pipe(gulp_uglify())
-        .pipe(gulp_sourcemaps.write('./'))
-        .pipe(gulp.dest(path.join('build', pkg.name)));
+    var uglify;
+    if (pkg.dizmo && pkg.dizmo.build) {
+        var min = pkg.dizmo.build.minify;
+        if (min && min.scripts !== null && typeof min.scripts === 'object') {
+            uglify = min.scripts;
+        } else if (min === false || min.scripts === false) {
+            uglify = false
+        }
+    }
+    if (uglify || uglify === undefined) {
+        return watched.bundle()
+            .pipe(source('index.js'))
+            .pipe(buffer())
+            .pipe(gulp_sourcemaps.init({loadMaps: true}))
+            .pipe(gulp_uglify.apply(this, uglify))
+            .pipe(gulp_sourcemaps.write('./'))
+            .pipe(gulp.dest(path.join('build', pkg.name)));
+    } else {
+        return watched.bundle()
+            .pipe(source('index.js'))
+            .pipe(gulp.dest(path.join('build', pkg.name)));
+    }
 };
 
 watched.on('update', on_watch);
