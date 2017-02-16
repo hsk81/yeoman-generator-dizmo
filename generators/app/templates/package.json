@@ -1,4 +1,6 @@
 {
+    "dependencies": {
+    },
     "description": "<%= dizmoDescription %>",
     "devDependencies": {
         "browserify": "^14.1.0",
@@ -22,6 +24,14 @@
         "watchify": "^3.9.0"
     },
     "dizmo": {
+        "build": {
+            "lint": true,
+            "minify": {
+                "markups": true,
+                "scripts": true,
+                "styles": true
+            }
+        },
         "install-to": "<%= installTo %>",
         "settings": {
             "bundle-name": "<%= dizmoName %>",

@@ -13,10 +13,22 @@ gulp.task('process-styles:copy', function () {
         }));
 });
 gulp.task('process-styles', ['process-styles:copy'], function () {
+    var sass = {
+        outputStyle: 'compressed'
+    };
+    if (pkg.dizmo && pkg.dizmo.build) {
+        var min = pkg.dizmo.build.minify;
+        if (min && min.styles !== null && typeof min.styles === 'object') {
+            sass = min.styles;
+        } else if (min === false || min.styles === false) {
+            sass = {
+                outputStyle: 'expanded'
+            };
+        }
+    }
     return gulp.src('src/style/**/*.scss')
         .pipe(gulp_sourcemaps.init())
-        .pipe(gulp_sass({outputStyle: 'compressed'})
-            .on('error', gulp_sass.logError))
+        .pipe(gulp_sass(sass).on('error', gulp_sass.logError))
         .pipe(gulp_sourcemaps.write('./'))
         .pipe(gulp.dest(path.join('build', pkg.name, 'style')));
 });

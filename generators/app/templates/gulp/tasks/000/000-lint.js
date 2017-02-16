@@ -1,11 +1,23 @@
-var gulp = require('gulp'),
+var pkg = require('../../package.js'),
+    gulp = require('gulp'),
     gulp_eslint = require('gulp-eslint');
 
 gulp.task('lint:js', function () {
-    return gulp.src([
-        './src/**/*.js', '!src/lib/**', '!build/**', '!node_modules/**'])
-        .pipe(gulp_eslint())
-        .pipe(gulp_eslint.format());
+    var eslint;
+    if (pkg.dizmo && pkg.dizmo.build) {
+        var build = pkg.dizmo.build;
+        if (build.lint !== null && typeof build.lint === 'object') {
+            eslint = build.lint;
+        } else if (build.lint === false) {
+            eslint = false;
+        }
+    }
+    if (eslint || eslint === undefined) {
+        return gulp.src([
+            './src/**/*.js', '!src/lib/**', '!build/**', '!node_modules/**'])
+            .pipe(gulp_eslint(eslint))
+            .pipe(gulp_eslint.format());
+    }
 });
 
 gulp.task('lint', ['lint:js']);

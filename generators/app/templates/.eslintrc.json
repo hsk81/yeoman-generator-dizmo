@@ -5,10 +5,11 @@
         "node": true
     },
     "globals": {
-        "i18n": false,
+        "bundle": false,
         "dizmo": false,
-        "viewer": false,
+        "i18n": false,
         "showBack": false,
-        "showFront": false
+        "showFront": false,
+        "viewer": false
     }
 }
