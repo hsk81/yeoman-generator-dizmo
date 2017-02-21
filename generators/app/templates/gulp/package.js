@@ -3,6 +3,21 @@ var assert = require('assert'),
     lodash = require('lodash'),
     path = require('path');
 
+function no_space(object) {
+    if (typeof object === 'object') {
+        for (var key in object) {
+            if (object.hasOwnProperty(key)) {
+                if (object[key] !== '') {
+                    object[key] = no_space(object[key]);
+                } else {
+                    delete object[key];
+                }
+            }
+        }
+    }
+    return object;
+}
+
 function get_config (path_to, cfg_json) {
     var cfg_path = path.join(path_to, '.generator-dizmo', 'config.json');
     try {
@@ -10,17 +25,16 @@ function get_config (path_to, cfg_json) {
             JSON.parse(fs.readFileSync(cfg_path)), cfg_json);
     } catch (ex) {
     }
-
     var parsed = path.parse(path_to);
     if (parsed.dir && parsed.base) {
-        return lodash.merge(cfg_json, get_config(parsed.dir, cfg_json));
-    } else {
-        return cfg_json;
+        cfg_json = lodash.merge(
+            cfg_json, get_config(parsed.dir, cfg_json));
     }
+    return cfg_json;
 }
 
 var pkg = get_config(
-    __dirname, JSON.parse(fs.readFileSync('package.json')));
+    __dirname, no_space(JSON.parse(fs.readFileSync('package.json'))));
 
 assert.ok(pkg,
     'package JSON required');

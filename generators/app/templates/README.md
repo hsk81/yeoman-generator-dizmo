@@ -40,13 +40,8 @@ The `dizmo` section in `package.json` can be extended with default values, which
 
     {
         "dizmo": {
-            "credentials": {
-                "password": "my-password",
-                "username": "my-username"
-            },
-            "urls": {
-                "upload": "https://store-api.dizmo.com"
-            }
+            "install-to": "..",
+            "settings": {..}
         }
     }
 
