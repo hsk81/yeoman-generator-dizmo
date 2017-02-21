@@ -3,12 +3,12 @@ var assert = require('assert'),
     lodash = require('lodash'),
     path = require('path');
 
-function no_space(object) {
+function filter(object) {
     if (typeof object === 'object') {
         for (var key in object) {
             if (object.hasOwnProperty(key)) {
                 if (object[key] !== '') {
-                    object[key] = no_space(object[key]);
+                    object[key] = filter(object[key]);
                 } else {
                     delete object[key];
                 }
@@ -34,7 +34,7 @@ function get_config (path_to, cfg_json) {
 }
 
 var pkg = get_config(
-    __dirname, no_space(JSON.parse(fs.readFileSync('package.json'))));
+    __dirname, filter(JSON.parse(fs.readFileSync('package.json'))));
 
 assert.ok(pkg,
     'package JSON required');
