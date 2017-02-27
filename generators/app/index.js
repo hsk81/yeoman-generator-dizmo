@@ -188,7 +188,7 @@ module.exports = generators.Base.extend({
     },
 
     install: function () {
-        this.npmInstall('', {'cache-min': 604800});
+        this.npmInstall('', {'cache-min': 604800, 'depth': 0});
     },
 
     end: function () {
