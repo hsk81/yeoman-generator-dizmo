@@ -32,7 +32,7 @@ gulp.task('install', ['build'], function () {
         if (fs.existsSync(to())) {
             setTimeout(function () {
                 gulp_util.log(gulp_util.colors.green.bold(
-                    'Drag-and-drop {0} onto dizmo!'.replace(
+                    'Drag-and-drop {0} onto dizmoViewer!'.replace(
                         '{0}', 'build/{0}-x.y.z.dzm'.replace(
                             '{0}', pkg.name
                         )
