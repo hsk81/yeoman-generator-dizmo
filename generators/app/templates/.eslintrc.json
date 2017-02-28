@@ -10,6 +10,7 @@
         "i18n": false,
         "showBack": false,
         "showFront": false,
-        "viewer": false
+        "viewer": false,
+        "DizmoElements": false
     }
 }
