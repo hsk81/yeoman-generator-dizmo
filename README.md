@@ -99,11 +99,13 @@ After you have answered the last question, the generator will create the project
 
     my-dizmo $ tree
     .
-    ├── LICENSE
-    ├── README.md
+    ├── .eslintrc.json
     ├── assets
     │   ├── Icon-dark.svg
     │   ├── Icon.svg
+    │   ├── locales
+    │   │   ├── translation.de.json
+    │   │   └── translation.en.json
     │   └── Preview.png
     ├── gulp
     │   ├── package.js
@@ -114,22 +116,22 @@ After you have answered the last question, the generator will create the project
     │   └── en
     │       ├── help.md
     │       └── placeholder-400x275.png
+    ├── LICENSE
     ├── package.json
+    ├── README.md
     └── src
         ├── index.html
         ├── index.js
         ├── lib
-        │   └── i18n-*.min.js
+        │   └── i18n-*.min.js
         └── style
-            └── style.css
+            └── style.scss
 
 Let's have a look at each ot the top level files and directories:
 
-* `LICENCE`: By default an [ISC](http://opensource.org/licenses/ISC) (Internet Software Consortium) license is generated, which is functionally equivalent to the simplified BSD and MIT licenses, but with a simpler language. Leave or change this according to your needs.
+* `.eslintrc.json`: a file which can be used to configure the linting process for JavaScript code: see http://eslint.org/docs/user-guide/configuring for further information.
 
-* `README.md`: A simple shortened version of this README.md; it is meant to provide a quick overview, and can then be replaced with a project specific content.
-
-* `assets`: A folder containing asset files like images, which can be accessed from within the dizmo using a relative path like `assets/Preview.png`. Put any such files (or media) which are not directly related to styling into this folder. You can also create sub-folders or any nested directory structure according to your needs.
+* `assets`: A folder containing asset files like images, which can be accessed from within the dizmo using a relative path like `assets/Preview.png`. Put any such files (or media) which are not directly related to styling into this folder. You can also create sub-folders or any nested directory structure according to your needs. On such folder is `assets/locales` where JSON files for translation purposes can be found. 
 
 * `gulp`: A folder containing a build system based on [gulp](http://gulpjs.com/). If you are familiar with `gulp`, then you can change the build mechanism according to your needs; otherwise, just use it as it is.
 
@@ -137,9 +139,13 @@ Let's have a look at each ot the top level files and directories:
 
 * `help`: Once you've developed your dizmo, you might want to provide a user documentation, which can be placed in this folder.
 
+* `LICENCE`: By default an [ISC](http://opensource.org/licenses/ISC) (Internet Software Consortium) license is generated, which is functionally equivalent to the simplified BSD and MIT licenses, but with a simpler language. Leave or change this according to your needs.
+
 * `package.json`: This is an important file! It is consumed by the [npm] package manager, provides run scripts for the build system (like `lint`, `clean`, `make`, `install` etc.), and allows to change the dizmo settings. Have a look at the corresponding section for further information.
 
-* `src`: A folder containing your own scripts for your dizmo, like `index.html` and `index.js` plus style sheets under `style/`. Further, in the `src/lib/` folder you can put third party libraries, which you can then reference via a `<script>` tag in the `index.html` markup.
+* `README.md`: A simple shortened version of this README.md; it is meant to provide a quick overview, and can then be replaced with a project specific content.
+
+* `src`: A folder containing your own scripts for your dizmo, like `index.html` and `index.js` plus style sheets under `style/`. The style sheets use by default [SASS](http://sass-lang.com/). Further, in the `src/lib/` folder you can put third party libraries, which you can then reference via a `<script>` tag in the `index.html` markup.
 
 ## Package manager: package.json
 
@@ -152,6 +158,7 @@ In addition to the default entries of [npm] the `package.json` file contains a `
     "dizmo": {
         "install-to": "",
         "settings": {
+            "bundle-name": "My Project",
             "bundle-identifier": "com.example.my_project",
             "height": 240,
             "width": 480
@@ -171,7 +178,7 @@ where `user` would e.g. be your login. If you set `install-to` to this path, the
 
 #### Defaults
 
-The `dizmo` section in `package.json` can be extended with default values, which have to reside in `.generator-dizmo/config.json` (in *any* of the parent directories). For example, to set the credentials and the upload URL for dizmoStore, use the following content:
+The `dizmo` section in `package.json` can be extended with default values, which have to reside in `.generator-dizmo/config.json` (in *any* of the parent directories):
 
     {
         "dizmo": {
@@ -204,10 +211,10 @@ npm run install
 
 * `install`: or if the `DIZMO_INSTALL_TO` environment variable has been provided then the dizmo is copied to the corresponding location.
 ```
-DIZMO_INSTALL_TO=$DIZMO_INSTALL_TO npm run install
+DIZMO_INSTALL_TO=/some/path npm run install
 ```
 
-* `lint`: applies linting to your source code, but it in not available in the basic generator.
+* `lint`: applies linting to your source code.
 ```
 npm run lint
 ```
@@ -229,7 +236,7 @@ npm run watch
 
 * `watch`: further, it copies the build to the installation path if either the `install-to` configuration has been set in `package.json` or `DIZMO_INSTALL_TO` environment variable has been given.
 ```
-DIZMO_INSTALL_TO=$DIZMO_INSTALL_TO npm run watch
+DIZMO_INSTALL_TO=/some/path npm run watch
 ```
 
 ## Build
@@ -271,37 +278,9 @@ Once your dizmo is build, a `build/` folder with the following structure will be
 
 ## Advanced sub-generators
 
-Once you have accommodated yourself with the basics of dizmo development, you can go further and try out the advanced `dizmo:ext`, `dizmo:ext-coffee-script`, and `dizmo:ext-type-script` sub-generators.
+Once you have accommodated yourself with the basics of dizmo development, you can go further and try out the advanced `dizmo:ext-coffee-script`, and `dizmo:ext-type-script` sub-generators.
 
-It's in theory possible to run the advanced sub-generators even after having edited the basic skeleton, but only as long as the original directory structure has been left in place. Using this feature you can later-on convert your basic dizmo projects to more advanced ones.
-
-### dizmo:ext &ndash; extended skeleton
-
-Invoke the `dizmo:ext` sub-generator with:
-
-    yo dizmo my-dizmo --ext
-
-This will run the basic generator and then apply on top of it the extended sub-generator, which will create or modify the project's standard structure:
-
-    my-dizmo $ tree
-    .
-    ├── .eslintrc.json
-    ├── gulp
-    │   ├── package.js
-    │   └── tasks
-    │       └── *
-    ├── package.json
-    └── src
-        └── style
-            └── style.scss
-
-The extended features are:
-
-* **Linting:** Run `npm run lint` to start linting. But since now, `npm run make` and `npm run install` are dependent on it, there is no need to manually start it. The `.eslintrc.json` file can be used to configure the linting process for JavaScript files.
-
-* **SASS:** Instead of `style.css` you can now work with `style.scss` [SASS](http://sass-lang.com/) style sheets.
-
-* **Minification:** All JavaScript, HTML and CSS files will be minified (with `htmlmin` and `uglify`).
+It's in theory possible to run the advanced sub-generators even after having edited the basic skeleton, but only as long as the original directory structure has been left in place.
 
 ### dizmo:ext-coffee-script &ndash; CoffeeScript integration
 
@@ -323,14 +302,6 @@ This will run the basic generator and then apply on top of it the extended Coffe
         ├── index.coffee
         └── style
             └── style.scss
-
-The extended features are:
-
-* **Linting:** Run `npm run lint` to start linting. But since now, `npm run make` and `npm run install` are dependent on it, there is no need to manually start it. The `coffeelint.json` file can be used to configure the linting process for CoffeeScript files.
-
-* **SASS:** Instead of `style.css` you can now work with `style.scss` [SASS](http://sass-lang.com/) style sheets.
-
-* **Minification:** All JavaScript, HTML and CSS files will be minified (with `htmlmin` and `uglify`).
 
 * **CoffeeScript:** Using the `index.coffee` file you can start developing your application in [CoffeeScript](http://coffeescript.org/).
 
@@ -359,14 +330,6 @@ This will run the basic generator and then apply on top of it the extended [Type
     │   └── style
     │       └── style.scss
     └── tsconfig.json
-
-The extended features are:
-
-* **Linting:** Run `npm run lint` to start linting. But since now, `npm run make` and `npm run install` are dependent on it, there is no need to manually start it. For JavaScript files the `.eslint.json` and for TypeScript files the `.tslint.json` configuration can be used to control the linting process.
-
-* **SASS:** Instead of `style.css` you can now work with `style.scss` [SASS](http://sass-lang.com/) style sheets.
-
-* **Minification:** All resulting JavaScript, HTML and CSS files will be minified (with `htmlmin` and `uglify`).
 
 * **TypeScript:** Using the `index.ts` file you can start developing your application in [TypeScript](http://www.typescriptlang.org/).
 
