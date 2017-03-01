@@ -125,7 +125,7 @@ After you have answered the last question, the generator will create the project
 
 Let's have a look at each ot the top level files and directories:
 
-* `.eslintrc.json`: a file which can be used to configure the linting process for JavaScript code; see [eslint.org/docs/user-guide/configuring](http://eslint.org/docs/user-guide/configuring) for further information.
+* `.eslintrc.json`: a JSON file, which can be used to configure the linting process for the JavaScript code; see [eslint.org/docs/user-guide/configuring](http://eslint.org/docs/user-guide/configuring) for further information.
 
 * `assets`: A folder containing asset files like images, which can be accessed from within the dizmo using a relative path like `assets/Preview.png`. Put any such files (or media) which are not directly related to styling into this folder. You can also create sub-folders or any nested directory structure according to your needs. One such folder is `assets/locales` where JSON files for translation purposes can be found. 
 
@@ -152,17 +152,30 @@ Dizmos use [npm] as a package manager; to thoroughly understand its functionalit
 In addition to the default entries of [npm] the `package.json` file contains a `dizmo` section:
 
     "dizmo": {
-        "install-to": "", "settings": {
+        "build": {
+            "lint": true,
+            "minify": {
+                "markups": true,
+                "scripts": true,
+                "styles": true
+            }
+        },
+        "settings": {
             "bundle-name": "My Project",
             "bundle-identifier": "com.example.my_project",
             "height": 240,
             "width": 480
-        }
+        },
+        "install-to": ""
     }
 
 And here is a list of available options:
 
-* `install-to`: Your dizmoViewer caches locally installed dizmos in a location that looks on Unix likes system similar like this:
+* `build/lint`: switches [ESLint][eslint] based linting on or off -- edit the `.eslintrc.json` configuration file to have a detailed control over the linting process; see also [gulp-eslint] for additional information.
+
+* `build/minify`: switches the minification of the markup (i.e. `*.html`), scripts (i.e. `*.js`) and styles (i.e. `*.css`) on or off -- but each minification process can also be switched on and off separately. Further, they also can be tweaked in detail by providing a corresponding configuration object; see [gulp-htmlmin], [gulp-uglify] and [gulp-sass] for more information.
+
+* `install-to`: Your dizmoViewer caches locally installed dizmos in a location path that looks on a Unix like system similar to:
 ```
 /home/user/.local/share/dizmo/dizmo/user/InstalledDizmos/
 ```
@@ -171,19 +184,24 @@ where `user` would for example be your log-in. If you set `install-to` to this p
 
 * `settings`: Any entry provided here will be translated to an entry in `build/Info.plist`, which is the main control file defining the properties of a dizmo.
 
-#### Defaults
+### Default Configuration
 
 The `dizmo` section in `package.json` can be extended with default values, which have to reside in `.generator-dizmo/config.json` (in *any* of the parent directories):
 
     {
         "dizmo": {
-            "install-to": "..", "settings": {..}
+            "settings": {..},
+            "install-to": ".."
         }
     }
 
-The configuration is hierarchical and recursive, meaning that a `.generator-dizmo/config.json` file can be saved in any parent directory of the current project's path, all of which are then merged during the build dynamically into `package.json`, where configuration files in the lower levels have precedence.
+The configuration is hierarchical and recursive, meaning that a `.generator-dizmo/config.json` file can be saved in any parent directory of the current project, all of which are then merged during the build dynamically into `package.json`, where configuration values from files in the *lower levels* (meaning closer to `package.json`) have precedence.
 
-#### `npm install` vs `npm run-script install`
+#### Yeoman: Managing Configuration
+
+As alternative to `.generator-dizmo/config.json` the `.yo-rc.json` file can be used to store default configuration values; see [managing configuration](http://yeoman.io/authoring/storage.html) for further information.
+
+### `npm install` vs `npm run-script install`
 
 Please note that `npm install` and `npm run-script install` are two *different* actions! While the former installs all dependencies declared in `package.json` *and* runs the latter, the latter simply builds the dizmo and copies the `*.dzm` artifact to the `install-to` destination.
 
@@ -372,8 +390,12 @@ In such a case, just run `npm install` to ensure that all the required dependenc
 
  © 2017 [dizmo AG, Switzerland](http://dizmo.com/)
 
+[eslint]: http://eslint.org/
+[gulp-eslint]: https://www.npmjs.com/package/gulp-eslint
+[gulp-htmlmin]: https://www.npmjs.com/package/gulp-htmlmin
+[gulp-sass]: https://www.npmjs.com/package/gulp-sass
+[gulp-uglify]: https://www.npmjs.com/package/gulp-uglify
+[node-module]: https://nodejs.org/api/modules.html
+[npm]: https://www.npmjs.com
 [npm-image]: https://badge.fury.io/js/generator-dizmo.svg
 [npm-url]: https://npmjs.org/package/generator-dizmo
-[npm]: https://www.npmjs.com
-[node-module]: https://nodejs.org/api/modules.html
-[eslint]: http://eslint.org/
