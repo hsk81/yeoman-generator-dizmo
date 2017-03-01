@@ -26,10 +26,11 @@ var install = function (result, to) {
 };
 
 gulp.task('install', ['build'], function () {
-    return install(gulp.src(
+    var stream = install(gulp.src(
         'build/{0}/**/*'.replace('{0}', pkg.name)
-    ), to()).on('finish', function () {
-        if (fs.existsSync(to())) {
+    ), to());
+    if (!fs.existsSync(to())) {
+        stream = stream.on('finish', function () {
             setTimeout(function () {
                 gulp_util.log(gulp_util.colors.green.bold(
                     'Drag-and-drop {0} onto dizmoViewer!'.replace(
@@ -39,8 +40,9 @@ gulp.task('install', ['build'], function () {
                     )
                 ));
             }, 0);
-        }
-    });
+        });
+    }
+    return stream;
 });
 gulp.task('install:only', function () {
     return install(gulp.src(
