@@ -275,7 +275,7 @@ Once your dizmo is build, a `build/` folder with the following structure is crea
     │       └── style.css
     └── MyDizmo-0.0.0.dzm
 
-* `MyDizmo-0.0.0.dzm`: A ZIP archive of the `MyDizmo` folder with a version suffix, which has been defined in `package.json`. Please see [semantic versioning and npm](https://docs.npmjs.com/getting-started/semantic-versioning) for further information. You can drag and drop this file onto dizmoViewer to instantiate a dizmo.
+* `MyDizmo-0.0.0.dzm`: A ZIP archive of the `MyDizmo` folder with a version suffix, which has been defined in `package.json`. Please see [semantic versioning and npm](https://docs.npmjs.com/getting-started/semantic-versioning) for further information.
 
   In dizmoViewer only the dizmo bundle with the highest version number is cached! Therefore, it is important to increase the version, when releasing a dizmo to your audience. However, simply changing the version suffix in the `*.dzm` file name will *not* work: The version is required to be set in `MyDizmo/Info.plist` (which happens automatically based on the version information in `package.json`).
 
@@ -287,6 +287,10 @@ Once your dizmo is build, a `build/` folder with the following structure is crea
 * `MyDizmo/index.js`: the main JavaScript;
 * `MyDizmo/lib/i18n-*.min.js`: [i18next](http://i18next.com/) internationalization wrapper;
 * `MyDizmo/style/style.css`: Cascading Style Sheets.
+
+### Dizmo instantiation
+
+By dragging and dropping the `MyDizmo-0.0.0.dzm` artifact onto dizmoViewer a corresponding dizmo can be instantiated. If it has not been already installed, it will get installed to the default location as well.
 
 ## Extended sub-generators
 
