@@ -1,6 +1,7 @@
 'use strict';
 
 var chalk = require('chalk'),
+    fs = require('fs'),
     generators = require('yeoman-generator'),
     lodash = require('lodash'),
     os = require('os'),
@@ -64,6 +65,10 @@ module.exports = generators.Base.extend({
     },
 
     prompting: mine(function (self) {
+        var pkg = fs.existsSync('package.json')
+            ? JSON.parse(fs.readFileSync('package.json'))
+            : {};
+
         this.log(yosay(
             'Welcome to the awesome {0} generator!'.replace(
                 '{0}', chalk.green.bold('dizmo')
@@ -74,24 +79,39 @@ module.exports = generators.Base.extend({
             type: 'input',
             name: 'dizmoName',
             message: 'Name your dizmo:',
-            default: function () {
-                return lodash.upperFirst(lodash.camelCase(self.dizmoName));
+            default: function (prop) {
+                if (pkg.name) {
+                    return pkg.name;
+                }
+                return lodash.upperFirst(
+                    lodash.camelCase(self.dizmoName));
             }
         }, {
             type: 'input',
             name: 'dizmoDescription',
             message: 'Describe it:',
-            default: function (p) {
+            default: function (prop) {
+                if (pkg.description) {
+                    return pkg.description;
+                }
                 return self.dizmoDescription
-                    || lodash.startCase(p.dizmoName);
+                    || lodash.startCase(prop.dizmoName);
             }
         }, {
             type: 'input',
             name: 'bundleId',
             message: 'And its bundle ID?',
-            default: function (p) {
-                var domain = self.config.get('domain') || self._domain(),
-                    bundle_id = domain + '.' + lodash.snakeCase(p.dizmoName);
+            default: function (prop) {
+                if (pkg.dizmo &&
+                    pkg.dizmo.settings &&
+                    pkg.dizmo.settings['bundle-identifier'])
+                {
+                    return pkg.dizmo.settings['bundle-identifier'];
+                }
+                var domain =
+                        self.config.get('domain') || self._domain(),
+                    bundle_id =
+                        domain + '.' + lodash.snakeCase(prop.dizmoName);
 
                 return self.bundleId || bundle_id;
             }
@@ -100,13 +120,23 @@ module.exports = generators.Base.extend({
             type: 'input',
             name: 'personName',
             message: 'What\'s your name?',
-            default: this.personName
+            default: function (prop) {
+                if (pkg.person && pkg.person.name) {
+                    return pkg.person.name;
+                }
+                return self.personName;
+            }
         }, {
             store: true,
             type: 'input',
             name: 'personEmail',
             message: 'And your email?',
-            default: this.personEmail
+            default: function (prop) {
+                if (pkg.person && pkg.person.email) {
+                    return pkg.person.email;
+                }
+                return self.personEmail;
+            }
         }];
 
         return this.prompt(prompts).then(function (properties) {
@@ -125,7 +155,9 @@ module.exports = generators.Base.extend({
             this.config.set('domain', this._domain());
         }
 
-        if (this.options['git']) {
+        if (fs.existsSync('package.json')) {
+            this.destinationRoot(process.cwd());
+        } else if (this.options['git']) {
             this.destinationRoot(
                 lodash.kebabCase(this.properties.dizmoName) + '.git');
         } else {
@@ -176,7 +208,7 @@ module.exports = generators.Base.extend({
             this.templatePath('README.md'),
             this.destinationPath('README.md'), this.properties);
 
-        if (this.options.git) {
+        if (this.options.git || fs.existsSync('.gitignore')) {
             this.fs.copy(
                 this.templatePath('.npmignore'),
                 this.destinationPath('.gitignore'));

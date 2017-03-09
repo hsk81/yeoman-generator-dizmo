@@ -1,21 +1,21 @@
 'use strict';
 
 var path = require('path');
-var gulp = require('gulp');
-var eslint = require('gulp-eslint');
-var ex_gitignore = require('gulp-exclude-gitignore');
-var nsp = require('gulp-nsp');
+var gulp = require('gulp'),
+    gulp_eslint = require('gulp-eslint'),
+    gulp_ex_gitignore = require('gulp-exclude-gitignore'),
+    gulp_nsp = require('gulp-nsp');
 
 gulp.task('static', function () {
     return gulp.src('**/*.js')
-        .pipe(ex_gitignore())
-        .pipe(eslint())
-        .pipe(eslint.format())
-        .pipe(eslint.failAfterError());
+        .pipe(gulp_ex_gitignore())
+        .pipe(gulp_eslint())
+        .pipe(gulp_eslint.format())
+        .pipe(gulp_eslint.failAfterError());
 });
 
-gulp.task('nsp', function (cb) {
-    nsp({package: path.resolve('package.json')}, cb);
+gulp.task('gulp_nsp', function (callback) {
+    gulp_nsp({package: path.resolve('package.json')}, callback);
 });
 
 gulp.task('prepublish', ['nsp']);
