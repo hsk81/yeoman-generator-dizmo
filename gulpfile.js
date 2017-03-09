@@ -14,7 +14,7 @@ gulp.task('static', function () {
         .pipe(gulp_eslint.failAfterError());
 });
 
-gulp.task('gulp_nsp', function (callback) {
+gulp.task('nsp', function (callback) {
     gulp_nsp({package: path.resolve('package.json')}, callback);
 });
 
