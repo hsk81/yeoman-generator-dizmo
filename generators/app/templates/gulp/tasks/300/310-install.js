@@ -46,5 +46,5 @@ gulp.task('install', ['build'], function () {
 });
 gulp.task('install:only', function () {
     return install(gulp.src(
-        'build/{0}/**/*'.replace('{0}', pkg.name)));
+        'build/{0}/**/*'.replace('{0}', pkg.name)), to());
 });
