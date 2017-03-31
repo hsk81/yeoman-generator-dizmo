@@ -216,7 +216,7 @@ Please read first [npm#scripts](https://docs.npmjs.com/misc/scripts) -- in each 
 npm run clean
 ```
 
-* `install`: builds and installs the dizmo to a installation path given by the `install-to` configuration.
+* `install`: builds and installs the dizmo to a installation path given by the `dizmo/install-to` configuration entry in `package.json`:
 ```
 npm run install
 ```

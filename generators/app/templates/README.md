@@ -10,9 +10,9 @@ Building the dizmo requires a sequence of tasks to be run, which are:
 
 * `npm run make`: Packages the dizmo as `build/<%= dizmoName %>-x.y.z.dzm` by running all required build tasks and compressing the resulting dizmo as a ZIP archive (but with a `.dzm` extension).
 
-* `npm run install`: Builds and installs the dizmo to the `dizmo/install-to` path (see the `package.json` file). If `install-to` is empty then the dizmo is only built, but not installed.
+* `npm run install`: Builds and installs the dizmo to the `dizmo/install-to` (see the `package.json` file) entry or the `DIZMO_INSTALL_TO` path. If both `install-to` *and* the `DIZMO_INSTALL_TO` environment variable are empty, then the dizmo is only built, but not installed.
 
-If any of these steps should fail due to missing dependencies run `npm install` to have them fetched and installed locally.
+If any of these steps should fail -- due to missing dependencies -- then please run `npm install` to have them fetched and installed locally.
 
 ## Watching
 
@@ -24,7 +24,7 @@ Now, any change in the current directory (except in `build/` and `node_modules/`
 
     npm run install
 
-The `npm run watch` run-script is *only* available, when the `dizmo:ext`, the `dizmo:ext-coffee-script` or the `dizmo:ext-type-script` sub-generator has been used!
+The `npm run watch` run-script is *only* available, when the `dizmo:ext-coffee-script` or the `dizmo:ext-type-script` sub-generator have been used!
 
 ## Testing
 
