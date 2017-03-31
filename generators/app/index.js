@@ -20,12 +20,12 @@ function mine (fn) {
     };
 }
 
-module.exports = generators.Base.extend({
+module.exports = generators.extend({
     constructor: function () {
-        generators.Base.apply(this, arguments);
+        generators.apply(this, arguments);
 
         this.option('install-to', {
-            defaults: process.env.DIZMO_INSTALL_TO || '',
+            defaults: '',
             desc: 'Default dizmo installation path',
             type: String
         });
@@ -84,7 +84,7 @@ module.exports = generators.Base.extend({
                     return pkg.name;
                 }
                 return lodash.upperFirst(
-                    lodash.camelCase(self.dizmoName));
+                    lodash.camelCase(self.options.dizmoName));
             }
         }, {
             type: 'input',
@@ -141,8 +141,7 @@ module.exports = generators.Base.extend({
 
         return this.prompt(prompts).then(function (properties) {
             self.properties = lodash.assign(properties, {
-                installTo: self.options['install-to'],
-                _: lodash
+                installTo: self.options['install-to'], _: lodash
             });
         });
     }),
@@ -164,7 +163,6 @@ module.exports = generators.Base.extend({
             this.destinationRoot(
                 lodash.kebabCase(this.properties.dizmoName));
         }
-
         this.config.save();
     },
 
@@ -220,7 +218,7 @@ module.exports = generators.Base.extend({
     },
 
     install: function () {
-        this.npmInstall('', {'cache-min': 604800, 'depth': 0});
+        this.npmInstall([], {'cache-min': 604800, 'depth': 0});
     },
 
     end: function () {
