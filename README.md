@@ -210,7 +210,7 @@ npm run deploy
 
 * `deploy`: ..or if the `DZM_PATH` environment variable has been defined, then the dizmo is copied to the corresponding location.
 ```
-DZM_PATH=/some/path npm run install
+DZM_PATH=/path/to/installed/dizmos npm run install
 ```
 
 * `lint`: applies linting to your source code using [ESLint][eslint], which can be configured via `.eslintrc.json`.
