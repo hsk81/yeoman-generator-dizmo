@@ -32,12 +32,11 @@
       }
     },
     "settings": {
-      "bundle-name": "<%= dizmoName %>",
       "bundle-identifier": "<%= bundleId %>",
+      "bundle-name": "<%= dizmoName %>",
       "height": 240,
       "width": 480
-    },
-    "install-to": "<%= installTo %>"
+    }
   },
   "keywords": [
     "dizmo",
@@ -56,7 +55,7 @@
   },
   "scripts": {
     "clean": "node ./node_modules/gulp/bin/gulp.js clean",
-    "install": "node ./node_modules/gulp/bin/gulp.js install",
+    "deploy": "node ./node_modules/gulp/bin/gulp.js deploy",
     "lint": "node ./node_modules/gulp/bin/gulp.js lint",
     "make": "node ./node_modules/gulp/bin/gulp.js",
     "test": "exit 0",

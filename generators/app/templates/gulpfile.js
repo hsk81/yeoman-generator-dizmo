@@ -19,8 +19,8 @@ require('./gulp/tasks/100/170-process-libs.js');
 require('./gulp/tasks/100/171-process-libs-watch.js');
 require('./gulp/tasks/200/210-process-dzm.js');
 require('./gulp/tasks/200/211-process-dzm-watch.js');
-require('./gulp/tasks/300/310-install.js');
-require('./gulp/tasks/300/311-install-watch.js');
+require('./gulp/tasks/300/310-deploy.js');
+require('./gulp/tasks/300/311-deploy-watch.js');
 require('./gulp/tasks/900/999-watch.js');
 
 gulp.task('default', ['build']);

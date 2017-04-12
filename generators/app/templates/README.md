@@ -10,21 +10,19 @@ Building the dizmo requires a sequence of tasks to be run, which are:
 
 * `npm run make`: Packages the dizmo as `build/<%= dizmoName %>-x.y.z.dzm` by running all required build tasks and compressing the resulting dizmo as a ZIP archive (but with a `.dzm` extension).
 
-* `npm run install`: Builds and installs the dizmo to the `dizmo/install-to` (see the `package.json` file) entry or the `DIZMO_INSTALL_TO` path. If both `install-to` *and* the `DIZMO_INSTALL_TO` environment variable are empty, then the dizmo is only built, but not installed.
+* `npm run deploy`: Builds and deploys the dizmo to the path specified by the `dizmo/path` entry (in `package.json` or in `~/.generator-dizmo/config.json`) or specified by the `DZM_PATH` environment variable. If neither `dizmo/path` nor `DZM_PATH` are set, then the dizmo is only built, but not deployed.
 
 If any of these steps should fail -- due to missing dependencies -- then please run `npm install` to have them fetched and installed locally.
 
 ## Watching
 
-You may want to automatically build and install your dizmo whenever a change is applied. This is possible by running the `watch` run-script in a separate terminal:
+You may want to automatically build and deploy your dizmo, whenever a change is applied. This is possible by running the `watch` run-script in a separate terminal:
 
     npm run watch
 
-Now, any change in the current directory (except in `build/` and `node_modules/`) will trigger an `install`, which is equivalent to manually running:
+Now, any change in the current directory (except in `build/` and `node_modules/`) will trigger a `deploy`, which is equivalent to manually running:
 
-    npm run install
-
-The `npm run watch` run-script is *only* available, when the `dizmo:ext-coffee-script` or the `dizmo:ext-type-script` sub-generator have been used!
+    npm run deploy
 
 ## Testing
 
@@ -40,12 +38,13 @@ The `dizmo` section in `package.json` can be extended with default values, which
 
     {
         "dizmo": {
-            "install-to": "..",
-            "settings": {..}
+            "path": "..", "settings": {
+                ..
+            }
         }
     }
 
-The configuration is hierarchical and recursive, i.e. that a `.generator-dizmo/config.json` file can be saved in any parent directory of the current project's path, all of which are then merged during the build dynamically into `package.json`, where configuration files in the lower levels have precedence.
+The configuration is hierarchical and recursive, i.e. that a `.generator-dizmo/config.json` file can be saved in any parent directory of the current project's path, all of which are then merged during the build dynamically into `package.json`. Configuration files in the lower levels have precedence.
 
 ## Versioning
 

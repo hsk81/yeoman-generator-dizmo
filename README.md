@@ -161,12 +161,11 @@ In addition to the default entries of [npm] the `package.json` file contains a `
             }
         },
         "settings": {
-            "bundle-name": "My Project",
             "bundle-identifier": "com.example.my_project",
+            "bundle-name": "My Project",
             "height": 240,
             "width": 480
-        },
-        "install-to": ""
+        }
     }
 
 And here is a list of available options:
@@ -174,13 +173,6 @@ And here is a list of available options:
 * `build/lint`: switches [ESLint][eslint] based linting on or off -- edit the `.eslintrc.json` configuration file to have a detailed control over the linting process; see also [gulp-eslint] for additional information.
 
 * `build/minify`: switches the minification of the markup (i.e. `*.html`), scripts (i.e. `*.js`) and styles (i.e. `*.css`) on or off -- but each minification process can also be switched on and off separately. Further, they also can be tweaked in detail by providing a corresponding configuration object; see [gulp-htmlmin], [gulp-uglify] and [gulp-sass] for more information.
-
-* `install-to`: Your dizmoViewer caches locally installed dizmos in a location path that looks on a Unix like system similar to:
-```
-/home/user/.local/share/dizmo/dizmo/user/InstalledDizmos/
-```
-
-where `user` would for example be your log-in. If you set `install-to` to this path, then you will be able to directly build and install a dizmo to the provided path.
 
 * `settings`: Any entry provided here will be translated to an entry in `build/Info.plist`, which is the main control file defining the properties of a dizmo.
 
@@ -190,8 +182,9 @@ The `dizmo` section in `package.json` can be extended with default values, which
 
     {
         "dizmo": {
-            "settings": {..},
-            "install-to": ".."
+            "deploy": "..", "settings": {
+                ..
+            }
         }
     }
 
@@ -200,12 +193,6 @@ The configuration is hierarchical and recursive, meaning that a `.generator-dizm
 #### Yeoman: Managing Configuration
 
 As alternative to `.generator-dizmo/config.json` the `.yo-rc.json` file can be used to store default configuration values; see [managing configuration](http://yeoman.io/authoring/storage.html) for further information.
-
-### `npm install` vs `npm run-script install`
-
-Please note that `npm install` and `npm run-script install` are two *different* actions! While the former installs all dependencies declared in `package.json` *and* runs the latter, the latter simply builds the dizmo and copies the `*.dzm` artifact to the `install-to` destination.
-
-This means that if you are sure that all your dependencies have been installed and are met, then you can quickly run `npm run install` (which is much faster than `npm install` due to the lack of dependency checks).
 
 ## NPM scripts
 
@@ -216,14 +203,14 @@ Please read first [npm#scripts](https://docs.npmjs.com/misc/scripts) -- in each 
 npm run clean
 ```
 
-* `install`: builds and installs the dizmo to a installation path given by the `dizmo/install-to` configuration entry in `package.json`:
+* `deploy`: builds and installs the dizmo to a installation path given by the `dizmo/path` configuration entry in `package.json` (or better in `.generator-dizmo/config.json`):
 ```
-npm run install
+npm run deploy
 ```
 
-* `install`: ..or if the `DIZMO_INSTALL_TO` environment variable has been defined, then the dizmo is copied to the corresponding location.
+* `deploy`: ..or if the `DZM_PATH` environment variable has been defined, then the dizmo is copied to the corresponding location.
 ```
-DIZMO_INSTALL_TO=/some/path npm run install
+DZM_PATH=/some/path npm run install
 ```
 
 * `lint`: applies linting to your source code using [ESLint][eslint], which can be configured via `.eslintrc.json`.
@@ -246,9 +233,9 @@ npm run test
 npm run watch
 ```
 
-* `watch`: ..further, it copies the build to the installation path, if either the `install-to` configuration has been set in `package.json` or `DIZMO_INSTALL_TO` environment variable has been provided.
+* `watch`: ..further, it copies the build to the installation path, if either the `dizmo/path` configuration has been set in `package.json` (or better in `.generator-dizmo/config.json`) or `DZM_PATH` environment variable has been provided.
 ```
-DIZMO_INSTALL_TO=/some/path npm run watch
+DZM_PATH=/path/to/installed/dizmos npm run watch
 ```
 
 ## Build

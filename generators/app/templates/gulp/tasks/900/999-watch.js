@@ -15,6 +15,6 @@ gulp.task('watch', gulp_sync.sync([
     ], [
         'process-dzm:watch'
     ], [
-        'install:watch'
+        'deploy:watch'
     ]
 ], 'watch'));
