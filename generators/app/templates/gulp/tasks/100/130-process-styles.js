@@ -4,7 +4,8 @@ var pkg = require('../../package.js'),
 var gulp = require('gulp'),
     gulp_copy = require('gulp-copy'),
     gulp_sass = require('gulp-sass'),
-    gulp_sourcemaps = require('gulp-sourcemaps');
+    gulp_sourcemaps = require('gulp-sourcemaps'),
+    extend = require('xtend');
 
 gulp.task('process-styles:copy', function () {
     return gulp.src(['src/style/**/*', '!src/style/**/*.scss'])
@@ -13,22 +14,36 @@ gulp.task('process-styles:copy', function () {
         }));
 });
 gulp.task('process-styles', ['process-styles:copy'], function () {
-    var sass = [{
-        outputStyle: 'compressed'
-    }];
+    var sourcemaps = false, sass = {
+        outputStyle: 'expanded'
+    };
+
     if (pkg.dizmo && pkg.dizmo.build) {
         var min = pkg.dizmo.build.minify;
-        if (min && min.styles !== null && typeof min.styles === 'object') {
-            sass = min.styles;
-        } else if (min === false || min.styles === false) {
-            sass = [{
-                outputStyle: 'expanded'
-            }];
+        if (min) {
+            var styles = min.styles !== undefined ? min.styles : {};
+            if (styles) {
+                if (styles.sourcemaps) { // minify by default w/o source-maps!
+                    sourcemaps = extend({}, styles.sourcemaps);
+                }
+                if (styles.sass || styles.sass === undefined) {
+                    sass = extend({outputStyle: 'compressed'}, styles.sass);
+                }
+            }
         }
     }
-    return gulp.src('src/style/**/*.scss')
-        .pipe(gulp_sourcemaps.init())
-        .pipe(gulp_sass.apply(this, sass).on('error', gulp_sass.logError))
-        .pipe(gulp_sourcemaps.write('./'))
+
+    var bundle = gulp.src('src/style/**/*.scss');
+    if (sourcemaps) {
+        bundle = bundle.pipe(gulp_sourcemaps.init(sourcemaps));
+    }
+    if (sass) {
+        bundle = bundle.pipe(
+            gulp_sass.apply(this, [sass]).on('error', gulp_sass.logError));
+    }
+    if (sourcemaps) {
+        bundle = bundle.pipe(gulp_sourcemaps.write('./'));
+    }
+    return bundle
         .pipe(gulp.dest(path.join('build', pkg.name, 'style')));
 });
