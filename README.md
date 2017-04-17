@@ -155,9 +155,23 @@ In addition to the default entries of [npm] the `package.json` file contains a `
         "build": {
             "lint": true,
             "minify": {
-                "markups": true,
-                "scripts": true,
-                "styles": true
+                "markups": {
+                    "htmlmin": false
+                },
+                "scripts": {
+                    "sourcemaps": false,
+                    "obfuscator": false,
+                    "uglify": false
+                },
+                "styles": {
+                    "sourcemaps": false,
+                    "sass": false
+                }
+            }
+            "minify": {
+                "markups": false,
+                "scripts": false,
+                "styles": false
             }
         },
         "settings": {
@@ -172,7 +186,7 @@ And here is a list of available options:
 
 * `build/lint`: switches [ESLint][eslint] based linting on or off -- edit the `.eslintrc.json` configuration file to have a detailed control over the linting process; see also [gulp-eslint] for additional information.
 
-* `build/minify`: switches the minification of the markup (i.e. `*.html`), scripts (i.e. `*.js`) and styles (i.e. `*.css`) on or off -- but each minification process can also be switched on and off separately. Further, they also can be tweaked in detail by providing a corresponding configuration object; see [gulp-htmlmin], [gulp-uglify] and [gulp-sass] for more information.
+* `build/minify`: switches the minification of the markup (i.e. `*.html`), scripts (i.e. `*.js`) and styles (i.e. `*.css`) on or off -- but each sub-process can also be toggled separately. Further, they also can be tweaked in detail by providing a corresponding configuration object; see the corresponding [gulp-htmlmin], [javascript-obfuscator], [gulp-uglify] and [gulp-sass] pages for more information. Source map generation can be controlled as well, and is off by default. Further, to keep `package.json` simple, the `build/minify` flag is set upon project generation directly to `false`.
 
 * `settings`: Any entry provided here will be translated to an entry in `build/Info.plist`, which is the main control file defining the properties of a dizmo.
 
@@ -386,6 +400,7 @@ In such a case, just run `npm install` to ensure that all the required dependenc
 [gulp-htmlmin]: https://www.npmjs.com/package/gulp-htmlmin
 [gulp-sass]: https://www.npmjs.com/package/gulp-sass
 [gulp-uglify]: https://www.npmjs.com/package/gulp-uglify
+[javascript-obfuscator]: https://github.com/javascript-obfuscator/javascript-obfuscator
 [node-module]: https://nodejs.org/api/modules.html
 [npm]: https://www.npmjs.com
 [npm-image]: https://badge.fury.io/js/generator-dizmo.svg
