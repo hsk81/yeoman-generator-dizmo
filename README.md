@@ -182,7 +182,7 @@ The `dizmo` section in `package.json` can be extended with default values, which
 
     {
         "dizmo": {
-            "deploy": "..", "settings": {
+            "path": "..", "settings": {
                 ..
             }
         }
