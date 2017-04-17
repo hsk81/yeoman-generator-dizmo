@@ -17,10 +17,6 @@
         <string/>
         <key>Category</key>
         <string>none</string>
-        <key>CloseBoxInsetX</key>
-        <integer>0</integer>
-        <key>CloseBoxInsetY</key>
-        <integer>0</integer>
         <key>Description</key>
         <string/>
         <key>ElementsVersion</key>
