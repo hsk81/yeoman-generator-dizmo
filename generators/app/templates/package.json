@@ -7,20 +7,19 @@
     "email": "<%= personEmail %>"
   },
   "dizmo": {
-    "build": {
-      "lint": true,
-      "minify": false
-    },
     "settings": {
       "bundle-identifier": "<%= bundleId %>",
       "bundle-name": "<%= dizmoName %>",
-      "height": 240,
+      "height": 360,
       "width": 480
+    },
+    "build": {
+      "lint": true,
+      "minify": false
     }
   },
   "keywords": [
-    "dizmo",
-    "<%= _.snakeCase(dizmoName) %>"
+    "dizmo", "<%= _.kebabCase(dizmoName) %>"
   ],
   "dependencies": {},
   "devDependencies": {

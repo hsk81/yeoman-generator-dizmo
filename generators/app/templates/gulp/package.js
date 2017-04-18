@@ -43,7 +43,7 @@ assert.ok(pkg && pkg.description,
 assert.ok(pkg && pkg.keywords.length > 0,
     'package.keywords required');
 assert.ok(pkg && pkg.name,
-    'pacakge.name required');
+    'package.name required');
 assert.ok(pkg && pkg.version,
     'package.version required');
 
@@ -53,10 +53,11 @@ assert.ok(pkg && pkg.dizmo && pkg.dizmo.settings,
     'package.dizmo.settings required');
 assert.ok(pkg && pkg.dizmo && pkg.dizmo.settings['bundle-identifier'],
     'package.dizmo.settings.bundle-identifier required');
+assert.ok(pkg && pkg.dizmo && pkg.dizmo.settings['bundle-name'],
+    'package.dizmo.settings.bundle-name required');
 
 pkg.dizmo.settings = lodash.assign({
-    'bundle-display-name': pkg.name,
-    'bundle-name': pkg.name,
+    'bundle-display-name': pkg.dizmo.settings['bundle-name'],
     'bundle-version': pkg.version,
     'description': pkg.description,
     'tags': pkg.keywords
