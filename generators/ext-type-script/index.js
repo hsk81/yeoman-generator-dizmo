@@ -34,7 +34,7 @@ module.exports = generators.extend({
         );
 
         this.fs.writeJSON(
-            this.destinationPath('package.json'), sort(pkg), null, 2);
+            this.destinationPath('package.json'), pkg, null, 2);
     },
 
     writing: function () {

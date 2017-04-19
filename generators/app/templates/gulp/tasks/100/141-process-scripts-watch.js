@@ -18,7 +18,7 @@ var watched = watchify(browserify({
 }));
 
 var gulp_obfuscator = function (opts) {
-    function obfuscate(file, encoding, callback) {
+    return through.obj(function (file, encoding, callback) {
         if (file.isNull()) {
             return callback(null, file);
         }
@@ -30,8 +30,7 @@ var gulp_obfuscator = function (opts) {
         file.contents = Buffer.from(
             result.getObfuscatedCode(), encoding);
         callback(null, file);
-    }
-    return through.obj(obfuscate);
+    });
 };
 
 var on_watch = function () {
