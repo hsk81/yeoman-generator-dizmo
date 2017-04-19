@@ -200,7 +200,7 @@ The `dizmo` section in `package.json` can be extended with default values, which
 
     {
         "dizmo": {
-            "path": "..", "settings": {
+            "deploy-path": "..", "settings": {
                 ..
             }
         }
@@ -221,14 +221,14 @@ Please read first [npm#scripts](https://docs.npmjs.com/misc/scripts) -- in each 
 npm run clean
 ```
 
-* `deploy`: builds and installs the dizmo to a installation path given by the `dizmo/path` configuration entry in `package.json` (or better in `.generator-dizmo/config.json`):
+* `deploy`: builds and installs the dizmo to a installation path given by the `dizmo/deploy-path` configuration entry in `package.json` (or better in `.generator-dizmo/config.json`):
 ```
 npm run deploy
 ```
 
-* `deploy`: ..or if the `DZM_PATH` environment variable has been defined, then the dizmo is copied to the corresponding location.
+* `deploy`: ..or if the `DZM_DEPLOY_PATH` environment variable has been defined, then the dizmo is copied to the corresponding location.
 ```
-DZM_PATH=/path/to/installed/dizmos npm run deploy
+DZM_DEPLOY_PATH=/path/to/my/dizmos npm run deploy
 ```
 
 * `lint`: applies linting to your source code using [ESLint][eslint], which can be configured via `.eslintrc.json`.
@@ -251,9 +251,9 @@ npm run test
 npm run watch
 ```
 
-* `watch`: ..further, it copies the build to the installation path, if either the `dizmo/path` configuration has been set in `package.json` (or better in `.generator-dizmo/config.json`) or `DZM_PATH` environment variable has been provided.
+* `watch`: ..further, it copies the build to the installation path, if either the `dizmo/deploy-path` configuration has been set in `package.json` (or better in `.generator-dizmo/config.json`) or `DZM_DEPLOY_PATH` environment variable has been provided.
 ```
-DZM_PATH=/path/to/installed/dizmos npm run watch
+DZM_DEPLOY_PATH=/path/to/my/dizmos npm run watch
 ```
 
 ## Build

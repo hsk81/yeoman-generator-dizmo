@@ -5,14 +5,14 @@ var gulp = require('gulp'),
     gulp_util = require('gulp-util');
 
 var to = function () {
-    var dzm_path =
-        process.env.DZM_PATH || pkg.dizmo['path'];
-    if (dzm_path && path.isAbsolute(dzm_path) === false) {
-        dzm_path = path.join(process.cwd(), dzm_path);
+    var deploy_path =
+        process.env.DZM_DEPLOY_PATH || pkg.dizmo['deploy-path'];
+    if (deploy_path && path.isAbsolute(deploy_path) === false) {
+        deploy_path = path.join(process.cwd(), deploy_path);
     }
-    if (dzm_path) {
+    if (deploy_path) {
         return path.join(
-            dzm_path, pkg.dizmo.settings['bundle-identifier']);
+            deploy_path, pkg.dizmo.settings['bundle-identifier']);
     }
     return null;
 };
@@ -47,14 +47,15 @@ gulp.task('deploy', ['build'], function () {
         }
     } else {
         gulp_util.log(gulp_util.colors.yellow.bold(
-            'Neither the $DZM_PATH environment variable nor the `dizmo/path` ' +
-            'entry in package.json or ~/.generator-dizmo/config.json have ' +
-            'been set. Hence the dizmo has not been deployed!'
+            'Neither the $DZM_DEPLOY_PATH environment variable nor the ' +
+            '`dizmo/deploy-path` entry in package.json or ~/.generator-' +
+            'dizmo/config.json have been set. Hence, the dizmo has not ' +
+            'been deployed!'
         ));
         gulp_util.log(gulp_util.colors.yellow.bold(
-            'It\'s recommended to set the $DZM_PATH environment variable ' +
-            'or the `dizmo/path` entry in ~/.generator-dizmo/config.json ' +
-            'to your dizmo deployment path.'
+            'It\'s recommended to set the $DZM_DEPLOY_PATH environment ' +
+            'variable or the `dizmo/deploy-path` entry in ~/.generator-' +
+            'dizmo/config.json to your dizmo deployment path.'
         ));
     }
     return stream;

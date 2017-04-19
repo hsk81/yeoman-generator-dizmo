@@ -10,7 +10,7 @@ Building the dizmo requires a sequence of tasks to be run, which are:
 
 * `npm run make`: Packages the dizmo as `build/<%= dizmoName %>-x.y.z.dzm` by running all required build tasks and compressing the resulting dizmo as a ZIP archive (but with a `.dzm` extension).
 
-* `npm run deploy`: Builds and deploys the dizmo to the path specified by the `dizmo/path` entry (in `package.json` or in `~/.generator-dizmo/config.json`) or specified by the `DZM_PATH` environment variable. If neither `dizmo/path` nor `DZM_PATH` are set, then the dizmo is only built, but not deployed.
+* `npm run deploy`: Builds and deploys the dizmo to the path specified by the `dizmo/deploy-path` entry (in `package.json` or in `~/.generator-dizmo/config.json`) or specified by the `DZM_DEPLOY_PATH` environment variable. If neither `dizmo/deploy-path` nor `DZM_DEPLOY_PATH` are set, then the dizmo is only built, but not deployed.
 
 If any of these steps should fail -- due to missing dependencies -- then please run `npm install` to have them fetched and installed locally.
 
@@ -38,7 +38,7 @@ The `dizmo` section in `package.json` can be extended with default values, which
 
     {
         "dizmo": {
-            "path": "..", "settings": {
+            "deploy-path": "..", "settings": {
                 ..
             }
         }
