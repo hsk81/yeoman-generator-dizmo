@@ -19,7 +19,7 @@ function sort(dictionary) {
     return sorted;
 }
 
-module.exports = generators.Base.extend({
+module.exports = generators.extend({
     configuring: function () {
         var pkg = this.fs.readJSON(
             this.destinationPath('package.json'));
