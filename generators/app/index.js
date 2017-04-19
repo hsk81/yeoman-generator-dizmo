@@ -228,8 +228,7 @@ module.exports = generators.extend({
                     force: true
                 })
             });
-        }
-        else if (this.options['type-script']) {
+        } else if (this.options['type-script']) {
             this.composeWith('dizmo:ext-type-script', {
                 args: this.args, options: lodash.assign(this.options, {
                     force: true
