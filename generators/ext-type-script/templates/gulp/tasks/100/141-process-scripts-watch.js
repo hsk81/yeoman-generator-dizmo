@@ -35,7 +35,7 @@ var gulp_obfuscator = function (opts) {
 
 var on_watch = function () {
     var sourcemaps = false,
-        obfuscator = false,
+        obfuscate = false,
         uglify = false;
 
     if (pkg.dizmo && pkg.dizmo.build) {
@@ -46,8 +46,8 @@ var on_watch = function () {
                 if (scripts.sourcemaps) { // by default w/o source-maps!
                     sourcemaps = extend({loadMaps: true}, scripts.sourcemaps);
                 }
-                if (scripts.obfuscator || scripts.obfuscator === undefined) {
-                    obfuscator = extend({}, scripts.obfuscator);
+                if (scripts.obfuscate || scripts.obfuscate === undefined) {
+                    obfuscate = extend({}, scripts.obfuscate);
                 }
                 if (scripts.uglify || scripts.uglify === undefined) {
                     uglify = extend({}, scripts.uglify);
@@ -61,8 +61,8 @@ var on_watch = function () {
     if (sourcemaps) {
         bundle = bundle.pipe(gulp_sourcemaps.init(sourcemaps));
     }
-    if (obfuscator) {
-        bundle = bundle.pipe(gulp_obfuscator.apply(this, obfuscator));
+    if (obfuscate) {
+        bundle = bundle.pipe(gulp_obfuscator.apply(this, obfuscate));
     }
     if (uglify) {
         bundle = bundle.pipe(gulp_uglify.apply(this, uglify));

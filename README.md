@@ -160,7 +160,7 @@ In addition to the default entries of [npm] the `package.json` file contains a `
                 },
                 "scripts": {
                     "sourcemaps": false,
-                    "obfuscator": false,
+                    "obfuscate": false,
                     "uglify": false
                 },
                 "styles": {

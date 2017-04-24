@@ -34,40 +34,71 @@ var gulp_obfuscator = function (opts) {
 };
 
 var on_watch = function () {
+    var cli_min = require('yargs')
+        .default('minify')
+        .argv.minify;
+
     var sourcemaps = false,
-        obfuscator = false,
-        uglify = false;
+        obfuscate = cli_min === true,
+        uglify = cli_min === true;
 
     if (pkg.dizmo && pkg.dizmo.build) {
-        var min = pkg.dizmo.build.minify;
-        if (min) {
-            var scripts = min.scripts !== undefined ? min.scripts : {};
-            if (scripts) {
-                if (scripts.sourcemaps) { // by default w/o source-maps!
-                    sourcemaps = extend({loadMaps: true}, scripts.sourcemaps);
+        var cfg_min = pkg.dizmo.build.minify;
+        if (cfg_min) {
+            var cfg_ss = cfg_min.scripts !== undefined ? cfg_min.scripts : {};
+            if (cfg_ss) {
+                if (cfg_ss.sourcemaps) // by default w/o a source-map!
+                {
+                    sourcemaps = extend({loadMaps: true}, cfg_ss.sourcemaps);
                 }
-                if (scripts.obfuscator || scripts.obfuscator === undefined) {
-                    obfuscator = extend({}, scripts.obfuscator);
+                if (cli_min === undefined && (
+                    cfg_ss.obfuscate || cfg_ss.obfuscate === undefined))
+                {
+                    obfuscate = extend({}, cfg_ss.obfuscate);
                 }
-                if (scripts.uglify || scripts.uglify === undefined) {
-                    uglify = extend({}, scripts.uglify);
+                if (cli_min === undefined && (
+                    cfg_ss.uglify || cfg_ss.uglify === undefined))
+                {
+                    uglify = extend({}, cfg_ss.uglify);
                 }
             }
         }
     }
 
+    var argv = require('yargs')
+        .default('sourcemaps', sourcemaps)
+        .default('obfuscate', obfuscate)
+        .default('uglify', uglify)
+        .argv;
+
+    if (typeof argv.sourcemaps === 'string') {
+        argv.sourcemaps = JSON.parse(argv.sourcemaps);
+    }
+    if (typeof argv.obfuscate === 'string') {
+        argv.obfuscate = JSON.parse(argv.obfuscate);
+    }
+    if (typeof argv.uglify === 'string') {
+        argv.uglify = JSON.parse(argv.uglify);
+    }
+
     var bundle = watched.bundle()
         .pipe(source('index.js')).pipe(buffer());
-    if (sourcemaps) {
-        bundle = bundle.pipe(gulp_sourcemaps.init(sourcemaps));
+    if (argv.sourcemaps) {
+        bundle = bundle.pipe(gulp_sourcemaps.init(
+            extend({loadMaps: true}, argv.sourcemaps)
+        ));
     }
-    if (obfuscator) {
-        bundle = bundle.pipe(gulp_obfuscator.apply(this, obfuscator));
+    if (argv.obfuscate) {
+        bundle = bundle.pipe(gulp_obfuscator.apply(
+            this, extend({}, argv.obfuscate)
+        ));
     }
-    if (uglify) {
-        bundle = bundle.pipe(gulp_uglify.apply(this, uglify));
+    if (argv.uglify) {
+        bundle = bundle.pipe(gulp_uglify.apply(
+            this, extend({}, argv.uglify)
+        ));
     }
-    if (sourcemaps) {
+    if (argv.sourcemaps) {
         bundle = bundle.pipe(gulp_sourcemaps.write('./'));
     }
     return bundle
