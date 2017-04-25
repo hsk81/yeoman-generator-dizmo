@@ -14,34 +14,60 @@ gulp.task('process-styles:copy', function () {
         }));
 });
 gulp.task('process-styles', ['process-styles:copy'], function () {
+    var cli_min = require('yargs')
+        .default('minify')
+        .argv.minify;
+
     var sourcemaps = false, sass = {
-        outputStyle: 'expanded'
+        outputStyle: cli_min === true ? 'compressed' : 'expanded'
     };
 
     if (pkg.dizmo && pkg.dizmo.build) {
-        var min = pkg.dizmo.build.minify;
-        if (min) {
-            var styles = min.styles !== undefined ? min.styles : {};
-            if (styles) {
-                if (styles.sourcemaps) { // minify by default w/o source-maps!
-                    sourcemaps = extend({}, styles.sourcemaps);
+        var cfg_min = pkg.dizmo.build.minify;
+        if (cfg_min) {
+            var cfg_ss = cfg_min.styles !== undefined ? cfg_min.styles : {};
+            if (cfg_ss) {
+                if (cfg_ss.sourcemaps) // by default w/o a source-map!
+                {
+                    sourcemaps = extend({loadMaps: true}, cfg_ss.sourcemaps);
                 }
-                if (styles.sass || styles.sass === undefined) {
-                    sass = extend({outputStyle: 'compressed'}, styles.sass);
+                if (cli_min === undefined && (
+                    cfg_ss.sass || cfg_ss.sass === undefined))
+                {
+                    sass = extend({outputStyle: 'compressed'}, cfg_ss.sass);
                 }
             }
         }
     }
 
+    var argv = require('yargs')
+        .default('sourcemaps', sourcemaps)
+        .default('sass', sass).argv;
+
+    if (typeof argv.sourcemaps === 'string') {
+        argv.sourcemaps = JSON.parse(argv.sourcemaps);
+    }
+    if (typeof argv.sass === 'string') {
+        argv.sass = JSON.parse(argv.sass);
+    }
+    if (typeof argv.sass === 'boolean') {
+        argv.sass = {
+            outputStyle: argv.sass === true ? 'compressed' : 'expanded'
+        };
+    }
+
     var bundle = gulp.src('src/style/**/*.scss');
-    if (sourcemaps) {
-        bundle = bundle.pipe(gulp_sourcemaps.init(sourcemaps));
+    if (argv.sourcemaps) {
+        bundle = bundle.pipe(gulp_sourcemaps.init(
+            extend({loadMaps: true}, argv.sourcemaps)
+        ));
     }
-    if (sass) {
-        bundle = bundle.pipe(
-            gulp_sass.apply(this, [sass]).on('error', gulp_sass.logError));
+    if (argv.sass || argv.sass === undefined) {
+        bundle = bundle.pipe(gulp_sass.apply(
+            this, [extend({outputStyle: 'compressed'}, argv.sass)]
+        ).on('error', gulp_sass.logError));
     }
-    if (sourcemaps) {
+    if (argv.sourcemaps) {
         bundle = bundle.pipe(gulp_sourcemaps.write('./'));
     }
     return bundle
