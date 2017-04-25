@@ -61,8 +61,7 @@ gulp.task('process-scripts', function () {
     var argv = require('yargs')
         .default('sourcemaps', sourcemaps)
         .default('obfuscate', obfuscate)
-        .default('uglify', uglify)
-        .argv;
+        .default('uglify', uglify).argv;
 
     if (typeof argv.sourcemaps === 'string') {
         argv.sourcemaps = JSON.parse(argv.sourcemaps);
