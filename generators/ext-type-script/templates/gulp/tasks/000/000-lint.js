@@ -1,26 +1,36 @@
 var pkg = require('../../package.js'),
-    gulp = require('gulp'),
+    extend = require('xtend');
+var gulp = require('gulp'),
     gulp_tslint = require("gulp-tslint");
 
 gulp.task('lint:ts', function () {
-    var tslint = [{
-        configuration: 'tslint.json',
-        formatter: 'verbose'
-    }];
+    var lint = true;
     if (pkg.dizmo && pkg.dizmo.build) {
-        var build = pkg.dizmo.build;
-        if (build.lint !== null && typeof build.lint === 'object') {
-            tslint = build.lint;
-        } else if (build.lint === false) {
-            tslint = false;
+        var cfg_lint = pkg.dizmo.build.lint;
+        if (cfg_lint || cfg_lint === undefined) {
+            lint = extend({}, cfg_lint);
+        } else {
+            lint = false;
         }
     }
-    if (tslint) {
-        return gulp.src([
-            './src/**/*.ts', '!src/lib/**', '!build/**', '!node_modules/**'])
-            .pipe(gulp_tslint.apply(this, tslint))
-            .pipe(gulp_tslint.report({emitError: false}));
+
+    var argv = require('yargs')
+        .default('lint', lint).argv;
+    if (typeof argv.lint === 'string') {
+        argv.lint = JSON.parse(argv.lint);
     }
+
+    var bundle = gulp.src([
+        './src/**/*.ts', '!src/lib/**', '!build/**', '!node_modules/**']);
+    if (argv.lint || argv.lint === undefined) {
+        bundle = bundle.pipe(gulp_tslint.apply(this, [extend({
+            formatter: 'stylish'
+        }, argv.lint)]));
+        bundle = bundle.pipe(gulp_tslint.report({
+            emitError: false
+        }));
+    }
+    return bundle;
 });
 
 gulp.task('lint', ['lint:ts']);
