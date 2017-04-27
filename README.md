@@ -256,6 +256,83 @@ npm run watch
 DZM_DEPLOY_PATH=/path/to/my/dizmos npm run watch
 ```
 
+## CLI options
+
+The build process supports command line arguments to quickly override some of the the configuration in `package.json`. It's important to realize that this CLI support is directly integrated via the underlying primitives, i.e. linting can be enabled or disabled via `--lint` or via `--no-lint`, and this argument can be provided to *any* script which depends on the linting step.
+
+Further, this CLI support has been implemented for *all* generators and sub-generators (see below the CoffeeScript and TypeScript sections). In many cases the arguments are boolean flags which can be enable or disable a certain build step (like linting or minification).
+
+But many can also accept specific configuration objects -- as JSON -- which may or may not be dependent of the particular sub-generator being used: For example, the configuration for linting JavaScript is different than the one for linting TypeScript, since the former uses `eslint` and the latter `tslint`. And since they have different configuration specifications, it's not possible to provide the same configuration object.
+
+However, for the daily usage the default settings should be more than enough! Simply using the CLI arguments as boolean flags to enable or disable a particular step will do the job. Further, please notice that when you e.g disable linting then during the build the corresponding step will *still* be shown, but it won't perform any actual linting!
+
+### Linting: `--lint` or `--no-lint`
+
+On the command line linting can be enabled by providing `--lint`, and it can be disabled by providing `--no-lint`. These flags will override (or merged with) the configuration from `package.json`:
+
+```json
+"dizmo": {
+    "build": {
+        "lint": true, ..
+    }
+}
+```
+Above it's specifies, that the linting step should be executed by default for the given project. Hence, the following will lint and build the dizmo:
+```
+npm run make
+```
+
+To stop the build engine from linting, either the `lint` entry in `package.json` can be set to `false`, or it can directly be overridden on the CLI:
+```
+npm run make -- --no-lint
+```
+
+The double hyphen after `npm run make` is necessary, since it tells NPM to forward the `--no-lint` argument to each build step, which together will build (i.e. `make`) the dizmo. If you don't like the four consecutive hyphens, you can provide the script name also after the initial double hyphen:
+```
+npm run -- make --no-lint
+```
+
+Or more verbosely below you see in its clearest form, how the `make` script is run with the additional argument `--no-lint`:
+```
+npm run-script -- make --no-lint
+```
+
+Conversely, if you explicitly want to enforce linting then you can execute:
+```
+npm run -- make --lint
+```
+
+As mentioned, this is in general not required since `package.json` should by default have linting enabled. However, if you are not sure if this is the case -- for example when your putting together a build environment, and want enforce linting -- then providing the `--lint` flag explicitly makes sense.
+
+The specific configuration objects for controlling [eslint], [coffeelint] and [tslint] can be looked up via their respective documentation. Below some very simple examples have been provided, to demonstrate the corresponding capability, to override the defaults (and/or the configuration object in `package.json` -- if any).
+
+* Enforce for a JavaScript based dizmo project linting, but ignore unused variable names:
+```
+npm run make -- --lint='{"rules":{"no-unused-vars":0}}'
+```
+* Enforce linting, but provide a warning w.r.t. unused variable names:
+```
+npm run make -- --lint='{"rules":{"no-unused-vars":1}}'
+```
+* Enforce linting, but provide an error w.r.t. unused variable names:
+```
+npm run make -- --lint='{"rules":{"no-unused-vars":1}}'
+```
+
+Above, in case of an error the build process will *not* fail, effectively making it equivalent to a warning. If such behaviour is not desired, then the `000-lint.js` Gulp task should be modified to stop the build process upon a linting error.
+
+* Enforce for a CoffeeScript based dizmo project linting, and ensure that indentation is based on four consecutive spaces:
+```
+npm run make -- --lint='{"indentation":{"value":4,"level":"error"}}'
+```
+
+* And finally, enforce for a TypeScript based dizmo project linting, and ensure that quote-marks use double apostrophes:
+```
+npm run make -- --lint='{"configuration":{"rules":{"quotemark":[true, "single"]}}}'
+```
+
+As you see, each linter expects a different configuration object, since each is based on a different code base: [eslint], [coffeelint] and [tslint].
+
 ## Build
 
 Once your dizmo is build, a `build/` folder with the following structure is created:
@@ -400,12 +477,17 @@ In such a case, just run `npm install` to ensure that all the required dependenc
  © 2017 [dizmo AG, Switzerland](http://dizmo.com/)
 
 [eslint]: http://eslint.org/
+[coffeelint]: http://www.coffeelint.org/
+[tslint]: https://palantir.github.io/tslint/
+
 [gulp-eslint]: https://www.npmjs.com/package/gulp-eslint
 [gulp-htmlmin]: https://www.npmjs.com/package/gulp-htmlmin
 [gulp-sass]: https://www.npmjs.com/package/gulp-sass
 [gulp-uglify]: https://www.npmjs.com/package/gulp-uglify
-[javascript-obfuscator]: https://github.com/javascript-obfuscator/javascript-obfuscator
-[node-module]: https://nodejs.org/api/modules.html
+
 [npm]: https://www.npmjs.com
 [npm-image]: https://badge.fury.io/js/generator-dizmo.svg
 [npm-url]: https://npmjs.org/package/generator-dizmo
+[node-module]: https://nodejs.org/api/modules.html
+
+[javascript-obfuscator]: https://github.com/javascript-obfuscator/javascript-obfuscator
