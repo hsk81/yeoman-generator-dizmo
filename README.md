@@ -271,33 +271,41 @@ However, for the daily usage the default settings should be more than enough! Si
 On the command line linting can be enabled by providing `--lint`, and it can be disabled by providing `--no-lint`. These flags will override (or merged with) the configuration from `package.json`:
 
 ```json
-"dizmo": {
-    "build": {
-        "lint": true, ..
+{
+    "dizmo": {
+        "build": {
+            "lint": true
+        }
     }
 }
 ```
+
 Above it's specifies, that the linting step should be executed by default for the given project. Hence, the following will lint and build the dizmo:
+
 ```
 npm run make
 ```
 
 To stop the build engine from linting, either the `lint` entry in `package.json` can be set to `false`, or it can directly be overridden on the CLI:
+
 ```
 npm run make -- --no-lint
 ```
 
 The double hyphen after `npm run make` is necessary, since it tells NPM to forward the `--no-lint` argument to each build step, which together will build (i.e. `make`) the dizmo. If you don't like the four consecutive hyphens, you can provide the script name also after the initial double hyphen:
+
 ```
 npm run -- make --no-lint
 ```
 
 Or more verbosely below you see in its clearest form, how the `make` script is run with the additional argument `--no-lint`:
+
 ```
 npm run-script -- make --no-lint
 ```
 
 Conversely, if you explicitly want to enforce linting then you can execute:
+
 ```
 npm run -- make --lint
 ```
@@ -307,14 +315,19 @@ As mentioned, this is in general not required since `package.json` should by def
 The specific configuration objects for controlling [eslint], [coffeelint] and [tslint] can be looked up via their respective documentation. Below some very simple examples have been provided, to demonstrate the corresponding capability, to override the defaults (and/or the configuration object in `package.json` -- if any).
 
 * Enforce for a JavaScript based dizmo project linting, but ignore unused variable names:
+
 ```
 npm run make -- --lint='{"rules":{"no-unused-vars":0}}'
 ```
+
 * Enforce linting, but provide a warning w.r.t. unused variable names:
+
 ```
 npm run make -- --lint='{"rules":{"no-unused-vars":1}}'
 ```
+
 * Enforce linting, but provide an error w.r.t. unused variable names:
+
 ```
 npm run make -- --lint='{"rules":{"no-unused-vars":1}}'
 ```
@@ -322,16 +335,84 @@ npm run make -- --lint='{"rules":{"no-unused-vars":1}}'
 Above, in case of an error the build process will *not* fail, effectively making it equivalent to a warning. If such behaviour is not desired, then the `000-lint.js` Gulp task should be modified to stop the build process upon a linting error.
 
 * Enforce for a CoffeeScript based dizmo project linting, and ensure that indentation is based on four consecutive spaces:
+
 ```
 npm run make -- --lint='{"indentation":{"value":4,"level":"error"}}'
 ```
 
 * And finally, enforce for a TypeScript based dizmo project linting, and ensure that quote-marks use double apostrophes:
+
 ```
 npm run make -- --lint='{"configuration":{"rules":{"quotemark":[true, "single"]}}}'
 ```
 
 As you see, each linter expects a different configuration object, since each is based on a different code base: [eslint], [coffeelint] and [tslint].
+
+### Minification: `--minify` or `--no-minify`
+
+Providing the `--minify` option on the CLI will ensure that the scripts, styles and markup are automatically minified and obfuscated, where obfuscation operates only on the scripts:
+
+```
+npm run make -- --minify
+```
+
+Please notice, that by default source maps are *not* created, to avoid accidental leaks of potential intellectual property. However by appending the `--sourcemaps` flag they can be enabled:
+
+```
+npm run make -- --minify --sourcemaps
+```
+
+It's also possible to suppress a minification (e.g. in case it should be enabled via `package.json`):
+
+```
+npm run make -- --no-minify
+```
+
+Further, since minification consists of five sub-steps, namely (a) markup minification, (b) styles minification, (c1) scripts obfuscation plus (c2) minification and also (d) source maps generation -- where the latter however needs to be explicitly enabled -- it's possible to control them independently of the *general* `--minify` flag:
+
+```
+npm run make -- --htmlmin --sass --obfuscate --uglify --no-sourcemap
+```
+
+The above set of arguments is (given default `package.json` build settings) equivalent to the `--minify` flag. Further, each of them can be negated as well:
+
+```
+npm run make -- --no-htmlmin --no-sass --no-obfuscate --no-uglify
+```
+
+Further, each flag can accept an optional configuration object to control in detail the corresponding minification, obfuscation and/or source map generation step:
+
+* Minimize the markup; see [gulp-htmlmin] for further information w.r.t. to the configuration:
+
+```
+npm run make -- --minify --htmlmin='{"collapseWhitespace":true}'
+```
+
+* Minimize the styles; see [gulp-sass] for further information w.r.t. to the configuration:
+
+```
+npm run make -- --minify --sass='{"outputStyle":"compressed"}'
+```
+
+* Obfuscate the scripts; see [javascript-obfuscator] for further information w.r.t. to the configuration:
+
+```
+npm run make -- --minify --obfuscate='{"compact":true}'
+```
+
+* Minify the scripts; see [gulp-uglify] for further information w.r.t. to the configuration:
+
+```
+npm run make -- --minify --uglify='{"mangle":true}'
+```
+
+* Create source maps for the scripts *and* the styles (in `package.json` each source map generation can be configured separately, however on the CLI there is only a single flag to control both); see [gulp-sourcemaps] for further information w.r.t. to the configuration:
+
+```
+npm run make -- --minify --sourcemaps='{"loadMaps":true}
+```
+
+In general, using `--minify` (or `--no-minify`) combined with the `--sourcemaps` (or `--no-sourcemaps`) CLI options should be enough. Only if explicit control is required, using the `--htmlmin`, `--sass`, `--obfuscate` or `--uglify` flags is be necessary. Further, providing configuration objects to these flags should only be done, when you know what you are doing (or are not happy with the provided defaults).
 
 ## Build
 
@@ -484,6 +565,7 @@ In such a case, just run `npm install` to ensure that all the required dependenc
 [gulp-htmlmin]: https://www.npmjs.com/package/gulp-htmlmin
 [gulp-sass]: https://www.npmjs.com/package/gulp-sass
 [gulp-uglify]: https://www.npmjs.com/package/gulp-uglify
+[gulp-sourcemaps]: https://www.npmjs.com/package/gulp-sourcemaps
 
 [npm]: https://www.npmjs.com
 [npm-image]: https://badge.fury.io/js/generator-dizmo.svg
