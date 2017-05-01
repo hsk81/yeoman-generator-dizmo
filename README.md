@@ -78,13 +78,13 @@ Each dizmo is required to have a unique `bundle.identifier`, which is a name of 
 
     ? What's your name? Full Name
 
-Provide your full name, to designate yourself as the author of the project. By default, the current GIT user name &ndash; if available &ndash; or OS login will be suggested. Anything you enter here will be remembered and automatically suggested as the default at your next invocation of `yo dizmo`.
+Provide your full name, to designate yourself as the author of the project. By default, the current GIT user name &ndash; if available &ndash; or OS login will be used directly *without* actually prompting for the name. Otherwise, anything you enter here will be remembered and automatically used as the default on your next invocation of `yo dizmo`.
 
 The entry will be stored once the project skeleton is setup in `package.json` under `person.name`. For multiple contributors, see the [npm:package.json](https://docs.npmjs.com/files/package.json) documentation, section [people-fields-author-contributors](https://docs.npmjs.com/files/package.json#people-fields-author-contributors).
 
     ? And your email? my@email.net
 
-Provide your email, so people can reach out to you for feedback, bug reports etc. By default the generator suggests the GIT user email &ndash; if available &ndash; or the `MAIL` environment variable (which you may want to correct with your proper email). Again, the next time you invoke `yo dizmo`, your most recent entry will be the new default suggestion.
+Provide your email, so people can reach out to you for feedback, bug reports etc. By default the generator uses the GIT user email &ndash; if available &ndash; or the `MAIL` environment variable.
 
 The entry will be stored in `package.json` under `person.email`.
 For multiple contributors, see again [people-fields-author-contributors](https://docs.npmjs.com/files/package.json#people-fields-author-contributors).

@@ -24,11 +24,31 @@ module.exports = generators.extend({
     constructor: function () {
         generators.apply(this, arguments);
 
-        this.option('install-to', {
-            defaults: '',
-            desc: 'Default dizmo installation path',
+        this.argument('name', {
+            defaults: 'MyDizmo',
+            required: false,
             type: String
         });
+        this.option('description', {
+            desc: 'Short one-liner describing the dizmo',
+            type: String
+        });
+        this.option('bundle-id', {
+            desc: 'Bundle identifier in reverse domain notation',
+            type: String
+        });
+
+        this.option('author', {
+            defaults: this.user.git.name() || process.env.USER,
+            desc: 'Name of the author',
+            type: String
+        });
+        this.option('email', {
+            defaults: this.user.git.email() || process.env.MAIL,
+            desc: 'Email of the author',
+            type: String
+        });
+
         this.option('git', {
             defaults: false,
             desc: 'GIT repository initialization',
@@ -44,28 +64,10 @@ module.exports = generators.extend({
             desc: 'Sub-generator with TypeScript',
             type: Boolean
         });
-
-        this.argument('dizmoName', {
-            type: String, required: false, defaults: 'MyDizmo'
-        });
-        this.argument('dizmoDescription', {
-            type: String, required: false
-        });
-        this.argument('bundleId', {
-            type: String, required: false
-        });
-        this.argument('personName', {
-            type: String, required: false,
-            defaults: this.user.git.name() || process.env.USER
-        });
-        this.argument('personEmail', {
-            type: String, required: false,
-            defaults: this.user.git.email() || process.env.MAIL
-        });
     },
 
     prompting: mine(function (self) {
-        var pkg = fs.existsSync('package.json')
+        var prompts = [], pkg = fs.existsSync('package.json')
             ? JSON.parse(fs.readFileSync('package.json'))
             : {};
 
@@ -75,35 +77,60 @@ module.exports = generators.extend({
             )
         ));
 
-        var prompts = [{
+        prompts.push({
             type: 'input',
             name: 'dizmoName',
             message: 'Name your dizmo:',
             default: function (prop) {
-                if (pkg.name) {
+                if (pkg && pkg.name) {
                     return pkg.name;
                 }
                 return lodash.upperFirst(
-                    lodash.camelCase(self.options.dizmoName));
+                    lodash.camelCase(self.options['name']));
+            },
+            when: function (prop) {
+                if (pkg && pkg.name) {
+                    prop.dizmoName = pkg.name;
+                    return false;
+                }
+                if (self.args.length > 0) {
+                    prop.dizmoName = self.args[0];
+                    return false;
+                }
+                return true;
             }
-        }, {
+        });
+
+        prompts.push({
             type: 'input',
             name: 'dizmoDescription',
             message: 'Describe it:',
             default: function (prop) {
-                if (pkg.description) {
+                if (pkg && pkg.description) {
                     return pkg.description;
                 }
                 return self.dizmoDescription
                     || lodash.startCase(prop.dizmoName);
+            },
+            when: function (prop) {
+                if (pkg && pkg.description) {
+                    prop.dizmoDescription = pkg.description;
+                    return false;
+                }
+                if (self.options['description']) {
+                    prop.dizmoDescription = self.options['description'];
+                    return false;
+                }
+                return true;
             }
-        }, {
+        });
+
+        prompts.push({
             type: 'input',
             name: 'bundleId',
             message: 'And its bundle ID?',
             default: function (prop) {
-                if (pkg.dizmo &&
-                    pkg.dizmo.settings &&
+                if (pkg && pkg.dizmo && pkg.dizmo.settings &&
                     pkg.dizmo.settings['bundle-identifier'])
                 {
                     return pkg.dizmo.settings['bundle-identifier'];
@@ -114,34 +141,110 @@ module.exports = generators.extend({
                         domain + '.' + lodash.snakeCase(prop.dizmoName);
 
                 return self.bundleId || bundle_id;
+            },
+            when: function (prop) {
+                if (pkg && pkg.dizmo && pkg.dizmo.settings &&
+                    pkg.dizmo.settings['bundle-identifier'])
+                {
+                    prop.bundleId = pkg.dizmo.settings['bundle-identifier'];
+                    return false;
+                }
+                if (self.options['bundle-id']) {
+                    prop.bundleId = self.options['bundle-id'];
+                    return false;
+                }
+                return true;
             }
-        }, {
+        });
+
+        prompts.push({
             store: true,
             type: 'input',
             name: 'personName',
             message: 'What\'s your name?',
             default: function (prop) {
-                if (pkg.person && pkg.person.name) {
+                if (pkg && pkg.person && pkg.person.name) {
                     return pkg.person.name;
                 }
                 return self.personName;
+            },
+            when: function (prop) {
+                if (pkg && pkg.person && pkg.person.name) {
+                    prop.personName = pkg.person.name;
+                    return false;
+                }
+                if (self.options['author']) {
+                    prop.personName = self.options['author'];
+                    return false;
+                }
+                return true;
             }
-        }, {
+        });
+
+        prompts.push({
             store: true,
             type: 'input',
             name: 'personEmail',
             message: 'And your email?',
             default: function (prop) {
-                if (pkg.person && pkg.person.email) {
+                if (pkg && pkg.person && pkg.person.email) {
                     return pkg.person.email;
                 }
                 return self.personEmail;
+            },
+            when: function (prop) {
+                if (pkg && pkg.person && pkg.person.email) {
+                    prop.personEmail = pkg.person.email;
+                    return false;
+                }
+                if (self.options['email']) {
+                    prop.personEmail = self.options['email'];
+                    return false;
+                }
+                return true;
             }
-        }];
+        });
 
-        return this.prompt(prompts).then(function (properties) {
-            self.properties = lodash.assign(properties, {
-                installTo: self.options['install-to'], _: lodash
+        return this.prompt(prompts).then(function (prop) {
+            if (prop.dizmoName === undefined) {
+                if (pkg && pkg.name) {
+                    prop.dizmoName = pkg.name;
+                } else {
+                    prop.dizmoName = self.options['name'];
+                }
+            }
+            if (prop.dizmoDescription === undefined) {
+                if (pkg && pkg.description) {
+                    prop.dizmoDescription = pkg.description;
+                } else {
+                    prop.dizmoDescription = self.options['description'];
+                }
+            }
+            if (prop.bundleId === undefined) {
+                if (pkg && pkg.dizmo && pkg.dizmo.settings &&
+                    pkg.dizmo.settings['bundle-identifier'])
+                {
+                    prop.bundleId = pkg.dizmo.settings['bundle-identifier'];
+                } else {
+                    prop.bundleId = self.options['bundle-id'];
+                }
+            }
+            if (prop.personName === undefined) {
+                if (pkg && pkg.person && pkg.person.name) {
+                    prop.personName = pkg.person.name;
+                } else {
+                    prop.personName = self.options['author'];
+                }
+            }
+            if (prop.personEmail === undefined) {
+                if (pkg && pkg.person && pkg.person.email) {
+                    prop.personEmail = pkg.person.email;
+                } else {
+                    prop.personEmail = self.options['email'];
+                }
+            }
+            self.properties = lodash.assign(prop, {
+                _: lodash
             });
         });
     }),
@@ -234,8 +337,6 @@ module.exports = generators.extend({
                     force: true
                 })
             });
-        } else {
-            // pass
         }
         this._git();
     },
