@@ -553,6 +553,23 @@ error Failed at the MyDizmo@0.0.0 make script 'node ./node_modules/gulp/bin/gulp
 
 In such a case, just run `npm install` to ensure that all the required dependencies get installed locally.
 
+### Can I run `yo dizmo` as root?
+
+The [Yeoman|http://yeoman.io/] toolkit very strongly discourages the usage of any generator based on it to be run as *root*. Hence, you will get the following error:
+```bash
+$ sudo yo dizmo --help
+/usr/lib/node_modules/yo/node_modules/configstore/index.js:53
+				throw err;
+				^
+
+Error: EACCES: permission denied, open '/root/.config/configstore/insight-yo.json'.
+You don't have access to this file.
+```
+
+The same error is thrown, when you run `sudo yo -h` as well. Also, the behaviour is independent of the usage of `sudo` or directly being logged in as *root*.
+
+The recommended approach is to create a *non-root* user account and then run the generator under that account: If you are manually generating a dizmo project, this should be the case anyway, since you would most probably be logged in under your own user name. However, when running in the context of e.g. an automated build environment, this might not be the case: Hence, the need for a special purpose user account.
+
 ## License
 
  © 2017 [dizmo AG, Switzerland](http://dizmo.com/)
