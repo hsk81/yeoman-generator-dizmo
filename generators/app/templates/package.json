@@ -57,6 +57,7 @@
     "lint": "node ./node_modules/gulp/bin/gulp.js lint",
     "make": "node ./node_modules/gulp/bin/gulp.js",
     "test": "exit 0",
+    "upload": "node ./node_modules/gulp/bin/gulp.js upload",
     "watch": "node ./node_modules/gulp/bin/gulp.js watch"
   }
 }
