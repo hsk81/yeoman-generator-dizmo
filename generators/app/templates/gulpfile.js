@@ -21,6 +21,7 @@ require('./gulp/tasks/200/210-process-dzm.js');
 require('./gulp/tasks/200/211-process-dzm-watch.js');
 require('./gulp/tasks/300/310-deploy.js');
 require('./gulp/tasks/300/311-deploy-watch.js');
+require('./gulp/tasks/900/900-upload.js');
 require('./gulp/tasks/900/999-watch.js');
 
 gulp.task('default', ['build']);
