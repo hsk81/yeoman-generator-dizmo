@@ -10,6 +10,7 @@
     "settings": {
       "bundle-identifier": "<%= bundleId %>",
       "bundle-name": "<%= dizmoName %>",
+      "category": "",
       "height": 360,
       "width": 480
     },

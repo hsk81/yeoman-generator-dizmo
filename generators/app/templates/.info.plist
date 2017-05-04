@@ -13,10 +13,14 @@
         <string/>
         <key>BundleName</key>
         <string/>
+        <key>BundleShortVersionString</key>
+        <string/>
         <key>BundleVersion</key>
         <string/>
         <key>Category</key>
-        <string>tools</string>
+        <string/>
+        <key>ChangeLog</key>
+        <string>-</string>
         <key>Description</key>
         <string/>
         <key>ElementsVersion</key>

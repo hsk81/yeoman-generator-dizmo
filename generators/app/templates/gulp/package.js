@@ -58,6 +58,7 @@ assert.ok(pkg && pkg.dizmo && pkg.dizmo.settings['bundle-name'],
 
 pkg.dizmo.settings = lodash.assign({
     'bundle-display-name': pkg.dizmo.settings['bundle-name'],
+    'bundle-short-version-string': pkg.version,
     'bundle-version': pkg.version,
     'description': pkg.description,
     'tags': pkg.keywords
