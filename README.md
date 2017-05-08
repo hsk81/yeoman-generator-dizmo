@@ -152,6 +152,16 @@ Dizmos use [npm] as a package manager; to thoroughly understand its functionalit
 In addition to the default entries of [npm] the `package.json` file contains a `dizmo` section:
 
     "dizmo": {
+        "settings": {
+            "bundle-identifier": "com.example.my_project",
+            "bundle-name": "My Project",
+            "category": "",
+            "height": 240,
+            "width": 480
+        },
+        "store": {
+            "host": "https://store-api.dizmo.com"
+        },
         "build": {
             "lint": true,
             "minify": {
@@ -173,16 +183,14 @@ In addition to the default entries of [npm] the `package.json` file contains a `
                 "scripts": false,
                 "styles": false
             }
-        },
-        "settings": {
-            "bundle-identifier": "com.example.my_project",
-            "bundle-name": "My Project",
-            "height": 240,
-            "width": 480
         }
     }
 
 And here is a list of available options:
+
+* `settings`: any entry provided here will be translated to an entry in `build/Info.plist`, which is the main control file defining the properties of a dizmo.
+
+* `store`: configuration entries required by `npm run upload`, which needs `store/host` (by default pointing to `https://store-api.dizmo.com`), `store/user` and `store/pass`. The latter two should *not* be directly set in `package.json` but instead via the default configuration (see below), to avoid the store credentials to be accidentally committed to a version control system.
 
 * `build/lint`: switches [ESLint][eslint] based linting on or off -- edit the `.eslintrc.json` configuration file to have a detailed control over the linting process; see also [gulp-eslint] for additional information.
 
@@ -192,16 +200,16 @@ And here is a list of available options:
 
   Any library however, that is installed into a dizmo project via e.g. `npm install --save jquery` and then referenced as `var $ = require('jquery')` from your source code, will be collected by the build system and subsequently also obfuscated! This might actually be desirable, if the third party library is maybe company internal code, and you wish to use it in your dizmo: This arrangement will protect your company's intellectual property while offering you the desired functionality.
 
-* `settings`: Any entry provided here will be translated to an entry in `build/Info.plist`, which is the main control file defining the properties of a dizmo.
-
 ### Default Configuration
 
 The `dizmo` section in `package.json` can be extended with default values, which have to reside in `.generator-dizmo/config.json` (in *any* of the parent directories):
 
     {
         "dizmo": {
-            "deploy-path": "..", "settings": {
-                ..
+            "deploy-path": "..", "store": {
+                "host": "https://store-api.dizmo.com",
+                "user": "..",
+                "pass": ".."
             }
         }
     }
@@ -254,6 +262,11 @@ npm run watch
 * `watch`: ..further, it copies the build to the installation path, if either the `dizmo/deploy-path` configuration has been set in `package.json` (or better in `.generator-dizmo/config.json`) or `DZM_DEPLOY_PATH` environment variable has been provided.
 ```
 DZM_DEPLOY_PATH=/path/to/my/dizmos npm run watch
+```
+
+* `upload`: uploads a `*.dzm` artifact to the dizmoStore requiring a host and user name plus a valid password. They can be set via the `store/host`, `store/user` and `store/pass` configuration in `package.json` (or better in `.generator-dizmo/config.json`) or the `DZM_STORE_HOST`, `DZM_STORE_USER` and `DZM_STORE_PASS` environment variables. 
+```
+DZM_STORE_HOST=https://store-api.dizmo.com npm run upload
 ```
 
 ## CLI options
@@ -413,6 +426,13 @@ npm run make -- --minify --sourcemaps='{"loadMaps":true}
 ```
 
 In general, using `--minify` (or `--no-minify`) combined with the `--sourcemaps` (or `--no-sourcemaps`) CLI options should be enough. Only if explicit control is required, using the `--htmlmin`, `--sass`, `--obfuscate` or `--uglify` flags is be necessary. Further, providing configuration objects to these flags should only be done, when you know what you are doing (or are not happy with the provided defaults).
+
+### Upload
+
+Besides `package.json` (or `.generator-dizmo/config.json`) or environment variables, upload arguments like the host and user name plus password can also be set via the CLI:
+```
+npm run upload -- --host=https://store-api.dizmo.com --user='..' --pass='..'
+```
 
 ## Build
 

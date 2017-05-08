@@ -34,12 +34,14 @@ By default no test cases nor a test framework are pre-defined:
 
 ## Configuration
 
-The `dizmo` section in `package.json` can be extended with default values, which have to reside in `.generator-dizmo/config.json` (in *any* of the parent directories). For example, to set the credentials and the upload URL for dizmoStore, use the following content:
+The `dizmo` section in `package.json` can be extended with default values, which have to reside in `.generator-dizmo/config.json` (in *any* of the parent directories). For example, to set the credentials and the upload URL for the standard dizmoStore, use the following content:
 
     {
         "dizmo": {
-            "deploy-path": "..", "settings": {
-                ..
+            "deploy-path": "..", "store": {
+                "host": "https://store-api.dizmo.com",
+                "user": "..",
+                "pass": ".."
             }
         }
     }
