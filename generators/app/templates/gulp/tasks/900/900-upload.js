@@ -13,21 +13,36 @@ gulp.task('upload', ['build'], function () {
         user = process.env.DZM_STORE_USER,
         pass = process.env.DZM_STORE_PASS;
 
-    if (!host) {
+    if (pkg.dizmo && pkg.dizmo.store) {
+        host = host || pkg.dizmo.store.host;
+        user = user || pkg.dizmo.store.user;
+        pass = pass || pkg.dizmo.store.pass;
+    }
+
+    var argv = require('yargs')
+        .default('host', host)
+        .default('user', user)
+        .default('pass', pass)
+        .argv;
+
+    if (!argv.host) {
         gulp_util.log(gulp_util.colors.yellow.bold(
-            'Upload: DZM_STORE_HOST required!'
+            'Upload: DZM_STORE_HOST, package.json:dizmo.store.host or ' +
+            '`--host` required!'
         ));
         return;
     }
-    if (!user) {
+    if (!argv.user && argv.user !== '') {
         gulp_util.log(gulp_util.colors.yellow.bold(
-            'Upload: DZM_STORE_USER required!'
+            'Upload: DZM_STORE_USER, package.json:dizmo.store.user or ' +
+            '`--user` required!'
         ));
         return;
     }
-    if (!pass) {
+    if (!argv.pass && argv.pass !== '') {
         gulp_util.log(gulp_util.colors.yellow.bold(
-            'Upload: DZM_STORE_PASS required!'
+            'Upload: DZM_STORE_PASS, package.json:dizmo.store.pass or ' +
+            '`--pass` required!'
         ));
         return;
     }
@@ -36,8 +51,8 @@ gulp.task('upload', ['build'], function () {
         !pkg.dizmo.settings ||
         !pkg.dizmo.settings['category'])
     {
-        gulp_util.log(gulp_util.colors.yellow.bold('Upload: ' +
-            '"package.json:dizmo.settings.category" required, ' +
+        gulp_util.log(gulp_util.colors.yellow.bold(
+            'Upload: package.json:dizmo.settings.category required, ' +
             'e.g. "tools"!'
         ));
         return;
@@ -64,7 +79,7 @@ gulp.task('upload', ['build'], function () {
 
     var on_error_login = function (err, res, body) {
         gulp_util.log(gulp_util.colors.yellow.bold(
-            'Upload: sign-in to {0} failed!'.replace('{0}', host)
+            'Upload: sign-in to {0} failed!'.replace('{0}', argv.host)
         ));
         if (err) {
             console.log(err, res.toJSON());
@@ -90,7 +105,7 @@ gulp.task('upload', ['build'], function () {
     };
 
     var post_dizmo = function (session) {
-        request.post(host + '/v1/dizmo', {
+        request.post(argv.host + '/v1/dizmo', {
             formData: {
                 file: fs.createReadStream('build/' + dzm_name)
             },
@@ -98,14 +113,19 @@ gulp.task('upload', ['build'], function () {
                 'Cookie': session
             }
         }, function (err, res) {
-            if (err || res.statusCode !== 201) {
+            if (!err && res.statusCode === 201) {
+                gulp_util.log(gulp_util.colors.green.bold(
+                    'Upload: of {0} to {1} succeeded!'
+                        .replace('{0}', dzm_name).replace('{1}', argv.host)
+                ));
+            } else {
                 put_dizmo(session);
             }
         });
     };
 
     var put_dizmo = function (session) {
-        request.put(host + '/v1/dizmo/{0}'.replace(
+        request.put(argv.host + '/v1/dizmo/{0}'.replace(
             '{0}', pkg.dizmo.settings['bundle-identifier']
         ), {
             formData: {
@@ -115,7 +135,12 @@ gulp.task('upload', ['build'], function () {
                 'Cookie': session
             }
         }, function (err, res) {
-            if (err || res.statusCode !== 200) {
+            if (!err && res.statusCode === 200) {
+                gulp_util.log(gulp_util.colors.green.bold(
+                    'Upload: of {0} to {1} succeeded!'
+                        .replace('{0}', dzm_name).replace('{1}', argv.host)
+                ));
+            } else {
                 on_error_upload.apply(this, arguments);
             }
         });
@@ -124,7 +149,7 @@ gulp.task('upload', ['build'], function () {
     var on_error_upload = function (err, res, body) {
         gulp_util.log(gulp_util.colors.yellow.bold(
             'Upload: of {0} to {1} failed!'
-                .replace('{0}', dzm_name).replace('{1}', host)
+                .replace('{0}', dzm_name).replace('{1}', argv.host)
         ));
         if (err) {
             console.log(err, res.toJSON());
@@ -149,9 +174,9 @@ gulp.task('upload', ['build'], function () {
         }
     };
 
-    request.post(host + '/v1/oauth/login', {
+    request.post(argv.host + '/v1/oauth/login', {
         body: JSON.stringify({
-            username:user, password:pass
+            username: argv.user, password: argv.pass
         }),
         headers:{
             'Content-Type': 'application/json'
