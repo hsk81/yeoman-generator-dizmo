@@ -429,10 +429,22 @@ In general, using `--minify` (or `--no-minify`) combined with the `--sourcemaps`
 
 ### Upload
 
-Besides `package.json` (or `.generator-dizmo/config.json`) or environment variables, upload arguments like the host and user name plus password can also be set via the CLI:
+Dizmo offers a *dizmoStore* where dizmos can be uploaded to: Besides `package.json` (or `.generator-dizmo/config.json`) or environment variables, upload arguments like the *host* and *user* name plus *password* can also be provided via the CLI:
 ```
 npm run upload -- --host=https://store-api.dizmo.com --user='..' --pass='..'
 ```
+
+By default `npm run upload` tries to upload *and* publish an uploaded dizmo. However, it is possible to skip the publication step by running:
+```
+npm run upload -- --no-publish
+```
+
+And then only in a subsequent step to publish it:
+```
+npm run upload -- --publish
+```
+
+However the command above assume, that the actual upload has already been performed! Hence, executing it without having previous uploaded a dizmo will fail, since there would be no uploaded dizmo to publish.
 
 ## Build
 
