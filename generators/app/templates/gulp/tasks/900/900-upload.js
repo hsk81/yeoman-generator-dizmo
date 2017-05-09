@@ -23,6 +23,7 @@ gulp.task('upload', ['build'], function () {
         .default('host', host)
         .default('user', user)
         .default('pass', pass)
+        .default('publish', null)
         .argv;
 
     if (!argv.host) {
@@ -62,10 +63,21 @@ gulp.task('upload', ['build'], function () {
         .replace('{0}', pkg.name)
         .replace('{1}', pkg.version);
 
-    var on_login = function (err, res) {
-        if (err || res.statusCode !== 200) {
-            on_error_login.apply(this, arguments);
-        } else {
+    var do_login = function () {
+        request.post(argv.host + '/v1/oauth/login',
+            {
+                body: JSON.stringify({
+                    username: argv.user, password: argv.pass
+                }),
+                headers:{
+                    'Content-Type': 'application/json'
+                }
+            }, on_login
+        );
+    };
+
+    var on_login = function (err, res, body) {
+        if (!err && res.statusCode === 200) {
             var set_cookies = res.headers['set-cookie'];
             assert(set_cookies, '"Set-Cookie" header required');
             var set_cookie = set_cookies[0];
@@ -73,84 +85,122 @@ gulp.task('upload', ['build'], function () {
             var session = set_cookie.split(';')[0];
             assert(session, '"Set-Cookie" header invalid');
 
-            post_dizmo(session);
-        }
-    };
-
-    var on_error_login = function (err, res, body) {
-        gulp_util.log(gulp_util.colors.yellow.bold(
-            'Upload: sign-in to {0} failed!'.replace('{0}', argv.host)
-        ));
-        if (err) {
-            console.log(err, res.toJSON());
-        } else if (body) {
-            try {
-                var json = JSON.parse(body);
-                if (json.errormessage && json.errornumber) {
-                    gulp_util.log(gulp_util.colors.yellow.bold('{0} [{1}]'
-                        .replace('{0}', json.errormessage)
-                        .replace('{1}', json.errornumber)
-                    ));
-                } else {
-                    gulp_util.log(gulp_util.colors.yellow.bold(
-                        JSON.stringify(json, null, 4)
-                    ));
-                }
-            } catch (ex) {
-                console.log(res.toJSON());
+            if (argv.publish === true) {
+                publish_dizmo(session);
+            } else {
+                post_dizmo(session);
             }
         } else {
-            console.log(res.toJSON());
+            on_error_login.apply(this, arguments);
         }
     };
 
     var post_dizmo = function (session) {
-        request.post(argv.host + '/v1/dizmo', {
-            formData: {
-                file: fs.createReadStream('build/' + dzm_name)
-            },
-            headers:{
-                'Cookie': session
-            }
-        }, function (err, res) {
-            if (!err && res.statusCode === 201) {
-                gulp_util.log(gulp_util.colors.green.bold(
-                    'Upload: of {0} to {1} succeeded!'
-                        .replace('{0}', dzm_name).replace('{1}', argv.host)
-                ));
-            } else {
-                put_dizmo(session);
-            }
-        });
+        if (argv.publish === true) {
+            publish_dizmo(session);
+        } else {
+            request.post(argv.host + '/v1/dizmo',
+                {
+                    formData: {
+                        file: fs.createReadStream('build/' + dzm_name)
+                    },
+                    headers:{
+                        'Cookie': session
+                    }
+                }, function (err, res) {
+                    if (!err && res.statusCode === 201) {
+                        gulp_util.log(gulp_util.colors.green.bold(
+                            'Upload: transmission to {0} succeeded.'
+                                .replace('{0}', argv.host)
+                        ));
+                        publish_dizmo(session);
+                    } else {
+                        put_dizmo(session);
+                    }
+                }
+            );
+        }
     };
 
     var put_dizmo = function (session) {
-        request.put(argv.host + '/v1/dizmo/{0}'.replace(
-            '{0}', pkg.dizmo.settings['bundle-identifier']
-        ), {
-            formData: {
-                file: fs.createReadStream('build/' + dzm_name)
-            },
-            headers:{
-                'Cookie': session
-            }
-        }, function (err, res) {
-            if (!err && res.statusCode === 200) {
-                gulp_util.log(gulp_util.colors.green.bold(
-                    'Upload: of {0} to {1} succeeded!'
-                        .replace('{0}', dzm_name).replace('{1}', argv.host)
-                ));
-            } else {
-                on_error_upload.apply(this, arguments);
-            }
-        });
+        if (argv.publish === true) {
+            publish_dizmo(session);
+        } else {
+            request.put(argv.host + '/v1/dizmo/{0}'
+                    .replace('{0}', pkg.dizmo.settings['bundle-identifier']),
+                {
+                    formData: {
+                        file: fs.createReadStream('build/' + dzm_name)
+                    },
+                    headers:{
+                        'Cookie': session
+                    }
+                }, function (err, res) {
+                    if (!err && res.statusCode === 200) {
+                        gulp_util.log(gulp_util.colors.green.bold(
+                            'Upload: transmission to {0} succeeded.'
+                                .replace('{0}', argv.host)
+                        ));
+                        publish_dizmo(session);
+                    } else {
+                        on_error_upload.apply(this, arguments);
+                    }
+                }
+            );
+        }
     };
 
-    var on_error_upload = function (err, res, body) {
+    var publish_dizmo = function (session) {
+        if (argv.publish !== false) {
+            request.put(argv.host + '/v1/dizmo/{0}/publish/{1}'
+                    .replace('{0}', pkg.dizmo.settings['bundle-identifier'])
+                    .replace('{1}', pkg.version),
+                {
+                    body: JSON.stringify({
+                        publish: true
+                    }),
+                    headers:{
+                        'Content-Type': 'application/json',
+                        'Cookie': session
+                    }
+                }, function (err, res) {
+                    if (!err && res.statusCode === 200) {
+                        gulp_util.log(gulp_util.colors.green.bold(
+                            'Upload: publication of {0} succeeded.'
+                                .replace('{0}', dzm_name)
+                        ));
+                    } else {
+                        on_error_publish.apply(this, arguments);
+                    }
+                }
+            );
+        }
+    };
+
+    var on_error_login = function () {
         gulp_util.log(gulp_util.colors.yellow.bold(
-            'Upload: of {0} to {1} failed!'
-                .replace('{0}', dzm_name).replace('{1}', argv.host)
+            'Upload: sign-in to {0} failed!'.replace('{0}', argv.host)
         ));
+        on_error.apply(this, arguments);
+    };
+
+    var on_error_upload = function () {
+        gulp_util.log(gulp_util.colors.yellow.bold(
+            'Upload: transmission to {0} failed!'
+                .replace('{0}', argv.host)
+        ));
+        on_error.apply(this, arguments);
+    };
+
+    var on_error_publish = function () {
+        gulp_util.log(gulp_util.colors.yellow.bold(
+            'Upload: publication of {0} failed!'
+                .replace('{0}', dzm_name)
+        ));
+        on_error.apply(this, arguments);
+    };
+
+    var on_error = function (err, res, body) {
         if (err) {
             console.log(err, res.toJSON());
         } else if (body) {
@@ -174,12 +224,5 @@ gulp.task('upload', ['build'], function () {
         }
     };
 
-    request.post(argv.host + '/v1/oauth/login', {
-        body: JSON.stringify({
-            username: argv.user, password: argv.pass
-        }),
-        headers:{
-            'Content-Type': 'application/json'
-        }
-    }, on_login);
+    do_login();
 });
