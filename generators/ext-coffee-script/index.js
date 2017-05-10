@@ -50,10 +50,6 @@ module.exports = generators.extend({
             this.destinationPath('coffeelint.json'));
     },
 
-    install: function () {
-        this.npmInstall('', {'cache-min': 604800});
-    },
-
     end: function () {
         rimraf.sync(
             this.destinationPath('.eslintrc.json'));
