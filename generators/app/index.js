@@ -320,10 +320,6 @@ module.exports = generators.extend({
         }
     },
 
-    install: function () {
-        this.npmInstall([], {'cache-min': 604800, 'depth': 0});
-    },
-
     end: function () {
         if (this.options['coffee-script']) {
             this.composeWith('dizmo:ext-coffee-script', {
