@@ -56,12 +56,12 @@
     "url": ""
   },
   "scripts": {
-    "clean": "node ./node_modules/gulp/bin/gulp.js clean",
-    "deploy": "node ./node_modules/gulp/bin/gulp.js deploy",
-    "lint": "node ./node_modules/gulp/bin/gulp.js lint",
-    "make": "node ./node_modules/gulp/bin/gulp.js",
+    "clean": "node ./gulp/scripts/clean.js",
+    "deploy": "node ./gulp/scripts/deploy.js",
+    "lint": "node ./gulp/scripts/lint.js",
+    "make": "node ./gulp/scripts/make.js",
     "test": "exit 0",
-    "upload": "node ./node_modules/gulp/bin/gulp.js upload",
-    "watch": "node ./node_modules/gulp/bin/gulp.js watch"
+    "upload": "node ./gulp/scripts/upload.js",
+    "watch": "node ./gulp/scripts/watch.js"
   }
 }
