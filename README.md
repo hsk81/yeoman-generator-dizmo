@@ -222,6 +222,8 @@ As alternative to `.generator-dizmo/config.json` the `.yo-rc.json` file can be u
 
 ## NPM scripts
 
+> Before running any script, please ensure that `npm install` has been executed, and that the dependencies beneath `node_modules` are up to date!
+
 Please read first [npm#scripts](https://docs.npmjs.com/misc/scripts) -- in each `package.json` the following scripts are available:
 
 * `clean`: completely removes the `./build` sub-directory.

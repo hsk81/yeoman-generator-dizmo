@@ -4,6 +4,8 @@ Create the `<%= dizmoName %>` dizmo by running `npm run make` and drag and drop 
 
 ## Building
 
+> Before running any build script, please ensure that `npm install` has been executed, and that the dependencies beneath `node_modules` are up to date!
+
 Building the dizmo requires a sequence of tasks to be run, which are:
 
 * `npm run clean`: Cleans the previous build (if any) by removing the `build/` folder completely.
