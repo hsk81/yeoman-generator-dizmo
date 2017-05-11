@@ -8,6 +8,7 @@ var chalk = require('chalk'),
     path = require('path'),
     process = require('process'),
     shell = require('shelljs'),
+    rimraf = require('rimraf'),
     yosay = require('yosay');
 
 function mine (fn) {
@@ -18,6 +19,21 @@ function mine (fn) {
             )
         ));
     };
+}
+
+function sort(dictionary) {
+    var array = [],
+        sorted = {};
+
+    for(var key in dictionary) {
+        array[array.length] = key;
+    }
+    array.sort();
+
+    for(var i = 0; i < array.length; i++) {
+        sorted[array[i]] = dictionary[array[i]];
+    }
+    return sorted;
 }
 
 module.exports = generators.extend({
@@ -64,6 +80,13 @@ module.exports = generators.extend({
             desc: 'Sub-generator with TypeScript',
             type: Boolean
         });
+        if (fs.existsSync('package.json')) {
+            this.option('auto-upgrade', {
+                defaults: false,
+                desc: 'Auto-upgrade the Gulp build system',
+                type: Boolean
+            });
+        }
     },
 
     prompting: mine(function (self) {
@@ -270,54 +293,97 @@ module.exports = generators.extend({
     },
 
     writing: function () {
-        this.fs.copy(
-            this.templatePath('assets/'),
-            this.destinationPath('assets/'));
-        this.fs.copy(
-            this.templatePath('gulp/'),
-            this.destinationPath('gulp/'));
-        this.fs.copy(
-            this.templatePath('help/**/*.png'),
-            this.destinationPath('help/'));
-        this.fs.copyTpl(
-            this.templatePath('help/**/*.md'),
-            this.destinationPath('help/'), this.properties);
-        this.fs.copy(
-            this.templatePath('src/'),
-            this.destinationPath('src/'));
-        this.fs.copyTpl(
-            this.templatePath('src/index.html'),
-            this.destinationPath('src/index.html'), this.properties);
-        this.fs.copy(
-            this.templatePath('gulpfile.js'),
-            this.destinationPath('gulpfile.js'));
-        this.fs.copy(
-            this.templatePath('.eslintrc.json'),
-            this.destinationPath('.eslintrc.json'));
-        this.fs.copy(
-            this.templatePath('.info.plist'),
-            this.destinationPath('.info.plist'));
-        this.fs.copyTpl(
-            this.templatePath('LICENSE'),
-            this.destinationPath('LICENSE'), lodash.assign(this.properties, {
-                year: new Date().getFullYear()
-            }));
-        this.fs.copyTpl(
-            this.templatePath('package.json'),
-            this.destinationPath('package.json'), this.properties);
-        this.fs.copyTpl(
-            this.templatePath('README.md'),
-            this.destinationPath('README.md'), this.properties);
-
-        if (this.options.git || fs.existsSync('.gitignore')) {
+        var upgrade = Boolean(
+            this.options['auto-upgrade'] && fs.existsSync('package.json'));
+        if (!upgrade || upgrade) {
             this.fs.copy(
-                this.templatePath('.npmignore'),
-                this.destinationPath('.gitignore'));
-        } else {
+                this.templatePath('gulp/'),
+                this.destinationPath('gulp/'));
             this.fs.copy(
-                this.templatePath('.npmignore'),
-                this.destinationPath('.npmignore'));
+                this.templatePath('gulpfile.js'),
+                this.destinationPath('gulpfile.js'));
         }
+        if (!upgrade) {
+            this.fs.copyTpl(
+                this.templatePath('package.json'),
+                this.destinationPath('package.json'), this.properties);
+        }
+        if (!upgrade || upgrade) {
+            var pkg = this.fs.readJSON(
+                this.destinationPath('package.json'));
+            pkg.devDependencies = sort(
+                lodash.assign(pkg.devDependencies, {
+                    'browserify': '^14.1.0',
+                    'gulp': '^3.9.1',
+                    'gulp-copy': '^1.0.0',
+                    'gulp-eslint': '^3.0.1',
+                    'gulp-htmlmin': '^3.0.0',
+                    'gulp-plist': '^0.1.0',
+                    'gulp-rename': '^1.2.2',
+                    'gulp-sass': '^3.1.0',
+                    'gulp-sourcemaps': '^2.4.1',
+                    'gulp-sync': '^0.1.4',
+                    'gulp-uglify': '^2.0.1',
+                    'gulp-util': '^3.0.8',
+                    'gulp-ver': '^0.1.0',
+                    'gulp-zip': '^4.0.0',
+                    'javascript-obfuscator': '^0.9.2',
+                    'lodash': '^4.17.4',
+                    'rimraf': '^2.5.4',
+                    'vinyl-buffer': '^1.0.0',
+                    'vinyl-source-stream': '^1.1.0',
+                    'watchify': '^3.9.0',
+                    'xtend': '^4.0.1'
+                })
+            );
+            this.fs.writeJSON(
+                this.destinationPath('package.json'), pkg, null, 2);
+        }
+        if (!upgrade) {
+            this.fs.copy(
+                this.templatePath('assets/'),
+                this.destinationPath('assets/'));
+            this.fs.copy(
+                this.templatePath('help/**/*.png'),
+                this.destinationPath('help/'));
+            this.fs.copyTpl(
+                this.templatePath('help/**/*.md'),
+                this.destinationPath('help/'), this.properties);
+            this.fs.copy(
+                this.templatePath('src/'),
+                this.destinationPath('src/'));
+            this.fs.copyTpl(
+                this.templatePath('src/index.html'),
+                this.destinationPath('src/index.html'), this.properties);
+            this.fs.copy(
+                this.templatePath('.eslintrc.json'),
+                this.destinationPath('.eslintrc.json'));
+            this.fs.copy(
+                this.templatePath('.info.plist'),
+                this.destinationPath('.info.plist'));
+            this.fs.copyTpl(
+                this.templatePath('LICENSE'),
+                this.destinationPath('LICENSE'), lodash.assign(
+                    this.properties, {
+                        year: new Date().getFullYear()
+                    }
+                )
+            );
+            this.fs.copyTpl(
+                this.templatePath('README.md'),
+                this.destinationPath('README.md'), this.properties);
+
+            if (this.options.git || fs.existsSync('.gitignore')) {
+                this.fs.copy(
+                    this.templatePath('.npmignore'),
+                    this.destinationPath('.gitignore'));
+            } else {
+                this.fs.copy(
+                    this.templatePath('.npmignore'),
+                    this.destinationPath('.npmignore'));
+            }
+        }
+        this.conflicter.force = upgrade;
     },
 
     end: function () {
@@ -334,7 +400,13 @@ module.exports = generators.extend({
                 })
             });
         }
+        this._rim();
         this._git();
+    },
+
+    _rim: function () {
+        rimraf.sync(
+            this.destinationPath('node_modules/'));
     },
 
     _git: function () {
