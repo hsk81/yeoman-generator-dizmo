@@ -80,10 +80,11 @@ module.exports = generators.extend({
             desc: 'Sub-generator with TypeScript',
             type: Boolean
         });
+
         if (fs.existsSync('package.json')) {
             this.option('auto-upgrade', {
                 defaults: false,
-                desc: 'Auto-upgrade the Gulp build system',
+                desc: 'Auto-upgrade the build system',
                 type: Boolean
             });
         }
