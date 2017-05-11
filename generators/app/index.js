@@ -336,6 +336,17 @@ module.exports = generators.extend({
                     'xtend': '^4.0.1'
                 })
             );
+            pkg.scripts = sort(
+                lodash.assign(pkg.scripts, {
+                    'clean': 'node ./gulp/scripts/clean.js',
+                    'deploy': 'node ./gulp/scripts/deploy.js',
+                    'lint': 'node ./gulp/scripts/lint.js',
+                    'make': 'node ./gulp/scripts/make.js',
+                    'test': 'exit 0',
+                    'upload': 'node ./gulp/scripts/upload.js',
+                    'watch': 'node ./gulp/scripts/watch.js'
+                })
+            );
             this.fs.writeJSON(
                 this.destinationPath('package.json'), pkg, null, 2);
         }
