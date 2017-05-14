@@ -11,7 +11,7 @@ var chalk = require('chalk'),
     rimraf = require('rimraf'),
     yosay = require('yosay');
 
-function mine (fn) {
+function mine(fn) {
     return function () {
         return fn.apply(this, [this].concat(
             Array.prototype.slice.call(
@@ -80,14 +80,11 @@ module.exports = generators.extend({
             desc: 'Sub-generator with TypeScript',
             type: Boolean
         });
-
-        if (fs.existsSync('package.json')) {
-            this.option('auto-upgrade', {
-                defaults: false,
-                desc: 'Auto-upgrade the build system',
-                type: Boolean
-            });
-        }
+        this.option('upgrade', {
+            defaults: false,
+            desc: 'Upgrade the build system',
+            type: Boolean
+        });
     },
 
     prompting: mine(function (self) {
@@ -283,19 +280,22 @@ module.exports = generators.extend({
 
         if (fs.existsSync('package.json')) {
             this.destinationRoot(process.cwd());
-        } else if (this.options['git']) {
-            this.destinationRoot(
-                lodash.kebabCase(this.properties.dizmoName) + '.git');
         } else {
-            this.destinationRoot(
-                lodash.kebabCase(this.properties.dizmoName));
+            if (this.options['git']) {
+                this.destinationRoot(
+                    lodash.kebabCase(this.properties.dizmoName) + '.git');
+            } else {
+                this.destinationRoot(
+                    lodash.kebabCase(this.properties.dizmoName));
+            }
+            this.properties.initial = true;
         }
         this.config.save();
     },
 
     writing: function () {
         var upgrade = Boolean(
-            this.options['auto-upgrade'] && fs.existsSync('package.json'));
+            this.options.upgrade && fs.existsSync('package.json'));
         if (!upgrade || upgrade) {
             this.fs.copy(
                 this.templatePath('gulp/'),
@@ -400,17 +400,17 @@ module.exports = generators.extend({
 
     end: function () {
         if (this.options['coffee-script']) {
-            this.composeWith('dizmo:ext-coffee-script', {
-                args: this.args, options: lodash.assign(this.options, {
-                    force: true
-                })
-            });
+            this.composeWith('dizmo:ext-coffee-script', lodash.assign(
+                this.options, {
+                    args: this.args, force: this.properties.initial
+                }
+            ));
         } else if (this.options['type-script']) {
-            this.composeWith('dizmo:ext-type-script', {
-                args: this.args, options: lodash.assign(this.options, {
-                    force: true
-                })
-            });
+            this.composeWith('dizmo:ext-type-script', lodash.assign(
+                this.options, {
+                    args: this.args, force: this.properties.initial
+                }
+            ));
         }
         this._rim();
         this._git();
