@@ -1,6 +1,7 @@
 'use strict';
 
-var generators = require('yeoman-generator'),
+var fs = require('fs'),
+    generators = require('yeoman-generator'),
     lodash = require('lodash'),
     rimraf = require('rimraf');
 
@@ -20,34 +21,36 @@ function sort(dictionary) {
 }
 
 module.exports = generators.extend({
-    configuring: function () {
-        var pkg = this.fs.readJSON(
-            this.destinationPath('package.json'));
-
-        delete pkg.devDependencies['gulp-eslint'];
-        pkg.devDependencies = sort(
-            lodash.assign(pkg.devDependencies, {
-                'coffeeify': '^2.0.1',
-                'gulp-coffeelint': '^0.6.0'
-            })
-        );
-
-        this.fs.writeJSON(
-            this.destinationPath('package.json'), pkg, null, 2);
-
-        return pkg;
-    },
-
     writing: function () {
-        this.fs.copy(
-            this.templatePath('gulp/'),
-            this.destinationPath('gulp/'));
-        this.fs.copy(
-            this.templatePath('src/'),
-            this.destinationPath('src/'));
-        this.fs.copy(
-            this.templatePath('coffeelint.json'),
-            this.destinationPath('coffeelint.json'));
+        var upgrade = Boolean(
+            this.options.upgrade && fs.existsSync('package.json'));
+        if (!upgrade || upgrade) {
+            this.fs.copy(
+                this.templatePath('gulp/'),
+                this.destinationPath('gulp/'));
+        }
+        if (!upgrade || upgrade) {
+            var pkg = this.fs.readJSON(
+                this.destinationPath('package.json'));
+            delete pkg.devDependencies['gulp-eslint'];
+            pkg.devDependencies = sort(
+                lodash.assign(pkg.devDependencies, {
+                    'coffeeify': '^2.0.1',
+                    'gulp-coffeelint': '^0.6.0'
+                })
+            );
+            this.fs.writeJSON(
+                this.destinationPath('package.json'), pkg, null, 2);
+        }
+        if (!upgrade) {
+            this.fs.copy(
+                this.templatePath('src/'),
+                this.destinationPath('src/'));
+            this.fs.copy(
+                this.templatePath('coffeelint.json'),
+                this.destinationPath('coffeelint.json'));
+        }
+        this.conflicter.force = this.options.force || upgrade;
     },
 
     end: function () {
