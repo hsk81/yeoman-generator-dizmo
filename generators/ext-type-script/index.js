@@ -1,6 +1,7 @@
 'use strict';
 
-var generators = require('yeoman-generator'),
+var fs = require('fs'),
+    generators = require('yeoman-generator'),
     lodash = require('lodash'),
     rimraf = require('rimraf');
 
@@ -20,36 +21,40 @@ function sort(dictionary) {
 }
 
 module.exports = generators.extend({
-    configuring: function () {
-        var pkg = this.fs.readJSON(
-            this.destinationPath('package.json'));
-
-        pkg.devDependencies = sort(
-            lodash.assign(pkg.devDependencies, {
-                'gulp-tslint': '^7.0.0',
-                'tsify': '^2.0.3',
-                'tslint': '^4.0.1',
-                'typescript': '^2.0.10'
-            })
-        );
-
-        this.fs.writeJSON(
-            this.destinationPath('package.json'), pkg, null, 2);
-    },
-
     writing: function () {
-        this.fs.copy(
-            this.templatePath('gulp/'),
-            this.destinationPath('gulp/'));
-        this.fs.copy(
-            this.templatePath('src/'),
-            this.destinationPath('src/'));
-        this.fs.copy(
-            this.templatePath('tslint.json'),
-            this.destinationPath('tslint.json'));
-        this.fs.copy(
-            this.templatePath('tsconfig.json'),
-            this.destinationPath('tsconfig.json'));
+        var upgrade = Boolean(
+            this.options.upgrade && fs.existsSync('package.json'));
+        if (!upgrade || upgrade) {
+            this.fs.copy(
+                this.templatePath('gulp/'),
+                this.destinationPath('gulp/'));
+        }
+        if (!upgrade || upgrade) {
+            var pkg = this.fs.readJSON(
+                this.destinationPath('package.json'));
+            pkg.devDependencies = sort(
+                lodash.assign(pkg.devDependencies, {
+                    'gulp-tslint': '^7.0.0',
+                    'tsify': '^2.0.3',
+                    'tslint': '^4.0.1',
+                    'typescript': '^2.0.10'
+                })
+            );
+            this.fs.writeJSON(
+                this.destinationPath('package.json'), pkg, null, 2);
+        }
+        if (!upgrade) {
+            this.fs.copy(
+                this.templatePath('src/'),
+                this.destinationPath('src/'));
+            this.fs.copy(
+                this.templatePath('tslint.json'),
+                this.destinationPath('tslint.json'));
+            this.fs.copy(
+                this.templatePath('tsconfig.json'),
+                this.destinationPath('tsconfig.json'));
+        }
+        this.conflicter.force = this.options.force || upgrade;
     },
 
     end: function () {
