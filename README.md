@@ -89,6 +89,24 @@ Provide your email, so people can reach out to you for feedback, bug reports etc
 The entry will be stored in `package.json` under `person.email`.
 For multiple contributors, see again [people-fields-author-contributors](https://docs.npmjs.com/files/package.json#people-fields-author-contributors).
 
+## Upgrading the Build System
+
+Since the build system of each dizmo is saved directly within a project, we need an upgrade mechanism of the former for an existing latter. But first, we have to upgrade `generator-dizmo` by running:
+```
+npm upgrade -g generator-dizmo
+```
+
+Then *within* an existing project's main folder, we can execute:
+```
+yo dizmo --upgrade
+```
+
+It's also possible to only invoke `yo dizmo`, in which case each and every conflict between the existing and new files and folders need to be manually signed-off by the user. Since *all* conflicts need to be decided on, instead of just the conflicts w.r.t. the build system, this manual upgrading can be onerous.
+
+However, with the `yo dizmo --upgrade` command, *only* the build system of the actual project is upgraded, while the none-build related files and folders remain untouched.
+
+Further, The `--upgrde` flag can also be combined with the sub-generator flags `--type-script` and `--coffee-script` (see below for more information about sub-generators). 
+
 ## Skeleton
 
 After you have answered the last question, the generator will create the project's skeleton. If you have the `tree` command installed on your operating system, then you can visualize the directory structure:
