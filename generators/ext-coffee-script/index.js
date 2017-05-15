@@ -31,7 +31,10 @@ module.exports = generators.extend({
         }
         if (!upgrade || upgrade) {
             var pkg = this.fs.readJSON(
-                this.destinationPath('package.json'));
+                this.destinationPath('package.json')
+            );
+            delete pkg.devDependencies['babel-preset-env'];
+            delete pkg.devDependencies['babelify'];
             delete pkg.devDependencies['gulp-eslint'];
             pkg.devDependencies = sort(
                 lodash.assign(pkg.devDependencies, {
@@ -54,6 +57,8 @@ module.exports = generators.extend({
     },
 
     end: function () {
+        rimraf.sync(
+            this.destinationPath('.babelrc'));
         rimraf.sync(
             this.destinationPath('.eslintrc.json'));
         rimraf.sync(

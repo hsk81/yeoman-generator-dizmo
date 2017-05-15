@@ -311,7 +311,8 @@ module.exports = generators.extend({
         }
         if (!upgrade || upgrade) {
             var pkg = this.fs.readJSON(
-                this.destinationPath('package.json'));
+                this.destinationPath('package.json')
+            );
             pkg.devDependencies = sort(
                 lodash.assign(pkg.devDependencies, {
                     'babel-preset-env': '^1.4.0',
