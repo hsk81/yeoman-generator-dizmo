@@ -4,7 +4,8 @@ var gulp = require('gulp'),
     gulp_util = require('gulp-util'),
     gulp_uglify = require('gulp-uglify'),
     gulp_sourcemaps = require('gulp-sourcemaps');
-var buffer = require('vinyl-buffer'),
+var babelify = require('babelify'),
+    buffer = require('vinyl-buffer'),
     browserify = require('browserify'),
     extend = require('xtend'),
     js_obfuscator = require('javascript-obfuscator'),
@@ -15,7 +16,7 @@ var buffer = require('vinyl-buffer'),
 var watched = watchify(browserify({
     basedir: '.', entries: ['src/index.js'],
     cache: {}, packageCache: {}, debug: true
-}));
+}).transform(babelify));
 
 var gulp_obfuscator = function (opts) {
     return through.obj(function (file, encoding, callback) {

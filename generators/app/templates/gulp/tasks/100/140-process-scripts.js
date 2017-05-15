@@ -3,7 +3,8 @@ var pkg = require('../../package.js'),
 var gulp = require('gulp'),
     gulp_uglify = require('gulp-uglify'),
     gulp_sourcemaps = require('gulp-sourcemaps');
-var buffer = require('vinyl-buffer'),
+var babelify = require('babelify'),
+    buffer = require('vinyl-buffer'),
     browserify = require('browserify'),
     extend = require('xtend'),
     js_obfuscator = require('javascript-obfuscator'),
@@ -75,7 +76,7 @@ gulp.task('process-scripts', function () {
 
     var browserified = browserify({
         basedir: '.', entries: ['src/index.js']
-    });
+    }).transform(babelify);
     var bundle = browserified.bundle()
         .pipe(source('index.js')).pipe(buffer());
     if (argv.sourcemaps) {

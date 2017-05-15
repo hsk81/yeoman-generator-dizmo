@@ -314,6 +314,8 @@ module.exports = generators.extend({
                 this.destinationPath('package.json'));
             pkg.devDependencies = sort(
                 lodash.assign(pkg.devDependencies, {
+                    'babel-preset-env': '^1.4.0',
+                    'babelify': '^7.3.0',
                     'browserify': '^14.1.0',
                     'gulp': '^3.9.1',
                     'gulp-copy': '^1.0.0',
@@ -367,6 +369,9 @@ module.exports = generators.extend({
             this.fs.copyTpl(
                 this.templatePath('src/index.html'),
                 this.destinationPath('src/index.html'), this.properties);
+            this.fs.copy(
+                this.templatePath('.babelrc'),
+                this.destinationPath('.babelrc'));
             this.fs.copy(
                 this.templatePath('.eslintrc.json'),
                 this.destinationPath('.eslintrc.json'));

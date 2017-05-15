@@ -1,19 +1,19 @@
-window.showBack = function () {
+window.showBack = () => {
     dizmo.showBack();
 };
-window.showFront = function () {
+window.showFront = () => {
     dizmo.showFront();
 };
 
-window.i18n(function (err, t) {
-    var cell = document.getElementsByClassName('table-cell')[0];
+window.i18n((err, t) => {
+    let cell = document.getElementsByClassName('table-cell')[0];
     cell.textContent = t('greeting');
-    var done = document.getElementById('done');
+    let done = document.getElementById('done');
     done.textContent = t('done');
 });
 
-document.addEventListener('dizmoready', function () {
-    document.getElementById('done').onclick = function () {
+document.addEventListener('dizmoready', () => {
+    document.getElementById('done').onclick = () => {
         dizmo.showFront();
     };
 });
