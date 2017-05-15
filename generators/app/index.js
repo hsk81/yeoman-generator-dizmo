@@ -351,6 +351,9 @@ module.exports = generators.extend({
                     'watch': 'node ./gulp/scripts/watch.js'
                 })
             );
+            pkg.babel = {
+                presets: ['env']
+            };
             this.fs.writeJSON(
                 this.destinationPath('package.json'), pkg, null, 2);
         }
@@ -370,9 +373,6 @@ module.exports = generators.extend({
             this.fs.copyTpl(
                 this.templatePath('src/index.html'),
                 this.destinationPath('src/index.html'), this.properties);
-            this.fs.copy(
-                this.templatePath('.babelrc'),
-                this.destinationPath('.babelrc'));
             this.fs.copy(
                 this.templatePath('.eslintrc.json'),
                 this.destinationPath('.eslintrc.json'));

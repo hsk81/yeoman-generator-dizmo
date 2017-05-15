@@ -36,6 +36,7 @@ module.exports = generators.extend({
             delete pkg.devDependencies['babel-preset-env'];
             delete pkg.devDependencies['babelify'];
             delete pkg.devDependencies['gulp-eslint'];
+            delete pkg['babel'];
             pkg.devDependencies = sort(
                 lodash.assign(pkg.devDependencies, {
                     'gulp-tslint': '^7.0.0',
@@ -62,8 +63,6 @@ module.exports = generators.extend({
     },
 
     end: function () {
-        rimraf.sync(
-            this.destinationPath('.babelrc'));
         rimraf.sync(
             this.destinationPath('.eslintrc.json'));
         rimraf.sync(
