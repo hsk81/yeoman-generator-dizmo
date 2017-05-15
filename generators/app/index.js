@@ -351,9 +351,11 @@ module.exports = generators.extend({
                     'watch': 'node ./gulp/scripts/watch.js'
                 })
             );
-            pkg.babel = {
-                presets: ['env']
-            };
+            pkg.babel = sort(
+                lodash.assign(pkg.babel, {
+                    presets: ['env']
+                })
+            );
             this.fs.writeJSON(
                 this.destinationPath('package.json'), pkg, null, 2);
         }
