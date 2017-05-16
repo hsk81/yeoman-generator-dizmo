@@ -1,9 +1,10 @@
 let pkg = require('../../package.js'),
+    pump = require('pump'),
     extend = require('xtend');
 let gulp = require('gulp'),
     gulp_eslint = require('gulp-eslint');
 
-gulp.task('lint:js', function () {
+gulp.task('lint:js', function (cb) {
     let lint = true;
     if (pkg.dizmo && pkg.dizmo.build) {
         let cfg_lint = pkg.dizmo.build.lint;
@@ -20,14 +21,16 @@ gulp.task('lint:js', function () {
         argv.lint = JSON.parse(argv.lint);
     }
 
-    let bundle = gulp.src([
-        './src/**/*.js', '!src/lib/**', '!build/**', '!node_modules/**']);
+    let stream = [gulp.src([
+        './src/**/*.js', '!src/lib/**', '!build/**', '!node_modules/**'
+    ])];
     if (argv.lint || argv.lint === undefined) {
-        bundle = bundle
-            .pipe(gulp_eslint.apply(this, [extend({}, argv.lint)]))
-            .pipe(gulp_eslint.format());
+        stream.push(
+            gulp_eslint.apply(this, [extend({}, argv.lint)]));
+        stream.push(
+            gulp_eslint.format());
     }
-    return bundle;
+    pump(stream, cb);
 });
 
 gulp.task('lint', ['lint:js']);

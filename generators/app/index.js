@@ -333,6 +333,7 @@ module.exports = generators.extend({
                     'gulp-zip': '^4.0.0',
                     'javascript-obfuscator': '^0.9.2',
                     'lodash': '^4.17.4',
+                    'pump': '^1.0.2',
                     'rimraf': '^2.5.4',
                     'vinyl-buffer': '^1.0.0',
                     'vinyl-source-stream': '^1.1.0',

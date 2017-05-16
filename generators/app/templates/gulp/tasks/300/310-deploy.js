@@ -1,6 +1,7 @@
 let pkg = require('../../package.js'),
     fs = require('fs'),
-    path = require('path');
+    path = require('path'),
+    pump = require('pump');
 let gulp = require('gulp'),
     gulp_util = require('gulp-util');
 
@@ -16,24 +17,27 @@ let to = function () {
     }
     return null;
 };
-let deploy = function (result, to) {
+let deploy = function (stream, to) {
     if (to) {
-        return result.pipe(gulp.dest(to));
+        return stream.push(gulp.dest(to));
     } else {
-        return result;
+        return stream;
     }
 };
 
-gulp.task('deploy', ['build'], function () {
-    let stream = deploy(gulp.src(
+gulp.task('deploy', ['build'], function (cb) {
+    let stream = deploy([gulp.src(
         'build/{0}/**/*'.replace('{0}', pkg.name)
-    ), to());
+    )], to());
+
     if (to() !== null) {
-        gulp_util.log(gulp_util.colors.green.bold(
-            'Dizmo has been deployed to {0}.'.replace('{0}', to())
-        ));
+        setTimeout(function () {
+            gulp_util.log(gulp_util.colors.green.bold(
+                'Dizmo has been deployed to {0}.'.replace('{0}', to())
+            ));
+        }, 0);
         if (!fs.existsSync(to())) {
-            stream = stream.on('finish', function () {
+            stream[stream.length - 1].on('finish', function () {
                 setTimeout(function () {
                     gulp_util.log(gulp_util.colors.green.bold(
                         'Drag-and-drop {0} onto dizmoViewer!'.replace(
@@ -46,21 +50,33 @@ gulp.task('deploy', ['build'], function () {
             });
         }
     } else {
-        gulp_util.log(gulp_util.colors.yellow.bold(
-            'Neither the $DZM_DEPLOY_PATH environment variable nor the ' +
-            '`dizmo/deploy-path` entry in package.json or ~/.generator-' +
-            'dizmo/config.json have been set. Hence, the dizmo has not ' +
-            'been deployed!'
-        ));
-        gulp_util.log(gulp_util.colors.yellow.bold(
-            'It\'s recommended to set the $DZM_DEPLOY_PATH environment ' +
-            'variable or the `dizmo/deploy-path` entry in ~/.generator-' +
-            'dizmo/config.json to your dizmo deployment path.'
-        ));
+        setTimeout(function () {
+            gulp_util.log(gulp_util.colors.yellow.bold(
+                'Neither the $DZM_DEPLOY_PATH environment variable nor the ' +
+                '`dizmo/deploy-path` entry in package.json or ~/.generator-' +
+                'dizmo/config.json have been set. Hence, the dizmo has not ' +
+                'been deployed!'
+            ));
+            gulp_util.log(gulp_util.colors.yellow.bold(
+                'It\'s recommended to set the $DZM_DEPLOY_PATH environment ' +
+                'variable or the `dizmo/deploy-path` entry in ~/.generator-' +
+                'dizmo/config.json to your dizmo deployment path.'
+            ));
+        }, 0);
     }
-    return stream;
+    if (stream.length > 1) {
+        pump(stream, cb);
+    } else {
+        cb();
+    }
 });
-gulp.task('deploy:only', function () {
-    return deploy(gulp.src(
-        'build/{0}/**/*'.replace('{0}', pkg.name)), to());
+gulp.task('deploy:only', function (cb) {
+    let stream = deploy([gulp.src(
+        'build/{0}/**/*'.replace('{0}', pkg.name))
+    ], to());
+    if (stream.length > 1) {
+        pump(stream, cb);
+    } else {
+        cb();
+    }
 });

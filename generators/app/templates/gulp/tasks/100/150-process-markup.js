@@ -1,16 +1,16 @@
 let pkg = require('../../package.js'),
-    path = require('path'),
-    extend = require('xtend');
+    path = require('path');
 let gulp = require('gulp'),
     gulp_htmlmin = require('gulp-htmlmin');
+let extend = require('xtend'),
+    pump = require('pump');
 
-gulp.task('process-markup', function () {
+gulp.task('process-markup', function (cb) {
     let cli_min = require('yargs')
         .default('minify')
         .argv.minify;
 
     let htmlmin = cli_min === true;
-
     if (pkg.dizmo && pkg.dizmo.build) {
         let cfg_min = pkg.dizmo.build.minify;
         if (cfg_min) {
@@ -32,14 +32,15 @@ gulp.task('process-markup', function () {
 
     let argv = require('yargs')
         .default('htmlmin', htmlmin).argv;
-
     if (typeof argv.htmlmin === 'string') {
         argv.htmlmin = JSON.parse(argv.htmlmin);
     }
 
-    let bundle = gulp.src('src/**/*.html');
+    let stream = [gulp.src([
+        'src/**/*.html'
+    ])];
     if (argv.htmlmin) {
-        bundle = bundle.pipe(gulp_htmlmin.apply(
+        stream.push(gulp_htmlmin.apply(
             this, [extend({
                 collapseWhitespace: true,
                 minifyCSS: true,
@@ -48,6 +49,8 @@ gulp.task('process-markup', function () {
             }, argv.htmlmin)]
         ));
     }
-    return bundle
-        .pipe(gulp.dest(path.join('build', pkg.name)));
+    stream.push(gulp.dest(
+        path.join('build', pkg.name)
+    ));
+    pump(stream, cb);
 });

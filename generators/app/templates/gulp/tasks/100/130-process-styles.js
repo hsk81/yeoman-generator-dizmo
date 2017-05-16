@@ -1,19 +1,23 @@
 let pkg = require('../../package.js'),
     path = require('path');
-
 let gulp = require('gulp'),
     gulp_copy = require('gulp-copy'),
     gulp_sass = require('gulp-sass'),
-    gulp_sourcemaps = require('gulp-sourcemaps'),
-    extend = require('xtend');
+    gulp_sourcemaps = require('gulp-sourcemaps');
+let extend = require('xtend'),
+    pump = require('pump');
 
-gulp.task('process-styles:copy', function () {
-    return gulp.src(['src/style/**/*', '!src/style/**/*.scss'])
-        .pipe(gulp_copy(path.join('build', pkg.name, 'style'), {
+gulp.task('process-styles:copy', function (cb) {
+    pump([
+        gulp.src([
+            'src/style/**/*', '!src/style/**/*.scss'
+        ]),
+        gulp_copy(path.join('build', pkg.name, 'style'), {
             prefix: 2
-        }));
+        })
+    ], cb);
 });
-gulp.task('process-styles', ['process-styles:copy'], function () {
+gulp.task('process-styles', ['process-styles:copy'], function (cb) {
     let cli_min = require('yargs')
         .default('minify')
         .argv.minify;
@@ -56,20 +60,26 @@ gulp.task('process-styles', ['process-styles:copy'], function () {
         };
     }
 
-    let bundle = gulp.src('src/style/**/*.scss');
+    let stream = [gulp.src([
+        'src/style/**/*.scss'
+    ])];
     if (argv.sourcemaps) {
-        bundle = bundle.pipe(gulp_sourcemaps.init(
+        stream.push(gulp_sourcemaps.init(
             extend({loadMaps: true}, argv.sourcemaps)
         ));
     }
     if (argv.sass || argv.sass === undefined) {
-        bundle = bundle.pipe(gulp_sass.apply(
+        stream.push(gulp_sass.apply(
             this, [extend({outputStyle: 'compressed'}, argv.sass)]
         ).on('error', gulp_sass.logError));
     }
     if (argv.sourcemaps) {
-        bundle = bundle.pipe(gulp_sourcemaps.write('./'));
+        stream.push(gulp_sourcemaps.write(
+            './'
+        ));
     }
-    return bundle
-        .pipe(gulp.dest(path.join('build', pkg.name, 'style')));
+    stream.push(gulp.dest(
+        path.join('build', pkg.name, 'style')
+    ));
+    pump(stream, cb);
 });
