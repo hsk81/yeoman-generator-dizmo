@@ -1,15 +1,15 @@
-var pkg = require('../../package.js'),
+let pkg = require('../../package.js'),
     fs = require('fs'),
     url = require('url');
 
-var assert = require('assert'),
+let assert = require('assert'),
     lodash = require('lodash'),
     request = require('request');
-var gulp = require('gulp'),
+let gulp = require('gulp'),
     gulp_util = require('gulp-util');
 
 gulp.task('upload', ['build'], function () {
-    var host = process.env.DZM_STORE_HOST,
+    let host = process.env.DZM_STORE_HOST,
         user = process.env.DZM_STORE_USER,
         pass = process.env.DZM_STORE_PASS;
 
@@ -19,7 +19,7 @@ gulp.task('upload', ['build'], function () {
         pass = pass || pkg.dizmo.store.pass;
     }
 
-    var argv = require('yargs')
+    let argv = require('yargs')
         .default('host', host)
         .default('user', user)
         .default('pass', pass)
@@ -59,11 +59,11 @@ gulp.task('upload', ['build'], function () {
         return;
     }
 
-    var dzm_name = '{0}-{1}.dzm'
+    let dzm_name = '{0}-{1}.dzm'
         .replace('{0}', pkg.name)
         .replace('{1}', pkg.version);
 
-    var do_login = function () {
+    let do_login = function () {
         request.post(argv.host + '/v1/oauth/login',
             {
                 body: JSON.stringify({
@@ -76,13 +76,13 @@ gulp.task('upload', ['build'], function () {
         );
     };
 
-    var on_login = function (err, res, body) {
+    let on_login = function (err, res, body) {
         if (!err && res.statusCode === 200) {
-            var set_cookies = res.headers['set-cookie'];
+            let set_cookies = res.headers['set-cookie'];
             assert(set_cookies, '"Set-Cookie" header required');
-            var set_cookie = set_cookies[0];
+            let set_cookie = set_cookies[0];
             assert(set_cookie, '"Set-Cookie" header empty');
-            var session = set_cookie.split(';')[0];
+            let session = set_cookie.split(';')[0];
             assert(session, '"Set-Cookie" header invalid');
 
             if (argv.publish === true) {
@@ -95,7 +95,7 @@ gulp.task('upload', ['build'], function () {
         }
     };
 
-    var post_dizmo = function (session) {
+    let post_dizmo = function (session) {
         if (argv.publish === true) {
             publish_dizmo(session);
         } else {
@@ -122,7 +122,7 @@ gulp.task('upload', ['build'], function () {
         }
     };
 
-    var put_dizmo = function (session) {
+    let put_dizmo = function (session) {
         if (argv.publish === true) {
             publish_dizmo(session);
         } else {
@@ -150,7 +150,7 @@ gulp.task('upload', ['build'], function () {
         }
     };
 
-    var publish_dizmo = function (session) {
+    let publish_dizmo = function (session) {
         if (argv.publish !== false) {
             request.put(argv.host + '/v1/dizmo/{0}/publish/{1}'
                     .replace('{0}', pkg.dizmo.settings['bundle-identifier'])
@@ -177,14 +177,14 @@ gulp.task('upload', ['build'], function () {
         }
     };
 
-    var on_error_login = function () {
+    let on_error_login = function () {
         gulp_util.log(gulp_util.colors.yellow.bold(
             'Upload: sign-in to {0} failed!'.replace('{0}', argv.host)
         ));
         on_error.apply(this, arguments);
     };
 
-    var on_error_upload = function () {
+    let on_error_upload = function () {
         gulp_util.log(gulp_util.colors.yellow.bold(
             'Upload: transmission to {0} failed!'
                 .replace('{0}', argv.host)
@@ -192,7 +192,7 @@ gulp.task('upload', ['build'], function () {
         on_error.apply(this, arguments);
     };
 
-    var on_error_publish = function () {
+    let on_error_publish = function () {
         gulp_util.log(gulp_util.colors.yellow.bold(
             'Upload: publication of {0} failed!'
                 .replace('{0}', dzm_name)
@@ -200,12 +200,12 @@ gulp.task('upload', ['build'], function () {
         on_error.apply(this, arguments);
     };
 
-    var on_error = function (err, res, body) {
+    let on_error = function (err, res, body) {
         if (err) {
             console.log(err, res.toJSON());
         } else if (body) {
             try {
-                var json = JSON.parse(body);
+                let json = JSON.parse(body);
                 if (json.errormessage && json.errornumber) {
                     gulp_util.log(gulp_util.colors.yellow.bold('{0} [{1}]'
                         .replace('{0}', json.errormessage)

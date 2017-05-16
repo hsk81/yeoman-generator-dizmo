@@ -1,7 +1,7 @@
-var child_process = require('child_process'),
+let child_process = require('child_process'),
     fs = require('fs');
 
-var run_script = function () {
+let run_script = function () {
     child_process.spawn('node', [
         './node_modules/gulp/bin/gulp.js', 'clean'
     ].concat(process.argv.slice(2)), {
@@ -11,9 +11,9 @@ var run_script = function () {
 
 fs.access('./node_modules', function (error) {
     if (error) {
-        var Spinner = require('../miscellanea/cli-spinner').Spinner,
+        let Spinner = require('../miscellanea/cli-spinner').Spinner,
             spinner = new Spinner('%s fetching dependencies: .. ');
-        var npm_install = child_process.spawn('npm', [
+        let npm_install = child_process.spawn('npm', [
             'install'
         ]);
         npm_install.on('close', function () {

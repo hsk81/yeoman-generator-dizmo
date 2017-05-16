@@ -1,4 +1,4 @@
-var pkg = require('../../package.js'),
+let pkg = require('../../package.js'),
     gulp = require('gulp');
 
 gulp.task('deploy:watch', function () {

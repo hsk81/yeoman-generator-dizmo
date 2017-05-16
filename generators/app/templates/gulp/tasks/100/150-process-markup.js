@@ -1,20 +1,20 @@
-var pkg = require('../../package.js'),
+let pkg = require('../../package.js'),
     path = require('path'),
     extend = require('xtend');
-var gulp = require('gulp'),
+let gulp = require('gulp'),
     gulp_htmlmin = require('gulp-htmlmin');
 
 gulp.task('process-markup', function () {
-    var cli_min = require('yargs')
+    let cli_min = require('yargs')
         .default('minify')
         .argv.minify;
 
-    var htmlmin = cli_min === true;
+    let htmlmin = cli_min === true;
 
     if (pkg.dizmo && pkg.dizmo.build) {
-        var cfg_min = pkg.dizmo.build.minify;
+        let cfg_min = pkg.dizmo.build.minify;
         if (cfg_min) {
-            var cfg_ms = cfg_min.markups !== undefined ? cfg_min.markups : {};
+            let cfg_ms = cfg_min.markups !== undefined ? cfg_min.markups : {};
             if (cfg_ms) {
                 if (cli_min === undefined && (
                     cfg_ms.htmlmin || cfg_ms.htmlmin === undefined))
@@ -30,14 +30,14 @@ gulp.task('process-markup', function () {
         }
     }
 
-    var argv = require('yargs')
+    let argv = require('yargs')
         .default('htmlmin', htmlmin).argv;
 
     if (typeof argv.htmlmin === 'string') {
         argv.htmlmin = JSON.parse(argv.htmlmin);
     }
 
-    var bundle = gulp.src('src/**/*.html');
+    let bundle = gulp.src('src/**/*.html');
     if (argv.htmlmin) {
         bundle = bundle.pipe(gulp_htmlmin.apply(
             this, [extend({

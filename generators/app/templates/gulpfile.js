@@ -1,4 +1,4 @@
-var gulp = require('gulp');
+let gulp = require('gulp');
 
 require('./gulp/tasks/000/000-lint.js');
 require('./gulp/tasks/000/010-build.js');

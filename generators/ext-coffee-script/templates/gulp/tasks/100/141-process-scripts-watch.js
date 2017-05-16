@@ -1,10 +1,10 @@
-var pkg = require('../../package.js'),
+let pkg = require('../../package.js'),
     path = require('path');
-var gulp = require('gulp'),
+let gulp = require('gulp'),
     gulp_util = require('gulp-util'),
     gulp_uglify = require('gulp-uglify'),
     gulp_sourcemaps = require('gulp-sourcemaps');
-var buffer = require('vinyl-buffer'),
+let buffer = require('vinyl-buffer'),
     browserify = require('browserify'),
     extend = require('xtend'),
     js_obfuscator = require('javascript-obfuscator'),
@@ -12,12 +12,12 @@ var buffer = require('vinyl-buffer'),
     through = require('through2'),
     watchify = require('watchify');
 
-var watched = watchify(browserify({
+let watched = watchify(browserify({
     basedir: '.', entries: ['src/index.coffee'],
     cache: {}, packageCache: {}, debug: true
 }).transform(require('coffeeify')));
 
-var gulp_obfuscator = function (opts) {
+let gulp_obfuscator = function (opts) {
     return through.obj(function (file, encoding, callback) {
         if (file.isNull()) {
             return callback(null, file);
@@ -25,7 +25,7 @@ var gulp_obfuscator = function (opts) {
         if (file.isStream()) {
             return callback(new Error('streaming not supported', null));
         }
-        var result = js_obfuscator.obfuscate(
+        let result = js_obfuscator.obfuscate(
             file.contents.toString(encoding), opts);
         file.contents = Buffer.from(
             result.getObfuscatedCode(), encoding);
@@ -33,19 +33,19 @@ var gulp_obfuscator = function (opts) {
     });
 };
 
-var on_watch = function () {
-    var cli_min = require('yargs')
+let on_watch = function () {
+    let cli_min = require('yargs')
         .default('minify')
         .argv.minify;
 
-    var sourcemaps = false,
+    let sourcemaps = false,
         obfuscate = cli_min === true,
         uglify = cli_min === true;
 
     if (pkg.dizmo && pkg.dizmo.build) {
-        var cfg_min = pkg.dizmo.build.minify;
+        let cfg_min = pkg.dizmo.build.minify;
         if (cfg_min) {
-            var cfg_ss = cfg_min.scripts !== undefined ? cfg_min.scripts : {};
+            let cfg_ss = cfg_min.scripts !== undefined ? cfg_min.scripts : {};
             if (cfg_ss) {
                 if (cfg_ss.sourcemaps) // by default w/o a source-map!
                 {
@@ -65,7 +65,7 @@ var on_watch = function () {
         }
     }
 
-    var argv = require('yargs')
+    let argv = require('yargs')
         .default('sourcemaps', sourcemaps)
         .default('obfuscate', obfuscate)
         .default('uglify', uglify).argv;
@@ -80,7 +80,7 @@ var on_watch = function () {
         argv.uglify = JSON.parse(argv.uglify);
     }
 
-    var bundle = watched.bundle()
+    let bundle = watched.bundle()
         .pipe(source('index.js')).pipe(buffer());
     if (argv.sourcemaps) {
         bundle = bundle.pipe(gulp_sourcemaps.init(

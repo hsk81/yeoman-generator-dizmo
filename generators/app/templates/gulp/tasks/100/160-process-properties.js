@@ -1,17 +1,17 @@
-var pkg = require('../../package.js'),
+let pkg = require('../../package.js'),
     fs = require('fs'),
     lodash = require('lodash'),
     path = require('path');
-var gulp = require('gulp'),
+let gulp = require('gulp'),
     gulp_plist = require('gulp-plist'),
     gulp_rename = require('gulp-rename');
 
 gulp.task('process-properties', function () {
-    var settings = lodash.mapKeys(pkg.dizmo.settings, function (value, key) {
+    let settings = lodash.mapKeys(pkg.dizmo.settings, function (value, key) {
         return lodash.upperFirst(lodash.camelCase(key));
     });
 
-    var self = this, on_stat = function (error, stat) {
+    let self = this, on_stat = function (error, stat) {
         if (error === null) {
             return gulp.src('.info.plist')
                 .pipe(gulp_plist(settings))

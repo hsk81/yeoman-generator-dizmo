@@ -1,11 +1,11 @@
-var pkg = require('../../package.js'),
+let pkg = require('../../package.js'),
     fs = require('fs'),
     path = require('path');
-var gulp = require('gulp'),
+let gulp = require('gulp'),
     gulp_util = require('gulp-util');
 
-var to = function () {
-    var deploy_path =
+let to = function () {
+    let deploy_path =
         process.env.DZM_DEPLOY_PATH || pkg.dizmo['deploy-path'];
     if (deploy_path && path.isAbsolute(deploy_path) === false) {
         deploy_path = path.join(process.cwd(), deploy_path);
@@ -16,7 +16,7 @@ var to = function () {
     }
     return null;
 };
-var deploy = function (result, to) {
+let deploy = function (result, to) {
     if (to) {
         return result.pipe(gulp.dest(to));
     } else {
@@ -25,7 +25,7 @@ var deploy = function (result, to) {
 };
 
 gulp.task('deploy', ['build'], function () {
-    var stream = deploy(gulp.src(
+    let stream = deploy(gulp.src(
         'build/{0}/**/*'.replace('{0}', pkg.name)
     ), to());
     if (to() !== null) {

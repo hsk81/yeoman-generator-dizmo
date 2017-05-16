@@ -1,7 +1,7 @@
 'use strict';
 
-var path = require('path');
-var gulp = require('gulp'),
+let path = require('path');
+let gulp = require('gulp'),
     gulp_eslint = require('gulp-eslint'),
     gulp_ex_gitignore = require('gulp-exclude-gitignore'),
     gulp_nsp = require('gulp-nsp');

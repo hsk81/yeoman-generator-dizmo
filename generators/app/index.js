@@ -1,6 +1,6 @@
 'use strict';
 
-var chalk = require('chalk'),
+let chalk = require('chalk'),
     fs = require('fs'),
     generators = require('yeoman-generator'),
     lodash = require('lodash'),
@@ -22,15 +22,15 @@ function mine(fn) {
 }
 
 function sort(dictionary) {
-    var array = [],
+    let array = [],
         sorted = {};
 
-    for(var key in dictionary) {
+    for(let key in dictionary) {
         array[array.length] = key;
     }
     array.sort();
 
-    for(var i = 0; i < array.length; i++) {
+    for(let i = 0; i < array.length; i++) {
         sorted[array[i]] = dictionary[array[i]];
     }
     return sorted;
@@ -88,7 +88,7 @@ module.exports = generators.extend({
     },
 
     prompting: mine(function (self) {
-        var prompts = [], pkg = fs.existsSync('package.json')
+        let prompts = [], pkg = fs.existsSync('package.json')
             ? JSON.parse(fs.readFileSync('package.json'))
             : {};
 
@@ -156,7 +156,7 @@ module.exports = generators.extend({
                 {
                     return pkg.dizmo.settings['bundle-identifier'];
                 }
-                var domain =
+                let domain =
                         self.config.get('domain') || self._domain(),
                     bundle_id =
                         domain + '.' + lodash.snakeCase(prop.dizmoName);
@@ -271,7 +271,7 @@ module.exports = generators.extend({
     }),
 
     configuring: function () {
-        var bundle_id = path.parse(this.properties.bundleId);
+        let bundle_id = path.parse(this.properties.bundleId);
         if (bundle_id && bundle_id.name) {
             this.config.set('domain', bundle_id.name);
         } else {
@@ -294,7 +294,7 @@ module.exports = generators.extend({
     },
 
     writing: function () {
-        var upgrade = Boolean(
+        let upgrade = Boolean(
             this.options.upgrade && fs.existsSync('package.json'));
         if (!upgrade || upgrade) {
             this.fs.copy(
@@ -310,7 +310,7 @@ module.exports = generators.extend({
                 this.destinationPath('package.json'), this.properties);
         }
         if (!upgrade || upgrade) {
-            var pkg = this.fs.readJSON(
+            let pkg = this.fs.readJSON(
                 this.destinationPath('package.json')
             );
             pkg.devDependencies = sort(
@@ -430,7 +430,7 @@ module.exports = generators.extend({
     },
 
     _git: function () {
-        var git = shell.which('git');
+        let git = shell.which('git');
         if (git && this.options.git) {
             this.spawnCommand(git.toString(), [
                 'init', '--quiet', this.destinationPath()
@@ -444,7 +444,7 @@ module.exports = generators.extend({
         } else if (process.env.USERNAME) {
             return 'me.' + process.env.USERNAME;
         } else try {
-            var base = path.parse(os.homedir()).base;
+            let base = path.parse(os.homedir()).base;
             if (base) {
                 return 'me.' + base;
             } else {

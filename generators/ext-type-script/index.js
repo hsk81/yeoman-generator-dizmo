@@ -1,20 +1,20 @@
 'use strict';
 
-var fs = require('fs'),
+let fs = require('fs'),
     generators = require('yeoman-generator'),
     lodash = require('lodash'),
     rimraf = require('rimraf');
 
 function sort(dictionary) {
-    var array = [],
+    let array = [],
         sorted = {};
 
-    for(var key in dictionary) {
+    for(let key in dictionary) {
         array[array.length] = key;
     }
     array.sort();
 
-    for(var i = 0; i < array.length; i++) {
+    for(let i = 0; i < array.length; i++) {
         sorted[array[i]] = dictionary[array[i]];
     }
     return sorted;
@@ -22,7 +22,7 @@ function sort(dictionary) {
 
 module.exports = generators.extend({
     writing: function () {
-        var upgrade = Boolean(
+        let upgrade = Boolean(
             this.options.upgrade && fs.existsSync('package.json'));
         if (!upgrade || upgrade) {
             this.fs.copy(
@@ -30,7 +30,7 @@ module.exports = generators.extend({
                 this.destinationPath('gulp/'));
         }
         if (!upgrade || upgrade) {
-            var pkg = this.fs.readJSON(
+            let pkg = this.fs.readJSON(
                 this.destinationPath('package.json')
             );
             delete pkg.devDependencies['babel-preset-env'];

@@ -1,12 +1,12 @@
-var pkg = require('../../package.js'),
+let pkg = require('../../package.js'),
     extend = require('xtend');
-var gulp = require('gulp'),
+let gulp = require('gulp'),
     gulp_coffeelint = require('gulp-coffeelint');
 
 gulp.task('lint:coffee', function () {
-    var lint = true;
+    let lint = true;
     if (pkg.dizmo && pkg.dizmo.build) {
-        var cfg_lint = pkg.dizmo.build.lint;
+        let cfg_lint = pkg.dizmo.build.lint;
         if (cfg_lint || cfg_lint === undefined) {
             lint = extend({}, cfg_lint);
         } else {
@@ -14,13 +14,13 @@ gulp.task('lint:coffee', function () {
         }
     }
 
-    var argv = require('yargs')
+    let argv = require('yargs')
         .default('lint', lint).argv;
     if (typeof argv.lint === 'string') {
         argv.lint = JSON.parse(argv.lint);
     }
 
-    var bundle = gulp.src([
+    let bundle = gulp.src([
         './src/**/*.coffee', '!src/lib/**', '!build/**', '!node_modules/**']);
     if (argv.lint || argv.lint === undefined) {
         if (Object.keys(argv.lint).length > 0) {

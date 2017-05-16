@@ -1,4 +1,4 @@
-var gulp = require('gulp'),
+let gulp = require('gulp'),
     gulp_sync = require('gulp-sync')(gulp);
 
 gulp.task('watch', gulp_sync.sync([

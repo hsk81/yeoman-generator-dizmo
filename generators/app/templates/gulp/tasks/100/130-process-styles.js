@@ -1,7 +1,7 @@
-var pkg = require('../../package.js'),
+let pkg = require('../../package.js'),
     path = require('path');
 
-var gulp = require('gulp'),
+let gulp = require('gulp'),
     gulp_copy = require('gulp-copy'),
     gulp_sass = require('gulp-sass'),
     gulp_sourcemaps = require('gulp-sourcemaps'),
@@ -14,18 +14,18 @@ gulp.task('process-styles:copy', function () {
         }));
 });
 gulp.task('process-styles', ['process-styles:copy'], function () {
-    var cli_min = require('yargs')
+    let cli_min = require('yargs')
         .default('minify')
         .argv.minify;
 
-    var sourcemaps = false, sass = {
+    let sourcemaps = false, sass = {
         outputStyle: cli_min === true ? 'compressed' : 'expanded'
     };
 
     if (pkg.dizmo && pkg.dizmo.build) {
-        var cfg_min = pkg.dizmo.build.minify;
+        let cfg_min = pkg.dizmo.build.minify;
         if (cfg_min) {
-            var cfg_ss = cfg_min.styles !== undefined ? cfg_min.styles : {};
+            let cfg_ss = cfg_min.styles !== undefined ? cfg_min.styles : {};
             if (cfg_ss) {
                 if (cfg_ss.sourcemaps) // by default w/o a source-map!
                 {
@@ -40,7 +40,7 @@ gulp.task('process-styles', ['process-styles:copy'], function () {
         }
     }
 
-    var argv = require('yargs')
+    let argv = require('yargs')
         .default('sourcemaps', sourcemaps)
         .default('sass', sass).argv;
 
@@ -56,7 +56,7 @@ gulp.task('process-styles', ['process-styles:copy'], function () {
         };
     }
 
-    var bundle = gulp.src('src/style/**/*.scss');
+    let bundle = gulp.src('src/style/**/*.scss');
     if (argv.sourcemaps) {
         bundle = bundle.pipe(gulp_sourcemaps.init(
             extend({loadMaps: true}, argv.sourcemaps)

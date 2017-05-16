@@ -1,11 +1,11 @@
-var assert = require('assert'),
+let assert = require('assert'),
     fs = require('fs'),
     lodash = require('lodash'),
     path = require('path');
 
 function filter(object) {
     if (typeof object === 'object') {
-        for (var key in object) {
+        for (let key in object) {
             if (object.hasOwnProperty(key)) {
                 if (object[key] !== '') {
                     object[key] = filter(object[key]);
@@ -19,13 +19,13 @@ function filter(object) {
 }
 
 function get_config (path_to, cfg_json) {
-    var cfg_path = path.join(path_to, '.generator-dizmo', 'config.json');
+    let cfg_path = path.join(path_to, '.generator-dizmo', 'config.json');
     try {
         cfg_json = lodash.merge(
             JSON.parse(fs.readFileSync(cfg_path)), cfg_json);
     } catch (ex) {
     }
-    var parsed = path.parse(path_to);
+    let parsed = path.parse(path_to);
     if (parsed.dir && parsed.base) {
         cfg_json = lodash.merge(
             cfg_json, get_config(parsed.dir, cfg_json));
@@ -33,7 +33,7 @@ function get_config (path_to, cfg_json) {
     return cfg_json;
 }
 
-var pkg = get_config(
+let pkg = get_config(
     __dirname, filter(JSON.parse(fs.readFileSync('package.json'))));
 
 assert.ok(pkg,
