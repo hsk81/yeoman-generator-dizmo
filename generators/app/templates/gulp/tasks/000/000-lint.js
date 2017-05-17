@@ -1,6 +1,6 @@
 let pkg = require('../../package.js'),
-    pump = require('pump'),
-    extend = require('xtend');
+    extend = require('xtend'),
+    pump = require('pump');
 let gulp = require('gulp'),
     gulp_eslint = require('gulp-eslint');
 
@@ -25,10 +25,12 @@ gulp.task('lint:js', function (cb) {
         './src/**/*.js', '!src/lib/**', '!build/**', '!node_modules/**'
     ])];
     if (argv.lint || argv.lint === undefined) {
+        stream.push(gulp_eslint.apply(
+            this, [extend({}, argv.lint)]
+        ));
         stream.push(
-            gulp_eslint.apply(this, [extend({}, argv.lint)]));
-        stream.push(
-            gulp_eslint.format());
+            gulp_eslint.format()
+        );
     }
     pump(stream, cb);
 });

@@ -4,8 +4,7 @@ let gulp = require('gulp'),
     gulp_util = require('gulp-util'),
     gulp_uglify = require('gulp-uglify'),
     gulp_sourcemaps = require('gulp-sourcemaps');
-let babelify = require('babelify'),
-    buffer = require('vinyl-buffer'),
+let buffer = require('vinyl-buffer'),
     browserify = require('browserify'),
     extend = require('xtend'),
     js_obfuscator = require('javascript-obfuscator'),
@@ -17,9 +16,9 @@ let babelify = require('babelify'),
 let watched = watchify(browserify({
     basedir: '.', entries: ['src/index.js'],
     cache: {}, packageCache: {}, debug: false
-}).transform(babelify));
+}).transform(require('babelify')));
 
-let gulp_obfuscator = function (opts) {
+let gulp_obfuscator = function (options) {
     return through.obj(function (file, encoding, callback) {
         if (file.isNull()) {
             return callback(null, file);
@@ -28,7 +27,7 @@ let gulp_obfuscator = function (opts) {
             return callback(new Error('streaming not supported', null));
         }
         let result = js_obfuscator.obfuscate(
-            file.contents.toString(encoding), opts);
+            file.contents.toString(encoding), options);
         file.contents = Buffer.from(
             result.getObfuscatedCode(), encoding);
         callback(null, file);
