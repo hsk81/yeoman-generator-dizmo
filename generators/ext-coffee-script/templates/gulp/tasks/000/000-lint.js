@@ -1,9 +1,10 @@
 let pkg = require('../../package.js'),
-    extend = require('xtend');
+    extend = require('xtend'),
+    pump = require('pump');
 let gulp = require('gulp'),
     gulp_coffeelint = require('gulp-coffeelint');
 
-gulp.task('lint:coffee', function () {
+gulp.task('lint:coffee', function (cb) {
     let lint = true;
     if (pkg.dizmo && pkg.dizmo.build) {
         let cfg_lint = pkg.dizmo.build.lint;
@@ -20,19 +21,24 @@ gulp.task('lint:coffee', function () {
         argv.lint = JSON.parse(argv.lint);
     }
 
-    let bundle = gulp.src([
-        './src/**/*.coffee', '!src/lib/**', '!build/**', '!node_modules/**']);
+    let stream = [gulp.src([
+        './src/**/*.coffee', '!src/lib/**', '!build/**', '!node_modules/**'
+    ])];
     if (argv.lint || argv.lint === undefined) {
         if (Object.keys(argv.lint).length > 0) {
-            bundle = bundle.pipe(gulp_coffeelint.apply(this, [
-                extend({}, argv.lint)
-            ]));
+            stream.push(gulp_coffeelint.apply(
+                this, [extend({}, argv.lint)]
+            ));
         } else {
-            bundle = bundle.pipe(gulp_coffeelint.apply(this));
+            stream.push(gulp_coffeelint.apply(
+                this
+            ));
         }
-        bundle = bundle.pipe(gulp_coffeelint.reporter());
+        stream.push(
+            gulp_coffeelint.reporter()
+        );
     }
-    return bundle;
+    pump(stream, cb);
 });
 
 gulp.task('lint', ['lint:coffee']);

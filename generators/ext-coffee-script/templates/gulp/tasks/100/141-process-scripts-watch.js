@@ -8,6 +8,7 @@ let buffer = require('vinyl-buffer'),
     browserify = require('browserify'),
     extend = require('xtend'),
     js_obfuscator = require('javascript-obfuscator'),
+    pump = require('pump'),
     source = require('vinyl-source-stream'),
     through = require('through2'),
     watchify = require('watchify');
@@ -17,7 +18,7 @@ let watched = watchify(browserify({
     cache: {}, packageCache: {}, debug: true
 }).transform(require('coffeeify')));
 
-let gulp_obfuscator = function (opts) {
+let gulp_obfuscator = function (options) {
     return through.obj(function (file, encoding, callback) {
         if (file.isNull()) {
             return callback(null, file);
@@ -26,14 +27,14 @@ let gulp_obfuscator = function (opts) {
             return callback(new Error('streaming not supported', null));
         }
         let result = js_obfuscator.obfuscate(
-            file.contents.toString(encoding), opts);
+            file.contents.toString(encoding), options);
         file.contents = Buffer.from(
             result.getObfuscatedCode(), encoding);
         callback(null, file);
     });
 };
 
-let on_watch = function () {
+let on_watch = function (cb) {
     let cli_min = require('yargs')
         .default('minify')
         .argv.minify;
@@ -80,28 +81,33 @@ let on_watch = function () {
         argv.uglify = JSON.parse(argv.uglify);
     }
 
-    let bundle = watched.bundle()
-        .pipe(source('index.js')).pipe(buffer());
+    let stream = [
+        watched.bundle(), source('index.js'), buffer()
+    ];
     if (argv.sourcemaps) {
-        bundle = bundle.pipe(gulp_sourcemaps.init(
+        stream.push(gulp_sourcemaps.init(
             extend({loadMaps: true}, argv.sourcemaps)
         ));
     }
     if (argv.obfuscate) {
-        bundle = bundle.pipe(gulp_obfuscator.apply(
+        stream.push(gulp_obfuscator.apply(
             this, extend({}, argv.obfuscate)
         ));
     }
     if (argv.uglify) {
-        bundle = bundle.pipe(gulp_uglify.apply(
+        stream.push(gulp_uglify.apply(
             this, extend({}, argv.uglify)
         ));
     }
     if (argv.sourcemaps) {
-        bundle = bundle.pipe(gulp_sourcemaps.write('./'));
+        stream.push(gulp_sourcemaps.write(
+            './'
+        ));
     }
-    return bundle
-        .pipe(gulp.dest(path.join('build', pkg.name)));
+    stream.push(gulp.dest(
+        path.join('build', pkg.name)
+    ));
+    pump(stream, cb);
 };
 
 watched.on('update', on_watch);
