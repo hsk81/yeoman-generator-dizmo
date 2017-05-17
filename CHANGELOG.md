@@ -8,7 +8,7 @@
 
 ## v7.1.z
 
-* Upgrade support via `yo dizmo --upgrade` to enable seamless developer experience: Thanks to [yeoman]'s built in conflict resolution mechanism, it was already possible to upgrade an older project by running `yo dizmo` within the corresponding folder.
+* Upgrade support via `yo dizmo --upgrade` to enable seamless developer experience: Thanks to [Yeoman]'s built in conflict resolution mechanism, it was already possible to upgrade an older project by running `yo dizmo` within the corresponding folder.
 
   However, the conflict resolution was requiring to sign-off each change by the developer. While this was not an issue for experience developers, it was difficult for novice ones to decide which parts of a project to override and which parts to keep. This decision process has now been automated, by using heuristics, where any change w.r.t. to the [Gulp] build system is applied automatically and no change is performed on the non-build system related parts. 
 
@@ -50,7 +50,7 @@
 
 ## v4.2.z
 
-* Semi-automatic skeleton upgrade: [yeoman] has a built in conflict resolution mechanism which enabled a generator to be run over an existing project. Any conflict needs then to be manually signed-off by the developer.
+* Semi-automatic skeleton upgrade: [Yeoman] has a built in conflict resolution mechanism which enabled a generator to be run over an existing project. Any conflict needs then to be manually signed-off by the developer.
 
   This mechanism was only working, when the `yo dizmo` command was invoked from *outside* a project. Now, it's possible to upgrade by executing it from *within* the project, where any configuration in `package.json` will automatically be considered.
 
@@ -68,7 +68,7 @@
 
 * Check for `.info.plist`: Some developers where manually copying all visible files from one project to another one, forgetting the invisible ones. Hence, now at least for `.info.plist` a corresponding check upon building a dizmo is performed. 
 
-* Branding of `generator-dizmo` as *dizmoGen*: The [yeoman] toolkit requires to project's name to start with `generator`. Otherwise the generator is not index on their website: Hence the name was kept as is, but the README.md document has been updated correspondingly to reflect the *dizmoGen* branding.
+* Branding of `generator-dizmo` as *dizmoGen*: The [Yeoman] toolkit requires to project's name to start with `generator`. Otherwise the generator is not index on their website: Hence the name was kept as is, but the README.md document has been updated correspondingly to reflect the *dizmoGen* branding.
 
 ## v2.5.z
 
@@ -80,8 +80,49 @@
 
 * Linting support for *TypeScript* and *CoffeeScript* sug-generators.
 
----
-[pump]: https://www.npmjs.com/package/pump
-[Babel]: https://babeljs.io
-[gulp]: http://gulpjs.com/
-[yeoman]: http://yeoman.io/
+## v2.3.z
+
+* Dependency management thanks to [Browserify]: It's possible now to `require('..')` an external NPM module or a project specific JavaScript file.
+
+## v2.2.z
+
+* Introduced a README.md: Extensively documented the feature set of generator.
+
+## v2.1.z
+
+* Sub-generator for [TypeScript], which is a super-set of JavaScript with integrated (optional) static typing support.
+
+## v2.0.z
+
+* SASS with minification support for the [CoffeeScript] sub-generator.
+
+## v1.y.z
+
+* Sub-generator for [CoffeeScript], which is a alternative to JavaScript transpiling down to it.
+
+* Enabled hierarchical configuration support for `package.json` via `.generator-dizmo/config.json`.
+
+* Support for linting via a `.eslintrc.json` configuration for the [ESlint] linting utility for JavaScript.
+
+* Enabled Windows compatibility by ensuring that the NPM script are run in with a proper `node` invocation.
+
+* Introduced support for GIT by initializing a new project as a repository (with the `--git` flag).
+
+* Smartly remembering previously provided domain name (like e.g. `com.dizmo`) via the prompt.
+
+* Support for an extended sub-generator with support for [SASS], [ESLint], and minification via [UglifyJS].
+
+* Increased NPM's built in caching to a week, to ensure fast(er) initial fetching of dependencies.
+
+* Initial generator based on [Yeoman].
+
+[pump]: http://www.npmjs.com/package/pump
+[Babel]: http://babeljs.io
+[Gulp]: http://gulpjs.com/
+[Yeoman]: http://yeoman.io/
+[Browserify]: http://browserify.org/
+[TypeScript]: http://www.typescriptlang.org/
+[CoffeeScript]: http://coffeescript.org/
+[ESLint]: http://eslint.org/
+[SASS]: http://sass-lang.com/
+[UglifyJS]: http://github.com/mishoo/UglifyJS
