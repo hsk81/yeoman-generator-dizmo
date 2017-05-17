@@ -12,7 +12,7 @@
 
   However, the conflict resolution was requiring to sign-off each change by the developer. While this was not an issue for experience developers, it was difficult for novice ones to decide which parts of a project to override and which parts to keep. This decision process has now been automated, by using heuristics, where any change w.r.t. to the [Gulp] build system is applied automatically and no change is performed on the non-build system related parts. 
 
-## v7.0.z
+## v7.0.z (2017-05-10)
 
 * Don't show the output of `npm install`, and instead display a CLI based spinner: This ensure a nice developer experience while building a dizmo with `npm run make`. However, in case something goes wrong while fetching the dependencies, `npm install` can still be run and the corresponding output will be shown.
 
@@ -32,7 +32,7 @@
 
 * Enable dizmo to be uploaded to the dizmoStore by running `npm run upload`: Upon uploading a dizmo to the store, the developer is required to provide the correct store host and login credentials (user name and password).
 
-## v6.0.z
+## v6.0.z (2017-05-01)
 
 * CLI options to suppress question upon generating a dizmo project: If a value is provided via the CLI arguments,options, *or* via environment variables then the corresponding question is now skipped.
 
@@ -44,7 +44,7 @@
 
 * Minification with obfuscation support: Upon major request JavaScript obfuscation has been integrated. When the dizmo is built with minification on, then by default the script code is also obfuscated (which can be suppressed by providing a `--no-obfuscate` flag).
 
-## v5.0.z
+## v5.0.z (2017-04-12)
 
 * Renamed `npm run install` to `npm run deploy`: It was for many (novice) developers confusing to distinguish `npm install` from `npm run install`. Hence the latter has been renamed to `npm run deploy`.
 
@@ -60,11 +60,11 @@
 
 * Fixed watcher such that they can be invoked on `Windows` systems as well.
 
-## v4.0.z
+## v4.0.z (2017-02-15)
 
 * Merged the extended skeleton into the base one: It was for many (novice) developers confusing to start working with the extended skeleton (supporting SCSS et. al.) after having worked with the base one.
 
-## v3.0.z
+## v3.0.z (2017-02-09)
 
 * Check for `.info.plist`: Some developers where manually copying all visible files from one project to another one, forgetting the invisible ones. Hence, now at least for `.info.plist` a corresponding check upon building a dizmo is performed. 
 
@@ -92,11 +92,11 @@
 
 * Sub-generator for [TypeScript], which is a super-set of JavaScript with integrated (optional) static typing support.
 
-## v2.0.z
+## v2.0.z (2016-06-21)
 
 * SASS with minification support for the [CoffeeScript] sub-generator.
 
-## v1.y.z
+## v1.y.z (2015-12-06)
 
 * Sub-generator for [CoffeeScript], which is a alternative to JavaScript transpiling down to it.
 
