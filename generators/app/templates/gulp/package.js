@@ -24,6 +24,7 @@ function get_config (path_to, cfg_json) {
         cfg_json = lodash.merge(
             JSON.parse(fs.readFileSync(cfg_path)), cfg_json);
     } catch (ex) {
+        // pass
     }
     let parsed = path.parse(path_to);
     if (parsed.dir && parsed.base) {

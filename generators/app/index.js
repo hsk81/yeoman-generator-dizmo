@@ -102,7 +102,7 @@ module.exports = generators.extend({
             type: 'input',
             name: 'dizmoName',
             message: 'Name your dizmo:',
-            default: function (prop) {
+            default: function () {
                 if (pkg && pkg.name) {
                     return pkg.name;
                 }
@@ -183,7 +183,7 @@ module.exports = generators.extend({
             type: 'input',
             name: 'personName',
             message: 'What\'s your name?',
-            default: function (prop) {
+            default: function () {
                 if (pkg && pkg.person && pkg.person.name) {
                     return pkg.person.name;
                 }
@@ -207,7 +207,7 @@ module.exports = generators.extend({
             type: 'input',
             name: 'personEmail',
             message: 'And your email?',
-            default: function (prop) {
+            default: function () {
                 if (pkg && pkg.person && pkg.person.email) {
                     return pkg.person.email;
                 }

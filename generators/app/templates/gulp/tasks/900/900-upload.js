@@ -1,9 +1,7 @@
 let pkg = require('../../package.js'),
-    fs = require('fs'),
-    url = require('url');
+    fs = require('fs');
 
 let assert = require('assert'),
-    lodash = require('lodash'),
     request = require('request');
 let gulp = require('gulp'),
     gulp_util = require('gulp-util');
@@ -76,7 +74,7 @@ gulp.task('upload', ['build'], function () {
         );
     };
 
-    let on_login = function (err, res, body) {
+    let on_login = function (err, res) {
         if (!err && res.statusCode === 200) {
             let set_cookies = res.headers['set-cookie'];
             assert(set_cookies, '"Set-Cookie" header required');
@@ -202,7 +200,9 @@ gulp.task('upload', ['build'], function () {
 
     let on_error = function (err, res, body) {
         if (err) {
-            console.log(err, res.toJSON());
+            gulp_util.log(gulp_util.colors.red.bold(
+                err, res.toJSON()
+            ));
         } else if (body) {
             try {
                 let json = JSON.parse(body);
@@ -217,10 +217,14 @@ gulp.task('upload', ['build'], function () {
                     ));
                 }
             } catch (ex) {
-                console.log(res.toJSON());
+                gulp_util.log(gulp_util.colors.red.bold(
+                    res.toJSON()
+                ));
             }
         } else {
-            console.log(res.toJSON());
+            gulp_util.log(gulp_util.colors.red.bold(
+                res.toJSON()
+            ));
         }
     };
 

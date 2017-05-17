@@ -18,6 +18,7 @@
     "gulp-eslint": "^3.0.1",
     "gulp-exclude-gitignore": "^1.0.0",
     "gulp-nsp": "^2.4.1",
+    "pump": "^1.0.2",
     "yeoman-assert": "^3.0.0"
   },
   "files": [
