@@ -1,9 +1,10 @@
 let pkg = require('../../package.js'),
-    extend = require('xtend');
+    extend = require('xtend'),
+    pump = require('pump');
 let gulp = require('gulp'),
     gulp_tslint = require("gulp-tslint");
 
-gulp.task('lint:ts', function () {
+gulp.task('lint:ts', function (cb) {
     let lint = true;
     if (pkg.dizmo && pkg.dizmo.build) {
         let cfg_lint = pkg.dizmo.build.lint;
@@ -20,17 +21,18 @@ gulp.task('lint:ts', function () {
         argv.lint = JSON.parse(argv.lint);
     }
 
-    let bundle = gulp.src([
-        './src/**/*.ts', '!src/lib/**', '!build/**', '!node_modules/**']);
+    let stream = [gulp.src([
+        './src/**/*.ts', '!src/lib/**', '!build/**', '!node_modules/**'
+    ])];
     if (argv.lint || argv.lint === undefined) {
-        bundle = bundle.pipe(gulp_tslint.apply(this, [extend({
+        stream.push(gulp_tslint.apply(this, [extend({
             formatter: 'stylish'
         }, argv.lint)]));
-        bundle = bundle.pipe(gulp_tslint.report({
+        stream.push(gulp_tslint.report({
             emitError: false
         }));
     }
-    return bundle;
+    pump(stream, cb);
 });
 
 gulp.task('lint', ['lint:ts']);
