@@ -8,10 +8,16 @@
   },
   "dizmo": {
     "settings": {
+      "attributes": {
+        "settings/usercontrols/allowresize": true
+      },
       "bundle-identifier": "<%= bundleId %>",
       "bundle-name": "<%= dizmoName %>",
       "category": "",
       "height": 360,
+      "tags": [
+         "<%= _.kebabCase(dizmoName) %>"
+      ],
       "width": 480
     },
     "store": {
@@ -22,9 +28,6 @@
       "minify": false
     }
   },
-  "keywords": [
-    "dizmo", "<%= _.kebabCase(dizmoName) %>"
-  ],
   "dependencies": {},
   "devDependencies": {},
   "license": "ISC",

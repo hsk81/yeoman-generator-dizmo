@@ -41,8 +41,6 @@ assert.ok(pkg,
     'package JSON required');
 assert.ok(pkg && pkg.description,
     'package.description required');
-assert.ok(pkg && pkg.keywords.length > 0,
-    'package.keywords required');
 assert.ok(pkg && pkg.name,
     'package.name required');
 assert.ok(pkg && pkg.version,
@@ -58,11 +56,16 @@ assert.ok(pkg && pkg.dizmo && pkg.dizmo.settings['bundle-name'],
     'package.dizmo.settings.bundle-name required');
 
 pkg.dizmo.settings = lodash.assign({
-    'bundle-display-name': pkg.dizmo.settings['bundle-name'],
-    'bundle-short-version-string': pkg.version,
-    'bundle-version': pkg.version,
-    'description': pkg.description,
-    'tags': pkg.keywords
+    'bundle-display-name':
+        pkg.dizmo.settings['bundle-name'],
+    'bundle-short-version-string':
+        pkg.version,
+    'bundle-version':
+        pkg.version,
+    'description':
+        pkg.description,
+    'tags':
+        (pkg.dizmo.settings['tags']||[]).concat(pkg.keywords||[])
 }, pkg.dizmo.settings);
 
 module.exports = pkg;
