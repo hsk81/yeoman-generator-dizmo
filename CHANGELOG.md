@@ -34,7 +34,7 @@
 
 ## v6.0.z (2017-05-01)
 
-* CLI options to suppress question upon generating a dizmo project: If a value is provided via the CLI arguments,options, *or* via environment variables then the corresponding question is now skipped.
+* CLI options to suppress question upon generating a dizmo project: If a value is provided via the CLI arguments, options, *or* via environment variables then the corresponding question is now skipped.
 
 ## v5.{2..9}.z
 
