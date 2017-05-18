@@ -15,7 +15,9 @@ fs.access('./node_modules', function (error) {
             spinner = new Spinner('%s fetching dependencies: .. ');
         let npm_install = child_process.spawn('npm', [
             'install'
-        ]);
+        ], {
+            stdio: 'ignore'
+        });
         npm_install.on('close', function () {
             spinner.stop(true);
             run_script();

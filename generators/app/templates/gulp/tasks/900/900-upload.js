@@ -25,24 +25,30 @@ gulp.task('upload', ['build'], function () {
         .argv;
 
     if (!argv.host) {
-        gulp_util.log(gulp_util.colors.yellow.bold(
-            'Upload: DZM_STORE_HOST, package.json:dizmo.store.host or ' +
-            '`--host` required!'
-        ));
+        setTimeout(function () {
+            gulp_util.log(gulp_util.colors.yellow.bold(
+                'Upload: DZM_STORE_HOST, package.json:dizmo.store.host or ' +
+                '`--host` required!'
+            ));
+        }, 0);
         return;
     }
     if (!argv.user && argv.user !== '') {
-        gulp_util.log(gulp_util.colors.yellow.bold(
-            'Upload: DZM_STORE_USER, package.json:dizmo.store.user or ' +
-            '`--user` required!'
-        ));
+        setTimeout(function () {
+            gulp_util.log(gulp_util.colors.yellow.bold(
+                'Upload: DZM_STORE_USER, package.json:dizmo.store.user or ' +
+                '`--user` required!'
+            ));
+        }, 0);
         return;
     }
     if (!argv.pass && argv.pass !== '') {
-        gulp_util.log(gulp_util.colors.yellow.bold(
-            'Upload: DZM_STORE_PASS, package.json:dizmo.store.pass or ' +
-            '`--pass` required!'
-        ));
+        setTimeout(function () {
+            gulp_util.log(gulp_util.colors.yellow.bold(
+                'Upload: DZM_STORE_PASS, package.json:dizmo.store.pass or ' +
+                '`--pass` required!'
+            ));
+        }, 0);
         return;
     }
     if (!pkg ||
@@ -50,10 +56,12 @@ gulp.task('upload', ['build'], function () {
         !pkg.dizmo.settings ||
         !pkg.dizmo.settings['category'])
     {
-        gulp_util.log(gulp_util.colors.yellow.bold(
-            'Upload: package.json:dizmo.settings.category required, ' +
-            'e.g. "tools"!'
-        ));
+        setTimeout(function () {
+            gulp_util.log(gulp_util.colors.yellow.bold(
+                'Upload: package.json:dizmo.settings.category required, ' +
+                'e.g. "tools"!'
+            ));
+        }, 0);
         return;
     }
 
@@ -73,7 +81,6 @@ gulp.task('upload', ['build'], function () {
             }, on_login
         );
     };
-
     let on_login = function (err, res) {
         if (!err && res.statusCode === 200) {
             let set_cookies = res.headers['set-cookie'];
@@ -92,7 +99,6 @@ gulp.task('upload', ['build'], function () {
             on_error_login.apply(this, arguments);
         }
     };
-
     let post_dizmo = function (session) {
         if (argv.publish === true) {
             publish_dizmo(session);
@@ -107,10 +113,12 @@ gulp.task('upload', ['build'], function () {
                     }
                 }, function (err, res) {
                     if (!err && res.statusCode === 201) {
-                        gulp_util.log(gulp_util.colors.green.bold(
-                            'Upload: transmission to {0} succeeded.'
-                                .replace('{0}', argv.host)
-                        ));
+                        setTimeout(function () {
+                            gulp_util.log(gulp_util.colors.green.bold(
+                                'Upload: transmission to {0} succeeded.'
+                                    .replace('{0}', argv.host)
+                            ));
+                        }, 0);
                         publish_dizmo(session);
                     } else {
                         put_dizmo(session);
@@ -119,7 +127,6 @@ gulp.task('upload', ['build'], function () {
             );
         }
     };
-
     let put_dizmo = function (session) {
         if (argv.publish === true) {
             publish_dizmo(session);
@@ -135,10 +142,12 @@ gulp.task('upload', ['build'], function () {
                     }
                 }, function (err, res) {
                     if (!err && res.statusCode === 200) {
-                        gulp_util.log(gulp_util.colors.green.bold(
-                            'Upload: transmission to {0} succeeded.'
-                                .replace('{0}', argv.host)
-                        ));
+                        setTimeout(function () {
+                            gulp_util.log(gulp_util.colors.green.bold(
+                                'Upload: transmission to {0} succeeded.'
+                                    .replace('{0}', argv.host)
+                            ));
+                        }, 0);
                         publish_dizmo(session);
                     } else {
                         on_error_upload.apply(this, arguments);
@@ -147,7 +156,6 @@ gulp.task('upload', ['build'], function () {
             );
         }
     };
-
     let publish_dizmo = function (session) {
         if (argv.publish !== false) {
             request.put(argv.host + '/v1/dizmo/{0}/publish/{1}'
@@ -163,10 +171,12 @@ gulp.task('upload', ['build'], function () {
                     }
                 }, function (err, res) {
                     if (!err && res.statusCode === 200) {
-                        gulp_util.log(gulp_util.colors.green.bold(
-                            'Upload: publication of {0} succeeded.'
-                                .replace('{0}', dzm_name)
-                        ));
+                        setTimeout(function () {
+                            gulp_util.log(gulp_util.colors.green.bold(
+                                'Upload: publication of {0} succeeded.'
+                                    .replace('{0}', dzm_name)
+                            ));
+                        }, 0);
                     } else {
                         on_error_publish.apply(this, arguments);
                     }
@@ -176,57 +186,69 @@ gulp.task('upload', ['build'], function () {
     };
 
     let on_error_login = function () {
-        gulp_util.log(gulp_util.colors.yellow.bold(
-            'Upload: sign-in to {0} failed!'.replace('{0}', argv.host)
-        ));
+        setTimeout(function () {
+            gulp_util.log(gulp_util.colors.yellow.bold(
+                'Upload: sign-in to {0} failed!'.replace('{0}', argv.host)
+            ));
+        }, 0);
         on_error.apply(this, arguments);
     };
-
     let on_error_upload = function () {
-        gulp_util.log(gulp_util.colors.yellow.bold(
-            'Upload: transmission to {0} failed!'
-                .replace('{0}', argv.host)
-        ));
+        setTimeout(function () {
+            gulp_util.log(gulp_util.colors.yellow.bold(
+                'Upload: transmission to {0} failed!'
+                    .replace('{0}', argv.host)
+            ));
+        }, 0);
         on_error.apply(this, arguments);
     };
-
     let on_error_publish = function () {
-        gulp_util.log(gulp_util.colors.yellow.bold(
-            'Upload: publication of {0} failed!'
-                .replace('{0}', dzm_name)
-        ));
+        setTimeout(function () {
+            gulp_util.log(gulp_util.colors.yellow.bold(
+                'Upload: publication of {0} failed!'
+                    .replace('{0}', dzm_name)
+            ));
+        }, 0);
         on_error.apply(this, arguments);
     };
-
     let on_error = function (err, res, body) {
         if (err) {
-            gulp_util.log(gulp_util.colors.red.bold(
-                err, res.toJSON()
-            ));
+            setTimeout(function () {
+                gulp_util.log(gulp_util.colors.red.bold(
+                    err, res.toJSON()
+                ));
+            }, 0);
         } else if (body) {
             try {
                 let json = JSON.parse(body);
                 if (json.errormessage && json.errornumber) {
-                    gulp_util.log(gulp_util.colors.yellow.bold('{0} [{1}]'
-                        .replace('{0}', json.errormessage)
-                        .replace('{1}', json.errornumber)
-                    ));
+                    setTimeout(function () {
+                        gulp_util.log(gulp_util.colors.yellow.bold('{0} [{1}]'
+                            .replace('{0}', json.errormessage)
+                            .replace('{1}', json.errornumber)
+                        ));
+                    }, 0);
                 } else {
-                    gulp_util.log(gulp_util.colors.yellow.bold(
-                        JSON.stringify(json, null, 4)
-                    ));
+                    setTimeout(function () {
+                        gulp_util.log(gulp_util.colors.yellow.bold(
+                            JSON.stringify(json, null, 4)
+                        ));
+                    }, 0);
                 }
             } catch (ex) {
+                setTimeout(function () {
+                    gulp_util.log(gulp_util.colors.red.bold(
+                        res.toJSON()
+                    ));
+                }, 0);
+            }
+        } else {
+            setTimeout(function () {
                 gulp_util.log(gulp_util.colors.red.bold(
                     res.toJSON()
                 ));
-            }
-        } else {
-            gulp_util.log(gulp_util.colors.red.bold(
-                res.toJSON()
-            ));
+            }, 0);
         }
     };
-
     do_login();
 });
