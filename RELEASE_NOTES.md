@@ -144,13 +144,14 @@
 
 * Increased NPM's built in caching to a week, to ensure fast(er) initial fetching of dependencies.
 
+[babel]: http://babeljs.io
+[browserify]: http://browserify.org/
+[coffeescript]: http://coffeescript.org/
+[eslint]: http://eslint.org/
+[gulp]: http://gulpjs.com/
+[i18next]: http://www.npmjs.com/package/i18next
 [pump]: http://www.npmjs.com/package/pump
-[Babel]: http://babeljs.io
-[Gulp]: http://gulpjs.com/
-[Yeoman]: http://yeoman.io/
-[Browserify]: http://browserify.org/
-[TypeScript]: http://www.typescriptlang.org/
-[CoffeeScript]: http://coffeescript.org/
-[ESLint]: http://eslint.org/
-[SASS]: http://sass-lang.com/
-[UglifyJS]: http://github.com/mishoo/UglifyJS
+[sass]: http://sass-lang.com/
+[typescript]: http://www.typescriptlang.org/
+[uglifyjs]: http://github.com/mishoo/UglifyJS
+[yeoman]: http://yeoman.io/
