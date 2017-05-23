@@ -171,10 +171,16 @@ In addition to the default entries of [npm] the `package.json` file contains a `
 
     "dizmo": {
         "settings": {
+            "attributes": {
+                "settings/usercontrols/allowresize": true
+            },
             "bundle-identifier": "com.example.my_project",
             "bundle-name": "My Project",
             "category": "",
-            "height": 240,
+            "height": 360,
+            "tags": [
+                "my-project"
+            ],
             "width": 480
         },
         "store": {
@@ -184,22 +190,17 @@ In addition to the default entries of [npm] the `package.json` file contains a `
             "lint": true,
             "minify": {
                 "markups": {
-                    "htmlmin": false
+                    "htmlmin": true
                 },
                 "scripts": {
                     "sourcemaps": false,
-                    "obfuscate": false,
-                    "uglify": false
+                    "obfuscate": true,
+                    "uglify": true
                 },
                 "styles": {
-                    "sourcemaps": false,
-                    "sass": false
+                    "sourcemaps": true,
+                    "sass": true
                 }
-            }
-            "minify": {
-                "markups": false,
-                "scripts": false,
-                "styles": false
             }
         }
     }
@@ -622,10 +623,26 @@ The same error is thrown, when you run `sudo yo -h` as well. Also, the behaviour
 
 The recommended approach is to create a *non-root* user account and then run the generator under that account: If you are manually generating a dizmo project, this should be the case anyway, since you would most probably be logged in under your own user name. However, when running in the context of e.g. an automated build environment, this might not be the case: Hence, the need for a special purpose user account.
 
+### Does dizmoGen support ES6?
+
+Browsers and the libraries, which the former are built upon (like Webkit), usually lag behind the latest standard, and hence fail to provide up-to-date language support. The [Babel] transpiler however, can take a script written in a modern standard and translate it into backwards compatible JavaScript. DizmoGen includes Babel and thus supports ES6.
+
+*Note:* If you have older projects and update dizmoGen, make sure that you add ES6 support to `.eslintrc.json` as following:
+```json
+{
+  "env": {
+    "browser": true,
+    "node": true,
+    "es6": true
+  }
+}
+```
+
 ## License
 
  © 2017 [dizmo AG, Switzerland](http://dizmo.com/)
 
+[babel]: https://babeljs.io/
 [eslint]: http://eslint.org/
 [coffeelint]: http://www.coffeelint.org/
 [tslint]: https://palantir.github.io/tslint/
