@@ -608,7 +608,7 @@ In such a case, just run `npm install` to ensure that all the required dependenc
 
 ### Can I run `yo dizmo` as root?
 
-The [Yeoman|http://yeoman.io/] toolkit very strongly discourages the usage of any generator based on it to be run as *root*. Hence, you will get the following error:
+The [Yeoman] toolkit very strongly discourages the usage of any generator based on it to be run as *root*. Hence, you will get the following error:
 ```bash
 $ sudo yo dizmo --help
 /usr/lib/node_modules/yo/node_modules/configstore/index.js:53
