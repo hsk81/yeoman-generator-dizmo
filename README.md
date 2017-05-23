@@ -627,7 +627,7 @@ The recommended approach is to create a *non-root* user account and then run the
 
 Browsers and the libraries, which the former are built upon (like Webkit), usually lag behind the latest standard, and hence fail to provide up-to-date language support. The [Babel] transpiler however, can take a script written in a modern standard and translate it into backwards compatible JavaScript. DizmoGen includes Babel and thus supports ES6.
 
-*Note:* If you have older projects and update dizmoGen, make sure that you add ES6 support to `.eslintrc.json` as following:
+**Note:** If you have older projects and update dizmoGen, make sure that you add ES6 support to `.eslintrc.json` as following:
 ```json
 {
   "env": {
