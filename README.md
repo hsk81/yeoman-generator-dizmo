@@ -642,20 +642,21 @@ Browsers and the libraries, which the former are built upon (like Webkit), usual
 
  © 2017 [dizmo AG, Switzerland](http://dizmo.com/)
 
-[babel]: https://babeljs.io/
-[eslint]: http://eslint.org/
+[babel]: http://babeljs.io/
 [coffeelint]: http://www.coffeelint.org/
-[tslint]: https://palantir.github.io/tslint/
+[eslint]: http://eslint.org/
+[tslint]: http://palantir.github.io/tslint/
+[yeoman]: http://yeoman.io/
 
-[gulp-eslint]: https://www.npmjs.com/package/gulp-eslint
-[gulp-htmlmin]: https://www.npmjs.com/package/gulp-htmlmin
-[gulp-sass]: https://www.npmjs.com/package/gulp-sass
-[gulp-uglify]: https://www.npmjs.com/package/gulp-uglify
-[gulp-sourcemaps]: https://www.npmjs.com/package/gulp-sourcemaps
+[gulp-eslint]: http://www.npmjs.com/package/gulp-eslint
+[gulp-htmlmin]: http://www.npmjs.com/package/gulp-htmlmin
+[gulp-sass]: http://www.npmjs.com/package/gulp-sass
+[gulp-sourcemaps]: http://www.npmjs.com/package/gulp-sourcemaps
+[gulp-uglify]: http://www.npmjs.com/package/gulp-uglify
 
-[npm]: https://www.npmjs.com
-[npm-image]: https://badge.fury.io/js/generator-dizmo.svg
-[npm-url]: https://npmjs.org/package/generator-dizmo
-[node-module]: https://nodejs.org/api/modules.html
+[node-module]: http://nodejs.org/api/modules.html
+[npm]: http://www.npmjs.com
+[npm-image]: http://badge.fury.io/js/generator-dizmo.svg
+[npm-url]: http://npmjs.org/package/generator-dizmo
 
-[javascript-obfuscator]: https://github.com/javascript-obfuscator/javascript-obfuscator
+[javascript-obfuscator]: http://github.com/javascript-obfuscator/javascript-obfuscator
