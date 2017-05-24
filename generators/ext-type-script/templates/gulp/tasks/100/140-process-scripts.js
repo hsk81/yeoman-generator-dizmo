@@ -76,7 +76,8 @@ gulp.task('process-scripts', function (cb) {
     }
 
     let browserified = browserify({
-        basedir: '.', entries: ['src/app/app.ts']
+        basedir: '.', debug: !!argv.sourcemaps,
+        entries: ['src/app/app.ts']
     }).plugin(tsify);
 
     let stream = [

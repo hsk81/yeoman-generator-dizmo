@@ -76,7 +76,8 @@ gulp.task('process-scripts', function (cb) {
     }
 
     let browserified = browserify({
-        basedir: '.', entries: ['src/index.coffee']
+        basedir: '.', debug: !!argv.sourcemaps,
+        entries: ['src/index.coffee']
     }).transform(coffeeify);
 
     let stream = [
