@@ -1,6 +1,10 @@
 {
-    "extends": "tslint:recommended",
-    "rules": {
+    "extends": "tslint:recommended", "rules": {
+        "only-arrow-functions": false,
+        "one-line": [true,
+            "check-catch", "check-else", "check-whitespace"
+        ],
+        "one-variable-per-declaration": false,
         "quotemark": [true, "single"],
         "trailing-comma": [true, {
             "multiline": "never", "singleline": "never"
@@ -12,6 +16,10 @@
             "property-declaration": "nospace",
             "variable-declaration": "nospace"
         }],
+        "variable-name": [true,
+            "allow-leading-underscore",
+            "ban-keywords"
+        ],
         "whitespace": [true,
             "check-branch",
             "check-decl",

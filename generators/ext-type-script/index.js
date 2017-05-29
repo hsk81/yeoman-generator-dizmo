@@ -58,6 +58,9 @@ module.exports = generators.extend({
             this.fs.copy(
                 this.templatePath('tsconfig.json'),
                 this.destinationPath('tsconfig.json'));
+            this.fs.copy(
+                this.templatePath('typings.json'),
+                this.destinationPath('typings.json'));
         }
         this.conflicter.force = this.options.force || upgrade;
     },

@@ -1,22 +1,43 @@
-import dizmo from './dizmo';
-import window from './window';
+import dizmo from './sys/type/dizmo';
+import window from './sys/type/window';
 
-window.showBack = () => {
-    dizmo.showBack();
-};
-window.showFront = () => {
-    dizmo.showFront();
-};
+import {after} from './sys/util/after';
+import {named} from './sys/util/named';
+import {trace} from './sys/util/trace';
 
-window.i18n((err:string, t:(key:string, options?:any) => string) => {
-    let cell = document.getElementsByClassName('table-cell')[0];
-    cell.textContent = t('greeting');
-    let done = document.getElementById('done');
-    done.textContent = t('done');
-});
+import {I18N, TranslationFunction} from './i18n';
+
+@trace
+@named('App')
+export class App {
+    public constructor() {
+        this.globals();
+        this.events();
+    }
+    private globals() {
+        window.showBack = () => {
+            dizmo.showBack();
+        };
+        window.showFront = () => {
+            dizmo.showFront();
+        };
+    }
+    private events() {
+        document.getElementById('done').onclick = () => {
+            dizmo.showFront();
+        };
+    }
+}
 
 document.addEventListener('dizmoready', () => {
-    document.getElementById('done').onclick = () => {
-        dizmo.showFront();
-    };
+    if (window.global('I18N') === undefined) {
+        let on_i18n = (T:TranslationFunction) => {
+            window.global('T', T);
+        };
+        window.global('I18N', new I18N(after(on_i18n, () => {
+            window.global('APP', new App());
+        })));
+    }
 });
+
+export default App;
