@@ -531,7 +531,7 @@ This will run the basic generator and then apply on top of it the extended Coffe
     └── src
         └── index.coffee
 
-* **CoffeeScript:** Using the `index.coffee` file, you can start developing your application in [CoffeeScript](http://coffeescript.org/).
+* **CoffeeScript:** Using the `index.coffee` file, you can start developing your dizmo in [CoffeeScript](http://coffeescript.org/).
 
 ### dizmo:ext-type-script &ndash; TypeScript integration
 
@@ -556,7 +556,7 @@ This will run the basic generator and then apply on top of it the extended [Type
     │       └── window.ts
     └── tsconfig.json
 
-* **TypeScript:** Using the `index.ts` file you can start developing your application in [TypeScript](http://www.typescriptlang.org/).
+* **TypeScript:** Using the `src/app/app.ts` file you can start developing your dizmo in [TypeScript](http://www.typescriptlang.org/).
 
 ## Miscellanea
 
