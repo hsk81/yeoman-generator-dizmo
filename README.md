@@ -640,7 +640,7 @@ Browsers and the libraries, which the former are built upon (like Webkit), usual
 
 ## License
 
- © 2017 [dizmo AG, Switzerland](http://dizmo.com/)
+ © 2017 [dizmo AG, Switzerland](http://dizmo.com/).
 
 [babel]: http://babeljs.io/
 [coffeelint]: http://www.coffeelint.org/
