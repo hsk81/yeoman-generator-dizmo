@@ -1,6 +1,10 @@
 # generator-dizmo [![NPM version][npm-image]][npm-url]
 > Dizmo generator
 
+## Prerequisites
+
+* [Node.js](https://nodejs.org) v6.11.0 LTS
+
 ## Installation
 
 First, install [Yeoman](http://yeoman.io) and `generator-dizmo` using [npm] (we assume you have [node.js](https://nodejs.org/) pre-installed):
