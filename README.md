@@ -600,8 +600,6 @@ Or you can simply drop a library into the `src/lib/` sub-directory and reference
 If `npm install` is *not* run before attempting to build a dizmo, then a message similar to the one below might be produced:
 ```bash
 error argv "/usr/local/bin/node" "/usr/local/bin/npm" "run" "make"
-error node v4.2.6
-error npm  v3.8.1
 error code ELIFECYCLE
 error MyDizmo@0.0.0 make: `node ./node_modules/gulp/bin/gulp.js`
 error Exit status 1
