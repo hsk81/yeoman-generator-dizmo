@@ -10,7 +10,16 @@ export interface IBaseBundle {
 }
 
 export interface IBaseBundle {
-    identifier: string;
+    identifier:string;
+}
+
+export interface IBaseBundle {
+    privateStorage:IBaseStorage;
+    publicStorage:IBaseStorage;
+}
+
+export interface IBaseBundle {
+    constructor(id:string):IBaseBundle;
 }
 
 export interface IBaseBundle {
@@ -25,7 +34,15 @@ export interface IBaseBundle {
 
 export interface IBaseBundle {
     subscribeToAttribute:<T>(
-        path:string, callback:(path:string, value:T) => void
+        path:string,
+        callback:(path:string, value:T) => void,
+        on_subscribed?:Function
+    ) => UUID;
+
+    subscribeToAttributeConditional:<T>(
+        path:string, condition:string|boolean|number,
+        callback:(path:string, value:T) => void,
+        on_subscribed?:Function
     ) => UUID;
 
     unsubscribeAttribute:<T>(
@@ -34,13 +51,20 @@ export interface IBaseBundle {
 }
 
 export interface IBaseBundle {
-    privateStorage:IBaseStorage;
-    publicStorage:IBaseStorage;
+    getUpdateInformation:() => any;
+    update:() => void;
 }
 
 export interface IBaseBundle {
     getDizmos:() => IBaseDizmo[];
-    instantiateDizmo:() => void;
+
+    instantiateDizmo:(
+        attributes?:object,
+        publicProperties?:object,
+        privateProperties?:object,
+        callback?:Function
+    ) => void;
+
     uninstall:() => void;
 }
 

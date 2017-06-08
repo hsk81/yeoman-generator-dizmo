@@ -25,11 +25,11 @@ export interface IBaseStorage {
     subscribeToProperty:(
         path:string, callback:Function, options?:{
             nodes?:boolean, recursive?:boolean, string?:boolean
-        }, subscribedCallback?:Function
+        }, on_subscribed?:Function
     ) => UUID;
 
     unsubscribeProperty:(
-        subscriptionId:UUID
+        uuid:UUID
     ) => void;
 }
 
