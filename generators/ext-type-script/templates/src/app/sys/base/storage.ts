@@ -8,39 +8,35 @@ export interface IBaseStorage {
 }
 
 export interface IBaseStorage {
-    getProperty:<T>(path:string, options?:{
-        fallback?:T, nodes?:boolean, string?:boolean
-    }) => T;
+    getProperty:
+        <T>(path:string, options?:{
+                fallback?:T, nodes?:boolean, string?:boolean
+        }) => T;
 
-    setProperty:<T>(path:string, value:T, options?:{
-        file?:boolean, timeout?:number, string?:boolean
-    }) => void;
+    setProperty:
+        <T>(path:string, value:T, options?:{
+            file?:boolean, timeout?:number, string?:boolean
+        }) => void;
 
-    deleteProperty:(
-        path:string
-    ) => void;
+    deleteProperty:
+        (path:string) => void;
 }
 
 export interface IBaseStorage {
-    subscribeToProperty:(
-        path:string, callback:Function, options?:{
+    subscribeToProperty:
+        (path:string, callback:Function, options?:{
             nodes?:boolean, recursive?:boolean, string?:boolean
-        }, on_subscribed?:Function
-    ) => UUID;
+        }, subscribedCallback?:Function) => UUID;
 
-    unsubscribeProperty:(
-        uuid:UUID
-    ) => void;
+    unsubscribeProperty:
+        (subscriptionId:UUID) => void;
 }
 
 export interface IBaseStorage {
-    beginUpdate:(
-        path:string
-    ) => void;
-
-    endUpdate:(
-        path:string
-    ) => void;
+    beginUpdate:
+        (path:string) => void;
+    endUpdate:
+        (path:string) => void;
 }
 
 ///////////////////////////////////////////////////////////////////////////////

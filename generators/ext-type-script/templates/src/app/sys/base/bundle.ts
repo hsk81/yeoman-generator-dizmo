@@ -19,53 +19,52 @@ export interface IBaseBundle {
 }
 
 export interface IBaseBundle {
-    constructor(id:string):IBaseBundle;
+    constructor:
+        <T extends IBaseBundle>(id:string) => T;
 }
 
 export interface IBaseBundle {
-    getAttribute:<T>(
-        path:string
-    ) => T;
-
-    setAttribute:<T>(
-        path:string, value:T
-    ) => void;
+    getAttribute:
+        <T>(path:string) => T;
+    setAttribute:
+        <T>(path:string, value:T) => void;
 }
 
 export interface IBaseBundle {
-    subscribeToAttribute:<T>(
-        path:string,
-        callback:(path:string, value:T) => void,
-        on_subscribed?:Function
-    ) => UUID;
+    subscribeToAttribute:
+        <T>(path:string,
+            callback:(path:string, value:T) => void,
+            subscribedCallback?:Function
+        ) => UUID;
 
-    subscribeToAttributeConditional:<T>(
-        path:string, condition:string|boolean|number,
-        callback:(path:string, value:T) => void,
-        on_subscribed?:Function
-    ) => UUID;
+    subscribeToAttributeConditional:
+        <T>(path:string, condition:string|boolean|number,
+            callback:(path:string, value:T) => void,
+            subscribedCallback?:Function
+        ) => UUID;
 
-    unsubscribeAttribute:<T>(
-        uuid:UUID
-    ) => void;
+    unsubscribeAttribute:
+        <T>(subscriptionId:UUID) => void;
 }
 
 export interface IBaseBundle {
-    getUpdateInformation:() => any;
-    update:() => void;
+    getUpdateInformation:
+        () => any;
+    update:
+        () => void;
 }
 
 export interface IBaseBundle {
-    getDizmos:() => IBaseDizmo[];
-
-    instantiateDizmo:(
-        attributes?:object,
-        publicProperties?:object,
-        privateProperties?:object,
-        callback?:Function
-    ) => void;
-
-    uninstall:() => void;
+    getDizmos:
+        <T extends IBaseBundle>() => T[];
+    instantiateDizmo:
+        (attributes?:object,
+         publicProperties?:object,
+         privateProperties?:object,
+         callback?:Function
+        ) => void;
+    uninstall:
+        () => void;
 }
 
 ///////////////////////////////////////////////////////////////////////////////

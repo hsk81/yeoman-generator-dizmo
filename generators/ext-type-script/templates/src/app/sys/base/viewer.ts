@@ -8,18 +8,24 @@ export interface IBaseViewer {
 }
 
 export interface IBaseViewer {
-    getAttribute:<T>(path:string) => T;
-    setAttribute:<T>(path:string, value:T) => void;
+    getAttribute:
+        <T>(path:string) => T;
+    setAttribute:
+        <T>(path:string, value:T) => void;
 }
 
 export interface IBaseViewer {
-    subscribeToAttribute:(path:string, callback:Function) => UUID;
-    unsubscribeAttribute:(uuid:UUID) => void;
+    subscribeToAttribute:
+        (path:string, callback:Function) => UUID;
+    unsubscribeAttribute:
+        (uuid:UUID) => void;
 }
 
 export interface IBaseViewer {
-    activateLicense:(username:string, license:string) => boolean;
-    getBundles:() => any[];
+    activateLicense:
+        (username:string, license:string) => boolean;
+    getBundles:
+        () => any[];
 }
 
 ///////////////////////////////////////////////////////////////////////////////
