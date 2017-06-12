@@ -1,5 +1,4 @@
 import UUID from '../util/uuid';
-import IBaseDizmo from './dizmo';
 import IBaseStorage from './storage';
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -16,11 +15,6 @@ export interface IBaseBundle {
 export interface IBaseBundle {
     privateStorage:IBaseStorage;
     publicStorage:IBaseStorage;
-}
-
-export interface IBaseBundle {
-    constructor:
-        <T extends IBaseBundle>(id:string) => T;
 }
 
 export interface IBaseBundle {
