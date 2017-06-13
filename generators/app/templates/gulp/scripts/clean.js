@@ -5,7 +5,7 @@ let run_script = function () {
     child_process.spawn('node', [
         './node_modules/gulp/bin/gulp.js', 'clean'
     ].concat(process.argv.slice(2)), {
-        stdio: 'inherit'
+        shell: true, stdio: 'inherit'
     });
 };
 
@@ -16,7 +16,7 @@ fs.access('./node_modules', function (error) {
         let npm_install = child_process.spawn('npm', [
             'install'
         ], {
-            stdio: 'ignore'
+            shell: true, stdio: 'ignore'
         });
         npm_install.on('close', function () {
             spinner.stop(true);
