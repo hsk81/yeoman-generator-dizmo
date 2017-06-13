@@ -111,14 +111,21 @@ module.exports = generators.extend({
             },
             when: function (prop) {
                 if (pkg && pkg.name) {
-                    prop.dizmoName = pkg.name;
-                    return false;
+                    if (!pkg.name.match(/\s/)) {
+                        prop.dizmoName = pkg.name;
+                        return false;
+                    }
                 }
                 if (self.args.length > 0) {
-                    prop.dizmoName = self.args[0];
-                    return false;
+                    if (!self.args[0].match(/\s/)) {
+                        prop.dizmoName = self.args[0];
+                        return false;
+                    }
                 }
                 return true;
+            },
+            validate: function (value) {
+                return !value.match(/\s/);
             }
         });
 
