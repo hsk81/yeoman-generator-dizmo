@@ -427,6 +427,9 @@ module.exports = generators.extend({
                     args: this.args, force: this.properties.initial
                 }
             ));
+        } else {
+            console.log(
+                '\nSetting the project root at:', this.destinationPath());
         }
         this._rim();
         this._git();
