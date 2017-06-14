@@ -640,6 +640,14 @@ Browsers and the libraries, which the former are built upon (like Webkit), usual
 }
 ```
 
+### How to create a `.generator-dizmo` folder on Windows?
+
+The graphical user interface of Windows does not allow to create a folder named `.generator-dizmo`: However it is possible to create one via the command line interface. For example using the Windows PowerShell one can run:
+
+```bash
+PS C:\Users\user> mkdir .generator-dizmo
+```
+
 ## License
 
  © 2017 [dizmo AG, Switzerland](http://dizmo.com/)
