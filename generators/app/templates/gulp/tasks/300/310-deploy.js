@@ -19,10 +19,9 @@ let to = function () {
 };
 let deploy = function (stream, to) {
     if (to) {
-        return stream.push(gulp.dest(to));
-    } else {
-        return stream;
+        stream.push(gulp.dest(to));
     }
+    return stream;
 };
 
 gulp.task('deploy', ['build'], function (cb) {
