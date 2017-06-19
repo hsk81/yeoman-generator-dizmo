@@ -109,7 +109,7 @@ It's also possible to only invoke `yo dizmo`, in which case each and every confl
 
 However, with the `yo dizmo --upgrade` command, *only* the build system of the actual project is upgraded, while the none-build related files and folders remain untouched.
 
-Further, The `--upgrde` flag can also be combined with the sub-generator flags `--type-script` and `--coffee-script` (see below for more information about sub-generators). 
+Further, the `--upgrde` flag can also be combined with the sub-generator flags `--type-script` and `--coffee-script` (see below for more information about sub-generators). 
 
 ## Skeleton
 
