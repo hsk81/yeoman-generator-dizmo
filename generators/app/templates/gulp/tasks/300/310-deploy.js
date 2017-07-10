@@ -24,7 +24,7 @@ let deploy = function (stream, to) {
     return stream;
 };
 
-gulp.task('deploy', ['build'], function (cb) {
+gulp.task('deploy', ['build'], function (done) {
     let stream = deploy([gulp.src(
         'build/{0}/**/*'.replace('{0}', pkg.name)
     )], to());
@@ -64,18 +64,18 @@ gulp.task('deploy', ['build'], function (cb) {
         }, 0);
     }
     if (stream.length > 1) {
-        pump(stream, cb);
+        pump(stream, done);
     } else {
-        cb();
+        done();
     }
 });
-gulp.task('deploy:only', function (cb) {
+gulp.task('deploy:only', function (done) {
     let stream = deploy([gulp.src(
         'build/{0}/**/*'.replace('{0}', pkg.name))
     ], to());
     if (stream.length > 1) {
-        pump(stream, cb);
+        pump(stream, done);
     } else {
-        cb();
+        done();
     }
 });

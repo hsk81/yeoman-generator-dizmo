@@ -4,7 +4,7 @@ let pkg = require('../../package.js'),
 let gulp = require('gulp'),
     gulp_coffeelint = require('gulp-coffeelint');
 
-gulp.task('lint:coffee', function (cb) {
+gulp.task('lint:coffee', function (done) {
     let lint = true;
     if (pkg.dizmo && pkg.dizmo.build) {
         let cfg_lint = pkg.dizmo.build.lint;
@@ -38,7 +38,7 @@ gulp.task('lint:coffee', function (cb) {
             gulp_coffeelint.reporter()
         );
     }
-    pump(stream, cb);
+    pump(stream, done);
 });
 
 gulp.task('lint', ['lint:coffee']);

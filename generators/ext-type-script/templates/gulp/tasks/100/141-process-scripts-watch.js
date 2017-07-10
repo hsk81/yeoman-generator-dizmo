@@ -34,7 +34,7 @@ let gulp_obfuscator = function (opts) {
     });
 };
 
-let on_watch = function (cb) {
+let on_watch = function (done) {
     let cli_min = require('yargs')
         .default('minify')
         .argv.minify;
@@ -107,7 +107,7 @@ let on_watch = function (cb) {
     stream.push(gulp.dest(
         path.join('build', pkg.name)
     ));
-    pump(stream, cb);
+    pump(stream, done);
 };
 
 watched.on('update', on_watch);

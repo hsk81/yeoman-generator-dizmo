@@ -28,7 +28,7 @@ let gulp_obfuscator = function (opts) {
     });
 };
 
-gulp.task('process-scripts', function (cb) {
+gulp.task('process-scripts', function (done) {
     let cli_min = require('yargs')
         .default('minify')
         .argv.minify;
@@ -106,5 +106,5 @@ gulp.task('process-scripts', function (cb) {
     stream.push(gulp.dest(
         path.join('build', pkg.name)
     ));
-    pump(stream, cb);
+    pump(stream, done);
 });

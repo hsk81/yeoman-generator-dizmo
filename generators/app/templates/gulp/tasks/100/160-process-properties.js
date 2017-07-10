@@ -7,7 +7,7 @@ let gulp = require('gulp'),
 let lodash = require('lodash'),
     pump = require('pump');
 
-gulp.task('process-properties', function (cb) {
+gulp.task('process-properties', function (done) {
     let settings = lodash.mapKeys(pkg.dizmo.settings, function (v, k) {
         return lodash.upperFirst(lodash.camelCase(k));
     });
@@ -19,7 +19,7 @@ gulp.task('process-properties', function (cb) {
                 gulp_plist(settings),
                 gulp_rename('Info.plist'),
                 gulp.dest(path.join('build', pkg.name))
-            ], cb);
+            ], done);
         } else {
             this.emit('error', err);
         }

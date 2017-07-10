@@ -7,17 +7,16 @@ let gulp = require('gulp'),
 let extend = require('xtend'),
     pump = require('pump');
 
-gulp.task('process-styles:copy', function (cb) {
-    pump([
-        gulp.src([
-            'src/style/**/*', '!src/style/**/*.scss'
-        ]),
+gulp.task('process-styles:copy', function () {
+    return gulp.src([
+        'src/style/**/*', '!src/style/**/*.scss'
+    ]).pipe(
         gulp_copy(path.join('build', pkg.name, 'style'), {
             prefix: 2
         })
-    ], cb);
+    );
 });
-gulp.task('process-styles', ['process-styles:copy'], function (cb) {
+gulp.task('process-styles', ['process-styles:copy'], function (done) {
     let cli_min = require('yargs')
         .default('minify')
         .argv.minify;
@@ -81,5 +80,5 @@ gulp.task('process-styles', ['process-styles:copy'], function (cb) {
     stream.push(gulp.dest(
         path.join('build', pkg.name, 'style')
     ));
-    pump(stream, cb);
+    pump(stream, done);
 });
