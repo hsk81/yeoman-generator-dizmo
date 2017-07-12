@@ -1,3 +1,7 @@
+/* tslint:disable:ban-types */
+///////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////
+
 import UUID from '../util/uuid';
 import IBaseBundle from './bundle';
 import IBaseDizmo from './dizmo';
@@ -80,21 +84,23 @@ export interface IBaseViewer {
 }
 
 export interface IBaseViewer {
-    takeScreenshot:
-        (options:Function|{
+    takeScreenshot: (
+        options: Function | {
             bitmap: {
-                height:number,
-                width:number
+                height: number,
+                width: number
             },
             geometry: {
-                angle:number,
-                height:number,
-                width:number,
-                x:number,
-                y:number,
-                zoom:number
+                angle: number,
+                height: number,
+                width: number,
+                x: number,
+                y: number,
+                zoom: number
             }
-        }, callback?:Function) => void;
+        },
+        callback?: Function
+    ) => void;
 }
 
 export interface IBaseViewer {

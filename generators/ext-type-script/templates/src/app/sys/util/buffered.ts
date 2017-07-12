@@ -1,3 +1,4 @@
+/* tslint:disable:ban-types prefer-const */
 ///////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////
 
@@ -17,17 +18,17 @@ export function buffered(
     if (typeof arg === 'number') {
         return _buffered(arg);
     } else {
-        _buffered(200)(<any>arg, key, descriptor);
+        _buffered(200)(arg as any, key, descriptor);
     }
 }
 
 function _buffered(ms:number) {
-    return function (
+    return function(
         target:any, key:string, descriptor?:PropertyDescriptor
     ) {
         let fn:Function = descriptor ? descriptor.value : target[key],
             id:number;
-        let bn:Function = function (...args:any[]) {
+        let bn:Function = function(...args:any[]) {
             if (id !== undefined) {
                 clearTimeout(id);
                 id = undefined;
@@ -41,10 +42,10 @@ function _buffered(ms:number) {
         };
         for (let el in fn) {
             if (fn.hasOwnProperty(el)) {
-                (<any>bn)[el] = (<any>fn)[el];
+                (bn as any)[el] = (fn as any)[el];
             }
         }
-        (<IBufferedFunction>bn).cancel = function () {
+        (bn as IBufferedFunction).cancel = function() {
             if (id !== undefined) {
                 clearTimeout(id);
                 id = undefined;

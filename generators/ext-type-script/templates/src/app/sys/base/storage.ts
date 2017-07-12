@@ -1,3 +1,7 @@
+/* tslint:disable:ban-types */
+///////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////
+
 import UUID from '../util/uuid';
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -23,13 +27,14 @@ export interface IBaseStorage {
 }
 
 export interface IBaseStorage {
-    subscribeToProperty:
-        (path:string, callback:Function, options?:{
-            nodes?:boolean, recursive?:boolean, string?:boolean
-        }, subscribedCallback?:Function) => UUID;
+    subscribeToProperty: (
+        path: string, callback: Function, options?: {
+            nodes?: boolean, recursive?: boolean, string?: boolean
+        },
+        subscribedCallback?: Function
+    ) => UUID;
 
-    unsubscribeProperty:
-        (subscriptionId:UUID) => void;
+    unsubscribeProperty: (subscriptionId: UUID) => void;
 }
 
 export interface IBaseStorage {

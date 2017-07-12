@@ -1,4 +1,4 @@
-/* tslint:disable:no-string-literal one-line no-console */
+/* tslint:disable:ban-types no-string-literal no-console one-line prefer-const */
 ///////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////
 
@@ -20,12 +20,12 @@ export function trace(
     if (typeof arg === 'boolean') {
         return _trace(arg);
     } else {
-        _trace(true)(<Function>arg);
+        _trace(true)(arg as Function);
     }
 }
 
 function _trace(flag:boolean):Function {
-    return function (ctor:Function) {
+    return function(ctor:Function) {
         Object.keys(ctor.prototype).forEach((key:string) => {
             let dtor = Object.getOwnPropertyDescriptor(ctor.prototype, key);
             if (dtor && typeof dtor.value === 'function') {
@@ -54,23 +54,23 @@ export function traceable(
     if (typeof arg === 'boolean') {
         return _traceable(arg);
     } else {
-        _traceable(true)(<any>arg, key, dtor);
+        _traceable(true)(arg as any, key, dtor);
     }
 }
 
 function _traceable(flag:boolean):Function {
-    let f0 = bundle.external.get('TRACE', {
+    let f0 = bundle.publicStorage.getProperty('TRACE', {
         fallback: window.global<boolean>('TRACE')
     });
-    return function (target:any, key:string, dtor?:PropertyDescriptor) {
+    return function(target:any, key:string, dtor?:PropertyDescriptor) {
         let wrap = (fn:Function, callback:Function) => {
             if (!flag) {
-                (<any>fn)['_traced'] = false;
+                (fn as any)['_traced'] = false;
             } else {
-                if ((<any>fn)['_traced'] === undefined) {
-                    (<any>fn)['_traced'] = true;
+                if ((fn as any)['_traced'] === undefined) {
+                    (fn as any)['_traced'] = true;
 
-                    let tn:Function = function (...args:any[]) {
+                    let tn:Function = function(...args:any[]) {
                         let f1 = window.global<boolean>('TRACE');
                         if (f0 !== false && f1 !== false && (f0 || f1)) {
                             let _named = target._named || '@',
@@ -101,7 +101,7 @@ function _traceable(flag:boolean):Function {
                     };
                     for (let el in fn) {
                         if (fn.hasOwnProperty(el)) {
-                            (<any>tn)[el] = (<any>fn)[el];
+                            (tn as any)[el] = (fn as any)[el];
                         }
                     }
                     callback(tn);
@@ -116,12 +116,12 @@ function _traceable(flag:boolean):Function {
             } else {
                 if (typeof dtor.get === 'function') {
                     wrap(dtor.get, (tn:Function) => {
-                        dtor.get = <any>tn;
+                        dtor.get = tn as any;
                     });
                 }
                 if (typeof dtor.set === 'function') {
                     wrap(dtor.set, (tn:Function) => {
-                        dtor.set = <any>tn;
+                        dtor.set = tn as any;
                     });
                 }
             }

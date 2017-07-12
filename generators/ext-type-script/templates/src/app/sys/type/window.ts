@@ -17,7 +17,7 @@ export interface IWindow extends IBaseWindow {
 }
 
 window.global = <T>(key:string, value:T):T => {
-    return <T>((value === undefined) ? window[key] : window[key] = value);
+    return ((value === undefined) ? window[key] : window[key] = value) as T;
 };
 
 ///////////////////////////////////////////////////////////////////////////////

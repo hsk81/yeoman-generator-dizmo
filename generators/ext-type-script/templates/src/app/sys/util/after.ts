@@ -1,8 +1,9 @@
+/* tslint:disable:ban-types no-angle-bracket-type-assertion prefer-const */
 ///////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////
 
 export function after<F extends Function>(fn:Function, callback:F):F {
-    return <F><Function>function () {
+    return <F><Function>function() {
         let args = Array.prototype.slice.call(arguments);
         callback.apply(this, [fn.apply(this, args)].concat(args));
     };

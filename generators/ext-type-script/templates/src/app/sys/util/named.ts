@@ -2,7 +2,7 @@
 ///////////////////////////////////////////////////////////////////////////////
 
 export function named(name:string) {
-    return function (object:any) {
+    return function(object:any) {
         if (object.prototype._named === undefined) {
             object.prototype._named = name;
         }

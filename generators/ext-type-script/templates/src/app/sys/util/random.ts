@@ -1,4 +1,4 @@
-/* tslint:disable:interface-name */
+/* tslint:disable:interface-name prefer-const */
 ///////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////
 
@@ -6,7 +6,7 @@ interface StringConstructor {
     random(length?:number, range?:number):string;
 }
 
-String.random = function (length:number = 0, range:number = 36):string {
+String.random = function(length:number = 0, range:number = 36):string {
 
     length = Math.floor(length);
     range = Math.floor(range);

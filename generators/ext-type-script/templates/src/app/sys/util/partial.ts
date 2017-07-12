@@ -1,4 +1,4 @@
-/* tslint:disable:interface-name */
+/* tslint:disable:ban-types interface-name prefer-const */
 ///////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////
 
@@ -23,7 +23,7 @@ interface Function {
  * is left intact.
  */
 
-Function.prototype.partial = function ():Function {
+Function.prototype.partial = function():Function {
     let args:any = (arguments.length > 0) ? arguments[0] : {},
         negs:any = {},
         func = this;
@@ -34,14 +34,14 @@ Function.prototype.partial = function ():Function {
         names = str.slice(lhs, rhs).match(/([^\s,]+)/g);
 
     let idx = 0;
-    names.every(function (value:string) {
+    names.every(function(value:string) {
         if (value in args === false) {
             negs[idx++] = value;
         }
         return true;
     });
 
-    return function () {
+    return function() {
         let union:any[] = [];
         for (let i in arguments) {
             if (arguments.hasOwnProperty(i)) {
