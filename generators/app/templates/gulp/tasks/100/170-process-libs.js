@@ -1,16 +1,11 @@
 let pkg = require('../../package.js'),
     path = require('path'),
-    pump = require('pump');
-let gulp = require('gulp'),
-    gulp_copy = require('gulp-copy');
+    pump = require('pump'),
+    gulp = require('gulp');
 
 gulp.task('process-libs', function (done) {
     pump([
-        gulp.src([
-            'src/lib/**/*'
-        ]),
-        gulp_copy(path.join('build', pkg.name), {
-            prefix: 1
-        })
+        gulp.src(['src/lib/**/*'], {base: 'src'}),
+        gulp.dest(path.join('build', pkg.name))
     ], done);
 });

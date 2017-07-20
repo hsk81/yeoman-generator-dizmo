@@ -1,7 +1,6 @@
 let pkg = require('../../package.js'),
     path = require('path');
 let gulp = require('gulp'),
-    gulp_copy = require('gulp-copy'),
     gulp_sass = require('gulp-sass'),
     gulp_sourcemaps = require('gulp-sourcemaps');
 let extend = require('xtend'),
@@ -9,12 +8,8 @@ let extend = require('xtend'),
 
 gulp.task('process-styles:copy', function (done) {
     pump([
-        gulp.src([
-            'src/style/**/*', '!src/style/**/*.scss'
-        ]),
-        gulp_copy(path.join('build', pkg.name, 'style'), {
-            prefix: 2
-        })
+        gulp.src(['src/style/**/*', '!src/style/**/*.scss'], {base: 'src'}),
+        gulp.dest(path.join('build', pkg.name))
     ], done);
 });
 gulp.task('process-styles', ['process-styles:copy'], function (done) {

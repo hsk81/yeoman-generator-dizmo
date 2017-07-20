@@ -1,26 +1,21 @@
 let pkg = require('../../package.js'),
     path = require('path'),
-    pump = require('pump');
-let gulp = require('gulp'),
-    gulp_copy = require('gulp-copy');
+    pump = require('pump'),
+    gulp = require('gulp');
 
 gulp.task('process-assets:base', function (done) {
     pump([
         gulp.src([
             'assets/Icon.*', 'assets/Icon-dark.*', 'assets/Preview.*'
         ]),
-        gulp_copy(path.join('build', pkg.name), {
-            prefix: 1
-        })
+        gulp.dest(
+            path.join('build', pkg.name)
+        )
     ], done);
 });
 gulp.task('process-assets', ['process-assets:base'], function (done) {
     pump([
-        gulp.src([
-            'assets/**/*'
-        ]),
-        gulp_copy(path.join('build', pkg.name, 'assets'), {
-            prefix: 1
-        })
+        gulp.src(['assets/**/*'], {base: '.'}),
+        gulp.dest(path.join('build', pkg.name))
     ], done);
 });

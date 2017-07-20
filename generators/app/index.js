@@ -326,7 +326,6 @@ module.exports = generators.extend({
                     'babelify': '^7.3.0',
                     'browserify': '^14.1.0',
                     'gulp': '^3.9.1',
-                    'gulp-copy': '^1.0.0',
                     'gulp-eslint': '^4.0.0',
                     'gulp-htmlmin': '^3.0.0',
                     'gulp-plist': '^0.1.0',
