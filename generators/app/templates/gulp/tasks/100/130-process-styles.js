@@ -8,8 +8,14 @@ let extend = require('xtend'),
 
 gulp.task('process-styles:copy', function (done) {
     pump([
-        gulp.src(['src/style/**/*', '!src/style/**/*.scss'], {base: 'src'}),
-        gulp.dest(path.join('build', pkg.name))
+        gulp.src([
+            'src/style/**/*', '!src/style/**/*.scss'
+        ], {
+            base: 'src'
+        }),
+        gulp.dest(
+            path.join('build', pkg.name)
+        )
     ], done);
 });
 gulp.task('process-styles', ['process-styles:copy'], function (done) {
