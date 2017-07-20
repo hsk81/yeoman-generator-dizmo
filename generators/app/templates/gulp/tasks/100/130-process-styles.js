@@ -7,14 +7,15 @@ let gulp = require('gulp'),
 let extend = require('xtend'),
     pump = require('pump');
 
-gulp.task('process-styles:copy', function () {
-    return gulp.src([
-        'src/style/**/*', '!src/style/**/*.scss'
-    ]).pipe(
+gulp.task('process-styles:copy', function (done) {
+    pump([
+        gulp.src([
+            'src/style/**/*', '!src/style/**/*.scss'
+        ]),
         gulp_copy(path.join('build', pkg.name, 'style'), {
             prefix: 2
         })
-    );
+    ], done);
 });
 gulp.task('process-styles', ['process-styles:copy'], function (done) {
     let cli_min = require('yargs')

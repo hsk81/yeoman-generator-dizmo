@@ -1,11 +1,14 @@
 let pkg = require('../../package.js'),
-    path = require('path');
+    path = require('path'),
+    pump = require('pump');
 let gulp = require('gulp'),
     gulp_zip = require('gulp-zip');
 
-gulp.task('process-help:zip', function () {
-    return gulp.src('help/**/*', {base: '.'})
-        .pipe(gulp_zip('help.zip'))
-        .pipe(gulp.dest(path.join('build', pkg.name)));
+gulp.task('process-help:zip', function (done) {
+    pump([
+        gulp.src('help/**/*', {base: '.'}),
+        gulp_zip('help.zip'),
+        gulp.dest(path.join('build', pkg.name))
+    ], done);
 });
 gulp.task('process-help', ['process-help:zip']);
