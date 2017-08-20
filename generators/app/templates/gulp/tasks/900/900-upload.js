@@ -238,7 +238,7 @@ gulp.task('upload', ['build'], function () {
             } catch (ex) {
                 setTimeout(function () {
                     gulp_util.log(gulp_util.colors.red.bold(
-                        res.toJSON()
+                        body
                     ));
                 }, 0);
             }
