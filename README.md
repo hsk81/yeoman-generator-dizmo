@@ -3,7 +3,7 @@
 
 ## Prerequisites
 
-* [Node.js](https://nodejs.org) v6.11.0 LTS (or higher); see also [Node.js Binary Distributions](https://github.com/nodesource/distributions) for distribution based packages (`deb` or `rpm`).
+* [Node.js](https://nodejs.org) v6.11.0 LTS (or higher); for Linux distribution based packages (`deb` or `rpm`) see also [Node.js Binary Distributions](https://github.com/nodesource/distributions).
 
 ## Installation
 
