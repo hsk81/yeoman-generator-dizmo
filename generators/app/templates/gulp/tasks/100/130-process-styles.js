@@ -3,11 +3,10 @@ let pkg = require('../../package.js'),
 let gulp = require('gulp'),
     gulp_sass = require('gulp-sass'),
     gulp_sourcemaps = require('gulp-sourcemaps');
-let extend = require('xtend'),
-    pump = require('pump');
+let extend = require('xtend');
 
 gulp.task('process-styles:copy', function (done) {
-    pump([
+    return require('../../miscellanea/pipe')([
         gulp.src([
             'src/style/**/*', '!src/style/**/*.scss'
         ], {
@@ -82,5 +81,5 @@ gulp.task('process-styles', ['process-styles:copy'], function (done) {
     stream.push(gulp.dest(
         path.join('build', pkg.name, 'style')
     ));
-    pump(stream, done);
+    return require('../../miscellanea/pipe')(stream, done);
 });

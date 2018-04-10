@@ -7,7 +7,6 @@ let buffer = require('vinyl-buffer'),
     browserify = require('browserify'),
     extend = require('xtend'),
     js_obfuscator = require('javascript-obfuscator'),
-    pump = require('pump'),
     source = require('vinyl-source-stream'),
     through = require('through2'),
     tsify = require('tsify');
@@ -106,5 +105,5 @@ gulp.task('process-scripts', function (done) {
     stream.push(gulp.dest(
         path.join('build', pkg.name)
     ));
-    pump(stream, done);
+    return require('../../miscellanea/pipe')(stream, done);
 });

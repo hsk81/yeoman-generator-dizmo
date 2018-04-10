@@ -1,7 +1,6 @@
 let pkg = require('../../package.js'),
     fs = require('fs'),
-    path = require('path'),
-    pump = require('pump');
+    path = require('path');
 let gulp = require('gulp'),
     gulp_util = require('gulp-util');
 
@@ -64,7 +63,7 @@ gulp.task('deploy', ['build'], function (done) {
         }, 0);
     }
     if (stream.length > 1) {
-        pump(stream, done);
+        require('pump')(stream, done);
     } else {
         done();
     }
@@ -74,7 +73,7 @@ gulp.task('deploy:only', function (done) {
         'build/{0}/**/*'.replace('{0}', pkg.name))
     ], to());
     if (stream.length > 1) {
-        pump(stream, done);
+        require('pump')(stream, done);
     } else {
         done();
     }
