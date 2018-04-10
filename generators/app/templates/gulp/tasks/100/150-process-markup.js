@@ -51,5 +51,5 @@ gulp.task('process-markup', function (done) {
     stream.push(gulp.dest(
         path.join('build', pkg.name)
     ));
-    return require('../../miscellanea/pipe')(stream, done);
+    require('pump')(stream, done);
 });

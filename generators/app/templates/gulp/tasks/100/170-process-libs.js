@@ -3,7 +3,7 @@ let pkg = require('../../package.js'),
     gulp = require('gulp');
 
 gulp.task('process-libs', function (done) {
-    return require('../../miscellanea/pipe')([
+    require('pump')([
         gulp.src(['src/lib/**/*'], {base: 'src'}),
         gulp.dest(path.join('build', pkg.name))
     ], done);

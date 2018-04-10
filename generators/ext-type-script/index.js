@@ -39,10 +39,10 @@ module.exports = generators.extend({
             delete pkg['babel'];
             pkg.devDependencies = sort(
                 lodash.assign(pkg.devDependencies, {
-                    'gulp-tslint': '^8.1.1',
-                    'tsify': '^3.0.1',
-                    'tslint': '^5.5.0',
-                    'typescript': '^2.0.10'
+                    'gulp-tslint': '^8.1.3',
+                    'tsify': '^4.0.0',
+                    'tslint': '^5.9.1',
+                    'typescript': '^2.8.1'
                 })
             );
             this.fs.writeJSON(

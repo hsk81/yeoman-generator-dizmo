@@ -6,7 +6,7 @@ let gulp = require('gulp'),
 let extend = require('xtend');
 
 gulp.task('process-styles:copy', function (done) {
-    return require('../../miscellanea/pipe')([
+    require('pump')([
         gulp.src([
             'src/style/**/*', '!src/style/**/*.scss'
         ], {
@@ -81,5 +81,5 @@ gulp.task('process-styles', ['process-styles:copy'], function (done) {
     stream.push(gulp.dest(
         path.join('build', pkg.name, 'style')
     ));
-    return require('../../miscellanea/pipe')(stream, done);
+    require('pump')(stream, done);
 });

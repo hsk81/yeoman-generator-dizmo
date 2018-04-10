@@ -31,7 +31,7 @@ gulp.task('lint:js', function (done) {
             gulp_eslint.format()
         );
     }
-    return require('../../miscellanea/pipe')(stream, done);
+    require('pump')(stream, done);
 });
 
 gulp.task('lint', ['lint:js']);

@@ -31,7 +31,7 @@ gulp.task('lint:ts', function (done) {
             emitError: false
         }));
     }
-    return require('../../miscellanea/pipe')(stream, done);
+    require('pump')(stream, done);
 });
 
 gulp.task('lint', ['lint:ts']);

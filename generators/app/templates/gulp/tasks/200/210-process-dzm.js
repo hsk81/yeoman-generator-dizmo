@@ -4,7 +4,7 @@ let gulp = require('gulp'),
     gulp_zip = require('gulp-zip');
 
 gulp.task('process-dzm', function (done) {
-    return require('../../miscellanea/pipe')([
+    require('pump')([
         gulp.src(['build/**/*'], {base: 'build'}),
         gulp_zip('{0}.dzm'.replace('{0}', pkg.name)),
         gulp_ver(),

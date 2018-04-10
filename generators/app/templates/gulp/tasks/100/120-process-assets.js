@@ -3,7 +3,7 @@ let gulp = require('gulp'),
     gulp_copy = require('gulp-copy');
 
 gulp.task('process-assets:base', function (done) {
-    return require('../../miscellanea/pipe')([
+    require('pump')([
         gulp.src([
             'assets/Icon.*', 'assets/Icon-dark.*', 'assets/Preview.*'
         ]),
@@ -13,7 +13,7 @@ gulp.task('process-assets:base', function (done) {
     ], done);
 });
 gulp.task('process-assets', ['process-assets:base'], function (done) {
-    return require('../../miscellanea/pipe')([
+    require('pump')([
         gulp.src([
             'assets/**/*'
         ]),

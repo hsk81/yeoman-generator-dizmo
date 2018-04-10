@@ -37,7 +37,7 @@ gulp.task('lint:coffee', function (done) {
             gulp_coffeelint.reporter()
         );
     }
-    return require('../../miscellanea/pipe')(stream, done);
+    require('pump')(stream, done);
 });
 
 gulp.task('lint', ['lint:coffee']);

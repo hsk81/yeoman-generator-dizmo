@@ -16,7 +16,7 @@
   "devDependencies": {
     "gulp": "^3.9.1",
     "gulp-eslint": "^4.0.0",
-    "gulp-exclude-gitignore": "^1.0.0",
+    "gulp-exclude-gitignore": "^1.2.0",
     "gulp-nsp": "^3.0.1",
     "pump": "^3.0.0",
     "yeoman-assert": "^3.0.0"
