@@ -8,7 +8,6 @@ let babelify = require('babelify'),
     browserify = require('browserify'),
     extend = require('xtend'),
     js_obfuscator = require('javascript-obfuscator'),
-    pump = require('pump'),
     source = require('vinyl-source-stream'),
     through = require('through2');
 
@@ -105,5 +104,5 @@ gulp.task('process-scripts', function (done) {
     stream.push(gulp.dest(
         path.join('build', pkg.name)
     ));
-    pump(stream, done);
+    return require('../../miscellanea/pipe')(stream, done);
 });

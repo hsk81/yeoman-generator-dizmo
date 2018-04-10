@@ -1,6 +1,5 @@
 let pkg = require('../../package.js'),
-    extend = require('xtend'),
-    pump = require('pump');
+    extend = require('xtend');
 let gulp = require('gulp'),
     gulp_eslint = require('gulp-eslint');
 
@@ -32,7 +31,7 @@ gulp.task('lint:js', function (done) {
             gulp_eslint.format()
         );
     }
-    pump(stream, done);
+    return require('../../miscellanea/pipe')(stream, done);
 });
 
 gulp.task('lint', ['lint:js']);

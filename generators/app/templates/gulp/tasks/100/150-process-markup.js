@@ -2,8 +2,7 @@ let pkg = require('../../package.js'),
     path = require('path');
 let gulp = require('gulp'),
     gulp_htmlmin = require('gulp-htmlmin');
-let extend = require('xtend'),
-    pump = require('pump');
+let extend = require('xtend');
 
 gulp.task('process-markup', function (done) {
     let cli_min = require('yargs')
@@ -52,5 +51,5 @@ gulp.task('process-markup', function (done) {
     stream.push(gulp.dest(
         path.join('build', pkg.name)
     ));
-    pump(stream, done);
+    return require('../../miscellanea/pipe')(stream, done);
 });

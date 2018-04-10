@@ -1,6 +1,5 @@
 let pkg = require('../../package.js'),
-    extend = require('xtend'),
-    pump = require('pump');
+    extend = require('xtend');
 let gulp = require('gulp'),
     gulp_coffeelint = require('gulp-coffeelint');
 
@@ -38,7 +37,7 @@ gulp.task('lint:coffee', function (done) {
             gulp_coffeelint.reporter()
         );
     }
-    pump(stream, done);
+    return require('../../miscellanea/pipe')(stream, done);
 });
 
 gulp.task('lint', ['lint:coffee']);
