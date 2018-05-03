@@ -322,8 +322,9 @@ module.exports = generators.extend({
             );
             pkg.devDependencies = sort(
                 lodash.assign(pkg.devDependencies, {
+                    'babel-core': '^6.26.3',
                     'babel-preset-env': '^1.6.1',
-                    'babelify': '^7.3.0',
+                    'babelify': '^8.0.0',
                     'browserify': '^16.1.1',
                     'gulp': '^3.9.1',
                     'gulp-copy': '^1.1.0',
@@ -338,7 +339,7 @@ module.exports = generators.extend({
                     'gulp-util': '^3.0.8',
                     'gulp-ver': '^0.1.0',
                     'gulp-zip': '^4.1.0',
-                    'javascript-obfuscator': '^0.15.0',
+                    'javascript-obfuscator': '^0.16.0',
                     'lodash': '^4.17.5',
                     'pump': '^3.0.0',
                     'rimraf': '^2.6.2',
