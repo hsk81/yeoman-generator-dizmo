@@ -20,18 +20,20 @@ gulp.task('lint:js', function (done) {
         argv.lint = JSON.parse(argv.lint);
     }
 
-    let stream = [gulp.src([
-        './src/**/*.js', '!src/lib/**', '!build/**', '!node_modules/**'
-    ])];
     if (argv.lint || argv.lint === undefined) {
+        let stream = [gulp.src([
+            './src/**/*.js', '!src/lib/**', '!build/**', '!node_modules/**'
+        ])];
         stream.push(gulp_eslint.apply(
             this, [extend({}, argv.lint)]
         ));
         stream.push(
             gulp_eslint.format()
         );
+        require('pump')(stream, done);
+    } else {
+        done();
     }
-    require('pump')(stream, done);
 });
 
 gulp.task('lint', ['lint:js']);
