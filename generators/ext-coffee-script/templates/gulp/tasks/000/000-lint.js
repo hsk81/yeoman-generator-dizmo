@@ -20,10 +20,10 @@ gulp.task('lint:coffee', function (done) {
         argv.lint = JSON.parse(argv.lint);
     }
 
-    let stream = [gulp.src([
-        './src/**/*.coffee', '!src/lib/**', '!build/**', '!node_modules/**'
-    ])];
     if (argv.lint || argv.lint === undefined) {
+        let stream = [gulp.src([
+            './src/**/*.coffee', '!src/lib/**', '!build/**', '!node_modules/**'
+        ])];
         if (Object.keys(argv.lint).length > 0) {
             stream.push(gulp_coffeelint.apply(
                 this, [extend({}, argv.lint)]
@@ -36,8 +36,10 @@ gulp.task('lint:coffee', function (done) {
         stream.push(
             gulp_coffeelint.reporter()
         );
+        require('pump')(stream, done);
+    } else {
+        done();
     }
-    require('pump')(stream, done);
 });
 
 gulp.task('lint', ['lint:coffee']);
