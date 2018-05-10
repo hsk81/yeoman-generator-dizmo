@@ -59,7 +59,7 @@ export function traceable(
 }
 
 function _traceable(flag:boolean):Function {
-    let f0 = bundle.publicStorage.getProperty('TRACE', {
+    let T0 = bundle.publicStorage.getProperty('TRACE', {
         fallback: window.global<boolean>('TRACE')
     });
     return function(target:any, key:string, dtor?:PropertyDescriptor) {
@@ -71,28 +71,21 @@ function _traceable(flag:boolean):Function {
                     (fn as any)['_traced'] = true;
 
                     let tn:Function = function(...args:any[]) {
-                        let f1 = window.global<boolean>('TRACE');
-                        if (f0 !== false && f1 !== false && (f0 || f1)) {
-                            let _named = target._named || '@',
-                                random = String.random(4, 16),
-                                dt_beg = new Date().toISOString();
+                        let T1 = window.global<boolean>('TRACE');
+                        if (T0 !== false && T1 !== false && (T0 || T1)) {
+                            let _named = target._named || '@';
 
                             setTimeout(() => {
-                                console.log(
-                                    `[${dt_beg}]#${random} >>> ${_named}.${key}`);
-                                console.log(
-                                    `[${dt_beg}]#${random}`, args);
-                            }, 0);
+                                console.group(`${_named}.${key}`);
+                                console.debug(args);
+                                console.debug(result);
+                            }, T0 || T1 || 0);
 
-                            let result = fn.apply(this, args),
-                                dt_end = new Date().toISOString();
+                            let result = fn.apply(this, args);
 
                             setTimeout(() => {
-                                console.log(
-                                    `[${dt_end}]#${random} <<< ${_named}.${key}`);
-                                console.log(
-                                    `[${dt_end}]#${random}`, result);
-                            }, 0);
+                                console.groupEnd();
+                            }, T0 || T1 || 0);
 
                             return result;
                         } else {
