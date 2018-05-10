@@ -40,7 +40,7 @@
     "url": "https://github.com/dizmo/yeoman-generator-dizmo"
   },
   "scripts": {
-    "prepublish": "gulp prepublish"
+    "prepare": "gulp prepublish"
   },
   "version": "7.4.14"
 }

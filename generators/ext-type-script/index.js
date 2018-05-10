@@ -1,7 +1,7 @@
 'use strict';
 
 let fs = require('fs'),
-    generators = require('yeoman-generator'),
+    Generator = require('yeoman-generator'),
     lodash = require('lodash'),
     rimraf = require('rimraf');
 
@@ -20,8 +20,8 @@ function sort(dictionary) {
     return sorted;
 }
 
-module.exports = generators.extend({
-    writing: function () {
+module.exports = class extends Generator {
+    writing() {
         let upgrade = Boolean(
             this.options.upgrade && fs.existsSync('package.json'));
         if (!upgrade || upgrade) {
@@ -63,12 +63,12 @@ module.exports = generators.extend({
                 this.destinationPath('typings.json'));
         }
         this.conflicter.force = this.options.force || upgrade;
-    },
+    }
 
-    end: function () {
+    end() {
         rimraf.sync(
             this.destinationPath('.eslintrc.json'));
         rimraf.sync(
             this.destinationPath('src/index.js'));
     }
-});
+};

@@ -2,7 +2,7 @@
 
 let chalk = require('chalk'),
     fs = require('fs'),
-    generators = require('yeoman-generator'),
+    Generator = require('yeoman-generator'),
     lodash = require('lodash'),
     os = require('os'),
     path = require('path'),
@@ -10,16 +10,6 @@ let chalk = require('chalk'),
     shell = require('shelljs'),
     rimraf = require('rimraf'),
     yosay = require('yosay');
-
-function mine(fn) {
-    return function () {
-        return fn.apply(this, [this].concat(
-            Array.prototype.slice.call(
-                arguments
-            )
-        ));
-    };
-}
 
 function sort(dictionary) {
     let array = [],
@@ -36,9 +26,9 @@ function sort(dictionary) {
     return sorted;
 }
 
-module.exports = generators.extend({
-    constructor: function () {
-        generators.apply(this, arguments);
+module.exports = class extends Generator {
+    constructor(args, opts) {
+        super(args, opts);
 
         this.argument('name', {
             defaults: 'MyDizmo',
@@ -85,9 +75,10 @@ module.exports = generators.extend({
             desc: 'Upgrade the build system',
             type: Boolean
         });
-    },
+    }
 
-    prompting: mine(function (self) {
+    prompting() {
+        const self = this;
         let prompts = [], pkg = fs.existsSync('package.json')
             ? JSON.parse(fs.readFileSync('package.json'))
             : {};
@@ -275,9 +266,9 @@ module.exports = generators.extend({
                 _: lodash
             });
         });
-    }),
+    }
 
-    configuring: function () {
+    configuring() {
         let bundle_id = path.parse(this.properties.bundleId);
         if (bundle_id && bundle_id.name) {
             this.config.set('domain', bundle_id.name);
@@ -298,9 +289,9 @@ module.exports = generators.extend({
             this.properties.initial = true;
         }
         this.config.save();
-    },
+    }
 
-    writing: function () {
+    writing() {
         let upgrade = Boolean(
             this.options.upgrade && fs.existsSync('package.json'));
         if (!upgrade || upgrade) {
@@ -413,9 +404,9 @@ module.exports = generators.extend({
             }
         }
         this.conflicter.force = upgrade;
-    },
+    }
 
-    end: function () {
+    end() {
         if (this.options['coffee-script']) {
             this.composeWith('dizmo:ext-coffee-script', lodash.assign(
                 this.options, {
@@ -434,23 +425,23 @@ module.exports = generators.extend({
         }
         this._rim();
         this._git();
-    },
+    }
 
-    _rim: function () {
+    _rim() {
         rimraf.sync(
             this.destinationPath('node_modules/'));
-    },
+    }
 
-    _git: function () {
+    _git() {
         let git = shell.which('git');
         if (git && this.options.git) {
             this.spawnCommand(git.toString(), [
                 'init', '--quiet', this.destinationPath()
             ]);
         }
-    },
+    }
 
-    _domain: function () {
+    _domain() {
         if (process.env.USER) {
             return 'me.' + process.env.USER;
         } else if (process.env.USERNAME) {
@@ -466,4 +457,4 @@ module.exports = generators.extend({
             return 'my.domain';
         }
     }
-});
+};
