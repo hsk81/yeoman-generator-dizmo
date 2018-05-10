@@ -316,7 +316,7 @@ module.exports = class extends Generator {
                     'babel-core': '^6.26.3',
                     'babel-preset-env': '^1.6.1',
                     'babelify': '^8.0.0',
-                    'browserify': '^16.2.0',
+                    'browserify': '^16.2.2',
                     'gulp': '^3.9.1',
                     'gulp-copy': '^1.1.0',
                     'gulp-eslint': '^4.0.2',
