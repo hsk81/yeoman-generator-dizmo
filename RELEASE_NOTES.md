@@ -22,7 +22,11 @@
 
 * Don't show the output of `npm install`, and instead display a CLI based spinner:
 
-    This ensure a nice developer experience while building a dizmo with `npm run make`. However, in case something goes wrong while fetching the dependencies, `npm install` can still be run and the corresponding output will be shown.
+    This ensure a nice developer experience while building a dizmo with `npm run build`. However, in case something goes wrong while fetching the dependencies, `npm install` can still be run and the corresponding output will be shown.
+
+* Renamed `make` script to `build` due to support of latter by other tools:
+
+    Many third party tools seem to use the `npm run-script -- build` script, instead of `make`: Hence the renaming to support seamless integration.
 
 ## v6.y.z
 

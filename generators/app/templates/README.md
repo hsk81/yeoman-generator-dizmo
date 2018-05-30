@@ -1,6 +1,6 @@
 # <%= dizmoName %> dizmo
 
-Create the `<%= dizmoName %>` dizmo by running `npm run make` and drag and drop the generated file &ndash; which can be found at `build/<%= dizmoName %>-x.y.z.dzm` &ndash; onto dizmoViewer. The suffix of the file will be the current version number.
+Create the `<%= dizmoName %>` dizmo by running `npm run build` and drag and drop the generated file &ndash; which can be found at `build/<%= dizmoName %>-x.y.z.dzm` &ndash; onto dizmoViewer. The suffix of the file will be the current version number.
 
 ## Building
 
@@ -10,7 +10,7 @@ Building the dizmo requires a sequence of tasks to be run, which are:
 
 * `npm run clean`: Cleans the previous build (if any) by removing the `build/` folder completely.
 
-* `npm run make`: Packages the dizmo as `build/<%= dizmoName %>-x.y.z.dzm` by running all required build tasks and compressing the resulting dizmo as a ZIP archive (but with a `.dzm` extension).
+* `npm run build`: Packages the dizmo as `build/<%= dizmoName %>-x.y.z.dzm` by running all required build tasks and compressing the resulting dizmo as a ZIP archive (but with a `.dzm` extension). Runs if required also `npm install`.
 
 * `npm run deploy`: Builds and deploys the dizmo to the path specified by the `dizmo/deploy-path` entry (in `package.json` or in `~/.generator-dizmo/config.json`) or specified by the `DZM_DEPLOY_PATH` environment variable. If neither `dizmo/deploy-path` nor `DZM_DEPLOY_PATH` are set, then the dizmo is only built, but not deployed.
 

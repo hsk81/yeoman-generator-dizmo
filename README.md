@@ -159,7 +159,7 @@ Let's have a look at each ot the top level files and directories:
 
 * `LICENCE`: By default an [ISC](http://opensource.org/licenses/ISC) (Internet Software Consortium) license is generated, which is functionally equivalent to the simplified BSD and MIT licenses, but with a simpler language. Leave or change this according to your needs.
 
-* `package.json`: This is an important file! It is consumed by the [npm] package manager, provides run scripts for the build system (like `lint`, `clean`, `make`, `install` etc.), and allows to change the dizmo settings. Have a look below at the corresponding section for further information.
+* `package.json`: This is an important file! It is consumed by the [npm] package manager, provides run scripts for the build system (like `lint`, `clean`, `build`, `install` etc.), and allows to change the dizmo settings. Have a look below at the corresponding section for further information.
 
 * `README.md`: A simple shortened version of this README.md; it is meant to provide a quick overview, and can then be replaced with a project specific content.
 
@@ -269,9 +269,9 @@ DZM_DEPLOY_PATH=/path/to/my/dizmos npm run deploy
 npm run lint
 ```
 
-* `make`: builds the dizmo (including the `*.dzm` artifact) from scratch and puts it into the `./build` sub-directory.
+* `build`: builds the dizmo (including the `*.dzm` artifact) from scratch and puts it into the `./build` sub-directory.
 ```
-npm run make
+npm run build
 ```
 
 * `test`: ensures to run tests -- by default no tests nor a test framework are pre-defined (therefore, a simple `exit 0` script has been provided). It is up to the dizmo developer to decide how tests shall be implemented. The only condition is, that the main test script should provide an exit value of `0` in case of success.
@@ -321,31 +321,31 @@ On the command line linting can be enabled by providing `--lint`, and it can be 
 Above it's specifies, that the linting step should be executed by default for the given project. Hence, the following will lint and build the dizmo:
 
 ```
-npm run make
+npm run build
 ```
 
 To stop the build engine from linting, either the `lint` entry in `package.json` can be set to `false`, or it can directly be overridden on the CLI:
 
 ```
-npm run make -- --no-lint
+npm run build -- --no-lint
 ```
 
-The double hyphen after `npm run make` is necessary, since it tells NPM to forward the `--no-lint` argument to each build step, which together will build (i.e. `make`) the dizmo. If you don't like the four consecutive hyphens, you can provide the script name also after the initial double hyphen:
+The double hyphen after `npm run build` is necessary, since it tells NPM to forward the `--no-lint` argument to each build step, which together will build (i.e. `build`) the dizmo. If you don't like the four consecutive hyphens, you can provide the script name also after the initial double hyphen:
 
 ```
-npm run -- make --no-lint
+npm run -- build --no-lint
 ```
 
-Or more verbosely below you see in its clearest form, how the `make` script is run with the additional argument `--no-lint`:
+Or more verbosely below you see in its clearest form, how the `build` script is run with the additional argument `--no-lint`:
 
 ```
-npm run-script -- make --no-lint
+npm run-script -- build --no-lint
 ```
 
 Conversely, if you explicitly want to enforce linting then you can execute:
 
 ```
-npm run -- make --lint
+npm run -- build --lint
 ```
 
 As mentioned, this is in general not required since `package.json` should by default have linting enabled. However, if you are not sure if this is the case -- for example when your putting together a build environment, and want enforce linting -- then providing the `--lint` flag explicitly makes sense.
@@ -355,19 +355,19 @@ The specific configuration objects for controlling [eslint], [coffeelint] and [t
 * Enforce for a JavaScript based dizmo project linting, but ignore unused variable names:
 
 ```
-npm run make -- --lint='{"rules":{"no-unused-vars":0}}'
+npm run build -- --lint='{"rules":{"no-unused-vars":0}}'
 ```
 
 * Enforce linting, but provide a warning w.r.t. unused variable names:
 
 ```
-npm run make -- --lint='{"rules":{"no-unused-vars":1}}'
+npm run build -- --lint='{"rules":{"no-unused-vars":1}}'
 ```
 
 * Enforce linting, but provide an error w.r.t. unused variable names:
 
 ```
-npm run make -- --lint='{"rules":{"no-unused-vars":1}}'
+npm run build -- --lint='{"rules":{"no-unused-vars":1}}'
 ```
 
 Above, in case of an error the build process will *not* fail, effectively making it equivalent to a warning. If such behaviour is not desired, then the `000-lint.js` Gulp task should be modified to stop the build process upon a linting error.
@@ -375,13 +375,13 @@ Above, in case of an error the build process will *not* fail, effectively making
 * Enforce for a CoffeeScript based dizmo project linting, and ensure that indentation is based on four consecutive spaces:
 
 ```
-npm run make -- --lint='{"indentation":{"value":4,"level":"error"}}'
+npm run build -- --lint='{"indentation":{"value":4,"level":"error"}}'
 ```
 
 * And finally, enforce for a TypeScript based dizmo project linting, and ensure that quote-marks use double apostrophes:
 
 ```
-npm run make -- --lint='{"configuration":{"rules":{"quotemark":[true, "single"]}}}'
+npm run build -- --lint='{"configuration":{"rules":{"quotemark":[true, "single"]}}}'
 ```
 
 As you see, each linter expects a different configuration object, since each is based on a different code base: [eslint], [coffeelint] and [tslint].
@@ -391,31 +391,31 @@ As you see, each linter expects a different configuration object, since each is 
 Providing the `--minify` option on the CLI will ensure that the scripts, styles and markup are automatically minified and obfuscated, where obfuscation operates only on the scripts:
 
 ```
-npm run make -- --minify
+npm run build -- --minify
 ```
 
 Please notice, that by default source maps are *not* created, to avoid accidental leaks of potential intellectual property. However by appending the `--sourcemaps` flag they can be enabled:
 
 ```
-npm run make -- --minify --sourcemaps
+npm run build -- --minify --sourcemaps
 ```
 
 It's also possible to suppress a minification (e.g. in case it should be enabled via `package.json`):
 
 ```
-npm run make -- --no-minify
+npm run build -- --no-minify
 ```
 
 Further, since minification consists of five sub-steps, namely (a) markup minification, (b) styles minification, (c1) scripts obfuscation plus (c2) minification and also (d) source maps generation -- where the latter however needs to be explicitly enabled -- it's possible to control them independently of the *general* `--minify` flag:
 
 ```
-npm run make -- --htmlmin --sass --obfuscate --uglify --no-sourcemap
+npm run build -- --htmlmin --sass --obfuscate --uglify --no-sourcemap
 ```
 
 The above set of arguments is (given default `package.json` build settings) equivalent to the `--minify` flag. Further, each of them can be negated as well:
 
 ```
-npm run make -- --no-htmlmin --no-sass --no-obfuscate --no-uglify
+npm run build -- --no-htmlmin --no-sass --no-obfuscate --no-uglify
 ```
 
 Further, each flag can accept an optional configuration object to control in detail the corresponding minification, obfuscation and/or source map generation step:
@@ -423,31 +423,31 @@ Further, each flag can accept an optional configuration object to control in det
 * Minimize the markup; see [gulp-htmlmin] for further information w.r.t. to the configuration:
 
 ```
-npm run make -- --minify --htmlmin='{"collapseWhitespace":true}'
+npm run build -- --minify --htmlmin='{"collapseWhitespace":true}'
 ```
 
 * Minimize the styles; see [gulp-sass] for further information w.r.t. to the configuration:
 
 ```
-npm run make -- --minify --sass='{"outputStyle":"compressed"}'
+npm run build -- --minify --sass='{"outputStyle":"compressed"}'
 ```
 
 * Obfuscate the scripts; see [javascript-obfuscator] for further information w.r.t. to the configuration:
 
 ```
-npm run make -- --minify --obfuscate='{"compact":true}'
+npm run build -- --minify --obfuscate='{"compact":true}'
 ```
 
 * Minify the scripts; see [gulp-uglify] for further information w.r.t. to the configuration:
 
 ```
-npm run make -- --minify --uglify='{"mangle":true}'
+npm run build -- --minify --uglify='{"mangle":true}'
 ```
 
 * Create source maps for the scripts *and* the styles (in `package.json` each source map generation can be configured separately, however on the CLI there is only a single flag to control both); see [gulp-sourcemaps] for further information w.r.t. to the configuration:
 
 ```
-npm run make -- --minify --sourcemaps='{"loadMaps":true}
+npm run build -- --minify --sourcemaps='{"loadMaps":true}
 ```
 
 In general, using `--minify` (or `--no-minify`) combined with the `--sourcemaps` (or `--no-sourcemaps`) CLI options should be enough. Only if explicit control is required, using the `--htmlmin`, `--sass`, `--obfuscate` or `--uglify` flags is be necessary. Further, providing configuration objects to these flags should only be done, when you know what you are doing (or are not happy with the provided defaults).
@@ -599,11 +599,11 @@ Or you can simply drop a library into the `src/lib/` sub-directory and reference
 
 If `npm install` is *not* run before attempting to build a dizmo, then a message similar to the one below might be produced:
 ```bash
-error argv "/usr/local/bin/node" "/usr/local/bin/npm" "run" "make"
+error argv "/usr/local/bin/node" "/usr/local/bin/npm" "run" "build"
 error code ELIFECYCLE
-error MyDizmo@0.0.0 make: `node ./node_modules/gulp/bin/gulp.js`
+error MyDizmo@0.0.0 build: `node ./node_modules/gulp/bin/gulp.js`
 error Exit status 1
-error Failed at the MyDizmo@0.0.0 make script 'node ./node_modules/gulp/bin/gulp.js'.
+error Failed at the MyDizmo@0.0.0 build script 'node ./node_modules/gulp/bin/gulp.js'.
 ```
 
 In such a case, just run `npm install` to ensure that all the required dependencies get installed locally.
@@ -629,7 +629,7 @@ The recommended approach is to create a *non-root* user account and then run the
 
 Browsers and the libraries, which the former are built upon (like Webkit), usually lag behind the latest standard, and hence fail to provide up-to-date language support. The [Babel] transpiler however, can take a script written in a modern standard and translate it into backwards compatible JavaScript. DizmoGen includes Babel and thus supports ES6.
 
-**Note:** If you have older projects and update dizmoGen, make sure that you add ES6 support to `.eslintrc.json` as following:
+**Note:** If you have older projects and update dizmoGen, ensure that you add ES6 support to `.eslintrc.json` as following:
 ```json
 {
   "env": {
