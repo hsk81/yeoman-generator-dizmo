@@ -40,7 +40,7 @@ module.exports = class extends Generator {
             pkg.devDependencies = sort(
                 lodash.assign(pkg.devDependencies, {
                     'coffeeify': '^3.0.1',
-                    'coffeescript': '^2.3.0',
+                    'coffeescript': '^2.3.1',
                     'gulp-coffeelint': '^0.6.0'
                 })
             );

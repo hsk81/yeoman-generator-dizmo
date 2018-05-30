@@ -314,7 +314,7 @@ module.exports = class extends Generator {
             pkg.devDependencies = sort(
                 lodash.assign(pkg.devDependencies, {
                     'babel-core': '^6.26.3',
-                    'babel-preset-env': '^1.6.1',
+                    'babel-preset-env': '^1.7.0',
                     'babelify': '^8.0.0',
                     'browserify': '^16.2.2',
                     'gulp': '^3.9.1',
@@ -322,7 +322,7 @@ module.exports = class extends Generator {
                     'gulp-eslint': '^4.0.2',
                     'gulp-htmlmin': '^4.0.0',
                     'gulp-plist': '^0.1.0',
-                    'gulp-rename': '^1.2.2',
+                    'gulp-rename': '^1.2.3',
                     'gulp-sass': '^4.0.1',
                     'gulp-sourcemaps': '^2.6.4',
                     'gulp-sync': '^0.1.4',
@@ -342,10 +342,10 @@ module.exports = class extends Generator {
             );
             pkg.scripts = sort(
                 lodash.assign(pkg.scripts, {
+                    'build': 'node ./gulp/scripts/build.js',
                     'clean': 'node ./gulp/scripts/clean.js',
                     'deploy': 'node ./gulp/scripts/deploy.js',
                     'lint': 'node ./gulp/scripts/lint.js',
-                    'make': 'node ./gulp/scripts/make.js',
                     'test': 'exit 0',
                     'upload': 'node ./gulp/scripts/upload.js',
                     'watch': 'node ./gulp/scripts/watch.js'
