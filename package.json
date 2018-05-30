@@ -42,5 +42,5 @@
   "scripts": {
     "prepare": "gulp prepublish"
   },
-  "version": "7.4.18"
+  "version": "7.4.19"
 }
