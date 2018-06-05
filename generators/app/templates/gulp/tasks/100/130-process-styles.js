@@ -5,19 +5,18 @@ let gulp = require('gulp'),
     gulp_sourcemaps = require('gulp-sourcemaps');
 let extend = require('xtend');
 
-gulp.task('process-styles:copy', function (done) {
-    require('pump')([
-        gulp.src([
-            'src/style/**/*', '!src/style/**/*.scss'
-        ], {
-            base: 'src'
-        }),
+gulp.task('process-styles:copy', function () {
+    return gulp.src([
+        'src/style/**/*', '!src/style/**/*.scss'
+    ], {
+        base: 'src'
+    }).pipe(
         gulp.dest(
             path.join('build', pkg.name)
         )
-    ], done);
+    );
 });
-gulp.task('process-styles', ['process-styles:copy'], function (done) {
+gulp.task('process-styles', ['process-styles:copy'], function () {
     let cli_min = require('yargs')
         .default('minify')
         .argv.minify;
@@ -60,26 +59,26 @@ gulp.task('process-styles', ['process-styles:copy'], function (done) {
         };
     }
 
-    let stream = [gulp.src([
+    let stream = gulp.src([
         'src/style/**/*.scss'
-    ])];
+    ]);
     if (argv.sourcemaps) {
-        stream.push(gulp_sourcemaps.init(
+        stream = stream.pipe(gulp_sourcemaps.init(
             extend({loadMaps: true}, argv.sourcemaps)
         ));
     }
     if (argv.sass || argv.sass === undefined) {
-        stream.push(gulp_sass.apply(
+        stream = stream.pipe(gulp_sass.apply(
             this, [extend({outputStyle: 'compressed'}, argv.sass)]
         ).on('error', gulp_sass.logError));
     }
     if (argv.sourcemaps) {
-        stream.push(gulp_sourcemaps.write(
+        stream = stream.pipe(gulp_sourcemaps.write(
             './'
         ));
     }
-    stream.push(gulp.dest(
+    stream = stream.pipe(gulp.dest(
         path.join('build', pkg.name, 'style')
     ));
-    require('pump')(stream, done);
+    return stream;
 });

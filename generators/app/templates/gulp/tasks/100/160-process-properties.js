@@ -6,20 +6,26 @@ let gulp = require('gulp'),
     gulp_rename = require('gulp-rename');
 let lodash = require('lodash');
 
-gulp.task('process-properties', function (done) {
-    let settings = lodash.mapKeys(pkg.dizmo.settings, function (v, k) {
-        return lodash.upperFirst(lodash.camelCase(k));
+lodash.mixin({
+    deep: function (obj, mapper) {
+        return mapper(lodash.mapValues(obj, function (v) {
+            return lodash.isPlainObject(v) ? lodash.deep(v, mapper) : v;
+        }));
+    },
+});
+
+gulp.task('process-properties', function () {
+    let settings = lodash.deep(pkg.dizmo.settings, function (s) {
+        return lodash.mapKeys(s, function (v, k) {
+            return lodash.upperFirst(lodash.camelCase(k));
+        });
     });
-    fs.stat('.info.plist', (err) => {
-        if (err === null) {
-            require('pump')([
-                gulp.src('.info.plist'),
-                gulp_plist(settings),
-                gulp_rename('Info.plist'),
-                gulp.dest(path.join('build', pkg.name))
-            ], done);
-        } else {
-            this.emit('error', err);
-        }
-    });
+    if (fs.existsSync('.info.plist')) {
+        return gulp.src('.info.plist')
+            .pipe(gulp_plist(settings))
+            .pipe(gulp_rename('Info.plist'))
+            .pipe(gulp.dest(path.join('build', pkg.name)));
+    } else {
+        this.emit('error', new Error('no .info.plist'));
+    }
 });

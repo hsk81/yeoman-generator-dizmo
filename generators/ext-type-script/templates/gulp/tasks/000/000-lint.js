@@ -21,16 +21,16 @@ gulp.task('lint:ts', function (done) {
     }
 
     if (argv.lint || argv.lint === undefined) {
-        let stream = [gulp.src([
+        let stream = gulp.src([
             './src/**/*.ts', '!src/lib/**', '!build/**', '!node_modules/**'
-        ])];
-        stream.push(gulp_tslint.apply(this, [extend({
+        ]);
+        stream = stream.pipe(gulp_tslint.apply(this, [extend({
             formatter: 'stylish'
         }, argv.lint)]));
-        stream.push(gulp_tslint.report({
+        stream = stream.pipe(gulp_tslint.report({
             emitError: false
         }));
-        require('pump')(stream, done);
+        return stream;
     } else {
         done();
     }

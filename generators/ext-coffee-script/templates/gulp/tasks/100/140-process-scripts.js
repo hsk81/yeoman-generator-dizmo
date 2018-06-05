@@ -27,7 +27,7 @@ let gulp_obfuscator = function (options) {
     });
 };
 
-gulp.task('process-scripts', function (done) {
+gulp.task('process-scripts', function () {
     let cli_min = require('yargs')
         .default('minify')
         .argv.minify;
@@ -79,31 +79,30 @@ gulp.task('process-scripts', function (done) {
         entries: ['src/index.coffee']
     }).transform(coffeeify);
 
-    let stream = [
-        browserified.bundle(), source('index.js'), buffer()
-    ];
+    let stream = browserified.bundle()
+        .pipe(source('index.js')).pipe(buffer());
     if (argv.sourcemaps) {
-        stream.push(gulp_sourcemaps.init(
+        stream = stream.pipe(gulp_sourcemaps.init(
             extend({loadMaps: true}, argv.sourcemaps)
         ));
     }
     if (argv.obfuscate || argv.obfuscate === undefined) {
-        stream.push(gulp_obfuscator.apply(
+        stream = stream.pipe(gulp_obfuscator.apply(
             this, extend({}, argv.obfuscate)
         ));
     }
     if (argv.uglify || argv.uglify === undefined) {
-        stream.push(gulp_uglify.apply(
+        stream = stream.pipe(gulp_uglify.apply(
             this, extend({}, argv.uglify)
         ));
     }
     if (argv.sourcemaps) {
-        stream.push(gulp_sourcemaps.write(
+        stream = stream.pipe(gulp_sourcemaps.write(
             './'
         ));
     }
-    stream.push(gulp.dest(
+    stream = stream.pipe(gulp.dest(
         path.join('build', pkg.name)
     ));
-    require('pump')(stream, done);
+    return stream;
 });

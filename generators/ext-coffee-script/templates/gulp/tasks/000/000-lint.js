@@ -21,22 +21,22 @@ gulp.task('lint:coffee', function (done) {
     }
 
     if (argv.lint || argv.lint === undefined) {
-        let stream = [gulp.src([
+        let stream = gulp.src([
             './src/**/*.coffee', '!src/lib/**', '!build/**', '!node_modules/**'
-        ])];
+        ]);
         if (Object.keys(argv.lint).length > 0) {
-            stream.push(gulp_coffeelint.apply(
+            stream = stream.pipe(gulp_coffeelint.apply(
                 this, [extend({}, argv.lint)]
             ));
         } else {
-            stream.push(gulp_coffeelint.apply(
+            stream = stream.pipe(gulp_coffeelint.apply(
                 this
             ));
         }
-        stream.push(
+        stream = stream.pipe(
             gulp_coffeelint.reporter()
         );
-        require('pump')(stream, done);
+        return stream;
     } else {
         done();
     }

@@ -34,7 +34,7 @@ let gulp_obfuscator = function (options) {
     });
 };
 
-let on_watch = function (done) {
+let on_watch = function () {
     let cli_min = require('yargs')
         .default('minify')
         .argv.minify;
@@ -81,33 +81,32 @@ let on_watch = function (done) {
         argv.uglify = JSON.parse(argv.uglify);
     }
 
-    let stream = [
-        watched.bundle(), source('index.js'), buffer()
-    ];
+    let stream = watched.bundle()
+        .pipe(source('index.js')).pipe(buffer());
     if (argv.sourcemaps) {
-        stream.push(gulp_sourcemaps.init(
+        stream = stream.pipe(gulp_sourcemaps.init(
             extend({loadMaps: true}, argv.sourcemaps)
         ));
     }
     if (argv.obfuscate) {
-        stream.push(gulp_obfuscator.apply(
+        stream = stream.pipe(gulp_obfuscator.apply(
             this, extend({}, argv.obfuscate)
         ));
     }
     if (argv.uglify) {
-        stream.push(gulp_uglify.apply(
+        stream = stream.pipe(gulp_uglify.apply(
             this, extend({}, argv.uglify)
         ));
     }
     if (argv.sourcemaps) {
-        stream.push(gulp_sourcemaps.write(
+        stream = stream.pipe(gulp_sourcemaps.write(
             './'
         ));
     }
-    stream.push(gulp.dest(
+    stream = stream.pipe(gulp.dest(
         path.join('build', pkg.name)
     ));
-    pump(stream, done);
+    return stream;
 };
 
 watched.on('update', on_watch);

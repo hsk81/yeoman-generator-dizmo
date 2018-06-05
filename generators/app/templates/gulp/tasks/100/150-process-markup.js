@@ -4,7 +4,7 @@ let gulp = require('gulp'),
     gulp_htmlmin = require('gulp-htmlmin');
 let extend = require('xtend');
 
-gulp.task('process-markup', function (done) {
+gulp.task('process-markup', function () {
     let cli_min = require('yargs')
         .default('minify')
         .argv.minify;
@@ -35,11 +35,11 @@ gulp.task('process-markup', function (done) {
         argv.htmlmin = JSON.parse(argv.htmlmin);
     }
 
-    let stream = [gulp.src([
+    let stream = gulp.src([
         'src/**/*.html'
-    ])];
+    ]);
     if (argv.htmlmin) {
-        stream.push(gulp_htmlmin.apply(
+        stream = stream.pipe(gulp_htmlmin.apply(
             this, [extend({
                 collapseWhitespace: true,
                 minifyCSS: true,
@@ -48,8 +48,8 @@ gulp.task('process-markup', function (done) {
             }, argv.htmlmin)]
         ));
     }
-    stream.push(gulp.dest(
+    stream = stream.pipe(gulp.dest(
         path.join('build', pkg.name)
     ));
-    require('pump')(stream, done);
+    return stream;
 });

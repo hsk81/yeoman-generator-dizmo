@@ -21,16 +21,16 @@ gulp.task('lint:js', function (done) {
     }
 
     if (argv.lint || argv.lint === undefined) {
-        let stream = [gulp.src([
+        let stream = gulp.src([
             './src/**/*.js', '!src/lib/**', '!build/**', '!node_modules/**'
-        ])];
-        stream.push(gulp_eslint.apply(
+        ]);
+        stream = stream.pipe(gulp_eslint.apply(
             this, [extend({}, argv.lint)]
         ));
-        stream.push(
+        stream = stream.pipe(
             gulp_eslint.format()
         );
-        require('pump')(stream, done);
+        return stream;;
     } else {
         done();
     }
