@@ -322,7 +322,7 @@ module.exports = class extends Generator {
                     'gulp-eslint': '^4.0.2',
                     'gulp-htmlmin': '^4.0.0',
                     'gulp-plist': '^0.1.0',
-                    'gulp-rename': '^1.2.3',
+                    'gulp-rename': '^1.3.0',
                     'gulp-sass': '^4.0.1',
                     'gulp-sourcemaps': '^2.6.4',
                     'gulp-sync': '^0.1.4',
