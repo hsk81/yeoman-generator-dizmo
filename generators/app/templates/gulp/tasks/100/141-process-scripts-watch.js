@@ -8,14 +8,13 @@ let buffer = require('vinyl-buffer'),
     browserify = require('browserify'),
     extend = require('xtend'),
     js_obfuscator = require('javascript-obfuscator'),
-    pump = require('pump'),
     source = require('vinyl-source-stream'),
     through = require('through2'),
     watchify = require('watchify');
 
-let watched = watchify(browserify({
-    basedir: '.', entries: ['src/index.js'],
-    cache: {}, packageCache: {}, debug: false
+let watched = watchify(browserify({basedir: '.', entries: [
+        'node_modules/babel-polyfill/lib/index.js', 'src/index.js'
+    ], cache: {}, packageCache: {}, debug: false
 }).transform(require('babelify')));
 
 let gulp_obfuscator = function (options) {

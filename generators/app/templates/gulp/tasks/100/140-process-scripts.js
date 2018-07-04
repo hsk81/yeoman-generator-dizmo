@@ -74,9 +74,9 @@ gulp.task('process-scripts', function () {
         argv.uglify = JSON.parse(argv.uglify);
     }
 
-    let browserified = browserify({
-        basedir: '.', entries: ['src/index.js']
-    }).transform(babelify);
+    let browserified = browserify({basedir: '.', entries: [
+        'node_modules/babel-polyfill/lib/index.js', 'src/index.js'
+    ]}).transform(babelify);
 
     let stream = browserified.bundle()
         .pipe(source('index.js')).pipe(buffer());

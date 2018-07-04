@@ -313,6 +313,11 @@ module.exports = class extends Generator {
             let pkg = this.fs.readJSON(
                 this.destinationPath('package.json')
             );
+            pkg.dependencies = sort(
+                lodash.assign(pkg.dependencies, {
+                    'babel-polyfill': '^6.26.0'
+                })
+            );
             pkg.devDependencies = sort(
                 lodash.assign(pkg.devDependencies, {
                     'babel-core': '^6.26.3',

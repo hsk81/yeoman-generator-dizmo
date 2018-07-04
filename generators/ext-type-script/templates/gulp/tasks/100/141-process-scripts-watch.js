@@ -13,9 +13,9 @@ let buffer = require('vinyl-buffer'),
     through = require('through2'),
     watchify = require('watchify');
 
-let watched = watchify(browserify({
-    basedir: '.', entries: ['src/app/app.ts'],
-    cache: {}, packageCache: {}, debug: true
+let watched = watchify(browserify({basedir: '.', entries: [
+        'node_modules/babel-polyfill/lib/index.js', 'src/app/app.ts'
+    ], cache: {}, packageCache: {}, debug: true
 }).plugin(require('tsify')));
 
 let gulp_obfuscator = function (opts) {

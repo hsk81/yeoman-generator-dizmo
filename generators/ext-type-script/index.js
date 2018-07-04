@@ -33,6 +33,7 @@ module.exports = class extends Generator {
             let pkg = this.fs.readJSON(
                 this.destinationPath('package.json')
             );
+            delete pkg.devDependencies['babel-core'];
             delete pkg.devDependencies['babel-preset-env'];
             delete pkg.devDependencies['babelify'];
             delete pkg.devDependencies['gulp-eslint'];
