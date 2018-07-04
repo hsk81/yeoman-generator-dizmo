@@ -60,12 +60,14 @@ module.exports = class extends Generator {
             desc: 'GIT repository initialization',
             type: Boolean
         });
-        this.option('coffee-script', {
+        this.option('coffeescript', {
+            alias: 'coffee-script',
             defaults: false,
             desc: 'Sub-generator with CoffeeScript',
             type: Boolean
         });
-        this.option('type-script', {
+        this.option('typescript', {
+            alias: 'type-script',
             defaults: false,
             desc: 'Sub-generator with TypeScript',
             type: Boolean
@@ -330,7 +332,7 @@ module.exports = class extends Generator {
                     'gulp-util': '^3.0.8',
                     'gulp-ver': '^0.1.0',
                     'gulp-zip': '^4.1.0',
-                    'javascript-obfuscator': '^0.16.0',
+                    'javascript-obfuscator': '^0.17.0',
                     'lodash': '^4.17.10',
                     'pump': '^3.0.0',
                     'rimraf': '^2.6.2',
@@ -407,13 +409,13 @@ module.exports = class extends Generator {
     }
 
     end() {
-        if (this.options['coffee-script']) {
+        if (this.options['coffeescript']) {
             this.composeWith('dizmo:ext-coffee-script', lodash.assign(
                 this.options, {
                     args: this.args, force: this.properties.initial
                 }
             ));
-        } else if (this.options['type-script']) {
+        } else if (this.options['typescript']) {
             this.composeWith('dizmo:ext-type-script', lodash.assign(
                 this.options, {
                     args: this.args, force: this.properties.initial
