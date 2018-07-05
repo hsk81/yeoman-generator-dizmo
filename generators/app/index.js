@@ -353,7 +353,6 @@ module.exports = class extends Generator {
                     'clean': 'node ./gulp/scripts/clean.js',
                     'deploy': 'node ./gulp/scripts/deploy.js',
                     'lint': 'node ./gulp/scripts/lint.js',
-                    'test': 'exit 0',
                     'upload': 'node ./gulp/scripts/upload.js',
                     'watch': 'node ./gulp/scripts/watch.js'
                 })
