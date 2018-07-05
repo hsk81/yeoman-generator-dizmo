@@ -650,7 +650,7 @@ PS C:\Users\user> mkdir .generator-dizmo
 
 ## License
 
- © 2017 [dizmo AG, Switzerland](http://dizmo.com/)
+ © 2018 [dizmo AG, Switzerland](http://dizmo.com/)
 
 [babel]: http://babeljs.io/
 [coffeelint]: http://www.coffeelint.org/
