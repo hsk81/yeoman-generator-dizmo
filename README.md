@@ -11,7 +11,7 @@ First, install [Yeoman](http://yeoman.io) and `generator-dizmo` using [npm] (we 
 
 ```bash
 npm install -g yo
-npm install -g generator-dizmo
+npm install -g @dizmo/generator-dizmo
 ```
 
 On most operating systems the `-g` option (shortcut for `--global`) requires super user (administrator) rights: Therefore, on Unix like systems you might be required to run the above commands using either `sudo` (i.e. `sudo npm install -g yo` and `sudo npm install -g generator-dizmo`), or run them directly from your super user account of your operating system.
