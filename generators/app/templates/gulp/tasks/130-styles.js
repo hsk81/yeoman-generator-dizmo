@@ -1,11 +1,11 @@
-let pkg = require('../../package.js'),
+let pkg = require('../package.js'),
     path = require('path');
 let gulp = require('gulp'),
     gulp_sass = require('gulp-sass'),
     gulp_sourcemaps = require('gulp-sourcemaps');
 let extend = require('xtend');
 
-gulp.task('process-styles:copy', function () {
+gulp.task('styles:copy', function () {
     return gulp.src([
         'src/style/**/*', '!src/style/**/*.scss'
     ], {
@@ -16,7 +16,8 @@ gulp.task('process-styles:copy', function () {
         )
     );
 });
-gulp.task('process-styles', ['process-styles:copy'], function () {
+
+gulp.task('styles:sass', function () {
     let cli_min = require('yargs')
         .default('minify')
         .argv.minify;
@@ -82,3 +83,7 @@ gulp.task('process-styles', ['process-styles:copy'], function () {
     ));
     return stream;
 });
+
+gulp.task('styles', gulp.series(
+    'styles:copy', 'styles:sass'
+));

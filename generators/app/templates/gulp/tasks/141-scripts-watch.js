@@ -1,10 +1,11 @@
-let pkg = require('../../package.js'),
+let pkg = require('../package.js'),
     path = require('path');
 let gulp = require('gulp'),
     gulp_util = require('gulp-util'),
     gulp_uglify = require('gulp-uglify'),
     gulp_sourcemaps = require('gulp-sourcemaps');
-let buffer = require('vinyl-buffer'),
+let babelify = require('babelify'),
+    buffer = require('vinyl-buffer'),
     browserify = require('browserify'),
     extend = require('xtend'),
     source = require('vinyl-source-stream'),
@@ -14,7 +15,7 @@ let buffer = require('vinyl-buffer'),
 let watched = watchify(browserify({basedir: '.', entries: [
         'node_modules/babel-polyfill/lib/index.js', 'src/index.js'
     ], cache: {}, packageCache: {}, debug: false
-}).transform(require('babelify')));
+}).transform(babelify));
 
 let gulp_obfuscator = function (options) {
     return through.obj(function (file, encoding, callback) {
@@ -109,4 +110,4 @@ let on_watch = function () {
 
 watched.on('update', on_watch);
 watched.on('log', gulp_util.log);
-gulp.task('process-scripts:watch', on_watch);
+gulp.task('scripts:watch', on_watch);

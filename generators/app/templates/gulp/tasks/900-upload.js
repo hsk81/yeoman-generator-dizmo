@@ -1,4 +1,4 @@
-let pkg = require('../../package.js'),
+let pkg = require('../package.js'),
     fs = require('fs');
 
 let assert = require('assert'),
@@ -6,7 +6,7 @@ let assert = require('assert'),
 let gulp = require('gulp'),
     gulp_util = require('gulp-util');
 
-gulp.task('upload', ['build'], function () {
+gulp.task('upload:send', function (done) {
     let host = process.env.DZM_STORE_HOST,
         user = process.env.DZM_STORE_USER,
         pass = process.env.DZM_STORE_PASS;
@@ -31,7 +31,7 @@ gulp.task('upload', ['build'], function () {
                 '`--host` required!'
             ));
         }, 0);
-        return;
+        done(); return;
     }
     if (!argv.user && argv.user !== '') {
         setTimeout(function () {
@@ -40,7 +40,7 @@ gulp.task('upload', ['build'], function () {
                 '`--user` required!'
             ));
         }, 0);
-        return;
+        done(); return;
     }
     if (!argv.pass && argv.pass !== '') {
         setTimeout(function () {
@@ -49,7 +49,7 @@ gulp.task('upload', ['build'], function () {
                 '`--pass` required!'
             ));
         }, 0);
-        return;
+        done(); return;
     }
     if (!pkg ||
         !pkg.dizmo ||
@@ -62,7 +62,7 @@ gulp.task('upload', ['build'], function () {
                 'e.g. "tools"!'
             ));
         }, 0);
-        return;
+        done(); return;
     }
 
     let dzm_name = '{0}-{1}.dzm'
@@ -252,3 +252,7 @@ gulp.task('upload', ['build'], function () {
     };
     do_login();
 });
+
+gulp.task('upload', gulp.series(
+    'build', 'upload:send'
+));

@@ -1,10 +1,10 @@
-let pkg = require('../../package.js'),
+let pkg = require('../package.js'),
     path = require('path');
 let gulp = require('gulp'),
     gulp_htmlmin = require('gulp-htmlmin');
 let extend = require('xtend');
 
-gulp.task('process-markup', function () {
+gulp.task('markup', function () {
     let cli_min = require('yargs')
         .default('minify')
         .argv.minify;

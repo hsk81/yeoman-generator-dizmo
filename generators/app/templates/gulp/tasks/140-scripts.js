@@ -1,4 +1,4 @@
-let pkg = require('../../package.js'),
+let pkg = require('../package.js'),
     path = require('path');
 let gulp = require('gulp'),
     gulp_uglify = require('gulp-uglify'),
@@ -26,7 +26,7 @@ let gulp_obfuscator = function (options) {
     });
 };
 
-gulp.task('process-scripts', function () {
+gulp.task('scripts', function () {
     let cli_min = require('yargs')
         .default('minify')
         .argv.minify;

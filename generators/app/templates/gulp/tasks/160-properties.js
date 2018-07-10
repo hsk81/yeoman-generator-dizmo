@@ -1,4 +1,4 @@
-let pkg = require('../../package.js'),
+let pkg = require('../package.js'),
     fs = require('fs'),
     path = require('path');
 let gulp = require('gulp'),
@@ -14,7 +14,7 @@ lodash.mixin({
     },
 });
 
-gulp.task('process-properties', function () {
+gulp.task('properties', function () {
     let settings = lodash.deep(pkg.dizmo.settings, function (s) {
         return lodash.mapKeys(s, function (v, k) {
             return lodash.upperFirst(lodash.camelCase(k));

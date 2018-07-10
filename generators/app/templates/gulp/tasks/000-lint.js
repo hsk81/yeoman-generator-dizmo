@@ -1,9 +1,9 @@
-let pkg = require('../../package.js'),
+let pkg = require('../package.js'),
     extend = require('xtend');
 let gulp = require('gulp'),
     gulp_eslint = require('gulp-eslint');
 
-gulp.task('lint:js', function (done) {
+gulp.task('lint', function (done) {
     let lint = true;
     if (pkg.dizmo && pkg.dizmo.build) {
         let cfg_lint = pkg.dizmo.build.lint;
@@ -30,10 +30,8 @@ gulp.task('lint:js', function (done) {
         stream = stream.pipe(
             gulp_eslint.format()
         );
-        return stream;;
+        return stream;
     } else {
         done();
     }
 });
-
-gulp.task('lint', ['lint:js']);

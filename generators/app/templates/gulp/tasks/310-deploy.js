@@ -1,4 +1,4 @@
-let pkg = require('../../package.js'),
+let pkg = require('../package.js'),
     fs = require('fs'),
     path = require('path');
 let gulp = require('gulp'),
@@ -16,6 +16,7 @@ let to = function () {
     }
     return null;
 };
+
 let deploy = function (stream, to) {
     if (to) {
         stream.push(gulp.dest(to));
@@ -23,7 +24,7 @@ let deploy = function (stream, to) {
     return stream;
 };
 
-gulp.task('deploy', ['build'], function (done) {
+gulp.task('deploy:copy', function (done) {
     let stream = deploy([gulp.src(
         'build/{0}/**/*'.replace('{0}', pkg.name)
     )], to());
@@ -31,7 +32,7 @@ gulp.task('deploy', ['build'], function (done) {
     if (to() !== null) {
         setTimeout(function () {
             gulp_util.log(gulp_util.colors.green.bold(
-                'Dizmo has been deployed to {0}.'.replace('{0}', to())
+                'Deployed to {0}.'.replace('{0}', to())
             ));
         }, 0);
         if (!fs.existsSync(to())) {
@@ -68,6 +69,11 @@ gulp.task('deploy', ['build'], function (done) {
         done();
     }
 });
+
+gulp.task('deploy', gulp.series(
+    'build', 'deploy:copy'
+));
+
 gulp.task('deploy:only', function (done) {
     let stream = deploy([gulp.src(
         'build/{0}/**/*'.replace('{0}', pkg.name))
