@@ -326,7 +326,7 @@ module.exports = class extends Generator {
                     'browserify': '^16.2.2',
                     'gulp': '^4.0.0',
                     'gulp-copy': '^1.1.0',
-                    'gulp-eslint': '^4.0.2',
+                    'gulp-eslint': '^5.0.0',
                     'gulp-htmlmin': '^4.0.0',
                     'gulp-plist': '^0.1.0',
                     'gulp-rename': '^1.3.0',

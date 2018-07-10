@@ -1,11 +1,11 @@
 let gulp = require('gulp');
 
-require('./gulp/tasks/lint/lint');
-require('./gulp/tasks/clean/clean');
-require('./gulp/tasks/build/build');
-require('./gulp/tasks/deploy/deploy');
-require('./gulp/tasks/upload/upload');
-require('./gulp/tasks/watch/watch');
+require('./gulp/tasks/lint');
+require('./gulp/tasks/clean');
+require('./gulp/tasks/build');
+require('./gulp/tasks/deploy');
+require('./gulp/tasks/upload');
+require('./gulp/tasks/watch');
 
 gulp.task('default', gulp.series(
     'build'

@@ -1,4 +1,4 @@
-let pkg = require('../../package.js');
+let pkg = require('../../../package.js');
 let gulp = require('gulp'),
     gulp_copy = require('gulp-copy');
 

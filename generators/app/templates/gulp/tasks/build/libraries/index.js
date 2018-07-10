@@ -1,4 +1,4 @@
-let pkg = require('../../package.js'),
+let pkg = require('../../../package.js'),
     path = require('path'),
     gulp = require('gulp');
 
