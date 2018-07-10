@@ -1,6 +1,7 @@
-let pkg = require('../package.js'),
+let pkg = require('../../package.js'),
     path = require('path');
 let gulp = require('gulp'),
+    gulp_util = require('gulp-util'),
     gulp_uglify = require('gulp-uglify'),
     gulp_sourcemaps = require('gulp-sourcemaps');
 let babelify = require('babelify'),
@@ -8,7 +9,13 @@ let babelify = require('babelify'),
     browserify = require('browserify'),
     extend = require('xtend'),
     source = require('vinyl-source-stream'),
-    through = require('through2');
+    through = require('through2'),
+    watchify = require('watchify');
+
+let watched = watchify(browserify({basedir: '.', entries: [
+        'node_modules/babel-polyfill/lib/index.js', 'src/index.js'
+    ], cache: {}, packageCache: {}, debug: false
+}).transform(babelify));
 
 let gulp_obfuscator = function (options) {
     return through.obj(function (file, encoding, callback) {
@@ -26,7 +33,7 @@ let gulp_obfuscator = function (options) {
     });
 };
 
-gulp.task('scripts', function () {
+let on_watch = function () {
     let cli_min = require('yargs')
         .default('minify')
         .argv.minify;
@@ -73,23 +80,19 @@ gulp.task('scripts', function () {
         argv.uglify = JSON.parse(argv.uglify);
     }
 
-    let browserified = browserify({basedir: '.', entries: [
-        'node_modules/babel-polyfill/lib/index.js', 'src/index.js'
-    ]}).transform(babelify);
-
-    let stream = browserified.bundle()
+    let stream = watched.bundle()
         .pipe(source('index.js')).pipe(buffer());
     if (argv.sourcemaps) {
         stream = stream.pipe(gulp_sourcemaps.init(
             extend({loadMaps: true}, argv.sourcemaps)
         ));
     }
-    if (argv.obfuscate || argv.obfuscate === undefined) {
+    if (argv.obfuscate) {
         stream = stream.pipe(gulp_obfuscator.apply(
             this, extend({}, argv.obfuscate)
         ));
     }
-    if (argv.uglify || argv.uglify === undefined) {
+    if (argv.uglify) {
         stream = stream.pipe(gulp_uglify.apply(
             this, extend({}, argv.uglify)
         ));
@@ -103,4 +106,8 @@ gulp.task('scripts', function () {
         path.join('build', pkg.name)
     ));
     return stream;
-});
+};
+
+watched.on('update', on_watch);
+watched.on('log', gulp_util.log);
+gulp.task('scripts:watch', on_watch);

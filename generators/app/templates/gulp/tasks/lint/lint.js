@@ -1,4 +1,4 @@
-let pkg = require('../package.js'),
+let pkg = require('../../package.js'),
     extend = require('xtend');
 let gulp = require('gulp'),
     gulp_eslint = require('gulp-eslint');

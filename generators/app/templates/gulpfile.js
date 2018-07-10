@@ -1,11 +1,11 @@
 let gulp = require('gulp');
 
-require('./gulp/tasks/000-lint');
-require('./gulp/tasks/010-clean');
-require('./gulp/tasks/100-build');
-require('./gulp/tasks/310-deploy');
-require('./gulp/tasks/900-upload.js');
-require('./gulp/tasks/999-watch.js');
+require('./gulp/tasks/lint/lint');
+require('./gulp/tasks/clean/clean');
+require('./gulp/tasks/build/build');
+require('./gulp/tasks/deploy/deploy');
+require('./gulp/tasks/upload/upload');
+require('./gulp/tasks/watch/watch');
 
 gulp.task('default', gulp.series(
     'build'

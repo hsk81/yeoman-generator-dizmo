@@ -1,4 +1,4 @@
-let pkg = require('../package.js'),
+let pkg = require('../../package.js'),
     path = require('path');
 let gulp = require('gulp'),
     gulp_htmlmin = require('gulp-htmlmin');

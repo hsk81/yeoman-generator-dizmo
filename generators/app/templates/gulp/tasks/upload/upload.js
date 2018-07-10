@@ -1,4 +1,4 @@
-let pkg = require('../package.js'),
+let pkg = require('../../package.js'),
     fs = require('fs');
 
 let assert = require('assert'),
