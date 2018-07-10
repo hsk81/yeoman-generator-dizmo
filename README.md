@@ -274,7 +274,7 @@ npm run lint
 npm run build
 ```
 
-* `test`: ensures to run tests -- by default no tests nor a test framework are pre-defined (therefore, a simple `exit 0` script has been provided). It is up to the dizmo developer to decide how tests shall be implemented. The only condition is, that the main test script should provide an exit value of `0` in case of success.
+* `test`: ensures to run tests -- by default no tests nor a test framework are pre-defined, hence *no* such script is predefined either! It is up to the dizmo developer to decide how tests shall be implemented. The only condition is, that the main test script should provide an exit value of `0` in case of success.
 ```
 npm run test
 ```
