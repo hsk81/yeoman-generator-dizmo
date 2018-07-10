@@ -1,4 +1,4 @@
-let pkg = require('../../package.js'),
+let pkg = require('../../../package.js'),
     path = require('path');
 let gulp = require('gulp'),
     gulp_util = require('gulp-util'),
@@ -7,8 +7,6 @@ let gulp = require('gulp'),
 let buffer = require('vinyl-buffer'),
     browserify = require('browserify'),
     extend = require('xtend'),
-    js_obfuscator = require('javascript-obfuscator'),
-    pump = require('pump'),
     source = require('vinyl-source-stream'),
     through = require('through2'),
     watchify = require('watchify');
@@ -26,7 +24,7 @@ let gulp_obfuscator = function (opts) {
         if (file.isStream()) {
             return callback(new Error('streaming not supported', null));
         }
-        let result = js_obfuscator.obfuscate(
+        let result = require('javascript-obfuscator').obfuscate(
             file.contents.toString(encoding), opts);
         file.contents = Buffer.from(
             result.getObfuscatedCode(), encoding);
@@ -111,4 +109,4 @@ let on_watch = function () {
 
 watched.on('update', on_watch);
 watched.on('log', gulp_util.log);
-gulp.task('process-scripts:watch', on_watch);
+gulp.task('scripts:watch', on_watch);

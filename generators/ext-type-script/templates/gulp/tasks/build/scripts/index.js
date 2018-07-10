@@ -1,4 +1,4 @@
-let pkg = require('../../package.js'),
+let pkg = require('../../../package.js'),
     path = require('path');
 let gulp = require('gulp'),
     gulp_uglify = require('gulp-uglify'),
@@ -6,7 +6,6 @@ let gulp = require('gulp'),
 let buffer = require('vinyl-buffer'),
     browserify = require('browserify'),
     extend = require('xtend'),
-    js_obfuscator = require('javascript-obfuscator'),
     source = require('vinyl-source-stream'),
     through = require('through2'),
     tsify = require('tsify');
@@ -19,7 +18,7 @@ let gulp_obfuscator = function (opts) {
         if (file.isStream()) {
             return callback(new Error('streaming not supported', null));
         }
-        let result = js_obfuscator.obfuscate(
+        let result = require('javascript-obfuscator').obfuscate(
             file.contents.toString(encoding), opts);
         file.contents = Buffer.from(
             result.getObfuscatedCode(), encoding);
@@ -27,7 +26,7 @@ let gulp_obfuscator = function (opts) {
     });
 };
 
-gulp.task('process-scripts', function () {
+gulp.task('scripts', function () {
     let cli_min = require('yargs')
         .default('minify')
         .argv.minify;
