@@ -7,7 +7,6 @@ let gulp = require('gulp'),
 let buffer = require('vinyl-buffer'),
     browserify = require('browserify'),
     extend = require('xtend'),
-    js_obfuscator = require('javascript-obfuscator'),
     source = require('vinyl-source-stream'),
     through = require('through2'),
     watchify = require('watchify');
@@ -25,7 +24,7 @@ let gulp_obfuscator = function (options) {
         if (file.isStream()) {
             return callback(new Error('streaming not supported', null));
         }
-        let result = js_obfuscator.obfuscate(
+        let result = require('javascript-obfuscator').obfuscate(
             file.contents.toString(encoding), options);
         file.contents = Buffer.from(
             result.getObfuscatedCode(), encoding);
