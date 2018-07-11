@@ -97,7 +97,7 @@ For multiple contributors, see again [people-fields-author-contributors](https:/
 
 Since the build system of each dizmo is saved directly within a project, we need an upgrade mechanism of the former for an existing latter. But first, we have to upgrade `generator-dizmo` by running:
 ```
-npm upgrade -g generator-dizmo
+npm upgrade -g @dizmo/generator-dizmo
 ```
 
 Then *within* an existing project's main folder, we can execute:
