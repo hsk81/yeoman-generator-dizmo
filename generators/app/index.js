@@ -356,6 +356,9 @@ module.exports = class extends Generator {
                     'watch': 'node ./gulp/scripts/watch.js'
                 })
             );
+            if (pkg.scripts.test === undefined) {
+                pkg.scripts.test = 'exit 0';
+            }
             pkg.babel = sort(
                 lodash.assign(pkg.babel, {
                     presets: ['env']
