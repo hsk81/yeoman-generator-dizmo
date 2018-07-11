@@ -109,7 +109,7 @@ It's also possible to only invoke `yo dizmo`, in which case each and every confl
 
 However, with the `yo dizmo --upgrade` command, *only* the build system of the actual project is upgraded, while the none-build related files and folders remain untouched.
 
-Further, the `--upgrde` flag can also be combined with the sub-generator flags `--type-script` and `--coffee-script` (see below for more information about sub-generators). 
+Further, the `--upgrade` flag can also be combined with the sub-generator flags `--type-script` and `--coffee-script` (see below for more information about sub-generators).
 
 ## Skeleton
 
@@ -149,7 +149,7 @@ Let's have a look at each ot the top level files and directories:
 
 * `.eslintrc.json`: a JSON file, which can be used to configure the linting process for the JavaScript code; see [eslint.org/docs/user-guide/configuring](http://eslint.org/docs/user-guide/configuring) for further information.
 
-* `assets`: A folder containing asset files like images, which can be accessed from within the dizmo using a relative path like `assets/Preview.png`. Put any such files (or media) which are not directly related to styling into this folder. You can also create sub-folders or any nested directory structure according to your needs. One such folder is `assets/locales` where JSON files for translation purposes can be found. 
+* `assets`: A folder containing asset files like images, which can be accessed from within the dizmo using a relative path like `assets/Preview.png`. Put any such files (or media) which are not directly related to styling into this folder. You can also create sub-folders or any nested directory structure according to your needs. One such folder is `assets/locales` where JSON files for translation purposes can be found.
 
 * `gulp`: A folder containing a build system based on [gulp](http://gulpjs.com/). If you are familiar with `gulp`, then you can change the build mechanism according to your needs; otherwise, just use it as it is.
 
@@ -289,7 +289,7 @@ npm run watch
 DZM_DEPLOY_PATH=/path/to/my/dizmos npm run watch
 ```
 
-* `upload`: uploads a `*.dzm` artifact to the dizmoStore requiring a host and user name plus a valid password. They can be set via the `store/host`, `store/user` and `store/pass` configuration in `package.json` (or better in `.generator-dizmo/config.json`) or the `DZM_STORE_HOST`, `DZM_STORE_USER` and `DZM_STORE_PASS` environment variables. 
+* `upload`: uploads a `*.dzm` artifact to the dizmoStore requiring a host and user name plus a valid password. They can be set via the `store/host`, `store/user` and `store/pass` configuration in `package.json` (or better in `.generator-dizmo/config.json`) or the `DZM_STORE_HOST`, `DZM_STORE_USER` and `DZM_STORE_PASS` environment variables.
 ```
 DZM_STORE_HOST=https://store-api.dizmo.com npm run upload
 ```
@@ -666,7 +666,7 @@ PS C:\Users\user> mkdir .generator-dizmo
 
 [node-module]: http://nodejs.org/api/modules.html
 [npm]: http://www.npmjs.com
-[npm-image]: http://badge.fury.io/js/generator-dizmo.svg
-[npm-url]: http://npmjs.org/package/generator-dizmo
+[npm-image]: https://badge.fury.io/js/%40dizmo%2Fgenerator-dizmo.svg
+[npm-url]: https://npmjs.org/package/@dizmo/generator-dizmo
 
 [javascript-obfuscator]: http://github.com/javascript-obfuscator/javascript-obfuscator
