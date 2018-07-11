@@ -1,5 +1,13 @@
 # RELEASE NOTES
 
+## v8.y.z
+
+### MAJOR CHANGES
+
+* Upgraded to `gulp@4.0.0`:
+
+    In [gulp] the task declaration syntax has changed. Further, the handy `gulp.series` and `gulp.parallel` functions have been introduced, allowing the removal of the `gulp-sync` plugin.
+
 ## v7.y.z
 
 ### MAJOR CHANGES
@@ -14,6 +22,10 @@
 
     However, the conflict resolution was requiring to sign-off each change by the developer. While this was not an issue for experience developers, it was difficult for novice ones to decide which parts of a project to override and which parts to keep. This decision process has now been automated, by using heuristics, where any change w.r.t. to the [Gulp] build system is applied automatically and no change is performed on the non-build system related parts. 
 
+* Support for `babel-polyfill`:
+
+    Introduced polyfills using `babel` which allows now newer JavaScript to be mapped to older ECMAScript standards (using the `env` preset).
+
 ### NOTABLE CHANGES
 
 * Integration of the [pump] library for improved error reporting:
@@ -27,6 +39,10 @@
 * Renamed `make` script to `build` due to support of latter by other tools:
 
     Many third party tools seem to use the `npm run-script -- build` script, instead of `make`: Hence the renaming to support seamless integration.
+
+* Migration to `@dizmo/generator-dizmo`:
+
+    A `@dizmo` organization has been generated on NPM, allowing a corresponding scope for the `generator-dizmo` package. The older package has been deprecated accordingly.
 
 ## v6.y.z
 

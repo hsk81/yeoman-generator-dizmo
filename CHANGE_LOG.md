@@ -1,5 +1,65 @@
 # CHANGE LOG
 
+## v8.1.z
+
+* Upgraded to `gulp@4.0.0`:
+
+    In [gulp] the task declaration syntax has changed. Further, the handy `gulp.series` and `gulp.parallel` functions have been introduced, allowing the removal of the `gulp-sync` plugin.
+
+* Reorganized JavaScript, CoffeeScript and TypeScript tasks:
+
+    The gulp tasks were containing script where the filenames were prefixed with numbers, which was ugly. Completely removed such numbered prefixing.
+
+## v8.0.z
+
+* Migration to `@dizmo/generator-dizmo`:
+
+    A `@dizmo` organization has been generated on NPM, allowing a corresponding scope for the `generator-dizmo` package. The older package has been deprecated accordingly.
+
+* Fixed false linting errors:
+
+    The `javascript-obfuscator` package was interfering with the linting process due to unknown reasons. Fixed by a deferred inclusion of the aforementioned package.
+
+## v7.5.z
+
+* Support for `babel-polyfill`:
+
+    Introduced polyfills using `babel` which allows now newer JavaScript to be mapped to older ECMAScript standards (using the `env` preset).
+
+* Removed dummy `test` script:
+
+    In `package.json:script` there was a dummy `test` script exiting with `0`. Upon upgrading older project this dummy was overriding the developer defined `test` script (if any): Hence the removal.
+
+## v7.4.z
+
+* Fixed `plist` mapping with hierarchic keys:
+
+    The `Info.plist` was not mapped corrected when it contained nested keys (or when the corresponding fields in `package.json:dizmo` contained such fields).
+
+* Tracing with hierarchic logs:
+
+    The embedded tracing (in the templates) routine provides now hierarchic logging using `console.group` and `console.groupEnd` in the inspector console.
+
+* Reverted [pump] library as much as possible:
+
+    The [pump] library is causing task which process larger scripts (or any assets) to fail: Hence it has been removed from the build process as much as possible.
+
+* Renamed `make` script to `build`:
+
+    Many standard tools (like IDEs) seem to expect a `build` script instead of a `make` one; hence the renaming.
+
+## v7.3.z
+
+* Fixed script invocation on Windows:
+
+    Apparently, the `shell` option was required to ensure cross OS compatibility,when spawning a child process. This ensures that on Windows `cmd.exe` is used to correctly (including argument escaping) invoke other processes; similarly on Unix like systems.
+
+* Improved name validation for dizmos:
+
+    It was possible to provide dizmo names with spaces included. Then upon attempting a build it was failing, since spaces are actually not allowed in `package.json:name`.
+
+* Identified [Node.js] `v6.11.0 LTS` as a prerequisite.
+
 ## v7.2.z
 
 * Integration of the [pump] library for improved error reporting:
@@ -161,3 +221,4 @@
 [typescript]: http://www.typescriptlang.org/
 [uglifyjs]: http://github.com/mishoo/UglifyJS
 [yeoman]: http://yeoman.io/
+[Node.js]: https://nodejs.org
