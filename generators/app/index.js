@@ -400,7 +400,8 @@ module.exports = class extends Generator {
             this.fs.copyTpl(
                 this.templatePath('README.md'),
                 this.destinationPath('README.md'), this.properties);
-
+        }
+        if (!upgrade || upgrade) {
             if (this.options.git || fs.existsSync('.gitignore')) {
                 this.fs.copy(
                     this.templatePath('.npmignore'),
