@@ -1,17 +1,19 @@
-# generator-dizmo [![NPM version][npm-image]][npm-url]
+# @dizmo/generator-dizmo [![NPM version][npm-image]][npm-url]
 > Dizmo generator
 
 ## Prerequisites
 
-* [Node.js](https://nodejs.org) v6.11.0 LTS (or higher); for Linux distribution based packages (`deb` or `rpm`) see also [Node.js Binary Distributions](https://github.com/nodesource/distributions).
+* [Node.js] v8.11.3 LTS (or higher); for Linux distribution based packages (`deb` or `rpm`) see also [binary distributions](https://github.com/nodesource/distributions).
 
 ## Installation
 
-First, install [Yeoman](http://yeoman.io) and `generator-dizmo` using [npm] (we assume you have [node.js](https://nodejs.org/) pre-installed):
+First, install [Yeoman](http://yeoman.io) and `generator-dizmo` using [npm] (we assume you have [Node.js] pre-installed):
 
 ```bash
-npm install -g yo
-npm install -g @dizmo/generator-dizmo
+(sudo) npm install -g yo
+```
+```bash
+(sudo) npm install -g @dizmo/generator-dizmo
 ```
 
 On most operating systems the `-g` option (shortcut for `--global`) requires super user (administrator) rights: Therefore, on Unix like systems you might be required to run the above commands using either `sudo` (i.e. `sudo npm install -g yo` and `sudo npm install -g generator-dizmo`), or run them directly from your super user account of your operating system.
@@ -661,9 +663,11 @@ The graphical user interface of Windows does not allow to create a folder named 
 PS C:\Users\user> mkdir .generator-dizmo
 ```
 
-## License
+## Copyright
 
- © 2018 [dizmo AG, Switzerland](http://dizmo.com/)
+ © 2018 [dizmo AG](http://dizmo.com/), Switzerland
+
+[Node.js]: https://nodejs.org
 
 [babel]: http://babeljs.io/
 [coffeelint]: http://www.coffeelint.org/
