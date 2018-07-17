@@ -417,13 +417,13 @@ module.exports = class extends generator {
 
     end() {
         if (this.options['coffeescript']) {
-            this.composeWith('dizmo:ext-coffee-script', lodash.assign(
+            this.composeWith('@dizmo/dizmo:ext-coffee-script', lodash.assign(
                 this.options, {
                     args: this.args, force: this.properties.initial
                 }
             ));
         } else if (this.options['typescript']) {
-            this.composeWith('dizmo:ext-type-script', lodash.assign(
+            this.composeWith('@dizmo/dizmo:ext-type-script', lodash.assign(
                 this.options, {
                     args: this.args, force: this.properties.initial
                 }
