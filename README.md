@@ -595,6 +595,19 @@ Or you can simply drop a library into the `src/lib/` sub-directory and reference
 
 ## Troubleshooting/FAQ
 
+### The `generator-dizmo` package seems to be deprecated?
+
+Yes! It has been migrated to `@dizmo/generator-dizmo`, which means to continue to receive updates for the generator a re-installation is required:
+```
+(sudo) npm uninstall -g generator-dizmo
+(sudo) npm install -g @dizmo/generator-dizmo
+```
+
+Further, any `yo dizmo` invocation needs to be changed to `yo @dizmo/dizmo`, e.g. to upgrade older projects run the command below (with the `@dizmo` scope):
+```
+yo @dizmo/dizmo --upgrade
+```
+
 ### Did I forget to run `npm install`?
 
 If `npm install` is *not* run before attempting to build a dizmo, then a message similar to the one below might be produced:
