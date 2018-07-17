@@ -2,7 +2,7 @@
 
 let chalk = require('chalk'),
     fs = require('fs'),
-    Generator = require('yeoman-generator'),
+    generator = require('yeoman-generator'),
     lodash = require('lodash'),
     os = require('os'),
     path = require('path'),
@@ -26,7 +26,7 @@ function sort(dictionary) {
     return sorted;
 }
 
-module.exports = class extends Generator {
+module.exports = class extends generator {
     constructor(args, opts) {
         super(args, opts);
 

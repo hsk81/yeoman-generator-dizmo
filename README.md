@@ -20,13 +20,13 @@ On most operating systems the `-g` option (shortcut for `--global`) requires sup
 
 Invoke the dizmo generator with a name of your choice, for example `my-dizmo` and answer a few questions:
 
-    yo dizmo my-dizmo
+    yo @dizmo/dizmo my-dizmo
 
-After a successful build, drag and drop the `./build/MyDizmo-0.0.0.dzm` file onto *dizmoViewer*: You should see the front side of the dizmo with `Hello World!` written on it. The name parameter is optional and can be changed at the prompt. Further, calling `yo dizmo` is equivalent to invoking the default generator with `yo dizmo:app`.
+After a successful build, drag and drop the `./build/MyDizmo-0.0.0.dzm` file onto *dizmoViewer*: You should see the front side of the dizmo with `Hello World!` written on it. The name parameter is optional and can be changed at the prompt. Further, calling `yo @dizmo/dizmo` is equivalent to invoking the default generator with `yo @dizmo/dizmo:app`.
 
 To list all possible arguments and options of the generator, enter:
 
-     yo dizmo --help
+     yo @dizmo/dizmo --help
 
 ## Caching
 
@@ -48,7 +48,7 @@ Further, we suggest to clear the cache initially by running `npm cache clean`, b
 
 At the start, you will be asked a few questions, after which the terminal should look similar to:
 
-    ~/my-dizmos $ yo dizmo
+    ~/my-dizmos $ yo @dizmo/dizmo
 
          _-----_
         |       |    .--------------------------.
@@ -82,7 +82,7 @@ Each dizmo is required to have a unique `bundle.identifier`, which is a name of 
 
     ? What's your name? Full Name
 
-Provide your full name, to designate yourself as the author of the project. By default, the current GIT user name &ndash; if available &ndash; or OS login will be used directly *without* actually prompting for the name. Otherwise, anything you enter here will be remembered and automatically used as the default on your next invocation of `yo dizmo`.
+Provide your full name, to designate yourself as the author of the project. By default, the current GIT user name &ndash; if available &ndash; or OS login will be used directly *without* actually prompting for the name. Otherwise, anything you enter here will be remembered and automatically used as the default on your next invocation of `yo @dizmo/dizmo`.
 
 The entry will be stored once the project skeleton is setup in `package.json` under `person.name`. For multiple contributors, see the [npm:package.json](https://docs.npmjs.com/files/package.json) documentation, section [people-fields-author-contributors](https://docs.npmjs.com/files/package.json#people-fields-author-contributors).
 
@@ -102,12 +102,12 @@ npm upgrade -g @dizmo/generator-dizmo
 
 Then *within* an existing project's main folder, we can execute:
 ```
-yo dizmo --upgrade
+yo @dizmo/dizmo --upgrade
 ```
 
-It's also possible to only invoke `yo dizmo`, in which case each and every conflict between the existing and new files and folders need to be manually signed-off by the user. Since *all* conflicts need to be decided on, instead of just the conflicts w.r.t. the build system, this manual upgrading can be onerous.
+It's also possible to only invoke `yo @dizmo/dizmo`, in which case each and every conflict between the existing and new files and folders need to be manually signed-off by the user. Since *all* conflicts need to be decided on, instead of just the conflicts w.r.t. the build system, this manual upgrading can be onerous.
 
-However, with the `yo dizmo --upgrade` command, *only* the build system of the actual project is upgraded, while the none-build related files and folders remain untouched.
+However, with the `yo @dizmo/dizmo --upgrade` command, *only* the build system of the actual project is upgraded, while the none-build related files and folders remain untouched.
 
 Further, the `--upgrade` flag can also be combined with the sub-generator flags `--type-script` and `--coffee-script` (see below for more information about sub-generators).
 
@@ -520,7 +520,7 @@ Once you have accommodated yourself with some dizmo development, you can go furt
 
 Invoke the `dizmo:ext-coffee-script` sub-generator with:
 
-    yo dizmo my-dizmo --coffee-script
+    yo @dizmo/dizmo my-dizmo --coffee-script
 
 This will run the basic generator and then apply on top of it the extended CoffeeScript sub-generator, which will then create (or modify) the project's standard structure:
 
@@ -541,7 +541,7 @@ This will run the basic generator and then apply on top of it the extended Coffe
 
 Invoke the `dizmo:ext-type-script` sub-generator with:
 
-    yo dizmo my-dizmo --type-script
+    yo @dizmo/dizmo my-dizmo --type-script
 
 This will run the basic generator and then apply on top of it the extended [TypeScript](http://www.typescriptlang.org/) sub-generator, which will create (or modify) the project's standard structure:
 
@@ -568,7 +568,7 @@ This will run the basic generator and then apply on top of it the extended [Type
 
 Invoke a generator (or a sub-generator) combined with the `--git` option:
 
-    yo dizmo my-dizmo --git
+    yo @dizmo/dizmo my-dizmo --git
 
 The created project folder will now be named `my-dizmo.git`, and it will be initialized as a GIT repository -- no commits will be performed though. Further, this only will work if the `git` command is accessible.
 
@@ -608,11 +608,11 @@ error Failed at the MyDizmo@0.0.0 build script 'node ./node_modules/gulp/bin/gul
 
 In such a case, just run `npm install` to ensure that all the required dependencies get installed locally.
 
-### Can I run `yo dizmo` as root?
+### Can I run `yo @dizmo/dizmo` as root?
 
 The [Yeoman] toolkit very strongly discourages the usage of any generator based on it to be run as *root*. Hence, you will get the following error:
 ```bash
-$ sudo yo dizmo --help
+$ sudo yo @dizmo/dizmo --help
 /usr/lib/node_modules/yo/node_modules/configstore/index.js:53
 				throw err;
 				^

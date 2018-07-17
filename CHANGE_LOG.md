@@ -10,6 +10,10 @@
 
     The gulp tasks were containing script where the filenames were prefixed with numbers, which was ugly. Completely removed such numbered prefixing.
 
+* Fixed README.md w.r.t. to `yo @dizmo/dizmo`:
+
+    Since the migration to `@dizmo/generator-dizmo` it is required to create projects using `yo @dizmo/dizmo` instead of `yo dizmo`.
+
 ## v8.0.z
 
 * Migration to `@dizmo/generator-dizmo`:
@@ -66,7 +70,7 @@
 
     The [Gulp] build system lacks proper support to identify and report the source of a particular error. However by integrating [pump] this issue has been easily remedied.
 
-* Integration of ES6 via [Babel] to support latest JavaScript standard: 
+* Integration of ES6 via [Babel] to support latest JavaScript standard:
 
     Browsers and the libraries, which the former are built upon (like Webkit), usually lag behind the latest standard, and hence fail to provide up-to-date language support. The [Babel] *transpiler* however, can take a script written in a modern standard and translate it into backwards compatible JavaScript.
 
@@ -76,7 +80,7 @@
 
     Thanks to [Yeoman]'s built in conflict resolution mechanism, it was already possible to upgrade an older project by running `yo dizmo` within the corresponding folder.
 
-    However, the conflict resolution was requiring to sign-off each change by the developer. While this was not an issue for experience developers, it was difficult for novice ones to decide which parts of a project to override and which parts to keep. This decision process has now been automated, by using heuristics, where any change w.r.t. to the [Gulp] build system is applied automatically and no change is performed on the non-build system related parts. 
+    However, the conflict resolution was requiring to sign-off each change by the developer. While this was not an issue for experience developers, it was difficult for novice ones to decide which parts of a project to override and which parts to keep. This decision process has now been automated, by using heuristics, where any change w.r.t. to the [Gulp] build system is applied automatically and no change is performed on the non-build system related parts.
 
 ## v7.0.z (2017-05-10)
 
@@ -89,7 +93,7 @@
 * Don't require `npm install` to be run:
 
     Before running scripts like `npm run make` it was mandatory to install the dependencies by explicitly installing them. This requirement has now been dropped, since the scripts check beforehand if the dependency folder `node_modules` exist and otherwise install the dependencies correspondingly.
- 
+
 ## v6.3.z
 
 * Publish a dizmo upon an upload:
@@ -98,12 +102,12 @@
 
 ## v6.2.z
 
-* Allow `npm run upload` to be configured via (i) CLI options, (ii) environment variable and (iii-a) `package.json` or (iii-b) `.generator-dizmo/config.json`. 
+* Allow `npm run upload` to be configured via (i) CLI options, (ii) environment variable and (iii-a) `package.json` or (iii-b) `.generator-dizmo/config.json`.
 
 ## v6.1.z
 
 * Enable dizmo to be uploaded to the dizmoStore by running `npm run upload`:
- 
+
     Upon uploading a dizmo to the store, the developer is required to provide the correct store host and login credentials (user name and password).
 
 ## v6.0.z (2017-05-01)
@@ -152,7 +156,7 @@
 
 * Check for `.info.plist`:
 
-    Some developers where manually copying all visible files from one project to another one, forgetting the invisible ones. Hence, now at least for `.info.plist` a corresponding check upon building a dizmo is performed. 
+    Some developers where manually copying all visible files from one project to another one, forgetting the invisible ones. Hence, now at least for `.info.plist` a corresponding check upon building a dizmo is performed.
 
 * Branding of `generator-dizmo` as *dizmoGen*:
 
