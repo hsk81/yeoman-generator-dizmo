@@ -31,6 +31,9 @@
     "yeoman-generator",
     "dizmo",
     "generator",
+    "javascript",
+    "typescript",
+    "coffeescript",
     "dizmoGen"
   ],
   "license": "ISC",
