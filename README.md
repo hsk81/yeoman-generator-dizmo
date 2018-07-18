@@ -1,4 +1,6 @@
-# @dizmo/generator-dizmo [![NPM version][npm-image]][npm-url]
+[![NPM version](https://badge.fury.io/js/%40dizmo%2Fgenerator-dizmo.svg)](https://npmjs.org/package/@dizmo/generator-dizmo)
+
+# @dizmo/generator-dizmo
 > Dizmo generator
 
 ## Prerequisites
@@ -683,7 +685,5 @@ PS C:\Users\user> mkdir .generator-dizmo
 
 [node-module]: http://nodejs.org/api/modules.html
 [npm]: http://www.npmjs.com
-[npm-image]: https://badge.fury.io/js/%40dizmo%2Fgenerator-dizmo.svg
-[npm-url]: https://npmjs.org/package/@dizmo/generator-dizmo
 
 [javascript-obfuscator]: http://github.com/javascript-obfuscator/javascript-obfuscator
