@@ -18,7 +18,7 @@ fs.access('./node_modules', function (error) {
         ], {
             shell: true, stdio: 'ignore'
         });
-        npm_install.on('close', function () {
+        npm_install.on('exit', function () {
             spinner.stop(true);
             run_script();
         });
