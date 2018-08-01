@@ -7,6 +7,16 @@
 
 * [Node.js] v8.11.3 LTS (or higher); for Linux distribution based packages (`deb` or `rpm`) see also [binary distributions](https://github.com/nodesource/distributions).
 
+## How does dizmoGen work?
+
+DizmoGen is a generator to create a project folder that contains a skeleton for a new dizmo. Further, the *build scripts* needed to turn the source code into a packed and installable dizmo artifact (`*.dzm`) are present as well. The generator itself is based on the [Yeoman] generator toolkit (which in turn is based on [Node.js]). After the initial generation of a project, neither dizmoGen nor Yeoman are required anymore to build your dizmo.
+
+Use any text editor or IDE to edit the generated source code. Once ready you can use the build scripts to turn your project into a correctly formatted and packed dizmo: Invoking `npm run <script>` uses internally a Node.js based tool named [gulp], which orchestrates the entire build process to turn your source code into a dizmo. Possible `<script>` commands are `build`, `lint`, `clean` etc.
+
+As the *totality* of all build scripts with their dependencies account for more than `100` MBytes, the dependencies are *excluded* when pushing a source folder to a remote Git repository. So, if you get a dizmo project from an external origin it is necessary to install them first. This is done within the build process *automatically* or can be triggered manually by invoking `npm install` from within the project folder, which will create a folder named `node_modules`, which should never be included in the Git repository!
+
+The options and commands available to build, test and deploy dizmos will be upgraded from time to time. In such a case it may become necessary to update the relevant build scripts using dizmoGen (and Yeoman) again. Check the «Upgrading the Build System» section below about how to actualize your version of dizmoGen and the build scripts in your own dizmo project.
+
 ## Installation
 
 First, install [Yeoman](http://yeoman.io) and `generator-dizmo` using [npm] (we assume you have [Node.js] pre-installed):
@@ -677,6 +687,7 @@ PS C:\Users\user> mkdir .generator-dizmo
 [tslint]: http://palantir.github.io/tslint/
 [yeoman]: http://yeoman.io/
 
+[gulp]: https://gulpjs.com/
 [gulp-eslint]: http://www.npmjs.com/package/gulp-eslint
 [gulp-htmlmin]: http://www.npmjs.com/package/gulp-htmlmin
 [gulp-sass]: http://www.npmjs.com/package/gulp-sass
