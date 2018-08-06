@@ -306,7 +306,7 @@ module.exports = class extends generator {
         }
         if (!upgrade) {
             this.fs.copyTpl(
-                this.templatePath('package.json'),
+                this.templatePath('_package.json'),
                 this.destinationPath('package.json'), this.properties);
         }
         if (!upgrade || upgrade) {
@@ -384,10 +384,10 @@ module.exports = class extends generator {
                 this.templatePath('src/index.html'),
                 this.destinationPath('src/index.html'), this.properties);
             this.fs.copy(
-                this.templatePath('.eslintrc.json'),
+                this.templatePath('_eslintrc.json'),
                 this.destinationPath('.eslintrc.json'));
             this.fs.copy(
-                this.templatePath('.info.plist'),
+                this.templatePath('_info.plist'),
                 this.destinationPath('.info.plist'));
             this.fs.copyTpl(
                 this.templatePath('LICENSE'),
@@ -404,11 +404,11 @@ module.exports = class extends generator {
         if (!upgrade || upgrade) {
             if (this.options.git || fs.existsSync('.gitignore')) {
                 this.fs.copy(
-                    this.templatePath('.npmignore'),
+                    this.templatePath('_npmignore'),
                     this.destinationPath('.gitignore'));
             } else {
                 this.fs.copy(
-                    this.templatePath('.npmignore'),
+                    this.templatePath('_npmignore'),
                     this.destinationPath('.npmignore'));
             }
         }
