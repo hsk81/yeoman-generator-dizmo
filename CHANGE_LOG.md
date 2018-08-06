@@ -8,7 +8,13 @@
 
 * Reorganized JavaScript, CoffeeScript and TypeScript tasks:
 
-    The gulp tasks were containing script where the filenames were prefixed with numbers, which was ugly. Completely removed such numbered prefixing.
+    The gulp tasks were containing script where the filenames were prefixed with numbers, which was ugly. Completely removed such numbered prefixing. The migration process (if any required):
+    
+    (1a) If *no* manual changes have been applied to the gulp tasks, then a simple `yo @dizmo/dizmo --upgrade` is enough (add `--typescript` or `--coffeescript` for corresponding projects).
+
+    (1b) The old enumerated tasks can be left in place, or *optionally* the old enumerated tasks can simply be removed if desired so.
+
+    (2) If *any* changes have been applied to the old enumerated {{gulp}} tasks, then the *equivalent* changes have to be applied to the corresponding new tasks (which are essentially the same, but simply with a new naming scheme).
 
 * Fixed README.md w.r.t. to `yo @dizmo/dizmo`:
 
