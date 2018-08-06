@@ -14,7 +14,7 @@
 
     (1b) The old enumerated tasks can be left in place, or *optionally* the old enumerated tasks can simply be removed if desired so.
 
-    (2) If *any* changes have been applied to the old enumerated {{gulp}} tasks, then the *equivalent* changes have to be applied to the corresponding new tasks (which are essentially the same, but simply with a new naming scheme).
+    (2) If *any* changes have been applied to the old enumerated gulp tasks, then the *equivalent* changes have to be applied to the corresponding new tasks (which are essentially the same, but simply with a new naming scheme).
 
 * Fixed README.md w.r.t. to `yo @dizmo/dizmo`:
 
