@@ -14,12 +14,11 @@
   },
   "description": "dizmoGen: a generator for dizmo projects",
   "devDependencies": {
-    "gulp": "^3.9.1",
+    "gulp": "^4.0.0",
     "gulp-eslint": "^5.0.0",
     "gulp-exclude-gitignore": "^1.2.0",
     "gulp-nsp": "^3.0.1",
-    "pump": "^3.0.0",
-    "yeoman-assert": "^3.1.1"
+    "pump": "^3.0.0"
   },
   "files": [
     "generators/app",
@@ -43,7 +42,7 @@
     "url": "https://github.com/dizmo/yeoman-generator-dizmo"
   },
   "scripts": {
-    "prepare": "gulp prepublish"
+    "prepare": "gulp prepare"
   },
   "version": "8.1.21"
 }
