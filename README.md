@@ -673,6 +673,10 @@ The graphical user interface of Windows does not allow to create a folder named 
 PS C:\Users\user> mkdir .generator-dizmo
 ```
 
+### How to ignore .DS_Store files on Mac OS X?
+
+Such files are device dependent and hence should be ignored *globally* on the developer's device, instead on a per project basis. See [How to Remove .DS_Store File from a Git Repo on Mac OS X](https://hints.binaryage.com/how-to-remove-ds-store-files-from-a-git-repo/) for an excellent discussion of the issue. Also at GitHub Help, see [ignoring files](https://help.github.com/articles/ignoring-files/#create-a-global-gitignore) to learn about setting up a global ignore list.
+
 ## Copyright
 
  © 2018 [dizmo AG](http://dizmo.com/), Switzerland
