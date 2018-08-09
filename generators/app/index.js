@@ -422,10 +422,8 @@ module.exports = class extends generator {
     end() {
         let pkg = this.fs.readJSON(
             this.destinationPath('package.json'));
-        let upgrade = Boolean(
-            this.options.upgrade && fs.existsSync('package.json'));
 
-        if (!this.options['typescript'] && pkg.devDependencies['coffeescript'] && upgrade ||
+        if (!this.options['typescript'] && this.options.upgrade && pkg.devDependencies['coffeescript'] ||
             !this.options['typescript'] && this.options['coffeescript']
         ) {
             this.composeWith('@dizmo/dizmo:ext-coffee-script', lodash.assign(
@@ -434,7 +432,7 @@ module.exports = class extends generator {
                 }
             ));
         } else if (
-            !this.options['coffeescript'] && pkg.devDependencies['typescript'] && upgrade ||
+            !this.options['coffeescript'] && this.options.upgrade && pkg.devDependencies['typescript'] ||
             !this.options['coffeescript'] && this.options['typescript']
         ) {
             this.composeWith('@dizmo/dizmo:ext-type-script', lodash.assign(
