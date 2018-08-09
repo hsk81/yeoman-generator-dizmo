@@ -4,6 +4,12 @@
 
 ### MAJOR CHANGES
 
+* Optional `--typescript` and `--coffeescript` flags on `--upgrade`:
+
+    When upgrading a TypeScript or CoffeeScript project a simple `yo @dizmo/dizmo --upgrade` is enough. The auto-detection is achieved by checking in `package.json:devDependencies` the `typescript` or `coffeescript` entries.
+
+### NOTABLE CHANGES
+
 * Upgraded to `gulp@4.0.0`:
 
     In [gulp] the task declaration syntax has changed. Further, the handy `gulp.series` and `gulp.parallel` functions have been introduced, allowing the removal of the `gulp-sync` plugin.
@@ -20,7 +26,7 @@
 
     Thanks to [Yeoman]'s built in conflict resolution mechanism, it was already possible to upgrade an older project by running `yo dizmo` within the corresponding folder.
 
-    However, the conflict resolution was requiring to sign-off each change by the developer. While this was not an issue for experience developers, it was difficult for novice ones to decide which parts of a project to override and which parts to keep. This decision process has now been automated, by using heuristics, where any change w.r.t. to the [Gulp] build system is applied automatically and no change is performed on the non-build system related parts. 
+    However, the conflict resolution was requiring to sign-off each change by the developer. While this was not an issue for experience developers, it was difficult for novice ones to decide which parts of a project to override and which parts to keep. This decision process has now been automated, by using heuristics, where any change w.r.t. to the [Gulp] build system is applied automatically and no change is performed on the non-build system related parts.
 
 * Support for `babel-polyfill`:
 
@@ -49,7 +55,7 @@
 ### MAJOR CHANGES
 
 * Enable dizmo to be uploaded to the dizmoStore by running `npm run upload`:
- 
+
     Upon uploading a dizmo to the store, the developer is required to provide the correct store host and login credentials (user name and password).
 
 * Publish a dizmo upon an upload:
@@ -58,7 +64,7 @@
 
 ### NOTABLE CHANGES
 
-* Allow `npm run upload` to be configured via (i) CLI options, (ii) environment variable and (iii-a) `package.json` or (iii-b) `.generator-dizmo/config.json`. 
+* Allow `npm run upload` to be configured via (i) CLI options, (ii) environment variable and (iii-a) `package.json` or (iii-b) `.generator-dizmo/config.json`.
 
 * Don't require `npm install` to be run:
 
@@ -112,7 +118,7 @@
 
 * Check for `.info.plist`:
 
-    Some developers where manually copying all visible files from one project to another one, forgetting the invisible ones. Hence, now at least for `.info.plist` a corresponding check upon building a dizmo is performed. 
+    Some developers where manually copying all visible files from one project to another one, forgetting the invisible ones. Hence, now at least for `.info.plist` a corresponding check upon building a dizmo is performed.
 
 ## v2.y.z
 

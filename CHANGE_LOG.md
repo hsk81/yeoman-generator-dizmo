@@ -1,5 +1,11 @@
 # CHANGE LOG
 
+## v8.2.z
+
+* Optional `--typescript` and `--coffeescript` flags on `--upgrade`:
+
+    When upgrading a TypeScript or CoffeeScript project a simple `yo @dizmo/dizmo --upgrade` is enough. The auto-detection is achieved by checking in `package.json:devDependencies` the `typescript` or `coffeescript` entries.
+
 ## v8.1.z
 
 * Upgraded to `gulp@4.0.0`:
@@ -9,7 +15,7 @@
 * Reorganized JavaScript, CoffeeScript and TypeScript tasks:
 
     The gulp tasks were containing script where the filenames were prefixed with numbers, which was ugly. Completely removed such numbered prefixing. The migration process (if any required):
-    
+
     (1a) If *no* manual changes have been applied to the gulp tasks, then a simple `yo @dizmo/dizmo --upgrade` is enough (add `--typescript` or `--coffeescript` for corresponding projects).
 
     (1b) The old enumerated tasks can be left in place, or *optionally* the old enumerated tasks can simply be removed if desired so.
