@@ -357,7 +357,11 @@ module.exports = class extends generator {
                 })
             );
             if (pkg.scripts.test === undefined) {
-                pkg.scripts.test = 'exit 0';
+                pkg.scripts = sort(
+                    lodash.assign(pkg.scripts, {
+                        'test': 'exit 0'
+                    })
+                );
             }
             pkg.babel = sort(
                 lodash.assign(pkg.babel, {
@@ -416,13 +420,23 @@ module.exports = class extends generator {
     }
 
     end() {
-        if (this.options['coffeescript']) {
+        let pkg = this.fs.readJSON(
+            this.destinationPath('package.json'));
+        let upgrade = Boolean(
+            this.options.upgrade && fs.existsSync('package.json'));
+
+        if (!this.options['typescript'] && pkg.devDependencies['coffeescript'] && upgrade ||
+            !this.options['typescript'] && this.options['coffeescript']
+        ) {
             this.composeWith('@dizmo/dizmo:ext-coffee-script', lodash.assign(
                 this.options, {
                     args: this.args, force: this.properties.initial
                 }
             ));
-        } else if (this.options['typescript']) {
+        } else if (
+            !this.options['coffeescript'] && pkg.devDependencies['typescript'] && upgrade ||
+            !this.options['coffeescript'] && this.options['typescript']
+        ) {
             this.composeWith('@dizmo/dizmo:ext-type-script', lodash.assign(
                 this.options, {
                     args: this.args, force: this.properties.initial
@@ -432,6 +446,7 @@ module.exports = class extends generator {
             console.log(
                 '\nSetting the project root at:', this.destinationPath());
         }
+
         this._rim();
         this._git();
     }
