@@ -532,7 +532,7 @@ Once you have accommodated yourself with some dizmo development, you can go furt
 
 Invoke the `dizmo:ext-coffee-script` sub-generator with:
 
-    yo @dizmo/dizmo my-dizmo --coffee-script
+    yo @dizmo/dizmo my-dizmo --coffeescript
 
 This will run the basic generator and then apply on top of it the extended CoffeeScript sub-generator, which will then create (or modify) the project's standard structure:
 
@@ -553,7 +553,7 @@ This will run the basic generator and then apply on top of it the extended Coffe
 
 Invoke the `dizmo:ext-type-script` sub-generator with:
 
-    yo @dizmo/dizmo my-dizmo --type-script
+    yo @dizmo/dizmo my-dizmo --typescript
 
 This will run the basic generator and then apply on top of it the extended [TypeScript](http://www.typescriptlang.org/) sub-generator, which will create (or modify) the project's standard structure:
 
