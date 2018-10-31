@@ -1,29 +1,23 @@
 /* tslint:disable:ban-types */
-///////////////////////////////////////////////////////////////////////////////
-///////////////////////////////////////////////////////////////////////////////
-
 import UUID from '../util/uuid';
 
-///////////////////////////////////////////////////////////////////////////////
-///////////////////////////////////////////////////////////////////////////////
-
 export interface IBaseStorage {
-    [arg:string]:any;
+    [arg: string]: any;
 }
 
 export interface IBaseStorage {
     getProperty:
-        <T>(path:string, options?:{
-                fallback?:T, nodes?:boolean, string?:boolean
-        }) => T;
+    <T>(path: string, options?: {
+        fallback?: T, nodes?: boolean, string?: boolean
+    }) => T;
 
     setProperty:
-        <T>(path:string, value:T, options?:{
-            file?:boolean, timeout?:number, string?:boolean
-        }) => void;
+    <T>(path: string, value: T, options?: {
+        file?: boolean, timeout?: number, string?: boolean
+    }) => void;
 
     deleteProperty:
-        (path:string) => void;
+    (path: string) => void;
 }
 
 export interface IBaseStorage {
@@ -39,15 +33,9 @@ export interface IBaseStorage {
 
 export interface IBaseStorage {
     beginUpdate:
-        (path:string) => void;
+    (path: string) => void;
     endUpdate:
-        (path:string) => void;
+    (path: string) => void;
 }
 
-///////////////////////////////////////////////////////////////////////////////
-///////////////////////////////////////////////////////////////////////////////
-
 export default IBaseStorage;
-
-///////////////////////////////////////////////////////////////////////////////
-///////////////////////////////////////////////////////////////////////////////
