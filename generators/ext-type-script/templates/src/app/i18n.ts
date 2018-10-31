@@ -1,38 +1,34 @@
-import { TranslationFunction } from './sys/type/window';
-import { TranslationOptions } from './sys/type/window';
-import { i18n } from './sys/type/window';
+import * as I18next from 'i18next';
 
 import { named } from './sys/util/named';
 import { trace } from './sys/util/trace';
 
+export type TranslationFunction = I18next.TranslationFunction;
+export type TranslationOptions = I18next.TranslationOptions;
+
+declare const i18n: ((
+    callback: (error: any, t: TranslationFunction) => void
+) => void);
+
 @trace
 @named('I18N')
 export class I18N {
-    public constructor(callback:(T:TranslationFunction) => void) {
-        i18n((err:any, t:TranslationFunction):void => {
-            const T:TranslationFunction = this.translate(
-                (key:string, options:TranslationOptions = {}):string => {
+    public static init(
+        callback: (t: TranslationFunction) => void
+    ): void {
+        i18n((error: any, t: TranslationFunction): void => {
+            if (typeof callback === 'function') {
+                callback((
+                    key: string, options: TranslationOptions = {}
+                ): string => {
                     if (options.keySeparator === undefined) {
                         options.keySeparator = '/';
                     }
                     return t(key, options);
-                }
-            );
-            if (typeof callback === 'function') {
-                callback(T);
+                });
             }
         });
     }
-    private translate(T:TranslationFunction):TranslationFunction {
-        const cell = document.getElementsByClassName('table-cell')[0];
-        cell.textContent = T('greeting');
-        const done = document.getElementById('done');
-        done.textContent = T('done');
-        return T;
-    }
 }
-
-export {TranslationFunction};
-export {TranslationOptions};
 
 export default I18N;
