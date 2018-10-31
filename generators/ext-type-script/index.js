@@ -33,6 +33,11 @@ module.exports = class extends Generator {
             let pkg = this.fs.readJSON(
                 this.destinationPath('package.json')
             );
+            pkg.dependencies = sort(
+                lodash.assign(pkg.dependencies, {
+                    '@types/i18next': '^11.9.3'
+                })
+            );
             delete pkg.devDependencies['babel-core'];
             delete pkg.devDependencies['babel-preset-env'];
             delete pkg.devDependencies['babelify'];
@@ -59,9 +64,6 @@ module.exports = class extends Generator {
             this.fs.copy(
                 this.templatePath('tsconfig.json'),
                 this.destinationPath('tsconfig.json'));
-            this.fs.copy(
-                this.templatePath('typings.json'),
-                this.destinationPath('typings.json'));
         }
         this.conflicter.force = this.options.force || upgrade;
     }
