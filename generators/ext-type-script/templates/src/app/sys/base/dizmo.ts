@@ -1,5 +1,5 @@
 /* tslint:disable:ban-types */
-import UUID from '../util/uuid';
+import { UUID } from '@dizmo/functions';
 import IBaseBundle from './bundle';
 import IBaseStorage from './storage';
 

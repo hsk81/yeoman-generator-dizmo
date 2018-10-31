@@ -35,6 +35,7 @@ module.exports = class extends Generator {
             );
             pkg.dependencies = sort(
                 lodash.assign(pkg.dependencies, {
+                    '@dizmo/functions': '^2.3.1',
                     '@types/i18next': '^11.9.3'
                 })
             );

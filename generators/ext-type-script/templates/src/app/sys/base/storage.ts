@@ -1,5 +1,5 @@
 /* tslint:disable:ban-types */
-import UUID from '../util/uuid';
+import { UUID } from '@dizmo/functions';
 
 export interface IBaseStorage {
     [arg: string]: any;
