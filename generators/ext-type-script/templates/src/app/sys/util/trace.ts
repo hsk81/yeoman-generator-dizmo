@@ -79,13 +79,13 @@ function _traceable(flag:boolean):Function {
                                 console.group(`${_named}.${key}`);
                                 console.debug(args);
                                 console.debug(result);
-                            }, T0 || T1 || 0);
+                            }, T0 as any || T1  as any || 0);
 
                             let result = fn.apply(this, args);
 
                             setTimeout(() => {
                                 console.groupEnd();
-                            }, T0 || T1 || 0);
+                            }, T0  as any || T1  as any || 0);
 
                             return result;
                         } else {

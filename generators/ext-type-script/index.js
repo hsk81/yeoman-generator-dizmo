@@ -43,7 +43,7 @@ module.exports = class extends Generator {
                     'gulp-tslint': '^8.1.3',
                     'tsify': '^4.0.0',
                     'tslint': '^5.11.0',
-                    'typescript': '^3.0.1'
+                    'typescript': '^3.1.4'
                 })
             );
             this.fs.writeJSON(
