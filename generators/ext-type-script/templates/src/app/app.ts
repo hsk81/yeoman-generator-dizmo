@@ -45,6 +45,8 @@ document.addEventListener('dizmoready', () => {
 
         global.APP = new App();
     });
+}, {
+    once: true
 });
 
 export default App;

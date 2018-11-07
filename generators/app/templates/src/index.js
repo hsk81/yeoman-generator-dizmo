@@ -16,4 +16,6 @@ document.addEventListener('dizmoready', () => {
     document.getElementById('done').onclick = () => {
         dizmo.showFront();
     };
+}, {
+    once: true
 });

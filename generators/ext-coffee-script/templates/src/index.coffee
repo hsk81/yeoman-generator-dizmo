@@ -8,9 +8,9 @@ window.showFront = ->
 
 window.i18n (err, t) ->
     cell = document.getElementsByClassName('table-cell')[0]
-    cell.textContent = t('greeting')
-    done = document.getElementById('done')
-    done.textContent = t('done')
+    cell.textContent = t 'greeting'
+    done = document.getElementById 'done'
+    done.textContent = t 'done'
     return
 
 window.document.addEventListener 'dizmoready', ->
@@ -18,3 +18,6 @@ window.document.addEventListener 'dizmoready', ->
         dizmo.showFront()
         return
     return
+, {
+    once: true
+}
