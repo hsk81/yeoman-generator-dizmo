@@ -3,9 +3,9 @@ import * as I18next from 'i18next';
 export type TranslationFunction = I18next.TranslationFunction;
 export type TranslationOptions = I18next.TranslationOptions;
 
-declare const i18n: ((
+declare const i18n: (
     callback: (error: any, t: TranslationFunction) => void
-) => void);
+) => void;
 
 export class I18N {
     public static init(

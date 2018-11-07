@@ -1,9 +1,9 @@
-import bundle from './sys/type/bundle';
-import dizmo from './sys/type/dizmo';
-import window from './sys/type/window';
-
-import { Global } from '@dizmo/functions';
+import Global from './dizmo/types/global';
 declare const global: Global;
+import Bundle from './dizmo/types/bundle';
+declare const bundle: Bundle;
+import Dizmo from './dizmo/types/dizmo';
+declare const dizmo: Dizmo;
 
 import { trace, traceable } from '@dizmo/functions';
 import { I18N, TranslationFunction } from './i18n';
@@ -16,10 +16,10 @@ export class App {
     }
     @traceable(false)
     private globals() {
-        window.showBack = () => {
+        global.showBack = () => {
             dizmo.showBack();
         };
-        window.showFront = () => {
+        global.showFront = () => {
             dizmo.showFront();
         };
     }
@@ -34,19 +34,17 @@ export class App {
 }
 
 document.addEventListener('dizmoready', () => {
-    if (global.APP === undefined) {
-        I18N.init((t: TranslationFunction) => {
-            const cell = document.getElementsByClassName('table-cell')[0];
-            cell.textContent = t('greeting');
-            const done = document.getElementById('done');
-            done.textContent = t('done');
+    global.TRACE = bundle.privateStorage.getProperty('TRACE', {
+        fallback: false
+    });
+    I18N.init((t: TranslationFunction) => {
+        const cell = document.getElementsByClassName('table-cell')[0];
+        cell.textContent = t('greeting');
+        const done = document.getElementById('done');
+        done.textContent = t('done');
 
-            global.APP = new App();
-        });
-        global.TRACE = bundle.privateStorage.getProperty('TRACE', {
-            fallback: false
-        });
-    }
+        global.APP = new App();
+    });
 });
 
 export default App;
