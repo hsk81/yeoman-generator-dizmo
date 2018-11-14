@@ -74,7 +74,7 @@ gulp.task('scripts', function () {
     }
 
     let browserified = browserify({basedir: '.', entries: [
-        'node_modules/babel-polyfill/lib/index.js', 'src/index.js'
+        'node_modules/@babel/polyfill/lib/index.js', 'src/index.js'
     ]}).transform(babelify);
 
     let stream = browserified.bundle()

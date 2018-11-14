@@ -12,7 +12,7 @@ let buffer = require('vinyl-buffer'),
     watchify = require('watchify');
 
 let watched = watchify(browserify({basedir: '.', entries: [
-        'node_modules/babel-polyfill/lib/index.js', 'src/index.coffee'
+        'node_modules/@babel/polyfill/lib/index.js', 'src/index.coffee'
     ], cache: {}, packageCache: {}, debug: true
 }).transform(require('coffeeify')));
 

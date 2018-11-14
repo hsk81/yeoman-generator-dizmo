@@ -315,13 +315,13 @@ module.exports = class extends generator {
             );
             pkg.dependencies = sort(
                 lodash.assign(pkg.dependencies, {
-                    'babel-polyfill': '^6.26.0'
+                    '@babel/polyfill': '^7.0.0'
                 })
             );
             pkg.devDependencies = sort(
                 lodash.assign(pkg.devDependencies, {
-                    '@babel/core': '^7.1.2',
-                    'babel-preset-env': '^1.7.0',
+                    '@babel/core': '^7.1.5',
+                    '@babel/preset-env': '^7.1.6',
                     'babelify': '^10.0.0',
                     'browserify': '^16.2.3',
                     'gulp': '^4.0.0',
@@ -365,7 +365,7 @@ module.exports = class extends generator {
             }
             pkg.babel = sort(
                 lodash.assign(pkg.babel, {
-                    presets: ['env']
+                    presets: ['@babel/preset-env']
                 })
             );
             this.fs.writeJSON(

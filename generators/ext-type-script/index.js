@@ -42,7 +42,7 @@ module.exports = class extends Generator {
                 lodash.assign(pkg.dependencies, {
                     '@dizmo/types-bundle': '^1.0.2',
                     '@dizmo/types-dizmo': '^1.0.2',
-                    '@dizmo/types-global': '^1.0.2',
+                    '@dizmo/types-global': '^1.0.3',
                     '@dizmo/types-storage': '^1.0.3',
                     '@dizmo/types-viewer': '^1.0.0',
                 })

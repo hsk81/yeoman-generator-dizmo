@@ -75,7 +75,7 @@ gulp.task('scripts', function () {
 
     let browserified = browserify({
         basedir: '.', debug: !!argv.sourcemaps, entries: [
-            'node_modules/babel-polyfill/lib/index.js', 'src/index.coffee']
+            'node_modules/@babel/polyfill/lib/index.js', 'src/index.coffee']
     }).transform(coffeeify);
 
     let stream = browserified.bundle()
