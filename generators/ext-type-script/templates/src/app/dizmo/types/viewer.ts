@@ -1,5 +1,5 @@
 /* tslint:disable:interface-name no-empty-interface */
-import IViewer from '@dizmo/types-viewer';
+import { Viewer as IViewer } from '@dizmo/types';
 
 export interface Viewer extends IViewer {
 

@@ -1,5 +1,5 @@
 /* tslint:disable:interface-name no-empty-interface */
-import IBundle from '@dizmo/types-bundle';
+import { Bundle as IBundle } from '@dizmo/types';
 
 export interface Bundle extends IBundle {
 

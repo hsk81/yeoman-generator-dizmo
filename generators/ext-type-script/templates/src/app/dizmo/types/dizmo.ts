@@ -1,5 +1,5 @@
 /* tslint:disable:interface-name no-empty-interface */
-import IDizmo from '@dizmo/types-dizmo';
+import { Dizmo as IDizmo } from '@dizmo/types';
 
 export interface Dizmo extends IDizmo {
 

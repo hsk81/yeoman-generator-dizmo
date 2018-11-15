@@ -1,5 +1,5 @@
 /* tslint:disable:interface-name no-empty-interface */
-import IGlobal from '@dizmo/types-global';
+import { Global as IGlobal } from '@dizmo/types';
 
 export interface Global extends IGlobal {
 

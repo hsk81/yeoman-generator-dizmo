@@ -1,5 +1,5 @@
 /* tslint:disable:interface-name no-empty-interface */
-import IStorage from '@dizmo/types-storage';
+import { Storage as IStorage } from '@dizmo/types';
 
 export interface Storage extends IStorage {
 
