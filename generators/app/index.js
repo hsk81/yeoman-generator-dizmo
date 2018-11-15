@@ -320,10 +320,18 @@ module.exports = class extends generator {
             );
             pkg.devDependencies = sort(
                 lodash.assign(pkg.devDependencies, {
-                    '@babel/core': '^7.1.5',
-                    '@babel/preset-env': '^7.1.6',
+                    '@babel/core': '^7.1.6',
+                    '@babel/preset-env': '^7.1.6'
+                })
+            );
+            pkg.devDependencies = sort(
+                lodash.assign(pkg.devDependencies, {
                     'babelify': '^10.0.0',
-                    'browserify': '^16.2.3',
+                    'browserify': '^16.2.3'
+                })
+            );
+            pkg.devDependencies = sort(
+                lodash.assign(pkg.devDependencies, {
                     'gulp': '^4.0.0',
                     'gulp-copy': '^4.0.1',
                     'gulp-eslint': '^5.0.0',
@@ -335,8 +343,11 @@ module.exports = class extends generator {
                     'gulp-uglify': '^3.0.1',
                     'gulp-util': '^3.0.8',
                     'gulp-ver': '^0.1.0',
-                    'gulp-zip': '^4.2.0',
-                    'javascript-obfuscator': '^0.18.1',
+                    'gulp-zip': '^4.2.0'
+                })
+            );
+            pkg.devDependencies = sort(
+                lodash.assign(pkg.devDependencies, {
                     'lodash': '^4.17.11',
                     'pump': '^3.0.0',
                     'rimraf': '^2.6.2',
@@ -344,6 +355,11 @@ module.exports = class extends generator {
                     'vinyl-source-stream': '^2.0.0',
                     'watchify': '^3.11.0',
                     'xtend': '^4.0.1'
+                })
+            );
+            pkg.optionalDependencies = sort(
+                lodash.assign(pkg.optionalDependencies, {
+                    'javascript-obfuscator': '^0.18.1'
                 })
             );
             pkg.scripts = sort(

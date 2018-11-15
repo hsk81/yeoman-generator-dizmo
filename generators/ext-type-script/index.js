@@ -35,23 +35,10 @@ module.exports = class extends Generator {
             );
             pkg.dependencies = sort(
                 lodash.assign(pkg.dependencies, {
-                    '@dizmo/functions': '^2.3.1'
+                    '@dizmo/functions': '^2.3.1',
+                    '@dizmo/types': '^1.0.0'
                 })
             );
-            pkg.dependencies = sort(
-                lodash.assign(pkg.dependencies, {
-                    '@dizmo/types-bundle': '^1.0.2',
-                    '@dizmo/types-dizmo': '^1.0.2',
-                    '@dizmo/types-global': '^1.0.3',
-                    '@dizmo/types-storage': '^1.0.3',
-                    '@dizmo/types-viewer': '^1.0.0',
-                })
-            );
-            delete pkg.devDependencies['babel-core'];
-            delete pkg.devDependencies['babel-preset-env'];
-            delete pkg.devDependencies['babelify'];
-            delete pkg.devDependencies['gulp-eslint'];
-            delete pkg['babel'];
             pkg.devDependencies = sort(
                 lodash.assign(pkg.devDependencies, {
                     '@types/i18next': '^11.9.3'
@@ -65,6 +52,12 @@ module.exports = class extends Generator {
                     'typescript': '^3.1.4'
                 })
             );
+            delete pkg.dependencies['@babel/polyfill'];
+            delete pkg.devDependencies['@babel/core'];
+            delete pkg.devDependencies['@babel/preset-env'];
+            delete pkg.devDependencies['babelify'];
+            delete pkg.devDependencies['gulp-eslint'];
+            delete pkg['babel'];
             this.fs.writeJSON(
                 this.destinationPath('package.json'), pkg, null, 2);
         }

@@ -75,7 +75,8 @@ gulp.task('scripts', function () {
 
     let browserified = browserify({
         basedir: '.', debug: !!argv.sourcemaps, entries: [
-            'node_modules/@babel/polyfill/lib/index.js', 'src/app/app.ts']
+            'src/app/app.ts'
+        ]
     }).plugin(tsify);
 
     let stream = browserified.bundle()

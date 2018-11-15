@@ -33,11 +33,6 @@ module.exports = class extends Generator {
             let pkg = this.fs.readJSON(
                 this.destinationPath('package.json')
             );
-            delete pkg.devDependencies['babel-core'];
-            delete pkg.devDependencies['babel-preset-env'];
-            delete pkg.devDependencies['babelify'];
-            delete pkg.devDependencies['gulp-eslint'];
-            delete pkg['babel'];
             pkg.devDependencies = sort(
                 lodash.assign(pkg.devDependencies, {
                     'coffeeify': '^3.0.1',
@@ -45,6 +40,11 @@ module.exports = class extends Generator {
                     'gulp-coffeelint': '^0.6.0'
                 })
             );
+            delete pkg.devDependencies['@babel/core'];
+            delete pkg.devDependencies['@babel/preset-env'];
+            delete pkg.devDependencies['babelify'];
+            delete pkg.devDependencies['gulp-eslint'];
+            delete pkg['babel'];
             this.fs.writeJSON(
                 this.destinationPath('package.json'), pkg, null, 2);
         }
