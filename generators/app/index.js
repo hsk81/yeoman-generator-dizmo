@@ -439,8 +439,8 @@ module.exports = class extends generator {
         let pkg = this.fs.readJSON(
             this.destinationPath('package.json'));
 
-        if (!this.options['typescript'] && this.options.upgrade && pkg.devDependencies['coffeescript'] ||
-            !this.options['typescript'] && this.options['coffeescript']
+        if (this.options.upgrade && pkg.devDependencies['coffeescript'] ||
+            this.options['coffeescript']
         ) {
             this.composeWith(require.resolve('../sub-coffeescript'), lodash.assign(
                 this.options, {
@@ -448,8 +448,8 @@ module.exports = class extends generator {
                 }
             ));
         } else if (
-            !this.options['coffeescript'] && this.options.upgrade && pkg.devDependencies['typescript'] ||
-            !this.options['coffeescript'] && this.options['typescript']
+            this.options.upgrade && pkg.devDependencies['typescript'] ||
+            this.options['typescript']
         ) {
             this.composeWith(require.resolve('../sub-typescript'), lodash.assign(
                 this.options, {
