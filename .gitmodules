@@ -1,5 +1,5 @@
-[submodule "generators/ext-coffee-script"]
-	path = generators/ext-coffee-script
+[submodule "generators/sub-coffeescript"]
+	path = generators/sub-coffeescript
 	url = git@github.com:dizmo/yeoman-generator-dizmo-coffeescript.git
 [submodule "generators/ext-type-script"]
 	path = generators/ext-type-script

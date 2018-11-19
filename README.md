@@ -526,11 +526,11 @@ By dragging and dropping the `MyDizmo-0.0.0.dzm` artifact onto dizmoViewer a cor
 
 ## Extended sub-generators
 
-Once you have accommodated yourself with some dizmo development, you can go further and try out the `dizmo:ext-coffee-script` and `dizmo:ext-type-script` sub-generators.
+Once you have accommodated yourself with some dizmo development, you can go further and try out the `dizmo:sub-coffeescript` and `dizmo:sub-type-script` sub-generators.
 
-### dizmo:ext-coffee-script &ndash; CoffeeScript integration
+### dizmo:sub-coffeescript &ndash; CoffeeScript integration
 
-Invoke the `dizmo:ext-coffee-script` sub-generator with:
+Invoke the `dizmo:sub-coffeescript` sub-generator with:
 
     yo @dizmo/dizmo my-dizmo --coffeescript
 

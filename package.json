@@ -22,7 +22,7 @@
   },
   "files": [
     "generators/app",
-    "generators/ext-coffee-script",
+    "generators/sub-coffeescript",
     "generators/ext-type-script"
   ],
   "homepage": "https://github.com/dizmo/yeoman-generator-dizmo",
