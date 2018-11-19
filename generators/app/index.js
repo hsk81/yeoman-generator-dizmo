@@ -451,7 +451,7 @@ module.exports = class extends generator {
             !this.options['coffeescript'] && this.options.upgrade && pkg.devDependencies['typescript'] ||
             !this.options['coffeescript'] && this.options['typescript']
         ) {
-            this.composeWith('@dizmo/dizmo:ext-type-script', lodash.assign(
+            this.composeWith('@dizmo/dizmo:sub-typescript', lodash.assign(
                 this.options, {
                     args: this.args, force: this.properties.initial
                 }

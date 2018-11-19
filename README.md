@@ -549,9 +549,9 @@ This will run the basic generator and then apply on top of it the extended Coffe
 
 * **CoffeeScript:** Using the `index.coffee` file, you can start developing your dizmo in [CoffeeScript](http://coffeescript.org/).
 
-### dizmo:ext-type-script &ndash; TypeScript integration
+### dizmo:sub-typescript &ndash; TypeScript integration
 
-Invoke the `dizmo:ext-type-script` sub-generator with:
+Invoke the `dizmo:sub-typescript` sub-generator with:
 
     yo @dizmo/dizmo my-dizmo --typescript
 
