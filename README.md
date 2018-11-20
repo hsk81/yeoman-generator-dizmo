@@ -310,9 +310,7 @@ DZM_STORE_HOST=https://store-api.dizmo.com npm run upload
 
 The build process supports command line arguments to quickly override some of the the configuration in `package.json`. It's important to realize that this CLI support is directly integrated via the underlying primitives, i.e. linting can be enabled or disabled via `--lint` or via `--no-lint`, and this argument can be provided to *any* script which depends on the linting step.
 
-Further, this CLI support has been implemented for *all* generators and sub-generators (see below the CoffeeScript and TypeScript sections). In many cases the arguments are boolean flags which can be enable or disable a certain build step (like linting or minification).
-
-But many can also accept specific configuration objects -- as JSON -- which may or may not be dependent of the particular sub-generator being used: For example, the configuration for linting JavaScript is different than the one for linting TypeScript, since the former uses `eslint` and the latter `tslint`. And since they have different configuration specifications, it's not possible to provide the same configuration object.
+In many cases the arguments are boolean flags which can enable or disable a certain build step (like linting or minification). But many can also accept specific configuration objects -- like JSON: For example, the linting of JavaScript is controlled via an [eslint] specific configuration object.
 
 However, for the daily usage the default settings should be more than enough! Simply using the CLI arguments as boolean flags to enable or disable a particular step will do the job. Further, please notice that when you e.g disable linting then during the build the corresponding step will *still* be shown, but it won't perform any actual linting!
 
@@ -382,21 +380,7 @@ npm run build -- --lint='{"rules":{"no-unused-vars":1}}'
 npm run build -- --lint='{"rules":{"no-unused-vars":1}}'
 ```
 
-Above, in case of an error the build process will *not* fail, effectively making it equivalent to a warning. If such behaviour is not desired, then the `000-lint.js` Gulp task should be modified to stop the build process upon a linting error.
-
-* Enforce for a CoffeeScript based dizmo project linting, and ensure that indentation is based on four consecutive spaces:
-
-```
-npm run build -- --lint='{"indentation":{"value":4,"level":"error"}}'
-```
-
-* And finally, enforce for a TypeScript based dizmo project linting, and ensure that quote-marks use double apostrophes:
-
-```
-npm run build -- --lint='{"configuration":{"rules":{"quotemark":[true, "single"]}}}'
-```
-
-As you see, each linter expects a different configuration object, since each is based on a different code base: [eslint], [coffeelint] and [tslint].
+Above, in case of an error the build process will *not* fail, effectively making it equivalent to a warning. If such behaviour is not desired, then the `lint.js` Gulp task should be modified to stop the build process upon a linting error.
 
 ### Minification: `--minify` or `--no-minify`
 
@@ -526,59 +510,13 @@ By dragging and dropping the `MyDizmo-0.0.0.dzm` artifact onto dizmoViewer a cor
 
 ## Extended sub-generators
 
-Once you have accommodated yourself with some dizmo development, you can go further and try out the `dizmo:sub-coffeescript` and `dizmo:sub-type-script` sub-generators.
-
-### dizmo:sub-coffeescript &ndash; CoffeeScript integration
-
-Invoke the `dizmo:sub-coffeescript` sub-generator with:
-
-    yo @dizmo/dizmo my-dizmo --coffeescript
-
-This will run the basic generator and then apply on top of it the extended CoffeeScript sub-generator, which will then create (or modify) the project's standard structure:
-
-    my-dizmo $ tree
-    .
-    ├── coffeelint.json
-    ├── gulp
-    │   ├── package.js
-    │   └── tasks
-    │       └── *
-    ├── package.json
-    └── src
-        └── index.coffee
-
-* **CoffeeScript:** Using the `index.coffee` file, you can start developing your dizmo in [CoffeeScript](http://coffeescript.org/).
-
-### dizmo:sub-typescript &ndash; TypeScript integration
-
-Invoke the `dizmo:sub-typescript` sub-generator with:
-
-    yo @dizmo/dizmo my-dizmo --typescript
-
-This will run the basic generator and then apply on top of it the extended [TypeScript](http://www.typescriptlang.org/) sub-generator, which will create (or modify) the project's standard structure:
-
-    my-dizmo $ tree
-    .
-    ├── .tslint.json
-    ├── gulp
-    │   ├── package.js
-    │   └── tasks
-    │       └── *
-    ├── package.json
-    ├── src
-    │   └── app
-    │       ├── app.ts
-    │       ├── dizmo.ts
-    │       └── window.ts
-    └── tsconfig.json
-
-* **TypeScript:** Using the `src/app/app.ts` file you can start developing your dizmo in [TypeScript](http://www.typescriptlang.org/).
+Once you have accommodated yourself with some dizmo development, you can go further and try out the `dizmo:sub-coffeescript` and `dizmo:sub-typescript` sub-generators.
 
 ## Miscellanea
 
 ### GIT initialization
 
-Invoke a generator (or a sub-generator) combined with the `--git` option:
+Invoke a generator combined with the `--git` option:
 
     yo @dizmo/dizmo my-dizmo --git
 
