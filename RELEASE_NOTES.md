@@ -8,11 +8,23 @@
 
     When upgrading a TypeScript or CoffeeScript project a simple `yo @dizmo/dizmo --upgrade` is enough. The auto-detection is achieved by checking in `package.json:devDependencies` the `typescript` or `coffeescript` entries.
 
+* `@dizmo/functions` integration:
+
+    Removed in the [TypeScript] generator the "hardcoded" helper functions, which have been put into the `@dizmo/functions` package.
+
+* `@dizmo/types` integration:
+
+    Removed the type definitions created by the [TypeScript] generator, which have been put in the `@dizmo/types` package.
+
 ### NOTABLE CHANGES
 
 * Upgraded to `gulp@4.0.0`:
 
     In [gulp] the task declaration syntax has changed. Further, the handy `gulp.series` and `gulp.parallel` functions have been introduced, allowing the removal of the `gulp-sync` plugin.
+
+* Extracted submodules for the [TypeScript] and [CoffeeScript] sub-generators:
+
+    In anticipation of further sub-generators, these two sub-generators (which still create minimal and - almost - non-opinionated projects) have been extracted into their own repositories and re-integrated as submodules.
 
 ## v7.y.z
 
