@@ -9,12 +9,12 @@ let run_script = function () {
     });
 };
 
-fs.access('./node_modules', function (error) {
+fs.access('./node_modules/pump', function (error) {
     if (error) {
         let Spinner = require('../miscellanea/cli-spinner').Spinner,
             spinner = new Spinner('%s installing dependencies: .. ');
         let npm_install = child_process.spawn('npm', [
-            'install', '--no-optional'
+            'install'
         ], {
             shell: true, stdio: 'ignore'
         });
