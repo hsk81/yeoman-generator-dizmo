@@ -1,5 +1,57 @@
 # CHANGE LOG
 
+## v8.6.z
+
+* Fixed `npm run watch`:
+
+    The `@babel/polyfill` in the [JavaScript] generator was not being used in `npm run watch`, which has been fixed.
+
+## v8.5.z
+
+* Extracted submodules for the [TypeScript] and [CoffeeScript] sub-generators:
+
+    In anticipation of further sub-generators, these two sub-generators (which still create minimal and - almost - non-opinionated projects) have been extracted into their own repositories and re-integrated as submodules.
+
+* `@dizmo/functions` integration:
+
+    Removed in the [TypeScript] generator the "hardcoded" helper functions, which have been put into the `@dizmo/functions` package.
+
+* `@dizmo/types` integration:
+
+    Removed the type definitions created by the [TypeScript] generator, which have been put in the `@dizmo/types` package.
+
+* Migrated to `@babel` scope:
+
+    Babel packages have all been scoped with `@babel`.
+
+* Once handler for `dizmoready`:
+
+    The callback for `dizmoready` was ensuring via a global variable a single execution: Replaced this check by using the `once: true` option of the `document.addEventListener`.
+
+* Removed `gulp-utils`:
+
+    The `gulp-utils` package has been replaced with `fancy-log` and `ansi-colors` packages.
+
+* Optional `pump` dependency:
+
+    The `pump` package has been declared as an `optionalDependency`, and it is installed during a build automatically on-demand.
+
+* Optional `javascript-obfuscator` dependency:
+
+    The `javascript-obfuscator` package has been declared as an `optionalDependency`, and it is installed during a build automatically on-demand.
+
+## v8.4.z
+
+* Simplified I18N usage:
+
+    Simplifed in the [TypeScript] generator the `app.ts` w.r.t. to the usage of the I18N translation framework.
+
+## v8.3.z
+
+* Introduced usage of `types/i18next`:
+
+    In the [TypeScript] generator the new `@types` scope is used for `i18next`, instead of relying on type definitions provided by `dts`.
+
 ## v8.2.z
 
 * Optional `--typescript` and `--coffeescript` flags on `--upgrade`:
