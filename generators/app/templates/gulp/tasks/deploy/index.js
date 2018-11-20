@@ -5,7 +5,26 @@ let ansi_colors = require('ansi-colors'),
     fancy_log = require('fancy-log'),
     gulp = require('gulp');
 
-let to = function () {
+function ensure(package, callback) {
+    require('fs').access(
+        './node_modules/' + package, function (error)
+    {
+        if (error) {
+            let npm_install = require('child_process').spawn('npm', [
+                'install', package
+            ], {
+                shell: true, stdio: 'ignore'
+            });
+            npm_install.on('exit', function () {
+                callback(require(package));
+            });
+        } else {
+            callback(require(package));
+        }
+    });
+}
+
+function to() {
     let deploy_path =
         process.env.DZM_DEPLOY_PATH || pkg.dizmo['deploy-path'];
     if (deploy_path && path.isAbsolute(deploy_path) === false) {
@@ -16,14 +35,14 @@ let to = function () {
             deploy_path, pkg.dizmo.settings['bundle-identifier']);
     }
     return null;
-};
+}
 
-let deploy = function (stream, to) {
+function deploy(stream, to) {
     if (to) {
         stream.push(gulp.dest(to));
     }
     return stream;
-};
+}
 
 gulp.task('deploy:copy', function (done) {
     let stream = deploy([gulp.src(
@@ -65,7 +84,9 @@ gulp.task('deploy:copy', function (done) {
         }, 0);
     }
     if (stream.length > 1) {
-        require('pump')(stream, done);
+        ensure('pump', function (pump) {
+            pump(stream, done);
+        });
     } else {
         done();
     }
@@ -80,7 +101,9 @@ gulp.task('deploy:only', function (done) {
         'build/{0}/**/*'.replace('{0}', pkg.name))
     ], to());
     if (stream.length > 1) {
-        require('pump')(stream, done);
+        ensure('pump', function (pump) {
+            pump(stream, done);
+        });
     } else {
         done();
     }
