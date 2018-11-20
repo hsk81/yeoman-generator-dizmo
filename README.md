@@ -405,7 +405,7 @@ npm run build -- --no-minify
 Further, since minification consists of five sub-steps, namely (a) markup minification, (b) styles minification, (c1) scripts obfuscation plus (c2) minification and also (d) source maps generation -- where the latter however needs to be explicitly enabled -- it's possible to control them independently of the *general* `--minify` flag:
 
 ```
-npm run build -- --htmlmin --sass --obfuscate --uglify --no-sourcemap
+npm install && npm run build -- --htmlmin --sass --obfuscate --uglify --no-sourcemap
 ```
 
 The above set of arguments is (given default `package.json` build settings) equivalent to the `--minify` flag. Further, each of them can be negated as well:
@@ -431,8 +431,10 @@ npm run build -- --minify --sass='{"outputStyle":"compressed"}'
 * Obfuscate the scripts; see [javascript-obfuscator] for further information w.r.t. to the configuration:
 
 ```
-npm run build -- --minify --obfuscate='{"compact":true}'
+npm install && npm run build -- --minify --obfuscate='{"compact":true}'
 ```
+
+where running `npm install` is mandatory, since the [javascript-obfuscator] is an *optional* dependency, which do *not* get installed when simply executing `npm run build`.
 
 * Minify the scripts; see [gulp-uglify] for further information w.r.t. to the configuration:
 
