@@ -13,7 +13,7 @@ let babelify = require('babelify'),
     watchify = require('watchify');
 
 let watched = watchify(browserify({basedir: '.', entries: [
-        /*'node_modules/@babel/polyfill/lib/index.js',*/'src/index.js'
+        'node_modules/@babel/polyfill/lib/index.js', 'src/index.js'
     ], cache: {}, packageCache: {}, debug: false
 }).transform(babelify));
 
