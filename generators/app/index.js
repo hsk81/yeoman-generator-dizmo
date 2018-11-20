@@ -350,7 +350,6 @@ module.exports = class extends generator {
                     'ansi-colors': '^3.2.1',
                     'fancy-log': '^1.3.2',
                     'lodash': '^4.17.11',
-                    'pump': '^3.0.0',
                     'rimraf': '^2.6.2',
                     'vinyl-buffer': '^1.0.1',
                     'vinyl-source-stream': '^2.0.0',
@@ -360,7 +359,8 @@ module.exports = class extends generator {
             );
             pkg.optionalDependencies = sort(
                 lodash.assign(pkg.optionalDependencies, {
-                    'javascript-obfuscator': '^0.18.1'
+                    'javascript-obfuscator': '^0.18.1',
+                    'pump': '^3.0.0'
                 })
             );
             pkg.scripts = sort(
