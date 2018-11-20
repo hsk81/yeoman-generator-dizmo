@@ -5,10 +5,10 @@ window.showFront = () => {
     dizmo.showFront();
 };
 
-window.i18n((err, t) => {
-    let cell = document.getElementsByClassName('table-cell')[0];
+window.i18n((error, t) => {
+    const cell = document.getElementsByClassName('table-cell')[0];
     cell.textContent = t('greeting');
-    let done = document.getElementById('done');
+    const done = document.getElementById('done');
     done.textContent = t('done');
 });
 

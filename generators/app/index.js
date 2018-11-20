@@ -341,13 +341,14 @@ module.exports = class extends generator {
                     'gulp-sass': '^4.0.2',
                     'gulp-sourcemaps': '^2.6.4',
                     'gulp-uglify': '^3.0.1',
-                    'gulp-util': '^3.0.8',
                     'gulp-ver': '^0.1.0',
                     'gulp-zip': '^4.2.0'
                 })
             );
             pkg.devDependencies = sort(
                 lodash.assign(pkg.devDependencies, {
+                    'ansi-colors': '^3.2.1',
+                    'fancy-log': '^1.3.2',
                     'lodash': '^4.17.11',
                     'pump': '^3.0.0',
                     'rimraf': '^2.6.2',

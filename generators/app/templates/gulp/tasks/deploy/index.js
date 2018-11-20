@@ -1,8 +1,9 @@
 let pkg = require('../../package.js'),
     fs = require('fs'),
     path = require('path');
-let gulp = require('gulp'),
-    gulp_util = require('gulp-util');
+let ansi_colors = require('ansi-colors'),
+    fancy_log = require('fancy-log'),
+    gulp = require('gulp');
 
 let to = function () {
     let deploy_path =
@@ -31,14 +32,14 @@ gulp.task('deploy:copy', function (done) {
 
     if (to() !== null) {
         setTimeout(function () {
-            gulp_util.log(gulp_util.colors.green.bold(
+            fancy_log(ansi_colors.green.bold(
                 'Deployed to {0}.'.replace('{0}', to())
             ));
         }, 0);
         if (!fs.existsSync(to())) {
             stream[stream.length - 1].on('finish', function () {
                 setTimeout(function () {
-                    gulp_util.log(gulp_util.colors.green.bold(
+                    fancy_log(ansi_colors.green.bold(
                         'Drag-and-drop {0} onto dizmoViewer!'.replace(
                             '{0}', 'build/{0}-x.y.z.dzm'.replace(
                                 '{0}', pkg.name
@@ -50,13 +51,13 @@ gulp.task('deploy:copy', function (done) {
         }
     } else {
         setTimeout(function () {
-            gulp_util.log(gulp_util.colors.yellow.bold(
+            fancy_log(ansi_colors.yellow.bold(
                 'Neither the $DZM_DEPLOY_PATH environment variable nor the ' +
                 '`dizmo/deploy-path` entry in package.json or ~/.generator-' +
                 'dizmo/config.json have been set. Hence, the dizmo has not ' +
                 'been deployed!'
             ));
-            gulp_util.log(gulp_util.colors.yellow.bold(
+            fancy_log(ansi_colors.yellow.bold(
                 'It\'s recommended to set the $DZM_DEPLOY_PATH environment ' +
                 'variable or the `dizmo/deploy-path` entry in ~/.generator-' +
                 'dizmo/config.json to your dizmo deployment path.'

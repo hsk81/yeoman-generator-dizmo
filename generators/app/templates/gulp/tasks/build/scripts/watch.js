@@ -1,13 +1,13 @@
 let pkg = require('../../../package.js'),
     path = require('path');
 let gulp = require('gulp'),
-    gulp_util = require('gulp-util'),
     gulp_uglify = require('gulp-uglify'),
     gulp_sourcemaps = require('gulp-sourcemaps');
 let babelify = require('babelify'),
     buffer = require('vinyl-buffer'),
     browserify = require('browserify'),
     extend = require('xtend'),
+    fancy_log = require('fancy-log'),
     source = require('vinyl-source-stream'),
     through = require('through2'),
     watchify = require('watchify');
@@ -109,5 +109,5 @@ let on_watch = function () {
 };
 
 watched.on('update', on_watch);
-watched.on('log', gulp_util.log);
+watched.on('log', fancy_log);
 gulp.task('scripts:watch', on_watch);
