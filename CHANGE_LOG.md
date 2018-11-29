@@ -6,6 +6,10 @@
 
     The `@babel/polyfill` in the [JavaScript] generator was not being used in `npm run watch`, which has been fixed.
 
+* Fixed `npm run watch`:
+
+    Executing `npm run watch` was causing the `*.dzm` artifact from a *previous* build to be packed into the newly build `*.dzm` artifact.
+
 ## v8.5.z
 
 * Extracted submodules for the [TypeScript] and [CoffeeScript] sub-generators:
