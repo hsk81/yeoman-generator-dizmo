@@ -72,6 +72,11 @@ module.exports = class extends generator {
             desc: 'Sub-generator with TypeScript',
             type: Boolean
         });
+        this.option('dcontrol', {
+            defaults: false,
+            desc: 'Sub-generator with dcontrol',
+            type: Boolean
+        });
         this.option('upgrade', {
             defaults: false,
             desc: 'Upgrade the build system',
@@ -453,6 +458,15 @@ module.exports = class extends generator {
             this.options['typescript']
         ) {
             this.composeWith(require.resolve('../sub-typescript'), lodash.assign(
+                this.options, {
+                    args: this.args, force: this.properties.initial
+                }
+            ));
+        } else if (
+            this.options.upgrade && pkg.devDependencies['dcontrol'] ||
+            this.options['dcontrol']
+        ) {
+            this.composeWith(require.resolve('../sub-dcontrol'), lodash.assign(
                 this.options, {
                     args: this.args, force: this.properties.initial
                 }

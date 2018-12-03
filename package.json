@@ -23,7 +23,8 @@
   "files": [
     "generators/app",
     "generators/sub-coffeescript",
-    "generators/sub-typescript"
+    "generators/sub-typescript",
+    "generators/sub-dcontrol"
   ],
   "homepage": "https://github.com/dizmo/yeoman-generator-dizmo",
   "keywords": [
