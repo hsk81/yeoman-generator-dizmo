@@ -16,6 +16,10 @@
 
     Removed the type definitions created by the [TypeScript] generator, which have been put in the `@dizmo/types` package.
 
+* `dcontrol` sub-generator:
+
+    Running `yo @dizmo/dizmo --dcontrol [--git]` will produce a dizmo project with support for `dcontrol` and a [Vue.js](https://vuejs.org/) component based user interface.
+
 ### NOTABLE CHANGES
 
 * Upgraded to `gulp@4.0.0`:

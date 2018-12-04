@@ -1,5 +1,11 @@
 # CHANGE LOG
 
+## v8.7.z
+
+* Integrated `dcontrol` sub-generator:
+
+    Running `yo @dizmo/dizmo --dcontrol [--git]` will produce a dizmo project with support for `dcontrol` and a [Vue.js](https://vuejs.org/) component based user interface.
+
 ## v8.6.z
 
 * Fixed `npm run watch`:
