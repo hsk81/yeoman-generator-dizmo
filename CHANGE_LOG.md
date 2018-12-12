@@ -6,6 +6,10 @@
 
     Running `yo @dizmo/dizmo --dcontrol [--git]` will produce a dizmo project with support for `dcontrol` and a [Vue.js](https://vuejs.org/) component based user interface.
 
+* Integrated `ES2015` for [TypeScript] sub-generator:
+
+    By targeting `ES2015` instead of `ES5` features like a `Promise` become available. Backwards compatiblity is ensured by using `@babel/polyfill`.
+
 ## v8.6.z
 
 * Fixed `npm run watch`:
