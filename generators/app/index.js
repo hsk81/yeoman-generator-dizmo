@@ -320,13 +320,13 @@ module.exports = class extends generator {
             );
             pkg.dependencies = sort(
                 lodash.assign(pkg.dependencies, {
-                    '@babel/polyfill': '^7.0.0'
+                    '@babel/polyfill': '^7.2.5'
                 })
             );
             pkg.devDependencies = sort(
                 lodash.assign(pkg.devDependencies, {
-                    '@babel/core': '^7.1.6',
-                    '@babel/preset-env': '^7.1.6'
+                    '@babel/core': '^7.2.2',
+                    '@babel/preset-env': '^7.2.3'
                 })
             );
             pkg.devDependencies = sort(
@@ -352,10 +352,10 @@ module.exports = class extends generator {
             );
             pkg.devDependencies = sort(
                 lodash.assign(pkg.devDependencies, {
-                    'ansi-colors': '^3.2.1',
-                    'fancy-log': '^1.3.2',
+                    'ansi-colors': '^3.2.3',
+                    'fancy-log': '^1.3.3',
                     'lodash': '^4.17.11',
-                    'rimraf': '^2.6.2',
+                    'rimraf': '^2.6.3',
                     'vinyl-buffer': '^1.0.1',
                     'vinyl-source-stream': '^2.0.0',
                     'watchify': '^3.11.0',

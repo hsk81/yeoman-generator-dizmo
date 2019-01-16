@@ -1,10 +1,10 @@
 'use strict';
-let pump = require('pump');
-let gulp = require('gulp'),
-    gulp_eslint = require('gulp-eslint'),
-    gulp_exclude = require('gulp-exclude-gitignore');
+const pump = require('pump');
+const gulp = require('gulp');
+const gulp_eslint = require('gulp-eslint');
+const gulp_exclude = require('gulp-exclude-gitignore');
 
-let os = require('os');
+const os = require('os');
 if (os.tmpdir) {
     os.tmpDir = os.tmpdir;
 }
