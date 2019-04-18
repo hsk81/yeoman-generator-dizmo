@@ -2,10 +2,14 @@
   "name": "<%= dizmoName %>",
   "description": "<%= dizmoDescription %>",
   "version": "0.0.0",
-  "person": {
+  "author": {
     "name": "<%= personName %>",
     "email": "<%= personEmail %>"
   },
+  "contributors": [{
+    "name": "<%= personName %>",
+    "email": "<%= personEmail %>"
+  }],
   "dizmo": {
     "settings": {
       "attributes": {
