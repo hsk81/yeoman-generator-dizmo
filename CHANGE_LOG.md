@@ -10,6 +10,10 @@
 
     By targeting `ES2015` instead of `ES5` features like a `Promise` become available. Backwards compatiblity is ensured by using `@babel/polyfill`.
 
+* Fixed `--uglify` and `--obfuscate` flags:
+
+    These two flags allow more detailed options via handing over via the CLI a (properly escaped) JSON object, like `--uglify='{\"mangle\":true\,\"keep_fnames\":true}'`. However, these flags where *not* forwarded correctly to the corresponding `uglify` and `obfuscate` GLUP plug-ins, which has now been fixed.
+
 ## v8.6.z
 
 * Fixed `npm run watch`:

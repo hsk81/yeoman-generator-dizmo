@@ -5,7 +5,7 @@
 
 ## Prerequisites
 
-* [Node.js] v8.11.3 LTS (or higher); for Linux distribution based packages (`deb` or `rpm`) see also [binary distributions](https://github.com/nodesource/distributions).
+* [Node.js] v10.15.3 LTS (or higher); for Linux distribution based packages (`deb` or `rpm`) see also [binary distributions](https://github.com/nodesource/distributions).
 
 ## How does dizmoGen work?
 
@@ -210,11 +210,11 @@ In addition to the default entries of [npm] the `package.json` file contains a `
                 },
                 "scripts": {
                     "sourcemaps": false,
-                    "obfuscate": true,
+                    "obfuscate": false,
                     "uglify": true
                 },
                 "styles": {
-                    "sourcemaps": true,
+                    "sourcemaps": false,
                     "sass": true
                 }
             }
@@ -230,10 +230,6 @@ And here is a list of available options:
 * `build/lint`: switches [ESLint][eslint] based linting on or off -- edit the `.eslintrc.json` configuration file to have a detailed control over the linting process; see also [gulp-eslint] for additional information.
 
 * `build/minify`: switches the minification of the markup (`*.html`), scripts (`*.js`) and styles (`*.[s]css`) on or off -- but each sub-process can also be toggled separately. Further, they also can be tweaked in detail by providing a configuration object; see the corresponding [gulp-htmlmin], [javascript-obfuscator], [gulp-uglify] and [gulp-sass] pages for more information. Source map generation can be controlled as well, and is off by default. Further, to keep `package.json` simple, the `build/minify` flag is set upon project generation directly to `false`.
-
-  It is not recommended to obfuscate vendor scripts and polyfills, since the obfuscated code can be 15-80% slower (depending on the options) and the files are significantly larger. Hence, when possible (large) third party libraries like `jquery.min.js` should be embedded into a dizmo under e.g. the `src/lib/` directory, and then they should be referenced with a `<script href="lib/jquery.min.js">` tag directly from within your HTML markup: This will avoid the libraries being obfuscated and hence, there won't be any performance penalty.
-
-  Any library however, that is installed into a dizmo project via e.g. `npm install --save jquery` and then referenced as `var $ = require('jquery')` from your source code, will be collected by the build system and subsequently also obfuscated! This might actually be desirable, if the third party library is maybe company internal code, and you wish to use it in your dizmo: This arrangement will protect your company's intellectual property while offering you the desired functionality.
 
 ### Default Configuration
 
@@ -365,19 +361,19 @@ The specific configuration objects for controlling [eslint], [coffeelint] and [t
 * Enforce for a JavaScript based dizmo project linting, but ignore unused variable names:
 
 ```
-npm run build -- --lint='{"rules":{"no-unused-vars":0}}'
+npm run build -- --lint='{\"rules\":{\"no-unused-vars\":0}}'
 ```
 
 * Enforce linting, but provide a warning w.r.t. unused variable names:
 
 ```
-npm run build -- --lint='{"rules":{"no-unused-vars":1}}'
+npm run build -- --lint='{\"rules\":{\"no-unused-vars\":1}}'
 ```
 
 * Enforce linting, but provide an error w.r.t. unused variable names:
 
 ```
-npm run build -- --lint='{"rules":{"no-unused-vars":1}}'
+npm run build -- --lint='{\"rules\":{\"no-unused-vars\":1}}'
 ```
 
 Above, in case of an error the build process will *not* fail, effectively making it equivalent to a warning. If such behaviour is not desired, then the `lint.js` Gulp task should be modified to stop the build process upon a linting error.
@@ -402,16 +398,16 @@ It's also possible to suppress a minification (e.g. in case it should be enabled
 npm run build -- --no-minify
 ```
 
-Further, since minification consists of five sub-steps, namely (a) markup minification, (b) styles minification, (c1) scripts obfuscation plus (c2) minification and also (d) source maps generation -- where the latter however needs to be explicitly enabled -- it's possible to control them independently of the *general* `--minify` flag:
+Further, since minification consists of five sub-steps, namely (a) markup minification, (b) styles minification, (c1) scripts obfuscation plus (c2) minification and also (d) source maps generation -- where (c1) and (d) however need to be explicitly enabled -- it is possible to control them independently of the *general* `--minify` flag:
 
 ```
-npm run build -- --htmlmin --sass --obfuscate --uglify --no-sourcemap
+npm run build -- --htmlmin --sass --no-obfuscate --uglify --no-sourcemap
 ```
 
 The above set of arguments is (given default `package.json` build settings) equivalent to the `--minify` flag. Further, each of them can be negated as well:
 
 ```
-npm run build -- --no-htmlmin --no-sass --no-obfuscate --no-uglify
+npm run build -- --no-htmlmin --no-sass --obfuscate --no-uglify --sourcemap
 ```
 
 Further, each flag can accept an optional configuration object to control in detail the corresponding minification, obfuscation and/or source map generation step:
@@ -419,31 +415,31 @@ Further, each flag can accept an optional configuration object to control in det
 * Minimize the markup; see [gulp-htmlmin] for further information w.r.t. to the configuration:
 
 ```
-npm run build -- --minify --htmlmin='{"collapseWhitespace":true}'
+npm run build -- --minify --htmlmin='{\"collapseWhitespace\":true}'
 ```
 
 * Minimize the styles; see [gulp-sass] for further information w.r.t. to the configuration:
 
 ```
-npm run build -- --minify --sass='{"outputStyle":"compressed"}'
+npm run build -- --minify --sass='{\"outputStyle\":\"compressed\"}'
 ```
 
 * Obfuscate the scripts; see [javascript-obfuscator] for further information w.r.t. to the configuration:
 
 ```
-npm run build -- --minify --obfuscate='{"compact":true}'
+npm run build -- --minify --obfuscate='{\"compact\":true}'
 ```
 
 * Minify the scripts; see [gulp-uglify] for further information w.r.t. to the configuration:
 
 ```
-npm run build -- --minify --uglify='{"mangle":true}'
+npm run build -- --minify --uglify='{\"mangle\":true\,\"keep_fnames\":true}'
 ```
 
 * Create source maps for the scripts *and* the styles (in `package.json` each source map generation can be configured separately, however on the CLI there is only a single flag to control both); see [gulp-sourcemaps] for further information w.r.t. to the configuration:
 
 ```
-npm run build -- --minify --sourcemaps='{"loadMaps":true}
+npm run build -- --minify --sourcemaps='{\"loadMaps\":true}
 ```
 
 In general, using `--minify` (or `--no-minify`) combined with the `--sourcemaps` (or `--no-sourcemaps`) CLI options should be enough. Only if explicit control is required, using the `--htmlmin`, `--sass`, `--obfuscate` or `--uglify` flags is be necessary. Further, providing configuration objects to these flags should only be done, when you know what you are doing (or are not happy with the provided defaults).
@@ -617,7 +613,7 @@ Such files are device dependent and hence should be ignored *globally* on the de
 
 ## Copyright
 
- © 2018 [dizmo AG](http://dizmo.com/), Switzerland
+ © 2019 [dizmo AG](http://dizmo.com/), Switzerland
 
 [Node.js]: https://nodejs.org
 
