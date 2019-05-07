@@ -10,25 +10,19 @@ Create the `<%= dizmoName %>` dizmo by running `npm run build` and drag and drop
 
 Cleans the previous build (if any) by removing the `build/` folder completely:
 
-```sh
-npm run clean
-```
+    npm run clean
 
 ### Building
 
 Packages the dizmo as `build/<%= dizmoName %>-x.y.z.dzm` by running all required build tasks and compressing the resulting dizmo as a ZIP archive (but with a `.dzm` extension). Runs also if required `npm install`:
 
-```sh
-npm run build
-```
+    npm run build
 
 ## Deploying
 
 Deploys (and builds) the dizmo to the path specified by `dizmo/deploy-path` (provided by `package.json` or `~/.generator-dizmo/config.json`) or specified by the `DZM_DEPLOY_PATH` environment variable. If neither are set, then the dizmo is only built, but not deployed:
 
-```sh
-npm run deploy
-```
+    npm run deploy
 
 If any of the above steps fails &ndash; maybe due to missing dependencies &ndash; then please run `npm install` to have them fetched and installed locally!
 
@@ -46,9 +40,7 @@ Now, any change in the current directory (except in `build/` and `node_modules/`
 
 By default *no* test cases *nor* a test framework are pre-defined:
 
-```sh
-npm run test
-```
+    npm run test
 
 Runs tests (if any) &ndash; but actually the script simply returns an `exit 0` indicating a (dummy) success. If desired, integrate your test framework of choice, write your test cases and override the `test` script in `package.json` accordingly. The only requirement is that the main test script should return `0` in case of a successful test run.
 
@@ -67,9 +59,8 @@ The configuration is hierarchical and recursive, i.e. that a `.generator-dizmo/c
 ## Upload
 
 Dizmo offers a *dizmoStore*, where dizmos can be uploaded to: Besides `package.json` (or `.generator-dizmo/config.json`) or environment variables, upload arguments like the `host` and `user` name plus `pass` word can also be provided via the CLI:
-```
-npm run -- upload --host=https://store-api.dizmo.com --user='..' --pass='..'
-```
+
+    npm run -- upload --host=https://store-api.dizmo.com --user='..' --pass='..'
 
 ## Versioning
 
