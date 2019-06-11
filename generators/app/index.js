@@ -320,13 +320,13 @@ module.exports = class extends generator {
             );
             pkg.dependencies = sort(
                 lodash.assign(pkg.dependencies, {
-                    '@babel/polyfill': '^7.2.5'
+                    '@babel/polyfill': '^7.4.4'
                 })
             );
             pkg.devDependencies = sort(
                 lodash.assign(pkg.devDependencies, {
-                    '@babel/core': '^7.2.2',
-                    '@babel/preset-env': '^7.2.3'
+                    '@babel/core': '^7.4.5',
+                    '@babel/preset-env': '^7.4.5'
                 })
             );
             pkg.devDependencies = sort(
@@ -337,28 +337,28 @@ module.exports = class extends generator {
             );
             pkg.devDependencies = sort(
                 lodash.assign(pkg.devDependencies, {
-                    'gulp': '^4.0.0',
+                    'gulp': '^4.0.2',
                     'gulp-copy': '^4.0.1',
                     'gulp-eslint': '^5.0.0',
                     'gulp-htmlmin': '^5.0.1',
                     'gulp-plist': '^0.1.0',
                     'gulp-rename': '^1.4.0',
                     'gulp-sass': '^4.0.2',
-                    'gulp-sourcemaps': '^2.6.4',
-                    'gulp-uglify': '^3.0.1',
+                    'gulp-sourcemaps': '^2.6.5',
+                    'gulp-uglify': '^3.0.2',
                     'gulp-ver': '^0.1.0',
-                    'gulp-zip': '^4.2.0'
+                    'gulp-zip': '^5.0.0'
                 })
             );
             pkg.devDependencies = sort(
                 lodash.assign(pkg.devDependencies, {
-                    'ansi-colors': '^3.2.3',
+                    'ansi-colors': '^3.2.4',
                     'fancy-log': '^1.3.3',
                     'lodash': '^4.17.11',
                     'rimraf': '^2.6.3',
                     'vinyl-buffer': '^1.0.1',
                     'vinyl-source-stream': '^2.0.0',
-                    'watchify': '^3.11.0',
+                    'watchify': '^3.11.1',
                     'xtend': '^4.0.1'
                 })
             );
