@@ -4,6 +4,3 @@
 [submodule "generators/sub-typescript"]
 	path = generators/sub-typescript
 	url = git@github.com:dizmo/yeoman-generator-dizmo-typescript.git
-[submodule "generators/sub-dcontrol"]
-	path = generators/sub-dcontrol
-	url = git@git.dizmo.com:dizmo/yeoman-generator-dcontrol-dizmos.git

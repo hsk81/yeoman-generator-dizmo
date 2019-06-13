@@ -1,5 +1,13 @@
 # RELEASE NOTES
 
+## v9.y.z
+
+### MAJOR CHANGES
+
+* Extracted `dcontrol` sub-generator:
+
+    Now, running `yo @dizmo/dizmo-dcontrol [--git]` will produce a dizmo project with support for `dcontrol`. For this to work, the `@dizmo/generator-dizmo-dcontrol` sub-generator is required to be installed separately.
+
 ## v8.y.z
 
 ### MAJOR CHANGES
