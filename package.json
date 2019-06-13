@@ -44,5 +44,5 @@
   "scripts": {
     "prepare": "gulp prepare"
   },
-  "version": "9.0.0"
+  "version": "9.0.1"
 }
