@@ -21,86 +21,109 @@ The options and commands available to build, test and deploy dizmos will be upgr
 
 First, install [Yeoman](http://yeoman.io) and `generator-dizmo` using [npm] (we assume you have [Node.js] pre-installed):
 
-```bash
-(sudo) npm install -g yo
-```
-```bash
-(sudo) npm install -g @dizmo/generator-dizmo
+```sh
+npm install -g yo
 ```
 
-On most operating systems the `-g` option (shortcut for `--global`) requires super user (administrator) rights: Therefore, on Unix like systems you might be required to run the above commands using either `sudo` (i.e. `sudo npm install -g yo` and `sudo npm install -g generator-dizmo`), or run them directly from your super user account of your operating system.
+```sh
+npm install -g @dizmo/generator-dizmo
+```
+
+**Note:** On most operating systems the `-g` option (shortcut for `--global`) requires super user (administrator) rights. Due to security considerations however, avoid using such a privileged account and see the [FAQ] to be able to install global packages as a *regular* user.
+
+[FAQ]: #i-cannot-install-yo-globally-with-npm-install--g
 
 ## Quick start
 
 Invoke the dizmo generator with a name of your choice, for example `my-dizmo` and answer a few questions:
 
-    yo @dizmo/dizmo my-dizmo
+```sh
+yo @dizmo/dizmo my-dizmo
+```
 
 After a successful build, drag and drop the `./build/MyDizmo-0.0.0.dzm` file onto *dizmoViewer*: You should see the front side of the dizmo with `Hello World!` written on it. The name parameter is optional and can be changed at the prompt. Further, calling `yo @dizmo/dizmo` is equivalent to invoking the default generator with `yo @dizmo/dizmo:app`.
 
 To list all possible arguments and options of the generator, enter:
 
-     yo @dizmo/dizmo --help
+```sh
+yo @dizmo/dizmo --help
+```
 
 ## Caching
 
 [Npm] uses a built in [cache](https://docs.npmjs.com/misc/config#cache) mechanism to accelerate package installation. There are various configuration options to control the behaviour of the cache. Here, we are interested in [cache-min](https://docs.npmjs.com/misc/config#cache-min):
 
-> The minimum time (in seconds) to keep items in the registry cache before re-checking against the registry. [default: 10]
+> The minimum time (in seconds) to keep items in the registry cache before re-checking against the registry.
 
-The provided default of `10` seconds is too short, to efficiently make use of caching. Therefore, we recommend setting it to for example a week by running the configuration command:
+The provided default of `10` seconds is too short, to efficiently make use of caching. Therefore, we recommend setting it to for example to a day by running the configuration command:
 
-    npm config set cache-min 604800
+```sh
+npm config set cache-min 86400
+```
 
-By setting `chache-min` to `604800`, you ensure that no package with a timestamp younger than a week is checked against the central registry for a possible update. This significantly improves your [npm] experience.
+By setting `chache-min` to this value, you ensure that no package with a timestamp younger than a day is checked against the central registry for a possible update. This can significantly improve your [npm] experience.
 
-Further, we suggest to clear the cache initially by running `npm cache clean`, but this is not necessarily required: It will simply wipe out your cached packages, and ensure that no corrupted cache exists. However, this also means that your very first dizmo skeleton generation (and corresponding installation of [npm] packages) will take longer than later invocations. By running `npm cache ls` you can determine, which [npm] packages have already been cached.
+Further, we suggest to clear the cache initially by running `npm cache clean`, but this is not necessarily required: It will simply wipe out your cached packages, and ensure that no corrupted cache exists. However, this also means that your very first dizmo skeleton generation (and corresponding installation of [npm] packages) may take longer than later invocations. By running `npm cache ls` you can determine, which [npm] packages have already been cached.
 
-*Note:* It's recommended to clean the cache also before an update of the `generator-dizmo` generator itself, by running `npm cache clean`.
+**Note:** It's recommended to clean the cache also before an update of the `generator-dizmo` generator itself, by running `npm cache clean`.
 
 ### Questions
 
 At the start, you will be asked a few questions, after which the terminal should look similar to:
 
-    ~/my-dizmos $ yo @dizmo/dizmo
+```sh
+yo @dizmo/dizmo
+```
 
-         _-----_
-        |       |    .--------------------------.
-        |--(o)--|    |  Welcome to the awesome  |
-       `---------´   |     dizmo generator!     |
-        ( _´U`_ )    '--------------------------'
-        /___A___\
-         |  ~  |
-       __'.___.'__
-     ´   `  |° ´ Y `
+```text
+     _-----_
+    |       |    .--------------------------.
+    |--(o)--|    |  Welcome to the awesome  |
+   `---------´   |     dizmo generator!     |
+    ( _´U`_ )    '--------------------------'
+    /___A___\
+     |  ~  |
+   __'.___.'__
+ ´   `  |° ´ Y `
 
-    ? Name your dizmo: MyDizmo
-    ? Describe it: My Dizmo
-    ? And its bundle ID? com.example.my_dizmo
-    ? What's your name? Name Surname
-    ? And your email? name.surname@mail.net
+? Name your dizmo: MyDizmo
+? Describe it: My Dizmo
+? And its bundle ID? com.example.my_dizmo
+? What's your name? Name Surname
+? And your email? name.surname@mail.net
+```
 
 The `dizmo` generator asks you some questions -- let's have a look at them:
 
-    ? Name your dizmo: MyDizmo
+```text
+? Name your dizmo: MyDizmo
+```
 
 If no `dizmoName` argument is provided then by default `MyDizmo` will be suggested: accept or change it as desired. This name will be used to create a project folder in the current director. For example, for the `MyDizmo` name the folder will be `my-dizmo/`.
 
-    ? Describe it: My Dizmo
+```text
+? Describe it: My Dizmo
+```
 
 You should provide a short succinct description of your project. By default the name of the current dizmo will be taken as a base for a suggestion.
 
-    ? And its bundle ID? com.example.my_dizmo
+```text
+? And its bundle ID? com.example.my_dizmo
+```
 
 Each dizmo is required to have a unique `bundle.identifier`, which is a name of the bundle each dizmo *instance* will belong to: For example, each sticky-note dizmo would have the *same* `com.dizmo.stickynote` bundle ID (but with *different* dizmo IDs). Choose as a prefix the domain of your company (in reverse notation with top level domain names like `com` or `org` preceding the rest), and then append a name related to the dizmo.
 
-    ? What's your name? Full Name
+```text
+? What's your name? Full Name
+```
 
 Provide your full name, to designate yourself as the author of the project. By default, the current GIT user name &ndash; if available &ndash; or OS login will be used directly *without* actually prompting for the name. Otherwise, anything you enter here will be remembered and automatically used as the default on your next invocation of `yo @dizmo/dizmo`.
 
 The entry will be stored once the project skeleton is setup in `package.json` under `person.name`. For multiple contributors, see the [npm:package.json](https://docs.npmjs.com/files/package.json) documentation, section [people-fields-author-contributors](https://docs.npmjs.com/files/package.json#people-fields-author-contributors).
 
-    ? And your email? my@email.net
+```text
+? And your email? my@email.net
+```
 
 Provide your email, so people can reach out to you for feedback, bug reports etc. By default the generator uses the GIT user email &ndash; if available &ndash; or the `MAIL` environment variable.
 
@@ -111,11 +134,15 @@ For multiple contributors, see again [people-fields-author-contributors](https:/
 
 Since the build system of each dizmo is saved directly within a project, we need an upgrade mechanism of the former for an existing latter. But first, we have to upgrade `generator-dizmo` by running:
 
-    npm upgrade -g @dizmo/generator-dizmo
+```sh
+npm upgrade -g @dizmo/generator-dizmo
+```
 
 Then *within* an existing project's main folder, we can execute:
 
-    yo @dizmo/dizmo --upgrade
+```sh
+yo @dizmo/dizmo --upgrade
+```
 
 It's also possible to only invoke `yo @dizmo/dizmo`, in which case each and every conflict between the existing and new files and folders need to be manually signed-off by the user. Since *all* conflicts need to be decided on, instead of just the conflicts w.r.t. the build system, this manual upgrading can be onerous.
 
@@ -125,35 +152,40 @@ However, with the `yo @dizmo/dizmo --upgrade` command, *only* the build system o
 
 After you have answered the last question, the generator will create the project's skeleton. If you have the `tree` command installed on your operating system, then you can visualize the directory structure:
 
-    my-dizmo $ tree
-    .
-    ├── .eslintrc.json
-    ├── assets
-    │   ├── Icon-dark.svg
-    │   ├── Icon.svg
-    │   ├── locales
-    │   │   ├── translation.de.json
-    │   │   └── translation.en.json
-    │   └── Preview.png
-    ├── gulp
-    │   ├── package.js
-    │   └── tasks
-    │       └── *
-    ├── gulpfile.js
-    ├── help
-    │   └── en
-    │       ├── help.md
-    │       └── placeholder-400x275.png
-    ├── LICENSE
-    ├── package.json
-    ├── README.md
-    └── src
-        ├── index.html
-        ├── index.js
-        ├── lib
-        │   └── i18n-*.min.js
-        └── style
-            └── style.scss
+```sh
+tree
+```
+
+```sh
+.
+├── .eslintrc.json
+├── assets
+│   ├── Icon-dark.svg
+│   ├── Icon.svg
+│   ├── locales
+│   │   ├── translation.de.json
+│   │   └── translation.en.json
+│   └── Preview.png
+├── gulp
+│   ├── package.js
+│   └── tasks
+│       └── *
+├── gulpfile.js
+├── help
+│   └── en
+│       ├── help.md
+│       └── placeholder-400x275.png
+├── LICENSE
+├── package.json
+├── README.md
+└── src
+    ├── index.html
+    ├── index.js
+    ├── lib
+    │   └── i18n-*.min.js
+    └── style
+        └── style.scss
+```
 
 Let's have a look at each ot the top level files and directories:
 
@@ -183,41 +215,43 @@ Dizmos use [npm] as a package manager; to thoroughly understand its functionalit
 
 In addition to the default entries of [npm] the `package.json` file contains a `dizmo` section:
 
-    "dizmo": {
-        "settings": {
-            "attributes": {
-                "settings/usercontrols/allowresize": true
+```json
+"dizmo": {
+    "settings": {
+        "attributes": {
+            "settings/usercontrols/allowresize": true
+        },
+        "bundle-identifier": "com.example.my_project",
+        "bundle-name": "My Project",
+        "category": "",
+        "height": 360,
+        "tags": [
+            "my-project"
+        ],
+        "width": 480
+    },
+    "store": {
+        "host": "https://store-api.dizmo.com"
+    },
+    "build": {
+        "lint": true,
+        "minify": {
+            "markups": {
+                "htmlmin": true
             },
-            "bundle-identifier": "com.example.my_project",
-            "bundle-name": "My Project",
-            "category": "",
-            "height": 360,
-            "tags": [
-                "my-project"
-            ],
-            "width": 480
-        },
-        "store": {
-            "host": "https://store-api.dizmo.com"
-        },
-        "build": {
-            "lint": true,
-            "minify": {
-                "markups": {
-                    "htmlmin": true
-                },
-                "scripts": {
-                    "sourcemaps": false,
-                    "obfuscate": false,
-                    "uglify": true
-                },
-                "styles": {
-                    "sourcemaps": false,
-                    "sass": true
-                }
+            "scripts": {
+                "sourcemaps": false,
+                "obfuscate": false,
+                "uglify": true
+            },
+            "styles": {
+                "sourcemaps": false,
+                "sass": true
             }
         }
     }
+}
+```
 
 And here is a list of available options:
 
@@ -233,15 +267,17 @@ And here is a list of available options:
 
 The `dizmo` section in `package.json` can be extended with default values, which have to reside in `.generator-dizmo/config.json` (in *any* of the parent directories):
 
-    {
-        "dizmo": {
-            "deploy-path": "..", "store": {
-                "host": "https://store-api.dizmo.com",
-                "user": "..",
-                "pass": ".."
-            }
+```json
+{
+    "dizmo": {
+        "deploy-path": "..", "store": {
+            "host": "https://store-api.dizmo.com",
+            "user": "..",
+            "pass": ".."
         }
     }
+}
+```
 
 The configuration is hierarchical and recursive, meaning that a `.generator-dizmo/config.json` file can be saved in any parent directory of the current project, all of which are then merged during the build dynamically into `package.json`, where configuration values from files in the *lower levels* (meaning closer to `package.json`) have precedence.
 
@@ -257,39 +293,57 @@ Please read first [npm#scripts](https://docs.npmjs.com/misc/scripts) -- in each 
 
 * `clean`: completely removes the `./build` sub-directory.
 
-    npm run clean
+```sh
+npm run clean
+```
 
 * `deploy`: builds and installs the dizmo to a installation path given by the `dizmo/deploy-path` configuration entry in `package.json` (or better in `.generator-dizmo/config.json`):
 
-    npm run deploy
+```sh
+npm run deploy
+```
 
 * `deploy`: ..or if the `DZM_DEPLOY_PATH` environment variable has been defined, then the dizmo is copied to the corresponding location.
 
-    DZM_DEPLOY_PATH=/path/to/my/dizmos npm run deploy
+```sh
+DZM_DEPLOY_PATH=/path/to/my/dizmos npm run deploy
+```
 
 * `lint`: applies linting to your source code using [ESLint][eslint], which can be configured via `.eslintrc.json`.
 
-    npm run lint
+```sh
+npm run lint
+```
 
 * `build`: builds the dizmo (including the `*.dzm` artifact) from scratch and puts it into the `./build` sub-directory.
 
-    npm run build
+```sh
+npm run build
+```
 
 * `test`: ensures to run tests -- by default no tests nor a test framework are pre-defined, hence *no* such script is predefined either! It is up to the dizmo developer to decide how tests shall be implemented. The only condition is, that the main test script should provide an exit value of `0` in case of success.
 
-    npm run test
+```sh
+npm run test
+```
 
 * `watch`: watches your source code, and incrementally (and quickly!) rebuilds the dizmo on any change.
 
-    npm run watch
+```sh
+npm run watch
+```
 
 * `watch`: ..further, it copies the build to the installation path, if either the `dizmo/deploy-path` configuration has been set in `package.json` (or better in `.generator-dizmo/config.json`) or `DZM_DEPLOY_PATH` environment variable has been provided.
 
-    DZM_DEPLOY_PATH=/path/to/my/dizmos npm run watch
+```sh
+DZM_DEPLOY_PATH=/path/to/my/dizmos npm run watch
+```
 
 * `upload`: uploads a `*.dzm` artifact to the dizmoStore requiring a host and user name plus a valid password. They can be set via the `store/host`, `store/user` and `store/pass` configuration in `package.json` (or better in `.generator-dizmo/config.json`) or the `DZM_STORE_HOST`, `DZM_STORE_USER` and `DZM_STORE_PASS` environment variables.
 
-    DZM_STORE_HOST=https://store-api.dizmo.com npm run upload
+```sh
+DZM_STORE_HOST=https://store-api.dizmo.com npm run upload
+```
 
 ## CLI options
 
@@ -315,23 +369,33 @@ On the command line linting can be enabled by providing `--lint`, and it can be 
 
 Above it's specifies, that the linting step should be executed by default for the given project. Hence, the following will lint and build the dizmo:
 
-    npm run build
+```sh
+npm run build
+```
 
 To stop the build engine from linting, either the `lint` entry in `package.json` can be set to `false`, or it can directly be overridden on the CLI:
 
-    npm run build -- --no-lint
+```sh
+npm run build -- --no-lint
+```
 
 The double hyphen after `npm run build` is necessary, since it tells NPM to forward the `--no-lint` argument to each build step, which together will build (i.e. `build`) the dizmo. If you don't like the four consecutive hyphens, you can provide the script name also after the initial double hyphen:
 
-    npm run -- build --no-lint
+```sh
+npm run -- build --no-lint
+```
 
 Or more verbosely below you see in its clearest form, how the `build` script is run with the additional argument `--no-lint`:
 
-    npm run-script -- build --no-lint
+```sh
+npm run-script -- build --no-lint
+```
 
 Conversely, if you explicitly want to enforce linting then you can execute:
 
-    npm run -- build --lint
+```sh
+npm run -- build --lint
+```
 
 As mentioned, this is in general not required since `package.json` should by default have linting enabled. However, if you are not sure if this is the case -- for example when your putting together a build environment, and want enforce linting -- then providing the `--lint` flag explicitly makes sense.
 
@@ -339,15 +403,21 @@ The specific configuration objects for controlling [eslint], [coffeelint] and [t
 
 * Enforce for a JavaScript based dizmo project linting, but ignore unused variable names:
 
-    npm run build -- --lint='{\"rules\":{\"no-unused-vars\":0}}'
+```sh
+npm run build -- --lint='{\"rules\":{\"no-unused-vars\":0}}'
+```
 
 * Enforce linting, but provide a warning w.r.t. unused variable names:
 
-    npm run build -- --lint='{\"rules\":{\"no-unused-vars\":1}}'
+```sh
+npm run build -- --lint='{\"rules\":{\"no-unused-vars\":1}}'
+```
 
 * Enforce linting, but provide an error w.r.t. unused variable names:
 
-    npm run build -- --lint='{\"rules\":{\"no-unused-vars\":1}}'
+```sh
+npm run build -- --lint='{\"rules\":{\"no-unused-vars\":1}}'
+```
 
 Above, in case of an error the build process will *not* fail, effectively making it equivalent to a warning. If such behaviour is not desired, then the `lint.js` Gulp task should be modified to stop the build process upon a linting error.
 
@@ -355,45 +425,65 @@ Above, in case of an error the build process will *not* fail, effectively making
 
 Providing the `--minify` option on the CLI will ensure that the scripts, styles and markup are automatically minified and obfuscated, where obfuscation operates only on the scripts:
 
-    npm run build -- --minify
+```sh
+npm run build -- --minify
+```
 
 Please notice, that by default source maps are *not* created, to avoid accidental leaks of potential intellectual property. However by appending the `--sourcemaps` flag they can be enabled:
 
-    npm run build -- --minify --sourcemaps
+```sh
+npm run build -- --minify --sourcemaps
+```
 
 It's also possible to suppress a minification (e.g. in case it should be enabled via `package.json`):
 
-    npm run build -- --no-minify
+```sh
+npm run build -- --no-minify
+```
 
 Further, since minification consists of five sub-steps, namely (a) markup minification, (b) styles minification, (c1) scripts obfuscation plus (c2) minification and also (d) source maps generation -- where (c1) and (d) however need to be explicitly enabled -- it is possible to control them independently of the *general* `--minify` flag:
 
-    npm run build -- --htmlmin --sass --no-obfuscate --uglify --no-sourcemap
+```sh
+npm run build -- --htmlmin --sass --no-obfuscate --uglify --no-sourcemap
+```
 
 The above set of arguments is (given default `package.json` build settings) equivalent to the `--minify` flag. Further, each of them can be negated as well:
 
-    npm run build -- --no-htmlmin --no-sass --obfuscate --no-uglify --sourcemap
+```sh
+npm run build -- --no-htmlmin --no-sass --obfuscate --no-uglify --sourcemap
+```
 
 Further, each flag can accept an optional configuration object to control in detail the corresponding minification, obfuscation and/or source map generation step:
 
 * Minimize the markup; see [gulp-htmlmin] for further information w.r.t. to the configuration:
 
-    npm run build -- --minify --htmlmin='{\"collapseWhitespace\":true}'
+```sh
+npm run build -- --minify --htmlmin='{\"collapseWhitespace\":true}'
+```
 
 * Minimize the styles; see [gulp-sass] for further information w.r.t. to the configuration:
 
-    npm run build -- --minify --sass='{\"outputStyle\":\"compressed\"}'
+```sh
+npm run build -- --minify --sass='{\"outputStyle\":\"compressed\"}'
+```
 
 * Obfuscate the scripts; see [javascript-obfuscator] for further information w.r.t. to the configuration:
 
-    npm run build -- --minify --obfuscate='{\"compact\":true}'
+```sh
+npm run build -- --minify --obfuscate='{\"compact\":true}'
+```
 
 * Minify the scripts; see [gulp-uglify] for further information w.r.t. to the configuration:
 
-    npm run build -- --minify --uglify='{\"mangle\":true\,\"keep_fnames\":true}'
+```sh
+npm run build -- --minify --uglify='{\"mangle\":true\,\"keep_fnames\":true}'
+```
 
 * Create source maps for the scripts *and* the styles (in `package.json` each source map generation can be configured separately, however on the CLI there is only a single flag to control both); see [gulp-sourcemaps] for further information w.r.t. to the configuration:
 
-    npm run build -- --minify --sourcemaps='{\"loadMaps\":true}
+```sh
+npm run build -- --minify --sourcemaps='{\"loadMaps\":true}
+```
 
 In general, using `--minify` (or `--no-minify`) combined with the `--sourcemaps` (or `--no-sourcemaps`) CLI options should be enough. Only if explicit control is required, using the `--htmlmin`, `--sass`, `--obfuscate` or `--uglify` flags is be necessary. Further, providing configuration objects to these flags should only be done, when you know what you are doing (or are not happy with the provided defaults).
 
@@ -401,15 +491,21 @@ In general, using `--minify` (or `--no-minify`) combined with the `--sourcemaps`
 
 Dizmo offers a *dizmoStore* where dizmos can be uploaded to: Besides `package.json` (or `.generator-dizmo/config.json`) or environment variables, upload arguments like the *host* and *user* name plus *password* can also be provided via the CLI:
 
-    npm run upload -- --host=https://store-api.dizmo.com --user='..' --pass='..'
+```sh
+npm run upload -- --host=https://store-api.dizmo.com --user='..' --pass='..'
+```
 
 By default `npm run upload` tries to upload *and* publish an uploaded dizmo. However, it is possible to skip the publication step by running:
 
-    npm run upload -- --no-publish
+```sh
+npm run upload -- --no-publish
+```
 
 And then only in a subsequent step to publish it:
 
-    npm run upload -- --publish
+```sh
+npm run upload -- --publish
+```
 
 However the command above assume, that the actual upload has already been performed! Hence, executing it without having previous uploaded a dizmo will fail, since there would be no uploaded dizmo to publish.
 
@@ -417,25 +513,30 @@ However the command above assume, that the actual upload has already been perfor
 
 Once your dizmo is build, a `build/` folder with the following structure is created:
 
-    my-dizmo $ tree build/
-    build/
-    ├── MyDizmo
-    │   ├── Icon-dark.svg
-    │   ├── Icon.svg
-    │   ├── Info.plist
-    │   ├── Preview.png
-    │   ├── assets
-    │   │   ├── Icon-dark.svg
-    │   │   ├── Icon.svg
-    │   │   └── Preview.png
-    │   ├── help.zip
-    │   ├── index.html
-    │   ├── index.js
-    │   ├── lib
-    │   │   └── i18n-*.min.js
-    │   └── style
-    │       └── style.css
-    └── MyDizmo-0.0.0.dzm
+```sh
+tree build/
+```
+
+```sh
+build/
+├── MyDizmo
+│   ├── Icon-dark.svg
+│   ├── Icon.svg
+│   ├── Info.plist
+│   ├── Preview.png
+│   ├── assets
+│   │   ├── Icon-dark.svg
+│   │   ├── Icon.svg
+│   │   └── Preview.png
+│   ├── help.zip
+│   ├── index.html
+│   ├── index.js
+│   ├── lib
+│   │   └── i18n-*.min.js
+│   └── style
+│       └── style.css
+└── MyDizmo-0.0.0.dzm
+```
 
 * `MyDizmo-0.0.0.dzm`: A ZIP archive of the `MyDizmo` folder with a version suffix, which has been defined in `package.json`. Please see [semantic versioning and npm](https://docs.npmjs.com/getting-started/semantic-versioning) for further information.
 
@@ -464,7 +565,9 @@ Once you have accommodated yourself with some dizmo development, you can go furt
 
 Invoke a generator combined with the `--git` option:
 
-    yo @dizmo/dizmo my-dizmo --git
+```sh
+yo @dizmo/dizmo my-dizmo --git
+```
 
 The created project folder will now be named `my-dizmo.git`, and it will be initialized as a GIT repository -- no commits will be performed though. Further, this only will work if the `git` command is accessible.
 
@@ -472,66 +575,84 @@ The created project folder will now be named `my-dizmo.git`, and it will be init
 
 All (sub-)generators support dependency management using [Node modules][node-module]: You can structure your dizmo code using `require`, `exports` and `module.exports` objects. Further, you can install external third party libraries and reference them directly with `require`. For example, to use `jQuery` run:
 
-    npm install --save jquery
+```sh
+npm install --save jquery
+```
 
 Then in your code you can get a reference with:
 
-    var $ = require('jquery');
+```sh
+const $ = require('jquery');
+```
 
 If you want to remove an installed library just run:
 
-    npm remove --save jquery
+```sh
+npm remove --save jquery
+```
 
 This approach works well, as long as the external libraries are not too large, since otherwise the build process may take longer. In such cases you should use the incremental builder using the watcher:
 
-    npm run watch
+```sh
+npm run watch
+```
 
 Or you can simply drop a library into the `src/lib/` sub-directory and reference it accordingly via a corresponding `<script>` tag in the `index.html` markup.
 
 ## Troubleshooting/FAQ
 
-### The `generator-dizmo` package seems to be deprecated?
-
-Yes! It has been migrated to `@dizmo/generator-dizmo`, which means to continue to receive updates for the generator a re-installation is required:
-
-    (sudo) npm uninstall -g generator-dizmo
-    (sudo) npm install -g @dizmo/generator-dizmo
-
-Further, any `yo dizmo` invocation needs to be changed to `yo @dizmo/dizmo`, e.g. to upgrade older projects run the command below (with the `@dizmo` scope):
-
-    yo @dizmo/dizmo --upgrade
-
 ### Did I forget to run `npm install`?
 
 If `npm install` is *not* run before attempting to build a dizmo, then a message similar to the one below might be produced:
 
-    error argv "/usr/local/bin/node" "/usr/local/bin/npm" "run" "build"
-    error code ELIFECYCLE
-    error MyDizmo@0.0.0 build: `node ./node_modules/gulp/bin/gulp.js`
-    error Exit status 1
-    error Failed at the MyDizmo@0.0.0 build script 'node ./node_modules/gulp/bin/gulp.js'.
+```sh
+error argv "/usr/local/bin/node" "/usr/local/bin/npm" "run" "build"
+error code ELIFECYCLE
+error MyDizmo@0.0.0 build: `node ./node_modules/gulp/bin/gulp.js`
+error Exit status 1
+error Failed at the MyDizmo@0.0.0 build script 'node ./node_modules/gulp/bin/gulp.js'.
+```
 
 In such a case, just run `npm install` to ensure that all the required dependencies get installed locally.
 
-### Can I run `yo @dizmo/dizmo` as root?
+### I cannot install `yo` globally with `npm install -g`?
+
+You have to set up `npm` for a global installation, since `yo` should neither be installed nor run with `sudo`. The preferred approach here is to enable `npm` to install packages globally *without* breaking out of the `$HOME` folder, by setting a local `node` `prefix`. This is achieved for example by running:
+
+```sh
+echo 'prefix = ~/.node' >> ~/.npmrc
+```
+
+in your local shell. After that the `$PATH` environment variable needs to be modified, to point to the new installation destination for the global `node` executables, by adjusting your favorite shell's configuration &ndash; for example use:
+
+```sh
+export PATH="$PATH:$HOME/.node/bin"
+```
+
+in your `~/.bashrc`. After that, you can happily run `npm install -g yo` without `sudo` and without running into permission conflicts. Further, later-on if something gets completely broken and you want to start from scratch, all you need to do is remove your `~/.node` directory.
+
+### But, I prefer to run `yo @dizmo/dizmo` as root?
 
 The [Yeoman] toolkit very strongly discourages the usage of any generator based on it to be run as *root*. Hence, you will get the following error:
 
-    $ sudo yo @dizmo/dizmo --help
-    /usr/lib/node_modules/yo/node_modules/configstore/index.js:53
-                    throw err;
-                    ^
+```sh
+sudo yo @dizmo/dizmo --help
+```
 
-    Error: EACCES: permission denied, open '/root/.config/configstore/insight-yo.json'.
-    You don't have access to this file.
+```sh
+/usr/lib/node_modules/yo/node_modules/configstore/index.js:53
+    throw err;
+    ^
 
-The same error is thrown, when you run `sudo yo -h` as well. Also, the behaviour is independent of the usage of `sudo` or directly being logged in as *root*.
+Error: EACCES: permission denied, open '/root/.config/configstore/insight-yo.json'.
+You don't have access to this file.
+```
 
-The recommended approach is to create a *non-root* user account and then run the generator under that account: If you are manually generating a dizmo project, this should be the case anyway, since you would most probably be logged in under your own user name. However, when running in the context of e.g. an automated build environment, this might not be the case: Hence, the need for a special purpose user account.
+The same error is thrown, when you run `sudo yo -h` as well. Also, the behavior is independent of the usage of `sudo` or directly being logged in as *root*. Please see the answer to the previous question to be able to use `yo` without `sudo`.
 
 ### Does dizmoGen support ES6?
 
-Browsers and the libraries, which the former are built upon (like Webkit), usually lag behind the latest standard, and hence fail to provide up-to-date language support. The [Babel] transpiler however, can take a script written in a modern standard and translate it into backwards compatible JavaScript. DizmoGen includes Babel and thus supports ES6.
+Browsers and libraries, which the former are built upon (like Webkit), usually lag behind the latest standard, and hence fail to provide up-to-date language support. The [Babel] transpiler however, can take a script written in a modern standard and translate it into backwards compatible JavaScript. DizmoGen includes Babel and thus supports ES6.
 
 **Note:** If you have older projects and update dizmoGen, ensure that you add ES6 support to `.eslintrc.json` as following:
 
@@ -549,7 +670,9 @@ Browsers and the libraries, which the former are built upon (like Webkit), usual
 
 The graphical user interface of Windows does not allow to create a folder named `.generator-dizmo`: However it is possible to create one via the command line interface. For example using the Windows PowerShell one can run:
 
-    PS C:\Users\user> mkdir .generator-dizmo
+```ps
+PS C:\Users\user> mkdir .generator-dizmo
+```
 
 ### How to ignore .DS_Store files on Mac OS X?
 
