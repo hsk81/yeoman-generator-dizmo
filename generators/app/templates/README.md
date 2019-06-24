@@ -20,7 +20,7 @@ Packages the dizmo as `build/<%= dizmoName %>-x.y.z.dzm` by running all required
 
 ## Deploying
 
-Deploys (and builds) the dizmo to the path specified by `dizmo/deploy-path` (provided by `package.json` or `~/.generator-dizmo/config.json`) or specified by the `DZM_DEPLOY_PATH` environment variable. If neither are set, then the dizmo is only built, but not deployed:
+(Builds and) deploys the dizmo to the path specified by the `dizmo/deploy-path` entry (provided in `package.json` or `~/.generator-dizmo/config.json`) or specified by the `DZM_DEPLOY_PATH` environment variable. If neither are set, then the dizmo is only built, but not deployed:
 
     npm run deploy
 
