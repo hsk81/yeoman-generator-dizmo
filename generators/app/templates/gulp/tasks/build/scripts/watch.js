@@ -6,6 +6,7 @@ let gulp = require('gulp'),
 let babelify = require('babelify'),
     buffer = require('vinyl-buffer'),
     browserify = require('browserify'),
+    esmify = require('esmify'),
     extend = require('xtend'),
     fancy_log = require('fancy-log'),
     source = require('vinyl-source-stream'),
@@ -15,7 +16,7 @@ let babelify = require('babelify'),
 let watched = watchify(browserify({basedir: '.', entries: [
         'node_modules/@babel/polyfill/dist/polyfill.js', 'src/index.js'
     ], cache: {}, packageCache: {}, debug: false
-}).transform(babelify));
+}).plugin(esmify).transform(babelify));
 
 function ensure(package, callback) {
     require('fs').access(

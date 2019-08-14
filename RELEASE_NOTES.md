@@ -8,6 +8,15 @@
 
     Now, running `yo @dizmo/dizmo-dcontrol [--git]` will produce a dizmo project with support for `dcontrol`. For this to work, the `@dizmo/generator-dizmo-dcontrol` sub-generator is required to be installed separately.
 
+### NOTABLE CHANGES
+
+* ECMAScript module loader support:
+
+    Now, for the JavaScript and CoffeeScript projects it's possible to directly consume ES6 modules thanks to the [esmify] plugin of `browserify`. Also enabled [esm] support for the `gulp` scripts.
+
+[esm]: https://www.npmjs.com/package/esm
+[esmify]: https://www.npmjs.com/package/esmify
+
 ## v8.y.z
 
 ### MAJOR CHANGES

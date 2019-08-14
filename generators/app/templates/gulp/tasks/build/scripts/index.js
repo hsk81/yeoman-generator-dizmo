@@ -6,6 +6,7 @@ let gulp = require('gulp'),
 let babelify = require('babelify'),
     buffer = require('vinyl-buffer'),
     browserify = require('browserify'),
+    esmify = require('esmify'),
     extend = require('xtend'),
     source = require('vinyl-source-stream'),
     through = require('through2');
@@ -98,7 +99,7 @@ gulp.task('scripts', function () {
 
     let browserified = browserify({basedir: '.', entries: [
         'node_modules/@babel/polyfill/dist/polyfill.js', 'src/index.js'
-    ]}).transform(babelify);
+    ]}).plugin(esmify).transform(babelify);
 
     let stream = browserified.bundle()
         .pipe(source('index.js')).pipe(buffer());

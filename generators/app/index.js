@@ -297,21 +297,23 @@ module.exports = class extends Generator {
             );
             pkg.devDependencies = sort(
                 lodash.assign(pkg.devDependencies, {
-                    '@babel/core': '^7.4.5',
-                    '@babel/preset-env': '^7.4.5'
+                    '@babel/core': '^7.5.5',
+                    '@babel/preset-env': '^7.5.5'
                 })
             );
             pkg.devDependencies = sort(
                 lodash.assign(pkg.devDependencies, {
                     'babelify': '^10.0.0',
-                    'browserify': '^16.2.3'
+                    'browserify': '^16.5.0',
+                    'esm': '^3.2.25',
+                    'esmify': '^2.1.1'
                 })
             );
             pkg.devDependencies = sort(
                 lodash.assign(pkg.devDependencies, {
                     'gulp': '^4.0.2',
                     'gulp-copy': '^4.0.1',
-                    'gulp-eslint': '^5.0.0',
+                    'gulp-eslint': '^6.0.0',
                     'gulp-htmlmin': '^5.0.1',
                     'gulp-plist': '^0.1.0',
                     'gulp-rename': '^1.4.0',
@@ -324,14 +326,14 @@ module.exports = class extends Generator {
             );
             pkg.devDependencies = sort(
                 lodash.assign(pkg.devDependencies, {
-                    'ansi-colors': '^3.2.4',
+                    'ansi-colors': '^4.1.1',
                     'fancy-log': '^1.3.3',
-                    'lodash': '^4.17.11',
-                    'rimraf': '^2.6.3',
+                    'lodash': '^4.17.15',
+                    'rimraf': '^3.0.0',
                     'vinyl-buffer': '^1.0.1',
                     'vinyl-source-stream': '^2.0.0',
                     'watchify': '^3.11.1',
-                    'xtend': '^4.0.1'
+                    'xtend': '^4.0.2'
                 })
             );
             pkg.optionalDependencies = sort(

@@ -1,5 +1,14 @@
 # CHANGE LOG
 
+## v9.1.z
+
+* ECMAScript module loader support:
+
+    Now, for the JavaScript and CoffeeScript projects it's possible to directly consume ES6 modules thanks to the [esmify] plugin of `browserify`. Also enabled [esm] support for the `gulp` scripts.
+
+[esm]: https://www.npmjs.com/package/esm
+[esmify]: https://www.npmjs.com/package/esmify
+
 ## v9.0.z
 
 * Extracted `dcontrol` sub-generator:
