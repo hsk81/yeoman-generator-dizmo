@@ -359,11 +359,6 @@ module.exports = class extends Generator {
                     })
                 );
             }
-            pkg.babel = sort(
-                lodash.assign(pkg.babel, {
-                    presets: ['@babel/preset-env']
-                })
-            );
             this.fs.writeJSON(
                 this.destinationPath('package.json'), pkg, null, 2
             );
