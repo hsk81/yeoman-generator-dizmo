@@ -308,8 +308,7 @@ module.exports = class extends Generator {
             pkg.devDependencies = sort(
                 lodash.assign(pkg.devDependencies, {
                     'babelify': '^10.0.0',
-                    'browserify': '^16.5.0',
-                    'esm': '^3.2.25'
+                    'browserify': '^16.5.0'
                 })
             );
             pkg.devDependencies = sort(

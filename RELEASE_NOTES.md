@@ -10,9 +10,9 @@
 
 ### NOTABLE CHANGES
 
-* ECMAScript module loader support:
+* Support for `babel.config.js`:
 
-    Enabled for all generators [esm] (ECMAScript module loader) support for `gulp` tasks, to allow `import` and `export` statements (ES6 syntax). Further, a dizmo's source code itself can now import ES6 packages directly, thanks to the use of a *project wide* `babel.config.js` configuration.
+    A dizmo's source code itself can now import ES6 packages directly, thanks to the use of a *project wide* `babel.config.js` configuration.
 
 [esm]: https://www.npmjs.com/package/esm
 

@@ -3,7 +3,7 @@ let child_process = require('child_process'),
 
 let run_script = function () {
     child_process.spawn('node', [
-        '--require=esm', './node_modules/gulp/bin/gulp.js'
+        './node_modules/gulp/bin/gulp.js'
     ].concat(process.argv.slice(2)), {
         shell: true, stdio: 'inherit'
     });
