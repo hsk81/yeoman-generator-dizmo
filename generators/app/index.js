@@ -278,6 +278,10 @@ module.exports = class extends Generator {
                 this.templatePath('gulpfile.js'),
                 this.destinationPath('gulpfile.js')
             );
+            this.fs.copy(
+                this.templatePath('babel.config.js'),
+                this.destinationPath('babel.config.js')
+            );
         }
         if (!upgrade) {
             this.fs.copyTpl(
@@ -305,8 +309,7 @@ module.exports = class extends Generator {
                 lodash.assign(pkg.devDependencies, {
                     'babelify': '^10.0.0',
                     'browserify': '^16.5.0',
-                    'esm': '^3.2.25',
-                    'esmify': '^2.1.1'
+                    'esm': '^3.2.25'
                 })
             );
             pkg.devDependencies = sort(

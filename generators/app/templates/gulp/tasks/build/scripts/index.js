@@ -97,10 +97,8 @@ gulp.task('scripts', function () {
 
     let browserified = browserify({basedir: '.', entries: [
         'node_modules/@babel/polyfill/dist/polyfill.js', 'src/index.js'
-    ]}).plugin('esmify').transform('babelify', {
-        presets: ['@babel/preset-env'], extensions: [
-            '.js','.jsx'
-        ]
+    ]}).transform('babelify', {
+        extensions: ['.js', '.jsx']
     });
 
     let stream = browserified.bundle()

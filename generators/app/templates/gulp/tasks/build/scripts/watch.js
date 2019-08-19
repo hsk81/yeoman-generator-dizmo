@@ -14,10 +14,8 @@ let buffer = require('vinyl-buffer'),
 let watched = watchify(browserify({basedir: '.', entries: [
         'node_modules/@babel/polyfill/dist/polyfill.js', 'src/index.js'
     ], cache: {}, packageCache: {}, debug: false
-}).plugin('esmify').transform('babelify', {
-    presets: ['@babel/preset-env'], extensions: [
-        '.js','.jsx'
-    ]
+}).transform('babelify', {
+    extensions: ['.js', '.jsx']
 }));
 
 function ensure(package, callback) {

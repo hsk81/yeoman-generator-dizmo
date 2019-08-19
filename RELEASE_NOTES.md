@@ -12,10 +12,9 @@
 
 * ECMAScript module loader support:
 
-    JavaScript and CoffeeScript projects can directly consume ES6 modules thanks to the [esmify] plugin of `browserify`; additionally enabled [esm] support for `gulp` scripts. Further, TypeScript projects can also consume ES6 modules, but without requiring [esm] (or [esmify]).
+    Enabled for all generators [esm] (ECMAScript module loader) support for `gulp` tasks, to allow `import` and `export` statements (ES6 syntax). Further, a dizmo's source code itself can now import ES6 packages directly, thanks to the use of a *project wide* `babel.config.js` configuration.
 
 [esm]: https://www.npmjs.com/package/esm
-[esmify]: https://www.npmjs.com/package/esmify
 
 ## v8.y.z
 
