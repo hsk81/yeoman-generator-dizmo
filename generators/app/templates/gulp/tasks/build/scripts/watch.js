@@ -14,9 +14,7 @@ let buffer = require('vinyl-buffer'),
 let watched = watchify(browserify({basedir: '.', entries: [
         'node_modules/@babel/polyfill/dist/polyfill.js', 'src/index.js'
     ], cache: {}, packageCache: {}, debug: false
-}).transform('babelify', {
-    extensions: ['.js', '.jsx']
-}));
+}).transform('babelify'));
 
 function ensure(package, callback) {
     require('fs').access(
