@@ -13,12 +13,6 @@
     "yosay": "^2.0.2"
   },
   "description": "dizmoGen: a generator for dizmo projects",
-  "devDependencies": {
-    "gulp": "^4.0.2",
-    "gulp-eslint": "^5.0.0",
-    "gulp-exclude-gitignore": "^1.2.0",
-    "pump": "^3.0.0"
-  },
   "files": [
     "generators/app",
     "generators/sub-coffeescript",
@@ -40,9 +34,6 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/dizmo/yeoman-generator-dizmo"
-  },
-  "scripts": {
-    "prepare": "gulp prepare"
   },
   "version": "9.1.5"
 }
