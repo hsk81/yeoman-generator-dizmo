@@ -1,4 +1,5 @@
 [![NPM version](https://badge.fury.io/js/%40dizmo%2Fgenerator-dizmo.svg)](https://npmjs.org/package/@dizmo/generator-dizmo)
+[![Build Status](https://travis-ci.org/dizmo/generator-dizmo.svg?branch=master)](https://travis-ci.org/dizmo/generator-dizmo)
 
 # @dizmo/generator-dizmo
 > Dizmo generator

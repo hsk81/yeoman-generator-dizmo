@@ -8,13 +8,17 @@
 
     Now, running `yo @dizmo/dizmo-dcontrol [--git]` will produce a dizmo project with support for `dcontrol`. For this to work, the `@dizmo/generator-dizmo-dcontrol` sub-generator is required to be installed separately.
 
-### NOTABLE CHANGES
-
 * Support for `babel.config.js`:
 
     A dizmo's source code itself can now import ES6 packages directly, thanks to the use of a *project wide* `babel.config.js` configuration.
 
 [esm]: https://www.npmjs.com/package/esm
+
+### NOTABLE CHANGES
+
+* Integrated generator tests with CI:
+
+    The generated JavaScript, CoffeeScript and TypeScript projects are now automatically verified with `npm test`, which is also run by the travis-ci.org continuous integration service. The entire list of generated files is checked, plus the full content of `package.json`.
 
 ## v8.y.z
 
