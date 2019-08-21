@@ -1,6 +1,6 @@
 [submodule "generators/sub-coffeescript"]
 	path = generators/sub-coffeescript
-	url = git@github.com:dizmo/yeoman-generator-dizmo-coffeescript.git
+    url = https://github.com/dizmo/yeoman-generator-dizmo-coffeescript.git
 [submodule "generators/sub-typescript"]
 	path = generators/sub-typescript
-	url = git@github.com:dizmo/yeoman-generator-dizmo-typescript.git
+    url = https://github.com/dizmo/yeoman-generator-dizmo-typescript.git
