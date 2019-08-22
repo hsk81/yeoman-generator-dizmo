@@ -278,12 +278,12 @@ module.exports = class extends Generator {
                 this.templatePath('gulpfile.js'),
                 this.destinationPath('gulpfile.js')
             );
+        }
+        if (!upgrade) {
             this.fs.copy(
                 this.templatePath('babel.config.js'),
                 this.destinationPath('babel.config.js')
             );
-        }
-        if (!upgrade) {
             this.fs.copyTpl(
                 this.templatePath('_package.json'),
                 this.destinationPath('package.json'),
