@@ -1,9 +1,15 @@
 {
   "author": {
-    "name": "Hasan Karahan",
     "email": "hasan.karahan@blackhan.com",
+    "name": "Hasan Karahan",
     "url": "https://github.com/hsk81"
   },
+  "contributors": [
+    {
+      "email": "hkarahan@dizmo.com",
+      "name": "Hasan Karahan"
+    }
+  ],
   "dependencies": {
     "chalk": "^2.4.2",
     "lodash": "^4.17.11",
