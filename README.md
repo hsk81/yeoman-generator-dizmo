@@ -6,7 +6,7 @@
 
 ## Prerequisites
 
-* [Node.js] v10.15.3 LTS (or higher); for Linux distribution based packages (`deb` or `rpm`) see also [binary distributions](https://github.com/nodesource/distributions).
+* [Node.js] v10.16.3 LTS (or higher); for Linux distribution based packages (`deb` or `rpm`) see also [binary distributions](https://github.com/nodesource/distributions).
 
 ## How does dizmoGen work?
 
@@ -167,6 +167,7 @@ tree
 │   │   ├── translation.de.json
 │   │   └── translation.en.json
 │   └── Preview.png
+├── babel.config.json
 ├── gulp
 │   ├── package.js
 │   └── tasks
@@ -193,6 +194,8 @@ Let's have a look at each ot the top level files and directories:
 * `.eslintrc.json`: a JSON file, which can be used to configure the linting process for the JavaScript code; see [eslint.org/docs/user-guide/configuring](http://eslint.org/docs/user-guide/configuring) for further information.
 
 * `assets`: A folder containing asset files like images, which can be accessed from within the dizmo using a relative path like `assets/Preview.png`. Put any such files (or media) which are not directly related to styling into this folder. You can also create sub-folders or any nested directory structure according to your needs. One such folder is `assets/locales` where JSON files for translation purposes can be found.
+
+* `babel.config.js`: project wide configuration file for the [babel] transpiler.
 
 * `gulp`: A folder containing a build system based on [gulp](http://gulpjs.com/). If you are familiar with `gulp`, then you can change the build mechanism according to your needs; otherwise, just use it as it is.
 
@@ -558,7 +561,25 @@ By dragging and dropping the `MyDizmo-0.0.0.dzm` artifact onto dizmoViewer a cor
 
 ## Extended sub-generators
 
-Once you have accommodated yourself with some dizmo development, you can go further and try out the `dizmo:sub-coffeescript` and `dizmo:sub-typescript` sub-generators.
+Once you have accommodated yourself with some basic dizmo development, you can go further and try out the `dizmo:sub-coffeescript` and `dizmo:sub-typescript` sub-generators. For [CoffeeScript] projects use:
+
+```sh
+yo @dizmo/dizmo --git --coffeescript
+```
+
+And for [TypeScript] projects use:
+
+```sh
+yo @dizmo/dizmo --git --typescript
+```
+
+[CoffeeScript]: https://coffeescript.org
+[TypeScript]: https://www.typescriptlang.org/
+
+Further, there are sub-generators for other projects (like [@dizmo/generator-dizmo-react] and [@dizmo/generator-dizmo-vue]); search the [NPM] registry for `generator-dizmo` to get a list of possible sub-generators.
+
+[@dizmo/generator-dizmo-react]: https://www.npmjs.com/package/@dizmo/generator-dizmo-react
+[@dizmo/generator-dizmo-vue]: https://www.npmjs.com/package/@dizmo/generator-dizmo-vue
 
 ## Miscellanea
 
@@ -655,15 +676,14 @@ The same error is thrown, when you run `sudo yo -h` as well. Also, the behavior 
 
 Browsers and libraries, which the former are built upon (like Webkit), usually lag behind the latest standard, and hence fail to provide up-to-date language support. The [Babel] transpiler however, can take a script written in a modern standard and translate it into backwards compatible JavaScript. DizmoGen includes Babel and thus supports ES6.
 
-**Note:** If you have older projects and update dizmoGen, ensure that you add ES6 support to `.eslintrc.json` as following:
+**Note:** If you have older projects and update dizmoGen, ensure that you add ES6 support to `.eslintrc.json`:
 
 ```json
 {
-  "env": {
-    "browser": true,
-    "node": true,
-    "es6": true
-  }
+    "parserOptions": {
+        "ecmaVersion": 2017,
+        "sourceType": "module"
+    }
 }
 ```
 
