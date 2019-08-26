@@ -639,7 +639,7 @@ In such a case, just run `npm install` to ensure that all the required dependenc
 
 ### I cannot install `yo` globally with `npm install -g`?
 
-You have to set up `npm` for a global installation, since `yo` should neither be installed nor run with `sudo`. The preferred approach here is to enable `npm` to install packages globally *without* breaking out of the `$HOME` folder, by setting a local `node` `prefix`. This is achieved for example by running:
+You have to set up `npm` for global installations, since `yo` should neither be installed nor run with `sudo`. The preferred approach here is to enable `npm` to install packages globally *without* breaking out of the `$HOME` folder, by setting a local `node` `prefix`. This is achieved for example by running:
 
 ```sh
 echo 'prefix = ~/.node' >> ~/.npmrc
@@ -651,7 +651,7 @@ in your local shell. After that the `$PATH` environment variable needs to be mod
 export PATH="$PATH:$HOME/.node/bin"
 ```
 
-in your `~/.bashrc`. After that, you can happily run `npm install -g yo` without `sudo` and without running into permission conflicts. Further, later-on if something gets completely broken and you want to start from scratch, all you need to do is remove your `~/.node` directory.
+in your `~/.bashrc`. After that, you can happily run `npm install -g yo` without `sudo` and without running into potential permission conflicts. Further, later-on if something gets completely broken and you want to start from scratch, all you need to do, is to remove your `~/.node` directory.
 
 ### But, I prefer to run `yo @dizmo/dizmo` as root?
 
