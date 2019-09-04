@@ -448,13 +448,13 @@ npm run build -- --no-minify
 Further, since minification consists of five sub-steps, namely (a) markup minification, (b) styles minification, (c1) scripts obfuscation plus (c2) minification and also (d) source maps generation -- where (c1) and (d) however need to be explicitly enabled -- it is possible to control them independently of the *general* `--minify` flag:
 
 ```sh
-npm run build -- --htmlmin --sass --no-obfuscate --uglify --no-sourcemap
+npm run build -- --htmlmin --sass --no-obfuscate --uglify --no-sourcemaps
 ```
 
 The above set of arguments is (given default `package.json` build settings) equivalent to the `--minify` flag. Further, each of them can be negated as well:
 
 ```sh
-npm run build -- --no-htmlmin --no-sass --obfuscate --no-uglify --sourcemap
+npm run build -- --no-htmlmin --no-sass --obfuscate --no-uglify --sourcemaps
 ```
 
 Further, each flag can accept an optional configuration object to control in detail the corresponding minification, obfuscation and/or source map generation step:
@@ -486,7 +486,7 @@ npm run build -- --minify --uglify='{\"mangle\":true\,\"keep_fnames\":true}'
 * Create source maps for the scripts *and* the styles (in `package.json` each source map generation can be configured separately, however on the CLI there is only a single flag to control both); see [gulp-sourcemaps] for further information w.r.t. to the configuration:
 
 ```sh
-npm run build -- --minify --sourcemaps='{\"loadMaps\":true}
+npm run build -- --minify --sourcemaps='{\"loadMaps\":true}'
 ```
 
 In general, using `--minify` (or `--no-minify`) combined with the `--sourcemaps` (or `--no-sourcemaps`) CLI options should be enough. Only if explicit control is required, using the `--htmlmin`, `--sass`, `--obfuscate` or `--uglify` flags is be necessary. Further, providing configuration objects to these flags should only be done, when you know what you are doing (or are not happy with the provided defaults).
