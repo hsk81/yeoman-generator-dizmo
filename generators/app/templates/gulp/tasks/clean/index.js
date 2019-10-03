@@ -1,6 +1,4 @@
-let gulp = require('gulp'),
-    rimraf = require('rimraf');
+const gulp = require('gulp');
+const rimraf = require('rimraf');
 
-gulp.task('clean', function (done) {
-    rimraf('build', done)
-});
+gulp.task('clean', (done) => rimraf('build', done));

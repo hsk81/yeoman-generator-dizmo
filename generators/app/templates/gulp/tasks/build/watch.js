@@ -1,4 +1,4 @@
-let gulp = require('gulp');
+const gulp = require('gulp');
 
 require('./help/watch');
 require('./assets/watch');

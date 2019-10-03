@@ -1,55 +1,28 @@
-let pkg = require('../../../package.js'),
-    path = require('path');
-let gulp = require('gulp'),
-    gulp_htmlmin = require('gulp-htmlmin');
-let extend = require('xtend');
+const pkg = require('../../../package.js');
+const gulp = require('gulp');
+const gulp_htmlmin = require('gulp-htmlmin');
+const path = require('path');
 
-gulp.task('markup', function () {
-    let cli_min = require('yargs')
-        .default('minify')
-        .argv.minify;
+gulp.task('markup', () => {
+    const minify = require('yargs')
+        .default('minify').argv.minify;
+    const argv = require('yargs')
+        .default('htmlmin', minify === true).argv;
 
-    let htmlmin = cli_min === true;
-    if (pkg.dizmo && pkg.dizmo.build) {
-        let cfg_min = pkg.dizmo.build.minify;
-        if (cfg_min) {
-            let cfg_ms = cfg_min.markups !== undefined ? cfg_min.markups : {};
-            if (cfg_ms) {
-                if (cli_min === undefined && (
-                    cfg_ms.htmlmin || cfg_ms.htmlmin === undefined))
-                {
-                    htmlmin = extend({
-                        collapseWhitespace: true,
-                        minifyCSS: true,
-                        minifyJS: true,
-                        removeComments: true
-                    }, cfg_ms.htmlmin);
-                }
-            }
-        }
-    }
-
-    let argv = require('yargs')
-        .default('htmlmin', htmlmin).argv;
+    let stream = gulp.src(['src/**/*.html']);
     if (typeof argv.htmlmin === 'string') {
         argv.htmlmin = JSON.parse(argv.htmlmin);
     }
-
-    let stream = gulp.src([
-        'src/**/*.html'
-    ]);
-    if (argv.htmlmin) {
-        stream = stream.pipe(gulp_htmlmin.apply(
-            this, [extend({
-                collapseWhitespace: true,
-                minifyCSS: true,
-                minifyJS: true,
-                removeComments: true
-            }, argv.htmlmin)]
-        ));
+    if (typeof argv.htmlmin === 'boolean') {
+        argv.htmlmin = {
+            collapseWhitespace: argv.htmlmin,
+            minifyCSS: argv.htmlmin,
+            minifyJS: argv.htmlmin,
+            removeComments: argv.htmlmin
+        };
     }
-    stream = stream.pipe(gulp.dest(
-        path.join('build', pkg.name)
-    ));
-    return stream;
+    if (argv.htmlmin) {
+        stream = stream.pipe(gulp_htmlmin(argv.htmlmin));
+    }
+    return stream.pipe(gulp.dest(path.join('build', pkg.name)));
 });

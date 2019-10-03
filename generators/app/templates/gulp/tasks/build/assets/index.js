@@ -1,25 +1,15 @@
-let pkg = require('../../../package.js');
-let gulp = require('gulp'),
-    gulp_copy = require('gulp-copy');
+const pkg = require('../../../package.js');
+const gulp = require('gulp');
+const gulp_copy = require('gulp-copy');
 
-gulp.task('assets:base', function () {
-    return gulp.src([
-        'assets/Icon.*', 'assets/Icon-dark.*', 'assets/Preview.*'
-    ]).pipe(
-        gulp_copy('build/{0}/'.replace('{0}', pkg.name), {
-            prefix: 1
-        })
-    );
-});
-gulp.task('assets:main', function () {
-    return gulp.src([
-        'assets/**/*'
-    ]).pipe(
-        gulp_copy('build/{0}/assets/'.replace('{0}', pkg.name), {
-            prefix: 1
-        })
-    );
-});
+gulp.task('assets:base', () =>
+    gulp.src(['assets/{Icon,Icon-dark,Preview}.*'])
+        .pipe(gulp_copy(`build/${pkg.name}/`, { prefix: 1 }))
+);
+gulp.task('assets:main', () =>
+    gulp.src(['assets/**/*', '!assets/{Icon,Icon-dark,Preview}.*'])
+        .pipe(gulp_copy(`build/${pkg.name}/assets/`, { prefix: 1 }))
+);
 gulp.task('assets', gulp.series(
     'assets:base', 'assets:main'
 ));

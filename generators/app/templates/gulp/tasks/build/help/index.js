@@ -1,10 +1,10 @@
-let pkg = require('../../../package.js'),
-    path = require('path');
-let gulp = require('gulp'),
-    gulp_zip = require('gulp-zip');
+const pkg = require('../../../package.js');
+const gulp = require('gulp');
+const gulp_zip = require('gulp-zip');
+const path = require('path');
 
-gulp.task('help', function () {
-    return gulp.src('help/**/*', {base: '.'})
+gulp.task('help', () =>
+    gulp.src('help/**/*', { base: '.' })
         .pipe(gulp_zip('help.zip'))
-        .pipe(gulp.dest(path.join('build', pkg.name)));
-});
+        .pipe(gulp.dest(path.join('build', pkg.name)))
+);

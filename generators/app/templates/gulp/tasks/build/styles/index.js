@@ -1,89 +1,56 @@
-let pkg = require('../../../package.js'),
-    path = require('path');
-let gulp = require('gulp'),
-    gulp_sass = require('gulp-sass'),
-    gulp_sourcemaps = require('gulp-sourcemaps');
-let extend = require('xtend');
+const pkg = require('../../../package.js');
+const gulp = require('gulp');
+const gulp_sass = require('gulp-sass');
+const gulp_sourcemaps = require('gulp-sourcemaps');
+const path = require('path');
 
-gulp.task('styles:copy', function () {
-    return gulp.src([
-        'src/style/**/*', '!src/style/**/*.scss'
-    ], {
-        base: 'src'
-    }).pipe(
-        gulp.dest(
-            path.join('build', pkg.name)
-        )
-    );
-});
+gulp.task('styles:copy', () =>
+    gulp.src(['src/style/**/*', '!src/style/**/*.scss'], { base: 'src' })
+        .pipe(gulp.dest(path.join('build', pkg.name)))
+);
+gulp.task('styles:sass', () => {
+    const minify = require('yargs')
+        .default('minify').argv.minify;
+    const argv = require('yargs')
+        .default('sourcemaps', false)
+        .default('sass', minify === true).argv;
 
-gulp.task('styles:sass', function () {
-    let cli_min = require('yargs')
-        .default('minify')
-        .argv.minify;
-
-    let sourcemaps = false, sass = {
-        outputStyle: cli_min === true ? 'compressed' : 'expanded'
-    };
-
-    if (pkg.dizmo && pkg.dizmo.build) {
-        let cfg_min = pkg.dizmo.build.minify;
-        if (cfg_min) {
-            let cfg_ss = cfg_min.styles !== undefined ? cfg_min.styles : {};
-            if (cfg_ss) {
-                if (cfg_ss.sourcemaps) // by default w/o a source-map!
-                {
-                    sourcemaps = extend({loadMaps: true}, cfg_ss.sourcemaps);
-                }
-                if (cli_min === undefined && (
-                    cfg_ss.sass || cfg_ss.sass === undefined))
-                {
-                    sass = extend({outputStyle: 'compressed'}, cfg_ss.sass);
-                }
-            }
-        }
-    }
-
-    let argv = require('yargs')
-        .default('sourcemaps', sourcemaps)
-        .default('sass', sass).argv;
-
+    let stream = gulp.src(['src/style/**/*.scss']);
     if (typeof argv.sourcemaps === 'string') {
         argv.sourcemaps = JSON.parse(argv.sourcemaps);
+    }
+    if (typeof argv.sourcemaps === 'boolean') {
+        argv.sourcemaps = {
+            devtool: argv.sourcemaps ? 'source-map' : undefined
+        };
+    }
+    if (argv.sourcemaps &&
+        argv.sourcemaps.devtool &&
+        argv.sourcemaps.devtool !== 'none'
+    ) {
+        stream = stream.pipe(gulp_sourcemaps.init({
+            loadMaps: true, ...argv.sourcemaps
+        }));
     }
     if (typeof argv.sass === 'string') {
         argv.sass = JSON.parse(argv.sass);
     }
     if (typeof argv.sass === 'boolean') {
-        argv.sass = {
-            outputStyle: argv.sass === true ? 'compressed' : 'expanded'
-        };
-    }
-
-    let stream = gulp.src([
-        'src/style/**/*.scss'
-    ]);
-    if (argv.sourcemaps) {
-        stream = stream.pipe(gulp_sourcemaps.init(
-            extend({loadMaps: true}, argv.sourcemaps)
-        ));
+        argv.sass = { outputStyle: argv.sass ? 'compressed' : 'expanded' };
     }
     if (argv.sass || argv.sass === undefined) {
-        stream = stream.pipe(gulp_sass.apply(
-            this, [extend({outputStyle: 'compressed'}, argv.sass)]
-        ).on('error', gulp_sass.logError));
+        stream = stream.pipe(gulp_sass({
+            outputStyle: 'compressed', ...argv.sass
+        }).on('error', gulp_sass.logError));
     }
-    if (argv.sourcemaps) {
-        stream = stream.pipe(gulp_sourcemaps.write(
-            './'
-        ));
+    if (argv.sourcemaps &&
+        argv.sourcemaps.devtool &&
+        argv.sourcemaps.devtool !== 'none'
+    ) {
+        stream = stream.pipe(gulp_sourcemaps.write('./'));
     }
-    stream = stream.pipe(gulp.dest(
-        path.join('build', pkg.name, 'style')
-    ));
-    return stream;
+    return stream.pipe(gulp.dest(path.join('build', pkg.name, 'style')));
 });
-
 gulp.task('styles', gulp.series(
     'styles:copy', 'styles:sass'
 ));

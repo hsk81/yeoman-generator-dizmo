@@ -1,9 +1,8 @@
-let gulp = require('gulp');
+const gulp = require('gulp');
 
 require('../build/watch');
 require('../deploy/watch');
 
-gulp.task('watch', gulp.parallel(
-    'build:watch',
-    'deploy:watch'
-));
+gulp.task('watch', gulp.series('build', gulp.parallel(
+    'build:watch', 'deploy:watch'
+)));

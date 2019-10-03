@@ -279,11 +279,16 @@ module.exports = class extends Generator {
                 this.destinationPath('gulpfile.js')
             );
         }
-        if (!upgrade) {
-            this.fs.copy(
-                this.templatePath('babel.config.js'),
-                this.destinationPath('babel.config.js')
+        if (!upgrade || upgrade) {
+            if (!this.fs.exists(this.destinationPath(
+                'webpack.config.js'
+            ))) this.fs.copyTpl(
+                this.templatePath('webpack.config.js'),
+                this.destinationPath('webpack.config.js'),
+                this.properties
             );
+        }
+        if (!upgrade) {
             this.fs.copyTpl(
                 this.templatePath('_package.json'),
                 this.destinationPath('package.json'),
@@ -296,19 +301,20 @@ module.exports = class extends Generator {
             );
             pkg.dependencies = sort(
                 lodash.assign(pkg.dependencies, {
-                    '@babel/polyfill': '^7.4.4'
+                    '@babel/polyfill': '^7.6.0'
                 })
             );
             pkg.devDependencies = sort(
                 lodash.assign(pkg.devDependencies, {
-                    '@babel/core': '^7.5.5',
-                    '@babel/preset-env': '^7.5.5'
+                    '@babel/core': '^7.6.2',
+                    '@babel/preset-env': '^7.6.2'
                 })
             );
             pkg.devDependencies = sort(
                 lodash.assign(pkg.devDependencies, {
-                    'babelify': '^10.0.0',
-                    'browserify': '^16.5.0'
+                    'babel-loader': '^8.0.6',
+                    'webpack': '^4.41.0',
+                    'webpack-stream': '^5.2.1',
                 })
             );
             pkg.devDependencies = sort(
@@ -321,7 +327,6 @@ module.exports = class extends Generator {
                     'gulp-rename': '^1.4.0',
                     'gulp-sass': '^4.0.2',
                     'gulp-sourcemaps': '^2.6.5',
-                    'gulp-uglify': '^3.0.2',
                     'gulp-ver': '^0.1.0',
                     'gulp-zip': '^5.0.0'
                 })
@@ -330,18 +335,13 @@ module.exports = class extends Generator {
                 lodash.assign(pkg.devDependencies, {
                     'ansi-colors': '^4.1.1',
                     'fancy-log': '^1.3.3',
-                    'lodash': '^4.17.15',
-                    'rimraf': '^3.0.0',
-                    'vinyl-buffer': '^1.0.1',
-                    'vinyl-source-stream': '^2.0.0',
-                    'watchify': '^3.11.1',
-                    'xtend': '^4.0.2'
+                    'rimraf': '^3.0.0'
                 })
             );
             pkg.optionalDependencies = sort(
                 lodash.assign(pkg.optionalDependencies, {
-                    'javascript-obfuscator': '^0.18.1',
-                    'pump': '^3.0.0'
+                    'pump': '^3.0.0',
+                    'webpack-obfuscator': '^0.18.3'
                 })
             );
             pkg.scripts = sort(

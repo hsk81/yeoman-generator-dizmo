@@ -26,15 +26,12 @@
     },
     "store": {
         "host": "https://store-api.dizmo.com"
-    },
-    "build": {
-      "lint": true,
-      "minify": false
     }
   },
   "dependencies": {},
   "devDependencies": {},
   "license": "ISC",
+  "optionalDependencies": {},
   "private": true,
   "repository": {
     "type": "git",

@@ -1,8 +1,8 @@
-let pkg = require('../../package.js'),
-    gulp = require('gulp');
+const pkg = require('../../package.js');
+const gulp = require('gulp');
 
-gulp.task('deploy:watch', function () {
-    gulp.watch('build/{0}/**/*'.replace('{0}', pkg.name), gulp.series(
+gulp.task('deploy:watch', () =>
+    gulp.watch(`build/${pkg.name}/**/*`, gulp.series(
         'deploy:only'
-    ));
-});
+    ))
+);

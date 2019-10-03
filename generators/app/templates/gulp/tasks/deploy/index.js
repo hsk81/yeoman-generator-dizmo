@@ -1,28 +1,11 @@
-let pkg = require('../../package.js'),
-    fs = require('fs'),
-    path = require('path');
-let ansi_colors = require('ansi-colors'),
-    fancy_log = require('fancy-log'),
-    gulp = require('gulp');
+const cli = require('../../miscellanea/cli.js');
+const pkg = require('../../package.js');
 
-function ensure(package, callback) {
-    require('fs').access(
-        './node_modules/' + package, function (error)
-    {
-        if (error) {
-            let npm_install = require('child_process').spawn('npm', [
-                'install', package
-            ], {
-                shell: true, stdio: 'ignore'
-            });
-            npm_install.on('exit', function () {
-                callback(require(package));
-            });
-        } else {
-            callback(require(package));
-        }
-    });
-}
+const ansi_colors = require('ansi-colors');
+const fancy_log = require('fancy-log');
+const fs = require('fs');
+const gulp = require('gulp');
+const path = require('path');
 
 function to() {
     let deploy_path =
@@ -36,7 +19,6 @@ function to() {
     }
     return null;
 }
-
 function deploy(stream, to) {
     if (to) {
         stream.push(gulp.dest(to));
@@ -44,32 +26,21 @@ function deploy(stream, to) {
     return stream;
 }
 
-gulp.task('deploy:copy', function (done) {
-    let stream = deploy([gulp.src(
-        'build/{0}/**/*'.replace('{0}', pkg.name)
-    )], to());
-
+gulp.task('deploy:copy', (done) => {
+    const stream = deploy([gulp.src(`build/${pkg.name}/**/*`)], to());
     if (to() !== null) {
-        setTimeout(function () {
-            fancy_log(ansi_colors.green.bold(
-                'Deployed to {0}.'.replace('{0}', to())
-            ));
-        }, 0);
+        setTimeout(() => fancy_log(
+            ansi_colors.green.bold(`Deployed to ${to()}.`)
+        ), 0);
         if (!fs.existsSync(to())) {
-            stream[stream.length - 1].on('finish', function () {
-                setTimeout(function () {
-                    fancy_log(ansi_colors.green.bold(
-                        'Drag-and-drop {0} onto dizmoViewer!'.replace(
-                            '{0}', 'build/{0}-x.y.z.dzm'.replace(
-                                '{0}', pkg.name
-                            )
-                        )
-                    ));
-                }, 0);
-            });
+            stream[stream.length - 1].on('finish', () =>
+                setTimeout(() => fancy_log(ansi_colors.green.bold(
+                    `Drag & drop build/${pkg.name}-x.y.z.dzm onto dizmoViewer!`
+                )), 0)
+            );
         }
     } else {
-        setTimeout(function () {
+        setTimeout(() => {
             fancy_log(ansi_colors.yellow.bold(
                 'Neither the $DZM_DEPLOY_PATH environment variable nor the ' +
                 '`dizmo/deploy-path` entry in package.json or ~/.generator-' +
@@ -84,26 +55,20 @@ gulp.task('deploy:copy', function (done) {
         }, 0);
     }
     if (stream.length > 1) {
-        ensure('pump', function (pump) {
-            pump(stream, done);
-        });
+        cli.npm_i('pump').then((pump) => pump(stream, done));
     } else {
         done();
     }
 });
-
 gulp.task('deploy', gulp.series(
     'build', 'deploy:copy'
 ));
-
-gulp.task('deploy:only', function (done) {
-    let stream = deploy([gulp.src(
+gulp.task('deploy:only', (done) => {
+    const stream = deploy([gulp.src(
         'build/{0}/**/*'.replace('{0}', pkg.name))
     ], to());
     if (stream.length > 1) {
-        ensure('pump', function (pump) {
-            pump(stream, done);
-        });
+        cli.npm_i('pump').then((pump) => pump(stream, done));
     } else {
         done();
     }
