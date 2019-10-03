@@ -18,7 +18,6 @@ describe('generator-dizmo:app', function () {
                 'assets/locales/translation.de.json',
                 'assets/locales/translation.en.json',
                 'assets/Preview.png',
-                'babel.config.js',
                 '.eslintrc.json',
                 'gulp',
                 'gulp/miscellanea',
@@ -84,10 +83,11 @@ describe('generator-dizmo:app', function () {
                 'src/index.html',
                 'src/index.js',
                 'src/lib',
-                'src/lib/i18n-1.0.6.min.js',
-                'src/lib/i18n-1.0.6.min.js.map',
+                'src/lib/i18n-2.0.0.min.js',
+                'src/lib/i18n-2.0.0.min.js.map',
                 'src/style',
                 'src/style/style.scss',
+                'webpack.config.js',
                 '.yo-rc.json',
             ]);
             assert.jsonFileContent('package.json', {
@@ -120,21 +120,16 @@ describe('generator-dizmo:app', function () {
                     },
                     'store': {
                         'host': 'https://store-api.dizmo.com'
-                    },
-                    'build': {
-                        'lint': true,
-                        'minify': false
                     }
                 },
                 'dependencies': {
-                    '@babel/polyfill': '^7.4.4'
+                    '@babel/polyfill': '^7.6.0'
                 },
                 'devDependencies': {
-                    '@babel/core': '^7.5.5',
-                    '@babel/preset-env': '^7.5.5',
+                    '@babel/core': '^7.6.2',
+                    '@babel/preset-env': '^7.6.2',
                     'ansi-colors': '^4.1.1',
-                    'babelify': '^10.0.0',
-                    'browserify': '^16.5.0',
+                    'babel-loader': '^8.0.6',
                     'fancy-log': '^1.3.3',
                     'gulp': '^4.0.2',
                     'gulp-copy': '^4.0.1',
@@ -144,15 +139,11 @@ describe('generator-dizmo:app', function () {
                     'gulp-rename': '^1.4.0',
                     'gulp-sass': '^4.0.2',
                     'gulp-sourcemaps': '^2.6.5',
-                    'gulp-uglify': '^3.0.2',
                     'gulp-ver': '^0.1.0',
                     'gulp-zip': '^5.0.0',
-                    'lodash': '^4.17.15',
                     'rimraf': '^3.0.0',
-                    'vinyl-buffer': '^1.0.1',
-                    'vinyl-source-stream': '^2.0.0',
-                    'watchify': '^3.11.1',
-                    'xtend': '^4.0.2'
+                    'webpack': '^4.41.0',
+                    'webpack-stream': '^5.2.1'
                 },
                 'license': 'ISC',
                 'private': true,
@@ -170,8 +161,8 @@ describe('generator-dizmo:app', function () {
                     'watch': 'node ./gulp/scripts/watch.js'
                 },
                 'optionalDependencies': {
-                    'javascript-obfuscator': '^0.18.1',
-                    'pump': '^3.0.0'
+                    'pump': '^3.0.0',
+                    'webpack-obfuscator': '^0.18.3'
                 }
             });
         });

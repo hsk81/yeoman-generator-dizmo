@@ -86,8 +86,8 @@ describe('generator-dizmo:sub-typescript', function () {
                 'src/app/i18n.ts',
                 'src/index.html',
                 'src/lib',
-                'src/lib/i18n-1.0.6.min.js',
-                'src/lib/i18n-1.0.6.min.js.map',
+                'src/lib/i18n-2.0.0.min.js',
+                'src/lib/i18n-2.0.0.min.js.map',
                 'src/style',
                 'src/style/style.scss',
                 'tsconfig.json',
@@ -128,21 +128,16 @@ describe('generator-dizmo:sub-typescript', function () {
                     },
                     'store': {
                         'host': 'https://store-api.dizmo.com'
-                    },
-                    'build': {
-                        'lint': true,
-                        'minify': false
                     }
                 },
                 'dependencies': {
-                    '@babel/polyfill': '^7.4.4',
+                    '@babel/polyfill': '^7.6.0',
                     '@dizmo/functions': '^2.7.5',
                     '@dizmo/types': '^1.0.4'
                 },
                 'devDependencies': {
-                    '@babel/core': '^7.5.5',
-                    '@babel/preset-env': '^7.5.5',
-                    '@types/i18next': '^12.1.0',
+                    '@babel/core': '^7.6.2',
+                    '@babel/preset-env': '^7.6.2',
                     'ansi-colors': '^4.1.1',
                     'babelify': '^10.0.0',
                     'browserify': '^16.5.0',
@@ -158,15 +153,13 @@ describe('generator-dizmo:sub-typescript', function () {
                     'gulp-uglify': '^3.0.2',
                     'gulp-ver': '^0.1.0',
                     'gulp-zip': '^5.0.0',
-                    'lodash': '^4.17.15',
                     'rimraf': '^3.0.0',
                     'tsify': '^4.0.1',
-                    'tslint': '^5.17.0',
-                    'typescript': '^3.5.2',
+                    'tslint': '^5.20.0',
+                    'typescript': '^3.6.3',
                     'vinyl-buffer': '^1.0.1',
                     'vinyl-source-stream': '^2.0.0',
-                    'watchify': '^3.11.1',
-                    'xtend': '^4.0.2'
+                    'watchify': '^3.11.1'
                 },
                 'license': 'ISC',
                 'private': true,
