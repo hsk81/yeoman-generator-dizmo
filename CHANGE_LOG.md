@@ -1,12 +1,16 @@
 # CHANGE LOG
 
+## v10.0.z
+
+* Support for `webpack.config.js`:
+
+    The JavaScript project generator produces now a skeleton with support for [webpack]. Further, the `babel.config.js` configuration is not required anymore.
+
 ## v9.1.z
 
 * Support for `babel.config.js`:
 
     A dizmo's source code itself can now import ES6 packages directly, thanks to the use of a *project wide* `babel.config.js` configuration.
-
-[esm]: https://www.npmjs.com/package/esm
 
 * Integrated generator tests with CI:
 
@@ -318,11 +322,13 @@
 [browserify]: http://browserify.org/
 [coffeescript]: http://coffeescript.org/
 [eslint]: http://eslint.org/
+[esm]: https://www.npmjs.com/package/esm
 [gulp]: http://gulpjs.com/
 [i18next]: http://www.npmjs.com/package/i18next
+[Node.js]: https://nodejs.org
 [pump]: http://www.npmjs.com/package/pump
 [sass]: http://sass-lang.com/
 [typescript]: http://www.typescriptlang.org/
 [uglifyjs]: http://github.com/mishoo/UglifyJS
+[webpack]: https://webpack.js.org/
 [yeoman]: http://yeoman.io/
-[Node.js]: https://nodejs.org

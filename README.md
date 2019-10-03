@@ -167,7 +167,6 @@ tree
 │   │   ├── translation.de.json
 │   │   └── translation.en.json
 │   └── Preview.png
-├── babel.config.json
 ├── gulp
 │   ├── package.js
 │   └── tasks
@@ -181,12 +180,13 @@ tree
 ├── package.json
 ├── README.md
 └── src
-    ├── index.html
-    ├── index.js
-    ├── lib
-    │   └── i18n-*.min.js
-    └── style
-        └── style.scss
+│   ├── index.html
+│   ├── index.js
+│   ├── lib
+│   │   └── i18n-*.min.js
+│   └── style
+│       └── style.scss
+└── webpack.config.json
 ```
 
 Let's have a look at each ot the top level files and directories:
@@ -194,8 +194,6 @@ Let's have a look at each ot the top level files and directories:
 * `.eslintrc.json`: a JSON file, which can be used to configure the linting process for the JavaScript code; see [eslint.org/docs/user-guide/configuring](http://eslint.org/docs/user-guide/configuring) for further information.
 
 * `assets`: A folder containing asset files like images, which can be accessed from within the dizmo using a relative path like `assets/Preview.png`. Put any such files (or media) which are not directly related to styling into this folder. You can also create sub-folders or any nested directory structure according to your needs. One such folder is `assets/locales` where JSON files for translation purposes can be found.
-
-* `babel.config.js`: project wide configuration file for the [babel] transpiler.
 
 * `gulp`: A folder containing a build system based on [gulp](http://gulpjs.com/). If you are familiar with `gulp`, then you can change the build mechanism according to your needs; otherwise, just use it as it is.
 
@@ -210,6 +208,8 @@ Let's have a look at each ot the top level files and directories:
 * `README.md`: A simple shortened version of this README.md; it is meant to provide a quick overview, and can then be replaced with a project specific content.
 
 * `src`: A folder containing your own scripts for your dizmo, like `index.html` and `index.js` plus style sheets under `style/`, which use by default [SASS](http://sass-lang.com/). Further, in the `src/lib/` folder you can put third party libraries, which you can then directly reference via a `<script>` tag in the `index.html` markup.
+
+* `webpack.config.js`: project wide configuration file for the [webpack] bundler.
 
 ## Package manager: package.json
 
@@ -265,7 +265,7 @@ And here is a list of available options:
 
 * `build/lint`: switches [ESLint][eslint] based linting on or off -- edit the `.eslintrc.json` configuration file to have a detailed control over the linting process; see also [gulp-eslint] for additional information.
 
-* `build/minify`: switches the minification of the markup (`*.html`), scripts (`*.js`) and styles (`*.[s]css`) on or off -- but each sub-process can also be toggled separately. Further, they also can be tweaked in detail by providing a configuration object; see the corresponding [gulp-htmlmin], [javascript-obfuscator], [gulp-uglify] and [gulp-sass] pages for more information. Source map generation can be controlled as well, and is off by default. Further, to keep `package.json` simple, the `build/minify` flag is set upon project generation directly to `false`.
+* `build/minify`: switches the minification of the markup (`*.html`), scripts (`*.js`) and styles (`*.[s]css`) on or off -- but each sub-process can also be toggled separately. Further, they also can be tweaked in detail by providing a configuration object; see the corresponding [gulp-htmlmin], [javascript-obfuscator] and [gulp-sass] pages for more information. Source map generation can be controlled as well, and is off by default. Further, to keep `package.json` simple, the `build/minify` flag is set upon project generation directly to `false`.
 
 ### Default Configuration
 
@@ -448,13 +448,13 @@ npm run build -- --no-minify
 Further, since minification consists of five sub-steps, namely (a) markup minification, (b) styles minification, (c1) scripts obfuscation plus (c2) minification and also (d) source maps generation -- where (c1) and (d) however need to be explicitly enabled -- it is possible to control them independently of the *general* `--minify` flag:
 
 ```sh
-npm run build -- --htmlmin --sass --no-obfuscate --uglify --no-sourcemaps
+npm run build -- --htmlmin --sass --no-obfuscate --no-sourcemaps
 ```
 
 The above set of arguments is (given default `package.json` build settings) equivalent to the `--minify` flag. Further, each of them can be negated as well:
 
 ```sh
-npm run build -- --no-htmlmin --no-sass --obfuscate --no-uglify --sourcemaps
+npm run build -- --no-htmlmin --no-sass --obfuscate --sourcemaps
 ```
 
 Further, each flag can accept an optional configuration object to control in detail the corresponding minification, obfuscation and/or source map generation step:
@@ -477,10 +477,10 @@ npm run build -- --minify --sass='{\"outputStyle\":\"compressed\"}'
 npm run build -- --minify --obfuscate='{\"compact\":true}'
 ```
 
-* Minify the scripts; see [gulp-uglify] for further information w.r.t. to the configuration:
+* Minify the scripts; see [webpack-mode] for further information w.r.t. to the configuration:
 
 ```sh
-npm run build -- --minify --uglify='{\"mangle\":true\,\"keep_fnames\":true}'
+npm run build -- --minify='{\"mode\":\"production\"}'
 ```
 
 * Create source maps for the scripts *and* the styles (in `package.json` each source map generation can be configured separately, however on the CLI there is only a single flag to control both); see [gulp-sourcemaps] for further information w.r.t. to the configuration:
@@ -489,7 +489,7 @@ npm run build -- --minify --uglify='{\"mangle\":true\,\"keep_fnames\":true}'
 npm run build -- --minify --sourcemaps='{\"loadMaps\":true}'
 ```
 
-In general, using `--minify` (or `--no-minify`) combined with the `--sourcemaps` (or `--no-sourcemaps`) CLI options should be enough. Only if explicit control is required, using the `--htmlmin`, `--sass`, `--obfuscate` or `--uglify` flags is be necessary. Further, providing configuration objects to these flags should only be done, when you know what you are doing (or are not happy with the provided defaults).
+In general, using `--minify` (or `--no-minify`) combined with the `--sourcemaps` (or `--no-sourcemaps`) CLI options should be enough. Only if explicit control is required, using the `--htmlmin`, `--sass` or `--obfuscate` flags would be necessary. Further, providing configuration objects to these flags should only be done, when you know what you are doing (or are not happy with the provided defaults).
 
 ### Upload
 
@@ -529,9 +529,9 @@ build/
 │   ├── Info.plist
 │   ├── Preview.png
 │   ├── assets
-│   │   ├── Icon-dark.svg
-│   │   ├── Icon.svg
-│   │   └── Preview.png
+│   │   └── locales
+│   │       ├── translation.de.json
+│   │       └── translation.en.json
 │   ├── help.zip
 │   ├── index.html
 │   ├── index.js
@@ -552,7 +552,7 @@ build/
 * `MyDizmo/help.zip`: a ZIP archive of the original `help` folder;
 * `MyDizmo/index.html`: the main HTML script;
 * `MyDizmo/index.js`: the main JavaScript;
-* `MyDizmo/lib/i18n-*.min.js`: [i18next](http://i18next.com/) internationalization wrapper;
+* `MyDizmo/lib/i18n-*.min.js`: [i18n](https://www.npmjs.com/package/@dizmo/i18n) internationalization wrapper;
 * `MyDizmo/style/style.css`: Cascading Style Sheets.
 
 ### Dizmo instantiation
@@ -716,7 +716,9 @@ Such files are device dependent and hence should be ignored *globally* on the de
 [gulp-htmlmin]: http://www.npmjs.com/package/gulp-htmlmin
 [gulp-sass]: http://www.npmjs.com/package/gulp-sass
 [gulp-sourcemaps]: http://www.npmjs.com/package/gulp-sourcemaps
-[gulp-uglify]: http://www.npmjs.com/package/gulp-uglify
+
+[webpack]: https://webpack.js.org/
+[webpack-mode]: https://webpack.js.org/configuration/mode/
 
 [node-module]: http://nodejs.org/api/modules.html
 [npm]: http://www.npmjs.com
