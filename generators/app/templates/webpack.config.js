@@ -4,10 +4,6 @@ module.exports = {
     entry: {
         main: ['@babel/polyfill', './src/index.js']
     },
-    output: {
-        path: path.resolve(__dirname, 'build', '<%= dizmoName %>'),
-        filename: 'index.js'
-    },
     module: {
         rules: [{
             test: /\.js$/,
@@ -26,6 +22,10 @@ module.exports = {
                 }
             }
         }]
+    },
+    output: {
+        path: path.resolve(__dirname, 'build', '<%= dizmoName %>'),
+        filename: 'index.js'
     },
     mode: 'none'
 };

@@ -10,9 +10,10 @@ const webpack = require('webpack');
 
 gulp.task('scripts', async () => {
     const argv = require('yargs')
-        .default('sourcemaps')
-        .default('obfuscate')
         .default('minify')
+        .default('obfuscate')
+        .default('sourcemaps')
+        .default('terser', cli.arg('minify'))
         .argv;
 
     if (typeof argv.sourcemaps === 'string') {
@@ -24,7 +25,9 @@ gulp.task('scripts', async () => {
         };
     }
     if (argv.sourcemaps) {
-        webpack_config = { ...webpack_config, ...argv.sourcemaps };
+        webpack_config = {
+            ...webpack_config, ...argv.sourcemaps
+        };
     }
     if (typeof argv.obfuscate === 'string') {
         argv.obfuscate = JSON.parse(argv.obfuscate);
@@ -36,9 +39,34 @@ gulp.task('scripts', async () => {
         const obfuscator = await cli.npm_i(
             'webpack-obfuscator'
         );
-        webpack_config = { ...webpack_config, ...{
-            plugins: [new obfuscator(argv.obfuscate)]
-        }};
+        webpack_config = {
+            ...webpack_config, plugins: [
+                new obfuscator(argv.obfuscate)
+            ]
+        };
+    }
+    if (typeof argv.terser === 'string') {
+        argv.terser = argv.terser !== argv.minify
+            ? JSON.parse(argv.terser)
+            : true;
+    }
+    if (typeof argv.terser === 'boolean') {
+        argv.terser = argv.terser ? {} : null;
+    }
+    if (argv.terser) {
+        const terser = await cli.npm_i(
+            'terser-webpack-plugin'
+        );
+        const optimization = {
+            minimizer: [new terser({
+                sourceMap: true, terserOptions: {
+                    keep_fnames: true, ...argv.terser
+                }
+            })]
+        };
+        webpack_config = {
+            ...webpack_config, optimization
+        };
     }
     if (typeof argv.minify === 'string') {
         argv.minify = JSON.parse(argv.minify);
@@ -49,7 +77,9 @@ gulp.task('scripts', async () => {
         };
     }
     if (argv.minify) {
-        webpack_config = { ...webpack_config, ...argv.minify };
+        webpack_config = {
+            ...webpack_config, ...argv.minify
+        };
     }
     return await new Promise((resolve) => webpack_stream(
         webpack_config, webpack, (error, stats) => {
