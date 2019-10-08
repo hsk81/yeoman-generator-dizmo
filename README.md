@@ -263,10 +263,6 @@ And here is a list of available options:
 
 * `store`: configuration entries required by `npm run upload`, which needs `store/host` (by default pointing to `https://store-api.dizmo.com`), `store/user` and `store/pass`. The latter two should *not* be directly set in `package.json` but instead via the default configuration (see below), to avoid the store credentials to be accidentally committed to a version control system.
 
-* `build/lint`: switches [ESLint][eslint] based linting on or off -- edit the `.eslintrc.json` configuration file to have a detailed control over the linting process; see also [gulp-eslint] for additional information.
-
-* `build/minify`: switches the minification of the markup (`*.html`), scripts (`*.js`) and styles (`*.[s]css`) on or off -- but each sub-process can also be toggled separately. Further, they also can be tweaked in detail by providing a configuration object; see the corresponding [gulp-htmlmin], [javascript-obfuscator] and [gulp-sass] pages for more information. Source map generation can be controlled as well, and is off by default. Further, to keep `package.json` simple, the `build/minify` flag is set upon project generation directly to `false`.
-
 ### Default Configuration
 
 The `dizmo` section in `package.json` can be extended with default values, which have to reside in `.generator-dizmo/config.json` (in *any* of the parent directories):
@@ -351,7 +347,7 @@ DZM_STORE_HOST=https://store-api.dizmo.com npm run upload
 
 ## CLI options
 
-The build process supports command line arguments to quickly override some of the the configuration in `package.json`. It's important to realize that this CLI support is directly integrated via the underlying primitives, i.e. linting can be enabled or disabled via `--lint` or via `--no-lint`, and this argument can be provided to *any* script which depends on the linting step.
+The build process supports command line arguments: It's important to realize that this CLI support is directly integrated via the underlying primitives, i.e. linting can be enabled or disabled via `--lint` or via `--no-lint`, and this argument can be provided to *any* script which depends on the linting step.
 
 In many cases the arguments are boolean flags which can enable or disable a certain build step (like linting or minification). But many can also accept specific configuration objects -- like JSON: For example, the linting of JavaScript is controlled via an [eslint] specific configuration object.
 
@@ -359,25 +355,13 @@ However, for the daily usage the default settings should be more than enough! Si
 
 ### Linting: `--lint` or `--no-lint`
 
-On the command line linting can be enabled by providing `--lint`, and it can be disabled by providing `--no-lint`. These flags will override (or merged with) the configuration from `package.json`:
-
-```json
-{
-    "dizmo": {
-        "build": {
-            "lint": true
-        }
-    }
-}
-```
-
-Above it's specifies, that the linting step should be executed by default for the given project. Hence, the following will lint and build the dizmo:
+On the command line linting can be enabled by providing `--lint` (which is the case by default), and it can be disabled by providing `--no-lint`. Hence, the following will lint and build the dizmo:
 
 ```sh
 npm run build
 ```
 
-To stop the build engine from linting, either the `lint` entry in `package.json` can be set to `false`, or it can directly be overridden on the CLI:
+To stop the build engine from linting, it can directly be overridden on the CLI:
 
 ```sh
 npm run build -- --no-lint
@@ -401,9 +385,9 @@ Conversely, if you explicitly want to enforce linting then you can execute:
 npm run -- build --lint
 ```
 
-As mentioned, this is in general not required since `package.json` should by default have linting enabled. However, if you are not sure if this is the case -- for example when your putting together a build environment, and want enforce linting -- then providing the `--lint` flag explicitly makes sense.
+As mentioned, this is in general not required since linting is by default on. However, if you are not sure if this is the case -- for example when your putting together a build environment, and want enforce linting -- then providing the `--lint` flag explicitly makes sense.
 
-The specific configuration objects for controlling [eslint], [coffeelint] and [tslint] can be looked up via their respective documentation. Below some very simple examples have been provided, to demonstrate the corresponding capability, to override the defaults (and/or the configuration object in `package.json` -- if any).
+The specific configuration objects for controlling [eslint], [coffeelint] and [tslint] can be looked up via their respective documentation. Below some very simple examples have been provided, to demonstrate the corresponding capability, to override the defaults.
 
 * Enforce for a JavaScript based dizmo project linting, but ignore unused variable names:
 
@@ -439,7 +423,7 @@ Please notice, that by default source maps are *not* created, to avoid accidenta
 npm run build -- --minify --sourcemaps
 ```
 
-It's also possible to suppress a minification (e.g. in case it should be enabled via `package.json`):
+It's also possible to suppress a minification (e.g. in case it should be enabled via `webpack.config.js`):
 
 ```sh
 npm run build -- --no-minify
@@ -448,16 +432,28 @@ npm run build -- --no-minify
 Further, since minification consists of five sub-steps, namely (a) markup minification, (b) styles minification, (c1) scripts obfuscation plus (c2) minification and also (d) source maps generation -- where (c1) and (d) however need to be explicitly enabled -- it is possible to control them independently of the *general* `--minify` flag:
 
 ```sh
-npm run build -- --htmlmin --sass --no-obfuscate --no-sourcemaps
+npm run build -- --minify --terser --htmlmin --sass --no-obfuscate --no-sourcemaps
 ```
 
-The above set of arguments is (given default `package.json` build settings) equivalent to the `--minify` flag. Further, each of them can be negated as well:
+The above set of arguments is (given default `webpack.config.json`) equivalent to the `--minify` flag. Further, each of them can be negated as well:
 
 ```sh
-npm run build -- --no-htmlmin --no-sass --obfuscate --sourcemaps
+npm run build -- --no-minify --no-terser --no-htmlmin --no-sass --obfuscate --sourcemaps
 ```
 
-Further, each flag can accept an optional configuration object to control in detail the corresponding minification, obfuscation and/or source map generation step:
+Further, each flag can accept an optional configuration object to control in detail the corresponding minification, obfuscation and/or source map generation steps:
+
+* Minify the scripts; see [webpack-mode] for further information w.r.t. to the configuration:
+
+```sh
+npm run build -- --minify='{\"mode\":\"production\"}'
+```
+
+* Minimize the scripts; see [webpack-terser-plugin] for further information w.r.t. to the configuration:
+
+```sh
+npm run build -- --minify --terser='{\"keep_fnames\":true}'
+```
 
 * Minimize the markup; see [gulp-htmlmin] for further information w.r.t. to the configuration:
 
@@ -475,12 +471,6 @@ npm run build -- --minify --sass='{\"outputStyle\":\"compressed\"}'
 
 ```sh
 npm run build -- --minify --obfuscate='{\"compact\":true}'
-```
-
-* Minify the scripts; see [webpack-mode] for further information w.r.t. to the configuration:
-
-```sh
-npm run build -- --minify='{\"mode\":\"production\"}'
 ```
 
 * Create source maps for the scripts *and* the styles (in `package.json` each source map generation can be configured separately, however on the CLI there is only a single flag to control both); see [gulp-sourcemaps] for further information w.r.t. to the configuration:
@@ -719,6 +709,7 @@ Such files are device dependent and hence should be ignored *globally* on the de
 
 [webpack]: https://webpack.js.org/
 [webpack-mode]: https://webpack.js.org/configuration/mode/
+[webpack-terser-plugin]: https://webpack.js.org/plugins/terser-webpack-plugin/#terseroptions
 
 [node-module]: http://nodejs.org/api/modules.html
 [npm]: http://www.npmjs.com
