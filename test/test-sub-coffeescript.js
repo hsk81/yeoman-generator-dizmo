@@ -19,7 +19,6 @@ describe('generator-dizmo:sub-coffeescript', function () {
                 'assets/locales/translation.de.json',
                 'assets/locales/translation.en.json',
                 'assets/Preview.png',
-                'babel.config.js',
                 'coffeelint.json',
                 'gulp',
                 'gulp/miscellanea',
@@ -89,6 +88,7 @@ describe('generator-dizmo:sub-coffeescript', function () {
                 'src/lib/i18n-2.0.0.min.js.map',
                 'src/style',
                 'src/style/style.scss',
+                'webpack.config.js',
                 '.yo-rc.json',
             ]);
             assert.noFile([
@@ -134,9 +134,8 @@ describe('generator-dizmo:sub-coffeescript', function () {
                     '@babel/core': '^7.6.2',
                     '@babel/preset-env': '^7.6.2',
                     'ansi-colors': '^4.1.1',
-                    'babelify': '^10.0.0',
-                    'browserify': '^16.5.0',
-                    'coffeeify': '^3.0.1',
+                    'babel-loader': '^8.0.6',
+                    'coffee-loader': '^0.9.0',
                     'coffeescript': '^2.4.1',
                     'fancy-log': '^1.3.3',
                     'gulp': '^4.0.2',
@@ -147,13 +146,11 @@ describe('generator-dizmo:sub-coffeescript', function () {
                     'gulp-rename': '^1.4.0',
                     'gulp-sass': '^4.0.2',
                     'gulp-sourcemaps': '^2.6.5',
-                    'gulp-uglify': '^3.0.2',
                     'gulp-ver': '^0.1.0',
                     'gulp-zip': '^5.0.0',
                     'rimraf': '^3.0.0',
-                    'vinyl-buffer': '^1.0.1',
-                    'vinyl-source-stream': '^2.0.0',
-                    'watchify': '^3.11.1'
+                    'webpack': '^4.41.0',
+                    'webpack-stream': '^5.2.1'
                 },
                 'license': 'ISC',
                 'private': true,
@@ -171,8 +168,9 @@ describe('generator-dizmo:sub-coffeescript', function () {
                     'watch': 'node ./gulp/scripts/watch.js'
                 },
                 'optionalDependencies': {
-                    'javascript-obfuscator': '^0.18.1',
-                    'pump': '^3.0.0'
+                    'pump': '^3.0.0',
+                    'terser-webpack-plugin': '^2.1.2',
+                    'webpack-obfuscator': '^0.18.3'
                 }
             });
         });
