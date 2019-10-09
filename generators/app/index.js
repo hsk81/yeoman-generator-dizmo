@@ -306,8 +306,8 @@ module.exports = class extends Generator {
             );
             pkg.devDependencies = sort(
                 lodash.assign(pkg.devDependencies, {
-                    '@babel/core': '^7.6.2',
-                    '@babel/preset-env': '^7.6.2'
+                    '@babel/core': '^7.6.3',
+                    '@babel/preset-env': '^7.6.3'
                 })
             );
             pkg.devDependencies = sort(
@@ -328,7 +328,7 @@ module.exports = class extends Generator {
                     'gulp-sass': '^4.0.2',
                     'gulp-sourcemaps': '^2.6.5',
                     'gulp-ver': '^0.1.0',
-                    'gulp-zip': '^5.0.0'
+                    'gulp-zip': '^5.0.1'
                 })
             );
             pkg.devDependencies = sort(

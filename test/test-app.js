@@ -126,8 +126,8 @@ describe('generator-dizmo:app', function () {
                     '@babel/polyfill': '^7.6.0'
                 },
                 'devDependencies': {
-                    '@babel/core': '^7.6.2',
-                    '@babel/preset-env': '^7.6.2',
+                    '@babel/core': '^7.6.3',
+                    '@babel/preset-env': '^7.6.3',
                     'ansi-colors': '^4.1.1',
                     'babel-loader': '^8.0.6',
                     'fancy-log': '^1.3.3',
@@ -140,7 +140,7 @@ describe('generator-dizmo:app', function () {
                     'gulp-sass': '^4.0.2',
                     'gulp-sourcemaps': '^2.6.5',
                     'gulp-ver': '^0.1.0',
-                    'gulp-zip': '^5.0.0',
+                    'gulp-zip': '^5.0.1',
                     'rimraf': '^3.0.0',
                     'webpack': '^4.41.0',
                     'webpack-stream': '^5.2.1'
