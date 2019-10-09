@@ -13,9 +13,8 @@ window.i18n((error, t) => {
 });
 
 document.addEventListener('dizmoready', () => {
-    document.getElementById('done').onclick = () => {
-        dizmo.showFront();
-    };
+    const done = document.getElementById('done');
+    done.onclick = () => dizmo.showFront();
 }, {
     once: true
 });
