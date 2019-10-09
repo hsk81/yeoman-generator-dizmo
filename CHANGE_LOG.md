@@ -1,5 +1,11 @@
 # CHANGE LOG
 
+## v10.2.z
+
+* Support for `webpack.config.js` for TypeScript:
+
+    The TypeScript project generator produces now a skeleton with support for [webpack]. Further, the `babel.config.js` configuration is not required anymore.
+
 ## v10.1.z
 
 * Support for `webpack.config.js` for CoffeeScript:
