@@ -19,7 +19,6 @@ describe('generator-dizmo:sub-typescript', function () {
                 'assets/locales/translation.de.json',
                 'assets/locales/translation.en.json',
                 'assets/Preview.png',
-                'babel.config.js',
                 'gulp',
                 'gulp/miscellanea',
                 'gulp/miscellanea/cli-spinner.js',
@@ -81,10 +80,8 @@ describe('generator-dizmo:sub-typescript', function () {
                 'package.json',
                 'README.md',
                 'src',
-                'src/app',
-                'src/app/app.ts',
-                'src/app/i18n.ts',
                 'src/index.html',
+                'src/index.ts',
                 'src/lib',
                 'src/lib/i18n-2.0.0.min.js',
                 'src/lib/i18n-2.0.0.min.js.map',
@@ -92,6 +89,7 @@ describe('generator-dizmo:sub-typescript', function () {
                 'src/style/style.scss',
                 'tsconfig.json',
                 'tslint.json',
+                'webpack.config.js',
                 '.yo-rc.json',
             ]);
             assert.noFile([
@@ -132,15 +130,13 @@ describe('generator-dizmo:sub-typescript', function () {
                 },
                 'dependencies': {
                     '@babel/polyfill': '^7.6.0',
-                    '@dizmo/functions': '^2.7.5',
                     '@dizmo/types': '^1.0.4'
                 },
                 'devDependencies': {
                     '@babel/core': '^7.6.2',
                     '@babel/preset-env': '^7.6.2',
                     'ansi-colors': '^4.1.1',
-                    'babelify': '^10.0.0',
-                    'browserify': '^16.5.0',
+                    'babel-loader': '^8.0.6',
                     'fancy-log': '^1.3.3',
                     'gulp': '^4.0.2',
                     'gulp-copy': '^4.0.1',
@@ -150,18 +146,21 @@ describe('generator-dizmo:sub-typescript', function () {
                     'gulp-sass': '^4.0.2',
                     'gulp-sourcemaps': '^2.6.5',
                     'gulp-tslint': '^8.1.4',
-                    'gulp-uglify': '^3.0.2',
                     'gulp-ver': '^0.1.0',
                     'gulp-zip': '^5.0.0',
                     'rimraf': '^3.0.0',
-                    'tsify': '^4.0.1',
+                    'ts-loader': '^6.2.0',
                     'tslint': '^5.20.0',
                     'typescript': '^3.6.3',
-                    'vinyl-buffer': '^1.0.1',
-                    'vinyl-source-stream': '^2.0.0',
-                    'watchify': '^3.11.1'
+                    'webpack': '^4.41.0',
+                    'webpack-stream': '^5.2.1'
                 },
                 'license': 'ISC',
+                'optionalDependencies': {
+                    'pump': '^3.0.0',
+                    'terser-webpack-plugin': '^2.1.2',
+                    'webpack-obfuscator': '^0.18.3'
+                },
                 'private': true,
                 'repository': {
                     'type': 'git',
@@ -175,10 +174,6 @@ describe('generator-dizmo:sub-typescript', function () {
                     'test': 'exit 0',
                     'upload': 'node ./gulp/scripts/upload.js',
                     'watch': 'node ./gulp/scripts/watch.js'
-                },
-                'optionalDependencies': {
-                    'javascript-obfuscator': '^0.18.1',
-                    'pump': '^3.0.0'
                 }
             });
         });
