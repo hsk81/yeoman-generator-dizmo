@@ -1,4 +1,4 @@
-const path = require('path');
+const { resolve } = require('path');
 
 module.exports = {
     entry: {
@@ -7,24 +7,18 @@ module.exports = {
     module: {
         rules: [{
             test: /\.js$/,
-            exclude: [
-                /\.min\.js$/, /\.umd\.js$/
-            ],
+            exclude: [/\.(min|umd)\.js$/],
             use: {
                 loader: 'babel-loader',
                 options: {
-                    presets: [
-                        '@babel/preset-env'
-                    ],
-                    plugins: [
-                    ],
+                    presets: ['@babel/preset-env'],
                     cacheDirectory: true
                 }
             }
         }]
     },
     output: {
-        path: path.resolve(__dirname, 'build', '<%= dizmoName %>'),
+        path: resolve(__dirname, 'build', '<%= dizmoName %>'),
         filename: 'index.js'
     },
     mode: 'none'
