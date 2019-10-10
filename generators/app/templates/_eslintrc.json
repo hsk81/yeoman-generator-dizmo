@@ -3,7 +3,8 @@
         "eslint:recommended"
     ],
     "env": {
-        "browser": true
+        "browser": true,
+        "es6": true
     },
     "globals": {
         "bundle": false,
@@ -11,7 +12,6 @@
         "viewer": false
     },
     "parserOptions": {
-        "ecmaVersion": 2019,
         "sourceType": "module"
     }
 }

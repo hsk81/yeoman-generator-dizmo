@@ -155,12 +155,12 @@ describe('generator-dizmo:sub-typescript', function () {
                     'webpack': '^4.41.0',
                     'webpack-stream': '^5.2.1'
                 },
-                'license': 'ISC',
                 'optionalDependencies': {
                     'pump': '^3.0.0',
                     'terser-webpack-plugin': '^2.1.2',
                     'webpack-obfuscator': '^0.18.3'
                 },
+                'license': 'ISC',
                 'private': true,
                 'repository': {
                     'type': 'git',

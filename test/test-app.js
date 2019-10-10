@@ -145,6 +145,11 @@ describe('generator-dizmo:app', function () {
                     'webpack': '^4.41.0',
                     'webpack-stream': '^5.2.1'
                 },
+                'optionalDependencies': {
+                    'pump': '^3.0.0',
+                    'terser-webpack-plugin': '^2.1.2',
+                    'webpack-obfuscator': '^0.18.3'
+                },
                 'license': 'ISC',
                 'private': true,
                 'repository': {
@@ -159,11 +164,6 @@ describe('generator-dizmo:app', function () {
                     'test': 'exit 0',
                     'upload': 'node ./gulp/scripts/upload.js',
                     'watch': 'node ./gulp/scripts/watch.js'
-                },
-                'optionalDependencies': {
-                    'pump': '^3.0.0',
-                    'terser-webpack-plugin': '^2.1.2',
-                    'webpack-obfuscator': '^0.18.3'
                 }
             });
         });
