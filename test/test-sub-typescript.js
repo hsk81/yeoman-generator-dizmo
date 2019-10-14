@@ -133,7 +133,7 @@ describe('generator-dizmo:sub-typescript', function () {
                     '@dizmo/types': '^1.0.4'
                 },
                 'devDependencies': {
-                    '@babel/core': '^7.6.3',
+                    '@babel/core': '^7.6.4',
                     '@babel/preset-env': '^7.6.3',
                     'ansi-colors': '^4.1.1',
                     'babel-loader': '^8.0.6',
@@ -152,12 +152,12 @@ describe('generator-dizmo:sub-typescript', function () {
                     'ts-loader': '^6.2.0',
                     'tslint': '^5.20.0',
                     'typescript': '^3.6.3',
-                    'webpack': '^4.41.0',
+                    'webpack': '^4.41.1',
                     'webpack-stream': '^5.2.1'
                 },
                 'optionalDependencies': {
                     'pump': '^3.0.0',
-                    'terser-webpack-plugin': '^2.1.2',
+                    'terser-webpack-plugin': '^2.1.3',
                     'webpack-obfuscator': '^0.18.3'
                 },
                 'license': 'ISC',
