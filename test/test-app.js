@@ -142,7 +142,7 @@ describe('generator-dizmo:app', function () {
                     'gulp-ver': '^0.1.0',
                     'gulp-zip': '^5.0.1',
                     'rimraf': '^3.0.0',
-                    'webpack': '^4.41.1',
+                    'webpack': '^4.41.2',
                     'webpack-stream': '^5.2.1'
                 },
                 'optionalDependencies': {

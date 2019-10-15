@@ -6,8 +6,8 @@ module.exports = {
     },
     module: {
         rules: [{
-            test: /\.js$/,
-            exclude: [/\.(min|umd)\.js$/],
+            test: /\.js$/i,
+            exclude: /\.(min|umd)\.js$/i,
             use: {
                 loader: 'babel-loader',
                 options: {

@@ -296,9 +296,8 @@ module.exports = class extends Generator {
             );
         }
         if (!upgrade || upgrade) {
-            const pkg = this.fs.readJSON(
-                this.destinationPath('package.json')
-            );
+            const pkg_path = this.destinationPath('package.json');
+            const pkg = this.fs.readJSON(pkg_path);
             pkg.dependencies = sort(
                 lodash.assign(pkg.dependencies, {
                     '@babel/polyfill': '^7.6.0'
@@ -313,7 +312,7 @@ module.exports = class extends Generator {
             pkg.devDependencies = sort(
                 lodash.assign(pkg.devDependencies, {
                     'babel-loader': '^8.0.6',
-                    'webpack': '^4.41.1',
+                    'webpack': '^4.41.2',
                     'webpack-stream': '^5.2.1',
                 })
             );
@@ -362,9 +361,7 @@ module.exports = class extends Generator {
                     })
                 );
             }
-            this.fs.writeJSON(
-                this.destinationPath('package.json'), pkg, null, 2
-            );
+            this.fs.writeJSON(pkg_path, pkg, null, 2);
         }
         if (!upgrade) {
             this.fs.copy(
