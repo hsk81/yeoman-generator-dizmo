@@ -151,7 +151,7 @@ describe('generator-dizmo:sub-typescript', function () {
                     'rimraf': '^3.0.0',
                     'ts-loader': '^6.2.0',
                     'tslint': '^5.20.0',
-                    'typescript': '^3.6.3',
+                    'typescript': '^3.6.4',
                     'webpack': '^4.41.1',
                     'webpack-stream': '^5.2.1'
                 },
