@@ -7,7 +7,7 @@ module.exports = {
     module: {
         rules: [{
             test: /\.js$/i,
-            exclude: /\.(min|umd)\.js$/i,
+            exclude: [/node_modules/i, /\.(min|umd)\.js$/i],
             use: {
                 loader: 'babel-loader',
                 options: {
