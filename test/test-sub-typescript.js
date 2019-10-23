@@ -149,7 +149,7 @@ describe('generator-dizmo:sub-typescript', function () {
                     'gulp-ver': '^0.1.0',
                     'gulp-zip': '^5.0.1',
                     'rimraf': '^3.0.0',
-                    'ts-loader': '^6.2.0',
+                    'ts-loader': '^6.2.1',
                     'tslint': '^5.20.0',
                     'typescript': '^3.6.4',
                     'webpack': '^4.41.2',
@@ -157,7 +157,7 @@ describe('generator-dizmo:sub-typescript', function () {
                 },
                 'optionalDependencies': {
                     'pump': '^3.0.0',
-                    'terser-webpack-plugin': '^2.1.3',
+                    'terser-webpack-plugin': '^2.2.1',
                     'webpack-obfuscator': '^0.18.3'
                 },
                 'license': 'ISC',

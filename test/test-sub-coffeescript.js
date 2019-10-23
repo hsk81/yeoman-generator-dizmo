@@ -154,7 +154,7 @@ describe('generator-dizmo:sub-coffeescript', function () {
                 },
                 'optionalDependencies': {
                     'pump': '^3.0.0',
-                    'terser-webpack-plugin': '^2.1.3',
+                    'terser-webpack-plugin': '^2.2.1',
                     'webpack-obfuscator': '^0.18.3'
                 },
                 'license': 'ISC',

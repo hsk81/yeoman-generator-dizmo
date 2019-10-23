@@ -340,7 +340,7 @@ module.exports = class extends Generator {
             pkg.optionalDependencies = sort(
                 lodash.assign(pkg.optionalDependencies, {
                     'pump': '^3.0.0',
-                    'terser-webpack-plugin': '^2.1.3',
+                    'terser-webpack-plugin': '^2.2.1',
                     'webpack-obfuscator': '^0.18.3'
                 })
             );
