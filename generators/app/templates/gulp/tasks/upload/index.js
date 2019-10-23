@@ -6,6 +6,13 @@ const fs = require('fs');
 const gulp = require('gulp');
 const request = require('request');
 
+const info = (...args) => setTimeout(
+    () => fancy_log(ansi_colors.green.bold(...args)), 0);
+const warn = (...args) => setTimeout(
+    () => fancy_log(ansi_colors.yellow.bold(...args)), 0);
+const error = (...args) => setTimeout(
+    () => fancy_log(ansi_colors.red.bold(...args)), 0);
+
 gulp.task('upload:send', (done) => {
     let host = process.env.DZM_STORE_HOST;
     let user = process.env.DZM_STORE_USER;
@@ -25,56 +32,47 @@ gulp.task('upload:send', (done) => {
         .argv;
 
     if (!argv.host) {
-        setTimeout(() => fancy_log(ansi_colors.yellow.bold(
-            'Upload: DZM_STORE_HOST, package.json:dizmo.store.host or ' +
-            '`--host` required!'
-        )), 0);
+        warn('Upload: DZM_STORE_HOST, package.json:dizmo.store.host or ' +
+             '`--host` required!');
         done();
         return;
     }
     if (!argv.user && argv.user !== '') {
-        setTimeout(() => fancy_log(ansi_colors.yellow.bold(
-            'Upload: DZM_STORE_USER, package.json:dizmo.store.user or ' +
-            '`--user` required!'
-        )), 0);
+        warn('Upload: DZM_STORE_USER, package.json:dizmo.store.user or ' +
+             '`--user` required!');
         done();
         return;
     }
     if (!argv.pass && argv.pass !== '') {
-        setTimeout(() => fancy_log(ansi_colors.yellow.bold(
-            'Upload: DZM_STORE_PASS, package.json:dizmo.store.pass or ' +
-            '`--pass` required!'
-        )), 0);
+        warn('Upload: DZM_STORE_PASS, package.json:dizmo.store.pass or ' +
+             '`--pass` required!');
         done();
         return;
     }
     if (!pkg ||
         !pkg.dizmo ||
         !pkg.dizmo.settings ||
-        !pkg.dizmo.settings['category']) {
-        setTimeout(() => fancy_log(ansi_colors.yellow.bold(
-            'Upload: package.json:dizmo.settings.category required, ' +
-            'e.g. "tools"!'
-        )), 0);
+        !pkg.dizmo.settings['category']
+    ) {
+        warn('Upload: package.json:dizmo.settings.category required, ' +
+             'e.g. "tools"!');
         done();
         return;
     }
 
     const dzm_name = `${pkg.name}-${pkg.version}.dzm`;
     const do_login = function () {
-        request.post(argv.host + '/v1/oauth/login',
-            {
-                body: JSON.stringify({
-                    username: argv.user, password: argv.pass
-                }),
-                headers: {
-                    'Content-Type': 'application/json'
-                }
-            }, on_login
-        );
+        request.post(argv.host + '/v1/oauth/login', {
+            body: JSON.stringify({
+                username: argv.user, password: argv.pass
+            }),
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }, on_login);
     };
-    const on_login = function (err, res) {
-        if (!err && res.statusCode === 200) {
+    const on_login = function (e, res) {
+        if (!e && res.statusCode === 200) {
             const set_cookies = res.headers['set-cookie'];
             assert(set_cookies, '"Set-Cookie" header required');
             const set_cookie = set_cookies[0];
@@ -102,11 +100,9 @@ gulp.task('upload:send', (done) => {
                 headers: {
                     'Cookie': session
                 }
-            }, function (err, res) {
-                if (!err && res.statusCode === 201) {
-                    setTimeout(() => fancy_log(ansi_colors.green.bold(
-                        `Upload: transmission to ${argv.host} succeeded.`
-                    )), 0);
+            }, function (e, res) {
+                if (!e && res.statusCode === 201) {
+                    info(`Upload: transmission to ${argv.host} succeeded.`);
                     publish_dizmo(session);
                 } else {
                     put_dizmo(session);
@@ -126,11 +122,9 @@ gulp.task('upload:send', (done) => {
                 headers: {
                     'Cookie': session
                 }
-            }, function (err, res) {
-                if (!err && res.statusCode === 200) {
-                    setTimeout(() => fancy_log(ansi_colors.green.bold(
-                        `Upload: transmission to ${argv.host} succeeded.`
-                    )), 0);
+            }, function (e, res) {
+                if (!e && res.statusCode === 200) {
+                    info(`Upload: transmission to ${argv.host} succeeded.`);
                     publish_dizmo(session);
                 } else {
                     on_error_upload.apply(this, arguments);
@@ -149,11 +143,10 @@ gulp.task('upload:send', (done) => {
                     'Content-Type': 'application/json',
                     'Cookie': session
                 }
-            }, function (err, res) {
-                if (!err && res.statusCode === 200) {
-                    setTimeout(() => fancy_log(ansi_colors.green.bold(
-                        `Upload: publication of ${dzm_name} succeeded.`
-                    )), 0);
+            }, function (e, res) {
+                if (!e && res.statusCode === 200) {
+                    info(`Upload: publication of ${dzm_name} succeeded.`);
+                    done();
                 } else {
                     on_error_publish.apply(this, arguments);
                 }
@@ -161,48 +154,47 @@ gulp.task('upload:send', (done) => {
         }
     };
     const on_error_login = function () {
-        setTimeout(() => fancy_log(ansi_colors.yellow.bold(
-            `Upload: sign-in to ${argv.host} failed!`
-        )), 0);
+        warn(`Upload: sign-in to ${argv.host} failed!`);
         on_error.apply(this, arguments);
     };
     const on_error_upload = function () {
-        setTimeout(() => fancy_log(ansi_colors.yellow.bold(
-            `Upload: transmission to ${argv.host} failed!`
-        )), 0);
+        warn(`Upload: transmission to ${argv.host} failed!`);
         on_error.apply(this, arguments);
     };
     const on_error_publish = function () {
-        setTimeout(() => fancy_log(ansi_colors.yellow.bold(
-            `Upload: publication of ${dzm_name} failed!`
-        )), 0);
+        warn(`Upload: publication of ${dzm_name} failed!`);
         on_error.apply(this, arguments);
     };
-    const on_error = function (err, res, body) {
-        if (err) {
-            setTimeout(() => fancy_log(ansi_colors.red.bold(
-                err, res.toJSON()
-            )), 0);
-        } else if (body) try {
-            const json = JSON.parse(body);
-            if (json.errormessage && json.errornumber) {
-                setTimeout(() => fancy_log(ansi_colors.yellow.bold(
-                    `${json.errormessage} [${json.errornumber}]`
-                )), 0);
+    const on_error = function (e, res, body) {
+        if (e) try {
+            error(e, res.toJSON());
+        } catch (ex) {
+            error(e);
+        } finally {
+            done();
+        }
+        else if (body) try {
+            const { errormessage: m, errornumber: n } = JSON.parse(body);
+            if (m === undefined || n === undefined) {
+                error(JSON.stringify(JSON.parse(body), null, 4));
             } else {
-                setTimeout(() => fancy_log(ansi_colors.yellow.bold(
-                    JSON.stringify(json, null, 4)
-                )), 0);
+                error(`${m} [${n}]`);
             }
         } catch (ex) {
-            setTimeout(() => fancy_log(ansi_colors.red.bold(
-                body
-            )), 0);
-        } else {
-            setTimeout(() => fancy_log(ansi_colors.red.bold(
-                res.toJSON()
-            )), 0);
+            error(body);
+        } finally {
+            done();
         }
+        else try {
+            error(res.toJSON());
+        } catch (ex) {
+            error(res);
+        } finally {
+            done();
+        }
+        setTimeout(
+            () => process.exit(-1), 0
+        );
     };
     do_login();
 });
