@@ -129,12 +129,12 @@ describe('generator-dizmo:sub-typescript', function () {
                     }
                 },
                 'dependencies': {
-                    '@babel/polyfill': '^7.6.0',
-                    '@dizmo/types': '^1.0.4'
+                    '@babel/polyfill': '^7.6.0'
                 },
                 'devDependencies': {
                     '@babel/core': '^7.6.4',
                     '@babel/preset-env': '^7.6.3',
+                    '@dizmo/types': '^1.0.4',
                     'ansi-colors': '^4.1.1',
                     'babel-loader': '^8.0.6',
                     'fancy-log': '^1.3.3',
