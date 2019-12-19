@@ -2,9 +2,29 @@ const assert = require('assert');
 const fs = require('fs');
 const path = require('path');
 
+function merge(target, source) {
+    const result = Object.assign({}, target);
+    const object = (item) => {
+        return (item && typeof item === 'object' && !Array.isArray(item));
+    }
+    if (object(target) && object(source)) {
+        Object.keys(source).forEach(key => {
+            if (object(source[key])) {
+                if (!(key in target)) {
+                    Object.assign(result, { [key]: source[key] });
+                } else {
+                    result[key] = merge(target[key], source[key]);
+                }
+            } else {
+                Object.assign(result, { [key]: source[key] });
+            }
+        });
+    }
+    return result;
+}
 function filter(object) {
     if (typeof object === 'object') {
-        for (let key in object) {
+        for (const key in object) {
             if (object.hasOwnProperty(key)) {
                 if (object[key] !== '') {
                     object[key] = filter(object[key]);
@@ -21,17 +41,17 @@ function get_config(path_to, cfg_json) {
         path_to, '.generator-dizmo', 'config.json'
     );
     try {
-        cfg_json = {
-            ...JSON.parse(fs.readFileSync(cfg_path)), ...cfg_json
-        };
+        cfg_json = merge(
+            JSON.parse(fs.readFileSync(cfg_path)), cfg_json
+        );
     } catch (ex) {
         // pass
     }
     const parsed = path.parse(path_to);
     if (parsed.dir && parsed.base) {
-        cfg_json = {
-            ...cfg_json, ...get_config(parsed.dir, cfg_json)
-        };
+        cfg_json = merge(
+            cfg_json, get_config(parsed.dir, cfg_json)
+        );
     }
     return cfg_json;
 }
