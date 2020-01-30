@@ -128,34 +128,34 @@ describe('generator-dizmo:sub-coffeescript', function () {
                     }
                 },
                 'dependencies': {
-                    '@babel/polyfill': '^7.6.0'
+                    '@babel/polyfill': '^7.8.3'
                 },
                 'devDependencies': {
-                    '@babel/core': '^7.6.4',
-                    '@babel/preset-env': '^7.6.3',
+                    '@babel/core': '^7.8.4',
+                    '@babel/preset-env': '^7.8.4',
                     'ansi-colors': '^4.1.1',
                     'babel-loader': '^8.0.6',
                     'coffee-loader': '^0.9.0',
-                    'coffeescript': '^2.4.1',
+                    'coffeescript': '^2.5.0',
                     'fancy-log': '^1.3.3',
                     'gulp': '^4.0.2',
                     'gulp-coffeelint': '^0.6.0',
                     'gulp-copy': '^4.0.1',
                     'gulp-htmlmin': '^5.0.1',
                     'gulp-plist': '^0.1.0',
-                    'gulp-rename': '^1.4.0',
+                    'gulp-rename': '^2.0.0',
                     'gulp-sass': '^4.0.2',
                     'gulp-sourcemaps': '^2.6.5',
                     'gulp-ver': '^0.1.0',
                     'gulp-zip': '^5.0.1',
-                    'rimraf': '^3.0.0',
-                    'webpack': '^4.41.2',
+                    'rimraf': '^3.0.1',
+                    'webpack': '^4.41.5',
                     'webpack-stream': '^5.2.1'
                 },
                 'optionalDependencies': {
                     'pump': '^3.0.0',
-                    'terser-webpack-plugin': '^2.2.1',
-                    'webpack-obfuscator': '^0.18.3'
+                    'terser-webpack-plugin': '^2.3.3',
+                    'webpack-obfuscator': '^0.24.3'
                 },
                 'license': 'ISC',
                 'private': true,
