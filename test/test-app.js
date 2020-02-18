@@ -141,14 +141,14 @@ describe('generator-dizmo:app', function () {
                     'gulp-sourcemaps': '^2.6.5',
                     'gulp-ver': '^0.1.0',
                     'gulp-zip': '^5.0.1',
-                    'rimraf': '^3.0.1',
-                    'webpack': '^4.41.5',
+                    'rimraf': '^3.0.2',
+                    'webpack': '^4.41.6',
                     'webpack-stream': '^5.2.1'
                 },
                 'optionalDependencies': {
                     'pump': '^3.0.0',
-                    'terser-webpack-plugin': '^2.3.3',
-                    'webpack-obfuscator': '^0.24.3'
+                    'terser-webpack-plugin': '^2.3.5',
+                    'webpack-obfuscator': '^0.24.6'
                 },
                 'license': 'ISC',
                 'private': true,

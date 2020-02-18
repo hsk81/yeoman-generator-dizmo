@@ -136,7 +136,7 @@ describe('generator-dizmo:sub-coffeescript', function () {
                     'ansi-colors': '^4.1.1',
                     'babel-loader': '^8.0.6',
                     'coffee-loader': '^0.9.0',
-                    'coffeescript': '^2.5.0',
+                    'coffeescript': '^2.5.1',
                     'fancy-log': '^1.3.3',
                     'gulp': '^4.0.2',
                     'gulp-coffeelint': '^0.6.0',
@@ -148,14 +148,14 @@ describe('generator-dizmo:sub-coffeescript', function () {
                     'gulp-sourcemaps': '^2.6.5',
                     'gulp-ver': '^0.1.0',
                     'gulp-zip': '^5.0.1',
-                    'rimraf': '^3.0.1',
-                    'webpack': '^4.41.5',
+                    'rimraf': '^3.0.2',
+                    'webpack': '^4.41.6',
                     'webpack-stream': '^5.2.1'
                 },
                 'optionalDependencies': {
                     'pump': '^3.0.0',
-                    'terser-webpack-plugin': '^2.3.3',
-                    'webpack-obfuscator': '^0.24.3'
+                    'terser-webpack-plugin': '^2.3.5',
+                    'webpack-obfuscator': '^0.24.6'
                 },
                 'license': 'ISC',
                 'private': true,
