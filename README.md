@@ -689,6 +689,10 @@ PS C:\Users\user> mkdir .generator-dizmo
 
 Such files are device dependent and hence should be ignored *globally* on the developer's device, instead on a per project basis. See [How to Remove .DS_Store File from a Git Repo on Mac OS X](https://hints.binaryage.com/how-to-remove-ds-store-files-from-a-git-repo/) for an excellent discussion of the issue. Also at GitHub Help, see [ignoring files](https://help.github.com/articles/ignoring-files/#create-a-global-gitignore) to learn about setting up a global ignore list.
 
+### Security Audits
+
+The [npm] tool offers the `npm audit` and `npm audit fix` commands, which scan your project for vulnerabilities and automatically install any compatible updates to vulnerable dependencies. Run `npm help audit` to get an in-depth description about this tool.
+
 ## Copyright
 
  © 2019 [dizmo AG](http://dizmo.com/), Switzerland
