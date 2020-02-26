@@ -21,7 +21,7 @@ const map_keys = (object, map) => {
 gulp.task('properties', (done) => {
     const settings = map_keys(pkg.dizmo.settings, camel_case);
     return gulp.src('.info.plist')
-        .pipe(gulp_plist(settings))
+        .pipe(gulp_plist.default(settings))
         .pipe(gulp_rename('Info.plist'))
         .pipe(gulp.dest(path.join('build', pkg.name)));
 });

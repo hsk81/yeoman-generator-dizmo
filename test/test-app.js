@@ -135,7 +135,7 @@ describe('generator-dizmo:app', function () {
                     'gulp-copy': '^4.0.1',
                     'gulp-eslint': '^6.0.0',
                     'gulp-htmlmin': '^5.0.1',
-                    'gulp-plist': '^0.1.0',
+                    'gulp-plist': '^0.9.0',
                     'gulp-rename': '^2.0.0',
                     'gulp-sass': '^4.0.2',
                     'gulp-sourcemaps': '^2.6.5',
@@ -148,7 +148,7 @@ describe('generator-dizmo:app', function () {
                 'optionalDependencies': {
                     'pump': '^3.0.0',
                     'terser-webpack-plugin': '^2.3.5',
-                    'webpack-obfuscator': '^0.24.6'
+                    'webpack-obfuscator': '^0.25.1'
                 },
                 'license': 'ISC',
                 'private': true,
