@@ -131,8 +131,8 @@ describe('generator-dizmo:sub-typescript', function () {
                     '@babel/polyfill': '^7.8.3'
                 },
                 'devDependencies': {
-                    '@babel/core': '^7.8.4',
-                    '@babel/preset-env': '^7.8.4',
+                    '@babel/core': '^7.8.6',
+                    '@babel/preset-env': '^7.8.6',
                     '@dizmo/types': '^1.0.4',
                     '@typescript-eslint/eslint-plugin': '2.21.0',
                     '@typescript-eslint/parser': '2.21.0',
@@ -152,13 +152,13 @@ describe('generator-dizmo:sub-typescript', function () {
                     'rimraf': '^3.0.2',
                     'ts-loader': '^6.2.1',
                     'typescript': '^3.8.2',
-                    'webpack': '^4.41.6',
+                    'webpack': '^4.42.0',
                     'webpack-stream': '^5.2.1'
                 },
                 'optionalDependencies': {
                     'pump': '^3.0.0',
                     'terser-webpack-plugin': '^2.3.5',
-                    'webpack-obfuscator': '^0.25.1'
+                    'webpack-obfuscator': '^0.25.2'
                 },
                 'license': 'ISC',
                 'private': true,

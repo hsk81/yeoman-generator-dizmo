@@ -126,8 +126,8 @@ describe('generator-dizmo:app', function () {
                     '@babel/polyfill': '^7.8.3'
                 },
                 'devDependencies': {
-                    '@babel/core': '^7.8.4',
-                    '@babel/preset-env': '^7.8.4',
+                    '@babel/core': '^7.8.6',
+                    '@babel/preset-env': '^7.8.6',
                     'ansi-colors': '^4.1.1',
                     'babel-loader': '^8.0.6',
                     'fancy-log': '^1.3.3',
@@ -142,13 +142,13 @@ describe('generator-dizmo:app', function () {
                     'gulp-ver': '^0.1.0',
                     'gulp-zip': '^5.0.1',
                     'rimraf': '^3.0.2',
-                    'webpack': '^4.41.6',
+                    'webpack': '^4.42.0',
                     'webpack-stream': '^5.2.1'
                 },
                 'optionalDependencies': {
                     'pump': '^3.0.0',
                     'terser-webpack-plugin': '^2.3.5',
-                    'webpack-obfuscator': '^0.25.1'
+                    'webpack-obfuscator': '^0.25.2'
                 },
                 'license': 'ISC',
                 'private': true,

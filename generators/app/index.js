@@ -305,14 +305,14 @@ module.exports = class extends Generator {
             );
             pkg.devDependencies = sort(
                 lodash.assign(pkg.devDependencies, {
-                    '@babel/core': '^7.8.4',
-                    '@babel/preset-env': '^7.8.4'
+                    '@babel/core': '^7.8.6',
+                    '@babel/preset-env': '^7.8.6'
                 })
             );
             pkg.devDependencies = sort(
                 lodash.assign(pkg.devDependencies, {
                     'babel-loader': '^8.0.6',
-                    'webpack': '^4.41.6',
+                    'webpack': '^4.42.0',
                     'webpack-stream': '^5.2.1',
                 })
             );
@@ -341,7 +341,7 @@ module.exports = class extends Generator {
                 lodash.assign(pkg.optionalDependencies, {
                     'pump': '^3.0.0',
                     'terser-webpack-plugin': '^2.3.5',
-                    'webpack-obfuscator': '^0.25.1'
+                    'webpack-obfuscator': '^0.25.2'
                 })
             );
             pkg.scripts = sort(
