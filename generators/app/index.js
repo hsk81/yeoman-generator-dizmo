@@ -300,19 +300,19 @@ module.exports = class extends Generator {
             const pkg = this.fs.readJSON(pkg_path);
             pkg.dependencies = sort(
                 lodash.assign(pkg.dependencies, {
-                    '@babel/polyfill': '^7.8.3'
+                    '@babel/polyfill': '^7.8.7'
                 })
             );
             pkg.devDependencies = sort(
                 lodash.assign(pkg.devDependencies, {
-                    '@babel/core': '^7.8.6',
-                    '@babel/preset-env': '^7.8.6'
+                    '@babel/core': '^7.9.0',
+                    '@babel/preset-env': '^7.9.5'
                 })
             );
             pkg.devDependencies = sort(
                 lodash.assign(pkg.devDependencies, {
-                    'babel-loader': '^8.0.6',
-                    'webpack': '^4.42.0',
+                    'babel-loader': '^8.1.0',
+                    'webpack': '^4.42.1',
                     'webpack-stream': '^5.2.1',
                 })
             );
@@ -341,7 +341,7 @@ module.exports = class extends Generator {
                 lodash.assign(pkg.optionalDependencies, {
                     'pump': '^3.0.0',
                     'terser-webpack-plugin': '^2.3.5',
-                    'webpack-obfuscator': '^0.25.2'
+                    'webpack-obfuscator': '^0.27.4'
                 })
             );
             pkg.scripts = sort(

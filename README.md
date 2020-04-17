@@ -695,7 +695,7 @@ The [npm] tool offers the `npm audit` and `npm audit fix` commands, which scan y
 
 ## Copyright
 
- © 2019 [dizmo AG](http://dizmo.com/), Switzerland
+ © [dizmo AG](http://dizmo.com/), Switzerland
 
 [Node.js]: https://nodejs.org
 
