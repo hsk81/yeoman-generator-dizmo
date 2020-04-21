@@ -156,8 +156,9 @@ describe('generator-dizmo:sub-typescript', function () {
                     'webpack-stream': '^5.2.1'
                 },
                 'optionalDependencies': {
+                    'closure-webpack-plugin': '^2.3.0',
+                    'google-closure-compiler': '^20200406.0.0',
                     'pump': '^3.0.0',
-                    'terser-webpack-plugin': '^2.3.5',
                     'webpack-obfuscator': '^0.27.4'
                 },
                 'license': 'ISC',
