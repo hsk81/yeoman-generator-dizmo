@@ -13,7 +13,7 @@ gulp.task('scripts', async () => {
         .default('minify')
         .default('obfuscate')
         .default('sourcemaps')
-        .default('terser', cli.arg('minify'))
+        .default('closure', cli.arg('minify'))
         .argv;
 
     if (typeof argv.sourcemaps === 'string') {
@@ -45,24 +45,24 @@ gulp.task('scripts', async () => {
             ]
         };
     }
-    if (typeof argv.terser === 'string') {
-        argv.terser = argv.terser !== argv.minify
-            ? JSON.parse(argv.terser)
+    if (typeof argv.closure === 'string') {
+        argv.closure = argv.closure !== argv.minify
+            ? JSON.parse(argv.closure)
             : true;
     }
-    if (typeof argv.terser === 'boolean') {
-        argv.terser = argv.terser ? {} : null;
+    if (typeof argv.closure === 'boolean') {
+        argv.closure = argv.closure ? {} : null;
     }
-    if (argv.terser) {
-        const terser = await cli.npm_i(
-            'terser-webpack-plugin'
+    if (argv.closure) {
+        const closure = await cli.npm_i(
+            'closure-webpack-plugin', 'google-closure-compiler'
         );
         const optimization = {
-            minimizer: [new terser({
-                sourceMap: true, terserOptions: {
-                    keep_fnames: true, ...argv.terser
-                }
-            })]
+            minimizer: [
+                new closure({ mode: 'STANDARD' }, {
+                    ...argv.closure
+                })
+            ]
         };
         webpack_config = {
             ...webpack_config, optimization

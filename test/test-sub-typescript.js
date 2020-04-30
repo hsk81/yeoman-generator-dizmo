@@ -131,11 +131,11 @@ describe('generator-dizmo:sub-typescript', function () {
                     '@babel/polyfill': '^7.8.7'
                 },
                 'devDependencies': {
-                    '@babel/core': '^7.9.0',
-                    '@babel/preset-env': '^7.9.5',
+                    '@babel/core': '^7.9.6',
+                    '@babel/preset-env': '^7.9.6',
                     '@dizmo/types': '^1.0.4',
-                    '@typescript-eslint/eslint-plugin': '2.29.0',
-                    '@typescript-eslint/parser': '2.29.0',
+                    '@typescript-eslint/eslint-plugin': '2.30.0',
+                    '@typescript-eslint/parser': '2.30.0',
                     'ansi-colors': '^4.1.1',
                     'babel-loader': '^8.1.0',
                     'fancy-log': '^1.3.3',
@@ -145,21 +145,21 @@ describe('generator-dizmo:sub-typescript', function () {
                     'gulp-htmlmin': '^5.0.1',
                     'gulp-plist': '^0.9.0',
                     'gulp-rename': '^2.0.0',
-                    'gulp-sass': '^4.0.2',
+                    'gulp-sass': '^4.1.0',
                     'gulp-sourcemaps': '^2.6.5',
                     'gulp-ver': '^0.1.0',
                     'gulp-zip': '^5.0.1',
                     'rimraf': '^3.0.2',
-                    'ts-loader': '^7.0.1',
+                    'ts-loader': '^7.0.2',
                     'typescript': '^3.8.3',
-                    'webpack': '^4.42.1',
+                    'webpack': '^4.43.0',
                     'webpack-stream': '^5.2.1'
                 },
                 'optionalDependencies': {
                     'closure-webpack-plugin': '^2.3.0',
                     'google-closure-compiler': '^20200406.0.0',
                     'pump': '^3.0.0',
-                    'webpack-obfuscator': '^0.27.4'
+                    'webpack-obfuscator': '^0.28.0'
                 },
                 'license': 'ISC',
                 'private': true,

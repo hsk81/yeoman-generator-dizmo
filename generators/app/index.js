@@ -305,14 +305,14 @@ module.exports = class extends Generator {
             );
             pkg.devDependencies = sort(
                 lodash.assign(pkg.devDependencies, {
-                    '@babel/core': '^7.9.0',
-                    '@babel/preset-env': '^7.9.5'
+                    '@babel/core': '^7.9.6',
+                    '@babel/preset-env': '^7.9.6'
                 })
             );
             pkg.devDependencies = sort(
                 lodash.assign(pkg.devDependencies, {
                     'babel-loader': '^8.1.0',
-                    'webpack': '^4.42.1',
+                    'webpack': '^4.43.0',
                     'webpack-stream': '^5.2.1',
                 })
             );
@@ -324,7 +324,7 @@ module.exports = class extends Generator {
                     'gulp-htmlmin': '^5.0.1',
                     'gulp-plist': '^0.9.0',
                     'gulp-rename': '^2.0.0',
-                    'gulp-sass': '^4.0.2',
+                    'gulp-sass': '^4.1.0',
                     'gulp-sourcemaps': '^2.6.5',
                     'gulp-ver': '^0.1.0',
                     'gulp-zip': '^5.0.1'
@@ -339,9 +339,10 @@ module.exports = class extends Generator {
             );
             pkg.optionalDependencies = sort(
                 lodash.assign(pkg.optionalDependencies, {
+                    'closure-webpack-plugin': '^2.3.0',
+                    'google-closure-compiler': '^20200406.0.0',
                     'pump': '^3.0.0',
-                    'terser-webpack-plugin': '^2.3.5',
-                    'webpack-obfuscator': '^0.27.4'
+                    'webpack-obfuscator': '^0.28.0'
                 })
             );
             pkg.scripts = sort(
