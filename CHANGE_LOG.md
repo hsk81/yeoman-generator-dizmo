@@ -1,5 +1,11 @@
 # CHANGE LOG
 
+## v10.3.z
+
+* Support for dizmoWeb:
+
+    The dizmoWeb project is a viewer running *natively* within a browser, because of which two script tags and one link tag were required to be included within the `head` section of each dizmo's `index.html` (to fetch `dizmojs-1.3.js`, `dizmoelements-1.0.js` and `dizmoelements-1.0.css`).
+
 ## v10.2.z
 
 * Support for `webpack.config.js` for TypeScript:
