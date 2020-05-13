@@ -1,3 +1,0 @@
-[submodule "generators/sub-typescript"]
-    path = generators/sub-typescript
-    url = git@github.com:dizmo/yeoman-generator-dizmo-typescript.git
