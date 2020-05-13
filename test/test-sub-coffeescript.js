@@ -21,16 +21,7 @@ describe('generator-dizmo:sub-coffeescript', function () {
                 'assets/Preview.png',
                 'coffeelint.json',
                 'gulp',
-                'gulp/miscellanea',
-                'gulp/miscellanea/cli-spinner.js',
                 'gulp/package.js',
-                'gulp/scripts',
-                'gulp/scripts/build.js',
-                'gulp/scripts/clean.js',
-                'gulp/scripts/deploy.js',
-                'gulp/scripts/lint.js',
-                'gulp/scripts/upload.js',
-                'gulp/scripts/watch.js',
                 'gulp/tasks',
                 'gulp/tasks/build',
                 'gulp/tasks/build/assets',
@@ -70,6 +61,10 @@ describe('generator-dizmo:sub-coffeescript', function () {
                 'gulp/tasks/upload/index.js',
                 'gulp/tasks/watch',
                 'gulp/tasks/watch/index.js',
+                'gulp/tools',
+                'gulp/tools/cli.js',
+                'gulp/tools/cli-spinner.js',
+                'gulp/tools/run-task.js',
                 'gulpfile.js',
                 'help',
                 'help/en',
@@ -84,8 +79,8 @@ describe('generator-dizmo:sub-coffeescript', function () {
                 'src/index.html',
                 'src/index.coffee',
                 'src/lib',
-                'src/lib/i18n-2.0.0.min.js',
-                'src/lib/i18n-2.0.0.min.js.map',
+                'src/lib/i18n-2.0.1.min.js',
+                'src/lib/i18n-2.0.1.min.js.map',
                 'src/style',
                 'src/style/style.scss',
                 'webpack.config.js',
@@ -165,13 +160,13 @@ describe('generator-dizmo:sub-coffeescript', function () {
                     'url': ''
                 },
                 'scripts': {
-                    'build': 'node ./gulp/scripts/build.js',
-                    'clean': 'node ./gulp/scripts/clean.js',
-                    'deploy': 'node ./gulp/scripts/deploy.js',
-                    'lint': 'node ./gulp/scripts/lint.js',
+                    'build': 'node ./gulp/tools/run-task.js',
+                    'clean': 'node ./gulp/tools/run-task.js clean',
+                    'deploy': 'node ./gulp/tools/run-task.js deploy',
+                    'lint': 'node ./gulp/tools/run-task.js lint',
                     'test': 'exit 0',
-                    'upload': 'node ./gulp/scripts/upload.js',
-                    'watch': 'node ./gulp/scripts/watch.js'
+                    'upload': 'node ./gulp/tools/run-task.js upload',
+                    'watch': 'node ./gulp/tools/run-task.js watch'
                 }
             });
         });

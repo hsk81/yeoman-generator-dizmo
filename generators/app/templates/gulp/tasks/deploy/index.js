@@ -1,4 +1,4 @@
-const cli = require('../../miscellanea/cli.js');
+const cli = require('../../tools/cli.js');
 const pkg = require('../../package.js');
 
 const ansi_colors = require('ansi-colors');

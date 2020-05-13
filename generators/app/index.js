@@ -347,12 +347,12 @@ module.exports = class extends Generator {
             );
             pkg.scripts = sort(
                 lodash.assign(pkg.scripts, {
-                    'build': 'node ./gulp/scripts/build.js',
-                    'clean': 'node ./gulp/scripts/clean.js',
-                    'deploy': 'node ./gulp/scripts/deploy.js',
-                    'lint': 'node ./gulp/scripts/lint.js',
-                    'upload': 'node ./gulp/scripts/upload.js',
-                    'watch': 'node ./gulp/scripts/watch.js'
+                    'build': 'node ./gulp/tools/run-task.js',
+                    'clean': 'node ./gulp/tools/run-task.js clean',
+                    'deploy': 'node ./gulp/tools/run-task.js deploy',
+                    'lint': 'node ./gulp/tools/run-task.js lint',
+                    'upload': 'node ./gulp/tools/run-task.js upload',
+                    'watch': 'node ./gulp/tools/run-task.js watch'
                 })
             );
             if (pkg.scripts.test === undefined) {
