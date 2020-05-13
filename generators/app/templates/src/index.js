@@ -1,20 +1,51 @@
-window.showBack = () => {
+/**
+ * Shows the `#back` side of a dizmo; assign to `window` to
+ * enable in the dizmo menu the *settings* entry.
+ */
+const showBack = () => {
     dizmo.showBack();
 };
-window.showFront = () => {
+
+window.showBack = showBack;
+
+/**
+ * Shows the `#front` side of a dizmo; assign to `window` to
+ * enable in the dizmo menu the *contents* entry.
+ */
+const showFront = () => {
     dizmo.showFront();
 };
 
-window.i18n((error, t) => {
-    const cell = document.getElementsByClassName('table-cell')[0];
-    cell.textContent = t('#front/greeting');
-    const done = document.getElementById('done');
-    done.textContent = t('#back/done');
-});
+window.showFront = showFront;
 
-document.addEventListener('dizmoready', () => {
+/**
+ * Handler to be invoked once the translations are fetched;
+ * sets then the UI elements' text contents accordingly. The
+ * translations are in the `assets/locales` folder.
+ *
+ * @param {Error|null} error
+ *  Error if fetching the translations fails
+ *  or null otherwise
+ * @param {Function|null} translator
+ *  Translator function if fetching the translations succeeds
+ *  or null otherwise
+ */
+const onI18n = (error, translator) => {
+    const cell = document.getElementsByClassName('table-cell')[0];
+    cell.textContent = translator('#front/greeting');
+    const done = document.getElementById('done');
+    done.textContent = translator('#back/done');
+};
+
+window.i18n(onI18n);
+
+/**
+ * Handler to be invoked once the dizmo is ready.
+ */
+const onDizmoReady = () => {
     const done = document.getElementById('done');
     done.onclick = () => dizmo.showFront();
-}, {
-    once: true
-});
+};
+document.addEventListener(
+    'dizmoready', onDizmoReady, { once: true }
+);

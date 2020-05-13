@@ -1,0 +1,15 @@
+{
+    "source": {
+        "include": ["src"]
+    },
+    "opts": {
+        "destination": "docs",
+        "package": "package.json",
+        "readme": "README.md",
+        "recurse": true,
+        "template": "node_modules/minami"
+    },
+    "plugins": [
+        "plugins/markdown"
+    ]
+}
