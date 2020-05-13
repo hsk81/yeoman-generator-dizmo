@@ -288,6 +288,12 @@ module.exports = class extends Generator {
                 this.properties
             );
         }
+        if (!upgrade || upgrade) {
+            this.fs.copy(
+                this.templatePath('jsdoc.json'),
+                this.destinationPath('jsdoc.json')
+            );
+        }
         if (!upgrade) {
             this.fs.copyTpl(
                 this.templatePath('_package.json'),
@@ -341,6 +347,8 @@ module.exports = class extends Generator {
                 lodash.assign(pkg.optionalDependencies, {
                     'closure-webpack-plugin': '^2.3.0',
                     'google-closure-compiler': '^20200504.0.0',
+                    'jsdoc': '^3.6.4',
+                    'minami': '^1.2.3',
                     'pump': '^3.0.0',
                     'webpack-obfuscator': '^0.28.1'
                 })
@@ -350,6 +358,7 @@ module.exports = class extends Generator {
                     'build': 'node ./gulp/tools/run-task.js',
                     'clean': 'node ./gulp/tools/run-task.js clean',
                     'deploy': 'node ./gulp/tools/run-task.js deploy',
+                    'docs': 'node ./gulp/tools/run-task.js docs',
                     'lint': 'node ./gulp/tools/run-task.js lint',
                     'upload': 'node ./gulp/tools/run-task.js upload',
                     'watch': 'node ./gulp/tools/run-task.js watch'

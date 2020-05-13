@@ -54,6 +54,9 @@ describe('generator-dizmo:app', function () {
                 'gulp/tasks/deploy',
                 'gulp/tasks/deploy/index.js',
                 'gulp/tasks/deploy/watch.js',
+                'gulp/tasks/document',
+                'gulp/tasks/document/index.js',
+                'gulp/tasks/document/watch.js',
                 'gulp/tasks/lint',
                 'gulp/tasks/lint/index.js',
                 'gulp/tasks/upload',
@@ -70,6 +73,7 @@ describe('generator-dizmo:app', function () {
                 'help/en/help.md',
                 'help/en/placeholder-400x275.png',
                 '.info.plist',
+                'jsdoc.json',
                 'LICENSE',
                 '.npmignore',
                 'package.json',
@@ -143,6 +147,8 @@ describe('generator-dizmo:app', function () {
                 'optionalDependencies': {
                     'closure-webpack-plugin': '^2.3.0',
                     'google-closure-compiler': '^20200504.0.0',
+                    'jsdoc': '^3.6.4',
+                    'minami': '^1.2.3',
                     'pump': '^3.0.0',
                     'webpack-obfuscator': '^0.28.1'
                 },

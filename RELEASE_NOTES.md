@@ -20,6 +20,12 @@
 
     The dizmoWeb project is a viewer running *natively* within a browser, because of which two script tags and one link tag were required to be included within the `head` section of each dizmo's `index.html` (to fetch `dizmojs-1.3.js`, `dizmoelements-1.0.js` and `dizmoelements-1.0.css`).
 
+### NOTABLE CHANGES
+
+* Support for `jsdoc`:
+
+    By running `npm run docs` in source comments are parsed by `jsdoc` and the corresponding documentation is generated in the `docs` folder. The `jsdoc` tool can be configured via the `jsdoc.json` file.
+
 ## v9.y.z
 
 ### MAJOR CHANGES

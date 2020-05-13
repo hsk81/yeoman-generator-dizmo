@@ -169,17 +169,20 @@ tree
 │   └── Preview.png
 ├── gulp
 │   ├── package.js
-│   └── tasks
+│   ├── tasks
+│   │   └── *
+│   └── tools
 │       └── *
 ├── gulpfile.js
 ├── help
 │   └── en
 │       ├── help.md
 │       └── placeholder-400x275.png
+├── jsdoc.json
 ├── LICENSE
 ├── package.json
 ├── README.md
-└── src
+├── src
 │   ├── index.html
 │   ├── index.js
 │   ├── lib
@@ -200,6 +203,8 @@ Let's have a look at each ot the top level files and directories:
 * `gulpfile.js`: The main script driving the `gulp` build system; usually you can leave this file as it is.
 
 * `help`: Once you have developed your dizmo, you might want to provide user documentation, which can be placed in this folder.
+
+* `jsdoc.json`: Configuration file to be used by the integrated documentation system.
 
 * `LICENCE`: By default an [ISC](http://opensource.org/licenses/ISC) (Internet Software Consortium) license is generated, which is functionally equivalent to the simplified BSD and MIT licenses, but with a simpler language. Leave or change this according to your needs.
 
@@ -236,23 +241,6 @@ In addition to the default entries of [npm] the `package.json` file contains a `
     },
     "store": {
         "host": "https://store-api.dizmo.com"
-    },
-    "build": {
-        "lint": true,
-        "minify": {
-            "markups": {
-                "htmlmin": true
-            },
-            "scripts": {
-                "sourcemaps": false,
-                "obfuscate": false,
-                "uglify": true
-            },
-            "styles": {
-                "sourcemaps": false,
-                "sass": true
-            }
-        }
     }
 }
 ```
@@ -325,6 +313,12 @@ npm run build
 
 ```sh
 npm run test
+```
+
+* `docs`: generates documentation in the `./docs` sub-directory by using in-source comments:
+
+```sh
+npm run docs
 ```
 
 * `watch`: watches your source code, and incrementally (and quickly!) rebuilds the dizmo on any change.
@@ -661,21 +655,6 @@ You don't have access to this file.
 ```
 
 The same error is thrown, when you run `sudo yo -h` as well. Also, the behavior is independent of the usage of `sudo` or directly being logged in as *root*. Please see the answer to the previous question to be able to use `yo` without `sudo`.
-
-### Does dizmoGen support ES6?
-
-Browsers and libraries, which the former are built upon (like Webkit), usually lag behind the latest standard, and hence fail to provide up-to-date language support. The [Babel] transpiler however, can take a script written in a modern standard and translate it into backwards compatible JavaScript. DizmoGen includes Babel and thus supports ES6.
-
-**Note:** If you have older projects and update dizmoGen, ensure that you add ES6 support to `.eslintrc.json`:
-
-```json
-{
-    "parserOptions": {
-        "ecmaVersion": 2017,
-        "sourceType": "module"
-    }
-}
-```
 
 ### How to create a `.generator-dizmo` folder on Windows?
 

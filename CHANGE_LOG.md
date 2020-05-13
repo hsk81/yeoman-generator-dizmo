@@ -1,5 +1,11 @@
 # CHANGE LOG
 
+## v10.4.z
+
+* Support for `jsdoc`:
+
+    By running `npm run docs` in source comments are parsed by `jsdoc` and the corresponding documentation is generated in the `docs` folder. The `jsdoc` tool can be configured via the `jsdoc.json` file.
+
 ## v10.3.z
 
 * Support for dizmoWeb:
