@@ -65,6 +65,24 @@ module.exports = class extends Generator {
             delete pkg.devDependencies['tslint'];
             this.fs.writeJSON(pkg_path, pkg, null, 2);
         }
+        if (!upgrade || upgrade) {
+            const pkg_path = this.destinationPath('package.json');
+            const pkg = this.fs.readJSON(pkg_path);
+            pkg.optionalDependencies = sort(
+                lodash.assign(pkg.optionalDependencies, {
+                    'typedoc': '^0.17.6'
+                })
+            );
+            delete pkg.optionalDependencies['jsdoc'];
+            delete pkg.devDependencies['minami'];
+            this.fs.writeJSON(pkg_path, pkg, null, 2);
+        }
+        if (!upgrade || upgrade) {
+            this.fs.copy(
+                this.templatePath('typedoc.json'),
+                this.destinationPath('typedoc.json')
+            );
+        }
         if (!upgrade) {
             this.fs.copy(
                 this.templatePath('src/'),
@@ -78,6 +96,9 @@ module.exports = class extends Generator {
         this.conflicter.force = this.options.force || upgrade;
     }
     end() {
+        rimraf.sync(
+            this.destinationPath('jsdoc.json')
+        );
         rimraf.sync(
             this.destinationPath('tslint.json')
         );

@@ -2,9 +2,13 @@
 
 ## v10.4.z
 
-* Support for `jsdoc`:
+* Support for `jsdoc` for JavaScript:
 
     By running `npm run docs` in source comments are parsed by `jsdoc` and the corresponding documentation is generated in the `docs` folder. The `jsdoc` tool can be configured via the `jsdoc.json` file.
+
+* Support for `typedoc` for TypeScript:
+
+    By running `npm run docs` in source comments are parsed by `typdoc` and the corresponding documentation is generated in the `docs` folder. The `typedoc` tool can be configured via the `typedoc.json` file.
 
 ## v10.3.z
 

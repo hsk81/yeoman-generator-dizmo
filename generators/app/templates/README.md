@@ -56,7 +56,7 @@ Runs tests (if any) &ndash; but actually the script simply returns an `exit 0` i
 
 ## Documenting
 
-Generates in the `docs/` folder documentation using in-source comments:
+Generates in the `docs/` folder documentation by using in-source comments:
 
 ```sh
 npm run docs

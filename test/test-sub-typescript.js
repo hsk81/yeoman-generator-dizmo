@@ -74,7 +74,6 @@ describe('generator-dizmo:sub-typescript', function () {
                 'help/en/help.md',
                 'help/en/placeholder-400x275.png',
                 '.info.plist',
-                'jsdoc.json',
                 'LICENSE',
                 '.npmignore',
                 'package.json',
@@ -88,6 +87,7 @@ describe('generator-dizmo:sub-typescript', function () {
                 'src/style',
                 'src/style/style.scss',
                 'tsconfig.json',
+                'typedoc.json',
                 'webpack.config.js',
                 '.yo-rc.json',
             ]);
@@ -157,9 +157,8 @@ describe('generator-dizmo:sub-typescript', function () {
                 'optionalDependencies': {
                     'closure-webpack-plugin': '^2.3.0',
                     'google-closure-compiler': '^20200504.0.0',
-                    'jsdoc': '^3.6.4',
-                    'minami': '^1.2.3',
                     'pump': '^3.0.0',
+                    'typedoc': '^0.17.6',
                     'webpack-obfuscator': '^0.28.1'
                 },
                 'license': 'ISC',
