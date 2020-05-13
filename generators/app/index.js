@@ -340,9 +340,9 @@ module.exports = class extends Generator {
             pkg.optionalDependencies = sort(
                 lodash.assign(pkg.optionalDependencies, {
                     'closure-webpack-plugin': '^2.3.0',
-                    'google-closure-compiler': '^20200406.0.0',
+                    'google-closure-compiler': '^20200504.0.0',
                     'pump': '^3.0.0',
-                    'webpack-obfuscator': '^0.28.0'
+                    'webpack-obfuscator': '^0.28.1'
                 })
             );
             pkg.scripts = sort(

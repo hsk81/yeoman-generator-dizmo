@@ -142,9 +142,9 @@ describe('generator-dizmo:app', function () {
                 },
                 'optionalDependencies': {
                     'closure-webpack-plugin': '^2.3.0',
-                    'google-closure-compiler': '^20200406.0.0',
+                    'google-closure-compiler': '^20200504.0.0',
                     'pump': '^3.0.0',
-                    'webpack-obfuscator': '^0.28.0'
+                    'webpack-obfuscator': '^0.28.1'
                 },
                 'license': 'ISC',
                 'private': true,

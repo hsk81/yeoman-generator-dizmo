@@ -14,7 +14,7 @@
     "chalk": "^4.0.0",
     "lodash": "^4.17.15",
     "shelljs": "^0.8.4",
-    "yeoman-generator": "^4.9.0",
+    "yeoman-generator": "^4.10.1",
     "yosay": "^2.0.2"
   },
   "description": "dizmoGen: a generator for dizmo projects",
@@ -22,7 +22,7 @@
     "mocha": "^7.1.2",
     "rimraf": "^3.0.2",
     "yeoman-assert": "^3.1.1",
-    "yeoman-test": "^2.4.1"
+    "yeoman-test": "^2.6.0"
   },
   "files": [
     "generators/app",
