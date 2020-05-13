@@ -1,9 +1,12 @@
 const cli = require('../../tools/cli.js');
 const gulp = require('gulp');
 
-gulp.task('docs', async function (done) {
+const jsdoc = () => cli.npx(
+    'jsdoc', '--configure', 'jsdoc.json', 'src'
+);
+gulp.task('docs', async (done) => {
     await cli.npx('rimraf', 'docs');
-    await cli.npm_i('jsdoc', 'minami').catch(() => null);
-    await cli.npx('jsdoc', '--configure', 'jsdoc.json');
-    done();
+    await cli.npm_i('jsdoc').catch(() => null);
+    await cli.npm_i('minami').catch(() => null);
+    await jsdoc().then(done).catch(console.error);
 });

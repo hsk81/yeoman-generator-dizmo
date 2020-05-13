@@ -157,6 +157,7 @@ describe('generator-dizmo:sub-coffeescript', function () {
                     'jsdoc': '^3.6.4',
                     'minami': '^1.2.3',
                     'pump': '^3.0.0',
+                    'tmp': '^0.2.1',
                     'webpack-obfuscator': '^0.28.1'
                 },
                 'license': 'ISC',
@@ -169,6 +170,7 @@ describe('generator-dizmo:sub-coffeescript', function () {
                     'build': 'node ./gulp/tools/run-task.js',
                     'clean': 'node ./gulp/tools/run-task.js clean',
                     'deploy': 'node ./gulp/tools/run-task.js deploy',
+                    'docs': 'node ./gulp/tools/run-task.js docs',
                     'lint': 'node ./gulp/tools/run-task.js lint',
                     'test': 'exit 0',
                     'upload': 'node ./gulp/tools/run-task.js upload',

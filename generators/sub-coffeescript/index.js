@@ -51,6 +51,11 @@ module.exports = class extends Generator {
                     'gulp-coffeelint': '^0.6.0'
                 })
             );
+            pkg.optionalDependencies = sort(
+                lodash.assign(pkg.optionalDependencies, {
+                    'tmp': '^0.2.1'
+                })
+            );
             delete pkg.devDependencies['gulp-eslint'];
             this.fs.writeJSON(pkg_path, pkg, null, 2);
         }

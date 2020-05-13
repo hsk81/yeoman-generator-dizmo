@@ -1,6 +1,7 @@
 /**
  * Shows the `#back` side of a dizmo; assign to `window` to
  * enable in the dizmo menu the *settings* entry.
+ * @function
  */
 const showBack = () => {
     dizmo.showBack();
@@ -11,6 +12,7 @@ window.showBack = showBack;
 /**
  * Shows the `#front` side of a dizmo; assign to `window` to
  * enable in the dizmo menu the *contents* entry.
+ * @function
  */
 const showFront = () => {
     dizmo.showFront();
@@ -23,6 +25,7 @@ window.showFront = showFront;
  * sets then the UI elements' text contents accordingly. The
  * translations are in the `assets/locales` folder.
  *
+ * @function
  * @param {Error|null} error
  *  Error if fetching the translations fails, otherwise null
  * @param {Function} translator
@@ -39,11 +42,12 @@ window.i18n(onI18n);
 
 /**
  * Handler to be invoked once the dizmo is ready.
+ * @function
  */
 const onDizmoReady = () => {
     const done = document.getElementById('done');
     done.onclick = () => dizmo.showFront();
 };
-document.addEventListener(
-    'dizmoready', onDizmoReady, { once: true }
-);
+document.addEventListener('dizmoready', onDizmoReady, {
+    once: true
+});

@@ -22,7 +22,11 @@
 
 ### NOTABLE CHANGES
 
-* Support for `jsdoc`:
+* Support for `jsdoc` for JavaScript:
+
+    By running `npm run docs` in source comments are parsed by `jsdoc` and the corresponding documentation is generated in the `docs` folder. The `jsdoc` tool can be configured via the `jsdoc.json` file.
+
+* Support for `jsdoc` for CoffeeScript:
 
     By running `npm run docs` in source comments are parsed by `jsdoc` and the corresponding documentation is generated in the `docs` folder. The `jsdoc` tool can be configured via the `jsdoc.json` file.
 

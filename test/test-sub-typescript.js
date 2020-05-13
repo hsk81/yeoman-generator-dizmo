@@ -171,6 +171,7 @@ describe('generator-dizmo:sub-typescript', function () {
                     'build': 'node ./gulp/tools/run-task.js',
                     'clean': 'node ./gulp/tools/run-task.js clean',
                     'deploy': 'node ./gulp/tools/run-task.js deploy',
+                    'docs': 'node ./gulp/tools/run-task.js docs',
                     'lint': 'node ./gulp/tools/run-task.js lint',
                     'test': 'exit 0',
                     'upload': 'node ./gulp/tools/run-task.js upload',
