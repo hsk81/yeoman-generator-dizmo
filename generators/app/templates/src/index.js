@@ -24,11 +24,9 @@ window.showFront = showFront;
  * translations are in the `assets/locales` folder.
  *
  * @param {Error|null} error
- *  Error if fetching the translations fails
- *  or null otherwise
- * @param {Function|null} translator
- *  Translator function if fetching the translations succeeds
- *  or null otherwise
+ *  Error if fetching the translations fails, otherwise null
+ * @param {Function} translator
+ *  Translator function
  */
 const onI18n = (error, translator) => {
     const cell = document.getElementsByClassName('table-cell')[0];
