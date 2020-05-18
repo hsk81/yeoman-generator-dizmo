@@ -1,5 +1,5 @@
-/* eslint @typescript-eslint/explicit-function-return-type: 0 */
-/* eslint @typescript-eslint/no-explicit-any: 0 */
+/* eslint @typescript-eslint/explicit-function-return-type: ["off"] */
+/* eslint @typescript-eslint/no-explicit-any: ["off"] */
 
 import { Global } from "@dizmo/types";
 declare const global: Global;
@@ -7,24 +7,16 @@ import { Dizmo } from "@dizmo/types";
 declare const dizmo: Dizmo;
 
 /**
- * Shows the `#back` side of a dizmo; assign to `window` to
- * enable in the dizmo menu the *settings* entry.
+ * Shows the `#back` side of a dizmo; assignment to `global`
+ * enables in the dizmo menu the *settings* entry.
  */
-const showBack = () => {
-    dizmo.showBack();
-};
-
-global.showBack = showBack;
+global.showBack = () => dizmo.showBack();
 
 /**
- * Shows the `#front` side of a dizmo; assign to `window` to
- * enable in the dizmo menu the *contents* entry.
+ * Shows the `#front` side of a dizmo; assignment to `global`
+ * enables in the dizmo menu the *content* entry.
  */
-const showFront = () => {
-    dizmo.showFront();
-};
-
-global.showFront = showFront;
+global.showFront = () => dizmo.showFront();
 
 /**
  * Handler to be invoked once the translations are fetched;
@@ -33,16 +25,16 @@ global.showFront = showFront;
  *
  * @param error
  *  Error if fetching the translations fails, otherwise null
- * @param translator
+ * @param translate
  *  Translator function
  */
 const onI18n = (
-    error: any|null, translator: (key: string) => string | object
+    error: Error|null, translate: (key: string) => string|object
 ) => {
     const cell = document.getElementsByClassName("table-cell")[0];
-    cell.textContent = translator("#front/greeting") as string;
+    cell.textContent = translate("#front/greeting") as string;
     const done = document.getElementById("done") as HTMLElement;
-    done.textContent = translator("#back/done") as string;
+    done.textContent = translate("#back/done") as string;
 };
 
 global.i18n(onI18n);

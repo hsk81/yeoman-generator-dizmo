@@ -158,7 +158,7 @@ describe('generator-dizmo:sub-typescript', function () {
                     'closure-webpack-plugin': '^2.3.0',
                     'google-closure-compiler': '^20200504.0.0',
                     'pump': '^3.0.0',
-                    'typedoc': '^0.17.6',
+                    'typedoc': '^0.17.7',
                     'webpack-obfuscator': '^0.28.1'
                 },
                 'license': 'ISC',

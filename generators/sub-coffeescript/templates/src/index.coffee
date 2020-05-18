@@ -1,24 +1,16 @@
 ###*
-# Shows the `#back` side of a dizmo; assign to `window` to
-# enable in the dizmo menu the *settings* entry.
-# @function
+# Shows the `#back` side of a dizmo; assignment to `window`
+# enables in the dizmo menu the *settings* entry.
+# @global
 ###
-export showBack = ->
-    dizmo.showBack()
-    return
-
-window.showBack = showBack
+window.showBack = -> dizmo.showBack()
 
 ###*
-# Shows the `#front` side of a dizmo; assign to `window` to
-# enable in the dizmo menu the *contents* entry.
-# @function
+# Shows the `#front` side of a dizmo; assignment to `window`
+# enables in the dizmo menu the *content* entry.
+# @global
 ###
-export showFront = ->
-    dizmo.showFront()
-    return
-
-window.showFront = showFront
+window.showFront = -> dizmo.showFront()
 
 ###*
 # Handler to be invoked once the translations are fetched;
@@ -28,14 +20,14 @@ window.showFront = showFront
 # @function
 # @param {Error|null} error
 #   Error if fetching the translations fails, otherwise null
-# @param {Function} translator
+# @param {Function} translate
 #   Translator function
 ###
-export onI18n = (error, t) ->
+export onI18n = (error, translate) ->
     cell = document.getElementsByClassName('table-cell')[0]
-    cell.textContent = t '#front/greeting'
+    cell.textContent = translate '#front/greeting'
     done = document.getElementById 'done'
-    done.textContent = t '#back/done'
+    done.textContent = translate '#back/done'
     return
 
 window.i18n onI18n
