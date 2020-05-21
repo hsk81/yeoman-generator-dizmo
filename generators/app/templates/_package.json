@@ -12,12 +12,14 @@
   }],
   "dizmo": {
     "settings": {
+      "api-version": "1.4",
       "attributes": {
         "settings/usercontrols/allowresize": true
       },
       "bundle-identifier": "<%= bundleId %>",
       "bundle-name": "<%= dizmoName %>",
       "category": "",
+      "elements-version": "2.0",
       "height": 360,
       "tags": [
          "<%= _.kebabCase(dizmoName) %>"

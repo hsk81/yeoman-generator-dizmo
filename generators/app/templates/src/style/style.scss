@@ -1,5 +1,6 @@
 .no-dizmo-drag {
   -webkit-dashboard-region: dashboard-region(control rectangle);
+  --dizmo-no-drag: true;
 }
 
 html,
