@@ -144,6 +144,7 @@ describe('generator-dizmo:sub-coffeescript', function () {
                     'gulp-htmlmin': '^5.0.1',
                     'gulp-plist': '^0.9.0',
                     'gulp-rename': '^2.0.0',
+                    'gulp-replace': '^1.0.0',
                     'gulp-sass': '^4.1.0',
                     'gulp-sourcemaps': '^2.6.5',
                     'gulp-ver': '^0.1.0',
