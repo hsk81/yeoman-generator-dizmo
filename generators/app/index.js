@@ -339,6 +339,7 @@ module.exports = class extends Generator {
             pkg.devDependencies = sort(
                 lodash.assign(pkg.devDependencies, {
                     'ansi-colors': '^4.1.1',
+                    'eslint': '^7.1.0',
                     'fancy-log': '^1.3.3',
                     'rimraf': '^3.0.2'
                 })
@@ -346,11 +347,11 @@ module.exports = class extends Generator {
             pkg.optionalDependencies = sort(
                 lodash.assign(pkg.optionalDependencies, {
                     'closure-webpack-plugin': '^2.3.0',
-                    'google-closure-compiler': '^20200504.0.0',
+                    'google-closure-compiler': '^20200517.0.0',
                     'jsdoc': '^3.6.4',
                     'minami': '^1.2.3',
                     'pump': '^3.0.0',
-                    'webpack-obfuscator': '^0.28.1'
+                    'webpack-obfuscator': '^0.28.2'
                 })
             );
             pkg.scripts = sort(

@@ -46,7 +46,7 @@ module.exports = class extends Generator {
             const pkg = this.fs.readJSON(pkg_path);
             pkg.devDependencies = sort(
                 lodash.assign(pkg.devDependencies, {
-                    'coffee-loader': '^0.9.0',
+                    'coffee-loader': '^1.0.0',
                     'coffeescript': '^2.5.1',
                     'gulp-coffeelint': '^0.6.0'
                 })
