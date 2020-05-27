@@ -1,9 +1,9 @@
 /* eslint @typescript-eslint/explicit-function-return-type: ["off"] */
 /* eslint @typescript-eslint/no-explicit-any: ["off"] */
 
-import { Global } from "@dizmo/types";
+import { Global } from "@dizmo/dizmo.js";
 declare const global: Global;
-import { Dizmo } from "@dizmo/types";
+import { Dizmo } from "@dizmo/dizmo.js";
 declare const dizmo: Dizmo;
 
 /**
@@ -29,7 +29,7 @@ global.showFront = () => dizmo.showFront();
  *  Translator function
  */
 const onI18n = (
-    error: Error|null, translate: (key: string) => string|object
+    error: Error|null, translate: (key: string) => string|any
 ) => {
     const cell = document.getElementsByClassName("table-cell")[0];
     cell.textContent = translate("#front/greeting") as string;

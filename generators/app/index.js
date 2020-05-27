@@ -311,8 +311,8 @@ module.exports = class extends Generator {
             );
             pkg.devDependencies = sort(
                 lodash.assign(pkg.devDependencies, {
-                    '@babel/core': '^7.9.6',
-                    '@babel/preset-env': '^7.9.6'
+                    '@babel/core': '^7.10.0',
+                    '@babel/preset-env': '^7.10.0'
                 })
             );
             pkg.devDependencies = sort(

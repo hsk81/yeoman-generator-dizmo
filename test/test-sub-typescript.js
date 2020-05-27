@@ -127,14 +127,14 @@ describe('generator-dizmo:sub-typescript', function () {
                     }
                 },
                 'dependencies': {
-                    '@babel/polyfill': '^7.8.7'
+                    '@babel/polyfill': '^7.8.7',
+                    '@dizmo/dizmo.js': '^1.4.5'
                 },
                 'devDependencies': {
-                    '@babel/core': '^7.9.6',
-                    '@babel/preset-env': '^7.9.6',
-                    '@dizmo/types': '^1.0.4',
-                    '@typescript-eslint/eslint-plugin': '3.0.1',
-                    '@typescript-eslint/parser': '3.0.1',
+                    '@babel/core': '^7.10.0',
+                    '@babel/preset-env': '^7.10.0',
+                    '@typescript-eslint/eslint-plugin': '3.0.2',
+                    '@typescript-eslint/parser': '3.0.2',
                     'ansi-colors': '^4.1.1',
                     'babel-loader': '^8.1.0',
                     'eslint': '^7.1.0',

@@ -125,8 +125,8 @@ describe('generator-dizmo:app', function () {
                     '@babel/polyfill': '^7.8.7'
                 },
                 'devDependencies': {
-                    '@babel/core': '^7.9.6',
-                    '@babel/preset-env': '^7.9.6',
+                    '@babel/core': '^7.10.0',
+                    '@babel/preset-env': '^7.10.0',
                     'ansi-colors': '^4.1.1',
                     'babel-loader': '^8.1.0',
                     'eslint': '^7.1.0',
