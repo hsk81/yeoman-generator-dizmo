@@ -54,7 +54,7 @@ npm run test
 
 Runs tests (if any) &ndash; but actually the script simply returns an `exit 0` indicating a (dummy) success. If desired, integrate your test framework of choice, write your test cases and override the `test` script in `package.json` accordingly. The only requirement is that the main test script should return `0` in case of a successful test run.
 
-## Documenting
+## Documentation
 
 Generates in the `docs/` folder documentation by using in-source comments:
 
@@ -74,11 +74,11 @@ The `dizmo` section in `package.json` can be extended with default values, which
 }
 ```
 
-The configuration is hierarchical and recursive, i.e. that a `.generator-dizmo/config.json` file can be saved in any parent directory of the current project's path, all of which are then merged during the build dynamically into `package.json`. Configuration files in the lower levels have precedence.
+The configuration is hierarchical and recursive, i.e. that a `.generator-dizmo/config.json` file can be saved in *any* parent directory of the current project's path, all of which are then merged during the build dynamically into `package.json`. Configuration files in the lower levels have precedence.
 
 ## Upload
 
-Dizmo offers a *dizmoStore*, where dizmos can be uploaded to: Besides `package.json` (or `.generator-dizmo/config.json`) or environment variables, upload arguments like the `host` and `user` name plus `pass` word can also be provided via the CLI:
+Dizmo offers a *dizmoStore*, where dizmos can be uploaded to: Besides `package.json` (or `.generator-dizmo/config.json`) or environment variables, upload arguments like the `host` and `user` name plus `pass`word can also be provided via the CLI:
 
 ```sh
 npm run -- upload --host=https://store-api.dizmo.com --user='..' --pass='..'
