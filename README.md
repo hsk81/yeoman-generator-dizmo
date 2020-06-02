@@ -247,7 +247,7 @@ In addition to the default entries of [npm] the `package.json` file contains a `
 
 And here is a list of available options:
 
-* `settings`: any entry provided here will be translated to an entry in `build/Info.plist`, which is the main control file defining the properties of a dizmo.
+* `settings`: any entry provided here will be translated to an entry in `build/Info.plist`, which is the main control file defining the properties of a dizmo. Two important properties that you might need to set are `api-version` and `elements-version`: If you want to *downgrade* the generated skeleton so that it is compatible with older versions of dizmoViewer you would set them for example to `1.3` and `1.0` respectively.
 
 * `store`: configuration entries required by `npm run upload`, which needs `store/host` (by default pointing to `https://store-api.dizmo.com`), `store/user` and `store/pass`. The latter two should *not* be directly set in `package.json` but instead via the default configuration (see below), to avoid the store credentials to be accidentally committed to a version control system.
 
