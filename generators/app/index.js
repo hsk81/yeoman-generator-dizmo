@@ -306,13 +306,13 @@ module.exports = class extends Generator {
             const pkg = this.fs.readJSON(pkg_path);
             pkg.dependencies = sort(
                 lodash.assign(pkg.dependencies, {
-                    '@babel/polyfill': '^7.8.7'
+                    '@babel/polyfill': '^7.10.1'
                 })
             );
             pkg.devDependencies = sort(
                 lodash.assign(pkg.devDependencies, {
-                    '@babel/core': '^7.10.0',
-                    '@babel/preset-env': '^7.10.0'
+                    '@babel/core': '^7.10.2',
+                    '@babel/preset-env': '^7.10.2'
                 })
             );
             pkg.devDependencies = sort(
@@ -340,7 +340,7 @@ module.exports = class extends Generator {
             pkg.devDependencies = sort(
                 lodash.assign(pkg.devDependencies, {
                     'ansi-colors': '^4.1.1',
-                    'eslint': '^7.1.0',
+                    'eslint': '^7.2.0',
                     'fancy-log': '^1.3.3',
                     'rimraf': '^3.0.2'
                 })
@@ -352,7 +352,7 @@ module.exports = class extends Generator {
                     'jsdoc': '^3.6.4',
                     'minami': '^1.2.3',
                     'pump': '^3.0.0',
-                    'webpack-obfuscator': '^0.28.2'
+                    'webpack-obfuscator': '^1.1.0'
                 })
             );
             pkg.scripts = sort(

@@ -127,17 +127,17 @@ describe('generator-dizmo:sub-typescript', function () {
                     }
                 },
                 'dependencies': {
-                    '@babel/polyfill': '^7.8.7',
-                    '@dizmo/dizmo.js': '^1.4.5'
+                    '@babel/polyfill': '^7.10.1',
+                    '@dizmo/dizmo.js': '^1.4.8'
                 },
                 'devDependencies': {
-                    '@babel/core': '^7.10.0',
-                    '@babel/preset-env': '^7.10.0',
-                    '@typescript-eslint/eslint-plugin': '3.0.2',
-                    '@typescript-eslint/parser': '3.0.2',
+                    '@babel/core': '^7.10.2',
+                    '@babel/preset-env': '^7.10.2',
+                    '@typescript-eslint/eslint-plugin': '3.2.0',
+                    '@typescript-eslint/parser': '3.2.0',
                     'ansi-colors': '^4.1.1',
                     'babel-loader': '^8.1.0',
-                    'eslint': '^7.1.0',
+                    'eslint': '^7.2.0',
                     'fancy-log': '^1.3.3',
                     'gulp': '^4.0.2',
                     'gulp-copy': '^4.0.1',
@@ -152,7 +152,7 @@ describe('generator-dizmo:sub-typescript', function () {
                     'gulp-zip': '^5.0.1',
                     'rimraf': '^3.0.2',
                     'ts-loader': '^7.0.5',
-                    'typescript': '^3.9.3',
+                    'typescript': '^3.9.5',
                     'webpack': '^4.43.0',
                     'webpack-stream': '^5.2.1'
                 },
@@ -161,7 +161,7 @@ describe('generator-dizmo:sub-typescript', function () {
                     'google-closure-compiler': '^20200517.0.0',
                     'pump': '^3.0.0',
                     'typedoc': '^0.17.7',
-                    'webpack-obfuscator': '^0.28.2'
+                    'webpack-obfuscator': '^1.1.0'
                 },
                 'license': 'ISC',
                 'private': true,
