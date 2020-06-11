@@ -672,6 +672,14 @@ PS C:\Users\user> mkdir .generator-dizmo
 
 Such files are device dependent and hence should be ignored *globally* on the developer's device, instead on a per project basis. See [How to Remove .DS_Store File from a Git Repo on Mac OS X](https://hints.binaryage.com/how-to-remove-ds-store-files-from-a-git-repo/) for an excellent discussion of the issue. Also see [ignoring files](https://help.github.com/articles/ignoring-files/#create-a-global-gitignore) to learn about setting up a global ignore list.
 
+### Missing `index.ts` script?
+
+Older versions of the TypeScript generator were not creating an `index.ts` script, but newer ones do. However, if an older project is upgraded then the `index.ts` is *not* post-generated, because it might be that the main entry script of the original project may have changed. Introducing a heuristic to automate this (meanwhile rare) edge-case has been avoided &ndash; to not further complicate the generator code. Just manually creating an `index.ts` with *usually* the following content should resolve any corresponding build problems:
+
+```ts
+export { App } from './app/app';
+```
+
 ### Security Audits
 
 The [npm] tool offers the `npm audit` and `npm audit fix` commands, which scan your project for vulnerabilities and automatically install any compatible updates for vulnerable dependencies. Run `npm help audit` to get an in-depth description about this tool.
