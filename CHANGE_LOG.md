@@ -1,5 +1,11 @@
 # CHANGE LOG
 
+## v10.5.z
+
+* Support for `--webpack` option:
+
+    By using the `--webpack=$JSON` option, where `$JSON` needs to contain *correctly* quoted keys (e.g. `\\"key\\"`) and values, the corresponding entries in `webpack.config.js` can be overridden via the CLI.
+
 ## v10.4.z
 
 * Support for `jsdoc` for JavaScript:

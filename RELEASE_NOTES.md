@@ -34,6 +34,10 @@
 
     By running `npm run docs` in source comments are parsed by `typdoc` and the corresponding documentation is generated in the `docs` folder. The `typedoc` tool can be configured via the `typedoc.json` file.
 
+* Support for `--webpack` option:
+
+    By using the `--webpack=$JSON` option, where `$JSON` needs to contain *correctly* quoted keys (e.g. `\\"key\\"`) and values, the corresponding entries in `webpack.config.js` can be overridden via the CLI.
+
 ## v9.y.z
 
 ### MAJOR CHANGES

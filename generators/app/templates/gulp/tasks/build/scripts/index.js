@@ -14,8 +14,14 @@ gulp.task('scripts', async () => {
         .default('obfuscate')
         .default('sourcemaps')
         .default('closure', cli.arg('minify'))
-        .argv;
+        .coerce('webpack', (arg) => {
+            const json = JSON.parse(arg || '{}');
+            return map(json, (v) => regexify(v));
+        }).argv;
 
+    webpack_config = {
+        ...webpack_config, ...argv.webpack
+    };
     if (typeof argv.sourcemaps === 'string') {
         argv.sourcemaps = JSON.parse(argv.sourcemaps);
     }
@@ -89,3 +95,29 @@ gulp.task('scripts', async () => {
         .on('end', resolve)
     );
 });
+function map(any, apply) {
+    if (any && typeof any === 'object') {
+        Object.entries(any).forEach(([k, v]) => {
+            any[k] = map(v, apply);
+        });
+        return any;
+    }
+    if (Array.isArray(any)) {
+        any.forEach((v, i) => {
+            any[i] = map(v, apply)
+        });
+        return any;
+    }
+    return apply(any);
+}
+function regexify(value) {
+    if (typeof value === 'string') {
+        const m = value.match(
+            /^\/(?<source>[^\/]+)\/(?<flag>\w*)$/
+        );
+        if (m && m.groups) {
+            value = new RegExp(m.groups.source, m.groups.flag);
+        }
+    }
+    return value;
+}

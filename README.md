@@ -187,7 +187,7 @@ tree
 │   │   └── i18n-*.min.js
 │   └── style
 │       └── style.scss
-└── webpack.config.json
+└── webpack.config.js
 ```
 
 Let's have a look at each ot the top level files and directories:
@@ -384,19 +384,19 @@ The specific configuration objects for controlling [eslint], [coffeelint] and [t
 * Enforce for a JavaScript based dizmo project linting, but ignore unused variable names:
 
 ```sh
-npm run build -- --lint='{\"rules\":{\"no-unused-vars\":0}}'
+npm run build -- --lint='{"rules":{"no-unused-vars":0}}'
 ```
 
 * Enforce linting, but provide a warning w.r.t. unused variable names:
 
 ```sh
-npm run build -- --lint='{\"rules\":{\"no-unused-vars\":1}}'
+npm run build -- --lint='{"rules":{"no-unused-vars":1}}'
 ```
 
 * Enforce linting, but provide an error w.r.t. unused variable names:
 
 ```sh
-npm run build -- --lint='{\"rules\":{\"no-unused-vars\":2}}'
+npm run build -- --lint='{"rules":{"no-unused-vars":2}}'
 ```
 
 Above, in case of an error the build process will *not* fail, effectively making it equivalent to a warning. If such behaviour is not desired, then the `lint.js` gulp task should be modified to stop the build process upon a linting error.
@@ -427,7 +427,7 @@ Further, since minification consists of five sub-steps, namely (a) markup minifi
 npm run build -- --minify --closure --htmlmin --sass --no-obfuscate --no-sourcemaps
 ```
 
-The above set of arguments is (given default `webpack.config.json`) equivalent to the `--minify` flag. Further, each of them can be negated as well:
+The above set of arguments is (given default [webpack.config.js]) equivalent to the `--minify` flag. Further, each of them can be negated as well:
 
 ```sh
 npm run build -- --no-minify --no-terser --no-htmlmin --no-sass --obfuscate --sourcemaps
@@ -438,40 +438,73 @@ Further, each flag can accept an optional configuration object to control in det
 * Minify the scripts; see [webpack-mode] for further information w.r.t. to the configuration:
 
 ```sh
-npm run build -- --minify='{\"mode\":\"production\"}'
+npm run build -- --minify='{"mode":"production"}'
 ```
 
 * Minimize the scripts; see [webpack-closure-plugin] for further information w.r.t. to the configuration:
 
 ```sh
-npm run build -- --minify --terser='{\"keep_fnames\":true}'
+npm run build -- --minify --terser='{"keep_fnames":true}'
 ```
 
 * Minimize the markup; see [gulp-htmlmin] for further information w.r.t. to the configuration:
 
 ```sh
-npm run build -- --minify --htmlmin='{\"collapseWhitespace\":true}'
+npm run build -- --minify --htmlmin='{"collapseWhitespace":true}'
 ```
 
 * Minimize the styles; see [gulp-sass] for further information w.r.t. to the configuration:
 
 ```sh
-npm run build -- --minify --sass='{\"outputStyle\":\"compressed\"}'
+npm run build -- --minify --sass='{"outputStyle":"compressed"}'
 ```
 
 * Obfuscate the scripts; see [webpack-obfuscator] for further information w.r.t. to the configuration:
 
 ```sh
-npm run build -- --minify --obfuscate='{\"compact\":true}'
+npm run build -- --minify --obfuscate='{"compact":true}'
 ```
 
 * Create source maps for the scripts *and* the styles (in `package.json` each source map generation can be configured separately, however on the CLI there is only a single flag to control both); see [gulp-sourcemaps] for further information w.r.t. to the configuration:
 
 ```sh
-npm run build -- --minify --sourcemaps='{\"loadMaps\":true}'
+npm run build -- --minify --sourcemaps='{"loadMaps":true}'
 ```
 
 In general, using `--minify` (or `--no-minify`) combined with the `--sourcemaps` (or `--no-sourcemaps`) CLI options should be enough. Only if explicit control is required, using the `--htmlmin`, `--sass` or `--obfuscate` flags is necessary. Further, providing configuration objects to these flags should only be done, when you know what you are doing (or are not happy with the provided defaults).
+
+### Bundling: `--webpack`
+
+A dizmo project uses [webpack] to control how a dizmo is bundled &ndash; using [webpack.config.js], which in general can be left as it is! However, if the need should arise to modify the bundling process, then either [webpack.config.js] can be modified *directly*, or (in case no permanent change is desired then) the `--webpack` CLI option can be utilized. For example, to disable the `babel-loader` module on the fly one could run:
+
+#### for JavaScript dizmos
+
+```sh
+NO_BABEL_JS='{"module":{"rules":[]}}' ## or: '{"module":{}}'
+```
+```sh
+npm run build -- --webpack="$NO_BABEL_JS"
+```
+
+#### for CoffeeScript dizmos
+
+```sh
+NO_BABEL_CS='{"module":{"rules":[{"test":"/\\\\.coffee$/i","loader":"coffee-loader"}]}}'
+```
+```sh
+npm run build -- --webpack="$NO_BABEL_CS"
+```
+
+#### and for TypeScript dizmos
+
+```sh
+NO_BABEL_TS='{"module":{"rules":[{"test":"/\\\\.tsx?$/i","use":"ts-loader"}]}}'
+```
+```sh
+npm run build -- --webpack="$NO_BABEL_TS"
+```
+
+...where it's recommended to export the `NO_BABEL_JS`, `NO_BABEL_CS` and/or `NO_BABEL_TS` constants in one's shell environment &ndash; if they are used often. These constants can be derived, by modifying the `webpack.config.js` as one sees fit, and then converting the relevant portions into a minified JSON format.
 
 ### Upload
 
@@ -704,6 +737,7 @@ The [npm] tool offers the `npm audit` and `npm audit fix` commands, which scan y
 
 [webpack]: https://webpack.js.org/
 [webpack-mode]: https://webpack.js.org/configuration/mode/
+[webpack.config.js]: https://webpack.js.org/concepts/configuration/
 [webpack-obfuscator]: https://github.com/javascript-obfuscator/webpack-obfuscator
 [webpack-closure-plugin]: https://webpack.js.org/plugins/closure-webpack-plugin/#options
 
