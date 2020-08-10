@@ -127,16 +127,16 @@ describe('generator-dizmo:sub-coffeescript', function () {
                     }
                 },
                 'dependencies': {
-                    '@babel/polyfill': '^7.10.1'
+                    '@babel/polyfill': '^7.10.4'
                 },
                 'devDependencies': {
-                    '@babel/core': '^7.10.2',
-                    '@babel/preset-env': '^7.10.2',
+                    '@babel/core': '^7.11.1',
+                    '@babel/preset-env': '^7.11.0',
                     'ansi-colors': '^4.1.1',
                     'babel-loader': '^8.1.0',
                     'coffee-loader': '^1.0.0',
                     'coffeescript': '^2.5.1',
-                    'eslint': '^7.2.0',
+                    'eslint': '^7.6.0',
                     'fancy-log': '^1.3.3',
                     'gulp': '^4.0.2',
                     'gulp-coffeelint': '^0.6.0',
@@ -148,19 +148,19 @@ describe('generator-dizmo:sub-coffeescript', function () {
                     'gulp-sass': '^4.1.0',
                     'gulp-sourcemaps': '^2.6.5',
                     'gulp-ver': '^0.1.0',
-                    'gulp-zip': '^5.0.1',
+                    'gulp-zip': '^5.0.2',
                     'rimraf': '^3.0.2',
-                    'webpack': '^4.43.0',
+                    'webpack': '^4.44.1',
                     'webpack-stream': '^5.2.1'
                 },
                 'optionalDependencies': {
                     'closure-webpack-plugin': '^2.3.0',
-                    'google-closure-compiler': '^20200517.0.0',
-                    'jsdoc': '^3.6.4',
+                    'google-closure-compiler': '^20200719.0.0',
+                    'jsdoc': '^3.6.5',
                     'minami': '^1.2.3',
                     'pump': '^3.0.0',
                     'tmp': '^0.2.1',
-                    'webpack-obfuscator': '^1.1.0'
+                    'webpack-obfuscator': '^1.9.0'
                 },
                 'license': 'ISC',
                 'private': true,

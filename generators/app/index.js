@@ -306,19 +306,19 @@ module.exports = class extends Generator {
             const pkg = this.fs.readJSON(pkg_path);
             pkg.dependencies = sort(
                 lodash.assign(pkg.dependencies, {
-                    '@babel/polyfill': '^7.10.1'
+                    '@babel/polyfill': '^7.10.4'
                 })
             );
             pkg.devDependencies = sort(
                 lodash.assign(pkg.devDependencies, {
-                    '@babel/core': '^7.10.2',
-                    '@babel/preset-env': '^7.10.2'
+                    '@babel/core': '^7.11.1',
+                    '@babel/preset-env': '^7.11.0'
                 })
             );
             pkg.devDependencies = sort(
                 lodash.assign(pkg.devDependencies, {
                     'babel-loader': '^8.1.0',
-                    'webpack': '^4.43.0',
+                    'webpack': '^4.44.1',
                     'webpack-stream': '^5.2.1',
                 })
             );
@@ -334,13 +334,13 @@ module.exports = class extends Generator {
                     'gulp-sass': '^4.1.0',
                     'gulp-sourcemaps': '^2.6.5',
                     'gulp-ver': '^0.1.0',
-                    'gulp-zip': '^5.0.1'
+                    'gulp-zip': '^5.0.2'
                 })
             );
             pkg.devDependencies = sort(
                 lodash.assign(pkg.devDependencies, {
                     'ansi-colors': '^4.1.1',
-                    'eslint': '^7.2.0',
+                    'eslint': '^7.6.0',
                     'fancy-log': '^1.3.3',
                     'rimraf': '^3.0.2'
                 })
@@ -348,11 +348,11 @@ module.exports = class extends Generator {
             pkg.optionalDependencies = sort(
                 lodash.assign(pkg.optionalDependencies, {
                     'closure-webpack-plugin': '^2.3.0',
-                    'google-closure-compiler': '^20200517.0.0',
-                    'jsdoc': '^3.6.4',
+                    'google-closure-compiler': '^20200719.0.0',
+                    'jsdoc': '^3.6.5',
                     'minami': '^1.2.3',
                     'pump': '^3.0.0',
-                    'webpack-obfuscator': '^1.1.0'
+                    'webpack-obfuscator': '^1.9.0'
                 })
             );
             pkg.scripts = sort(
