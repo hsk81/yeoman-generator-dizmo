@@ -127,17 +127,17 @@ describe('generator-dizmo:sub-typescript', function () {
                     }
                 },
                 'dependencies': {
-                    '@babel/polyfill': '^7.10.4',
+                    '@babel/polyfill': '^7.11.5',
                     '@dizmo/dizmo.js': '^1.4.9'
                 },
                 'devDependencies': {
-                    '@babel/core': '^7.11.1',
-                    '@babel/preset-env': '^7.11.0',
-                    '@typescript-eslint/eslint-plugin': '3.8.0',
-                    '@typescript-eslint/parser': '3.8.0',
+                    '@babel/core': '^7.11.6',
+                    '@babel/preset-env': '^7.11.5',
+                    '@typescript-eslint/eslint-plugin': '4.1.0',
+                    '@typescript-eslint/parser': '4.1.0',
                     'ansi-colors': '^4.1.1',
                     'babel-loader': '^8.1.0',
-                    'eslint': '^7.6.0',
+                    'eslint': '^7.8.1',
                     'fancy-log': '^1.3.3',
                     'gulp': '^4.0.2',
                     'gulp-copy': '^4.0.1',
@@ -151,17 +151,17 @@ describe('generator-dizmo:sub-typescript', function () {
                     'gulp-ver': '^0.1.0',
                     'gulp-zip': '^5.0.2',
                     'rimraf': '^3.0.2',
-                    'ts-loader': '^8.0.2',
-                    'typescript': '^3.9.7',
+                    'ts-loader': '^8.0.3',
+                    'typescript': '^4.0.2',
                     'webpack': '^4.44.1',
-                    'webpack-stream': '^5.2.1'
+                    'webpack-stream': '^6.1.0'
                 },
                 'optionalDependencies': {
                     'closure-webpack-plugin': '^2.3.0',
-                    'google-closure-compiler': '^20200719.0.0',
+                    'google-closure-compiler': '^20200830.0.0',
                     'pump': '^3.0.0',
-                    'typedoc': '^0.18.0',
-                    'webpack-obfuscator': '^1.9.0'
+                    'typedoc': '^0.19.1',
+                    'webpack-obfuscator': '^2.1.0'
                 },
                 'license': 'ISC',
                 'private': true,

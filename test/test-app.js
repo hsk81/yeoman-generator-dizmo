@@ -122,14 +122,14 @@ describe('generator-dizmo:app', function () {
                     }
                 },
                 'dependencies': {
-                    '@babel/polyfill': '^7.10.4'
+                    '@babel/polyfill': '^7.11.5'
                 },
                 'devDependencies': {
-                    '@babel/core': '^7.11.1',
-                    '@babel/preset-env': '^7.11.0',
+                    '@babel/core': '^7.11.6',
+                    '@babel/preset-env': '^7.11.5',
                     'ansi-colors': '^4.1.1',
                     'babel-loader': '^8.1.0',
-                    'eslint': '^7.6.0',
+                    'eslint': '^7.8.1',
                     'fancy-log': '^1.3.3',
                     'gulp': '^4.0.2',
                     'gulp-copy': '^4.0.1',
@@ -144,15 +144,15 @@ describe('generator-dizmo:app', function () {
                     'gulp-zip': '^5.0.2',
                     'rimraf': '^3.0.2',
                     'webpack': '^4.44.1',
-                    'webpack-stream': '^5.2.1'
+                    'webpack-stream': '^6.1.0'
                 },
                 'optionalDependencies': {
                     'closure-webpack-plugin': '^2.3.0',
-                    'google-closure-compiler': '^20200719.0.0',
+                    'google-closure-compiler': '^20200830.0.0',
                     'jsdoc': '^3.6.5',
                     'minami': '^1.2.3',
                     'pump': '^3.0.0',
-                    'webpack-obfuscator': '^1.9.0'
+                    'webpack-obfuscator': '^2.1.0'
                 },
                 'license': 'ISC',
                 'private': true,

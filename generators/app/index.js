@@ -306,20 +306,20 @@ module.exports = class extends Generator {
             const pkg = this.fs.readJSON(pkg_path);
             pkg.dependencies = sort(
                 lodash.assign(pkg.dependencies, {
-                    '@babel/polyfill': '^7.10.4'
+                    '@babel/polyfill': '^7.11.5'
                 })
             );
             pkg.devDependencies = sort(
                 lodash.assign(pkg.devDependencies, {
-                    '@babel/core': '^7.11.1',
-                    '@babel/preset-env': '^7.11.0'
+                    '@babel/core': '^7.11.6',
+                    '@babel/preset-env': '^7.11.5'
                 })
             );
             pkg.devDependencies = sort(
                 lodash.assign(pkg.devDependencies, {
                     'babel-loader': '^8.1.0',
                     'webpack': '^4.44.1',
-                    'webpack-stream': '^5.2.1',
+                    'webpack-stream': '^6.1.0',
                 })
             );
             pkg.devDependencies = sort(
@@ -340,7 +340,7 @@ module.exports = class extends Generator {
             pkg.devDependencies = sort(
                 lodash.assign(pkg.devDependencies, {
                     'ansi-colors': '^4.1.1',
-                    'eslint': '^7.6.0',
+                    'eslint': '^7.8.1',
                     'fancy-log': '^1.3.3',
                     'rimraf': '^3.0.2'
                 })
@@ -348,11 +348,11 @@ module.exports = class extends Generator {
             pkg.optionalDependencies = sort(
                 lodash.assign(pkg.optionalDependencies, {
                     'closure-webpack-plugin': '^2.3.0',
-                    'google-closure-compiler': '^20200719.0.0',
+                    'google-closure-compiler': '^20200830.0.0',
                     'jsdoc': '^3.6.5',
                     'minami': '^1.2.3',
                     'pump': '^3.0.0',
-                    'webpack-obfuscator': '^1.9.0'
+                    'webpack-obfuscator': '^2.1.0'
                 })
             );
             pkg.scripts = sort(
