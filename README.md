@@ -693,6 +693,10 @@ You don't have access to this file.
 
 The same error is thrown, when you run `sudo yo -h` as well. Also, the behavior is independent of the usage of `sudo` or directly being logged in as *root*. Please see the answer to the previous question to be able to use `yo` without `sudo`.
 
+### What is Webpack? How do I configure it?
+
+At its core, [webpack] is a static module bundler for modern JavaScript applications. The dizmo generator creates projects which can then be configured by editing the [webpack.config.js] file. See [webpack.js.org/concepts](https://webpack.js.org/concepts/) for an introduction to basic concepts like [entry](https://webpack.js.org/concepts/#entry), [output](https://webpack.js.org/concepts/#output), [loaders](https://webpack.js.org/concepts/#loaders), [plugins](https://webpack.js.org/concepts/#plugins), [mode](https://webpack.js.org/concepts/#mode) and [browser compatibility](https://webpack.js.org/concepts/#browser-compatibility).
+
 ### How to create a `.generator-dizmo` folder on Windows?
 
 The graphical user interface of Windows does not allow to create a folder named `.generator-dizmo`: However it is possible to create one via the command line interface. For example using the Windows PowerShell one can run:
@@ -707,7 +711,7 @@ Such files are device dependent and hence should be ignored *globally* on the de
 
 ### Missing `index.ts` script?
 
-Older versions of the TypeScript generator were not creating an `index.ts` script, but newer ones do. However, if an older project is upgraded then the `index.ts` is *not* post-generated, because it might be that the main entry script of the original project may have changed. Introducing a heuristic to automate this (meanwhile rare) edge-case has been avoided &ndash; to not further complicate the generator code. Just manually creating an `index.ts` with *usually* the following content should resolve any corresponding build problems:
+Older versions of the TypeScript generator were not creating an `index.ts` script, but newer ones do. However, if an older project is upgraded then the `index.ts` is *not* post-generated, because it might be that the main entry script of the original project has changed. Introducing a heuristic to automate this (meanwhile rare) edge-case has been avoided. Just manually creating an `index.ts` with *usually* the following content should resolve any corresponding build problems:
 
 ```ts
 export { App } from './app/app';
@@ -715,7 +719,7 @@ export { App } from './app/app';
 
 ### Security Audits
 
-The [npm] tool offers the `npm audit` and `npm audit fix` commands, which scan your project for vulnerabilities and automatically install any compatible updates for vulnerable dependencies. Run `npm help audit` to get an in-depth description about this tool.
+The [npm] tool offers the `npm audit` and `npm audit fix` commands, which scan your project for vulnerabilities and automatically install any compatible updates for corresponding dependencies. Run `npm help audit` to get an in-depth description about this tool.
 
 ## Copyright
 
