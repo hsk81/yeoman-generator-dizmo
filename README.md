@@ -4,6 +4,23 @@
 # @dizmo/generator-dizmo
 > Dizmo generator
 
+## Table of contents
+* [Prerequisites](#prerequisites)
+* [How does dizmoGen work?](#how-does-dizmogen-work)
+* [Installation](#installation)
+* [Quick start](#quick-start)
+* [Caching](#caching)
+* [Upgrading the Build System](#upgrading-the-build-system)
+* [Skeleton](#skeleton)
+* [Package manager: package.json](#package-manager-packagejson)
+* [NPM scripts](#npm-scripts)
+* [CLI options](#cli-options)
+* [Build](#build)
+* [Extended sub-generators](#extended-sub-generators)
+* [Miscellanea](#miscellanea)
+* [Troubleshooting/FAQ](#troubleshootingfaq)
+* [Copyright](#copyright)
+
 ## Prerequisites
 
 * [Node.js] v10.16.3 LTS (or higher); for Linux distribution based packages (`deb` or `rpm`) see also [binary distributions](https://github.com/nodesource/distributions).
