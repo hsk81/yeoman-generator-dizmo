@@ -340,7 +340,7 @@ module.exports = class extends Generator {
             pkg.devDependencies = sort(
                 lodash.assign(pkg.devDependencies, {
                     'ansi-colors': '^4.1.1',
-                    'eslint': '^7.8.1',
+                    'eslint': '^7.9.0',
                     'fancy-log': '^1.3.3',
                     'rimraf': '^3.0.2'
                 })

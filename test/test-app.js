@@ -129,7 +129,7 @@ describe('generator-dizmo:app', function () {
                     '@babel/preset-env': '^7.11.5',
                     'ansi-colors': '^4.1.1',
                     'babel-loader': '^8.1.0',
-                    'eslint': '^7.8.1',
+                    'eslint': '^7.9.0',
                     'fancy-log': '^1.3.3',
                     'gulp': '^4.0.2',
                     'gulp-copy': '^4.0.1',

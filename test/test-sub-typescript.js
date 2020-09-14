@@ -137,7 +137,7 @@ describe('generator-dizmo:sub-typescript', function () {
                     '@typescript-eslint/parser': '4.1.0',
                     'ansi-colors': '^4.1.1',
                     'babel-loader': '^8.1.0',
-                    'eslint': '^7.8.1',
+                    'eslint': '^7.9.0',
                     'fancy-log': '^1.3.3',
                     'gulp': '^4.0.2',
                     'gulp-copy': '^4.0.1',
