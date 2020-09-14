@@ -29,14 +29,13 @@ global.showFront = () => dizmo.showFront();
  *  Translator function
  */
 const onI18n = (
-    error: Error|null, translate: (key: string) => string|any
+    error: Error | null, translate: (key: string) => string | any
 ) => {
     const cell = document.getElementsByClassName("table-cell")[0];
     cell.textContent = translate("#front/greeting") as string;
     const done = document.getElementById("done") as HTMLElement;
     done.textContent = translate("#back/done") as string;
 };
-
 global.i18n(onI18n);
 
 /**

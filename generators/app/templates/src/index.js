@@ -29,7 +29,6 @@ const onI18n = (error, translate) => {
     const done = document.getElementById('done');
     done.textContent = translate('#back/done');
 };
-
 window.i18n(onI18n);
 
 /**

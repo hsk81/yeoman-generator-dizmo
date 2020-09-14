@@ -11,7 +11,7 @@
 ## Screenshots
 
 Add your screenshots measuring 400 times 275 pixes that illustrate your dizmo.
-![Screenshot placeholder](./placeholder-400x275.jpg)
+![Screenshot placeholder](./placeholder-400x275.png)
 
 ## Description
 
