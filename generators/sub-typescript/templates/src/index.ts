@@ -1,5 +1,6 @@
-/* eslint @typescript-eslint/explicit-function-return-type: ["off"] */
-/* eslint @typescript-eslint/no-explicit-any: ["off"] */
+/* eslint @typescript-eslint/explicit-function-return-type: [off] */
+/* eslint @typescript-eslint/no-explicit-any: [off] */
+/* eslint @typescript-eslint/no-unused-vars: [off] */
 
 import { Global } from "@dizmo/dizmo.js";
 declare const global: Global;
@@ -31,10 +32,10 @@ global.showFront = () => dizmo.showFront();
 const onI18n = (
     error: Error | null, translate: (key: string) => string | any
 ) => {
-    const cell = document.getElementsByClassName("table-cell")[0];
-    cell.textContent = translate("#front/greeting") as string;
-    const done = document.getElementById("done") as HTMLElement;
-    done.textContent = translate("#back/done") as string;
+    const cell = document.getElementsByClassName('table-cell')[0];
+    cell.textContent = translate('#front/greeting') as string;
+    const done = document.getElementById('done') as HTMLElement;
+    done.textContent = translate('#back/done') as string;
 };
 global.i18n(onI18n);
 
@@ -42,7 +43,11 @@ global.i18n(onI18n);
  * Handler to be invoked once the dizmo is ready.
  */
 const onDizmoReady = () => {
-    const done = document.getElementById("done") as HTMLElement;
+    dizmo.subscribeToAttribute('settings/framecolor', (path, value) => {
+        const front = document.getElementById('front') as HTMLElement;
+        front.style.color = dizmo.getAdaptiveColor();
+    });
+    const done = document.getElementById('done') as HTMLElement;
     done.onclick = () => dizmo.showFront();
 };
 document.addEventListener('dizmoready', onDizmoReady, {

@@ -1,3 +1,5 @@
+/* eslint no-unused-vars: [off] */
+
 /**
  * Shows the `#back` side of a dizmo; assignment to `window`
  * enables in the dizmo menu the *settings* entry.
@@ -36,6 +38,10 @@ window.i18n(onI18n);
  * @function
  */
 const onDizmoReady = () => {
+    dizmo.subscribeToAttribute('settings/framecolor', (path, value) => {
+        const front = document.getElementById('front');
+        front.style.color = dizmo.getAdaptiveColor();
+    });
     const done = document.getElementById('done');
     done.onclick = () => dizmo.showFront();
 };

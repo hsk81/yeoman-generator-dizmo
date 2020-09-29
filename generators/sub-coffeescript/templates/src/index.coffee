@@ -37,6 +37,9 @@ window.i18n onI18n
 # @function
 ###
 export onDizmoReady = ->
+    dizmo.subscribeToAttribute 'settings/framecolor', (path, value) ->
+        front = document.getElementById 'front'
+        front.style.color = dizmo.getAdaptiveColor()
     done = document.getElementById 'done'
     done.onclick = -> dizmo.showFront()
     return
