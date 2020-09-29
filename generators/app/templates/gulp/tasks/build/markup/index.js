@@ -1,8 +1,13 @@
 const pkg = require('../../../package.js');
+const ansi_colors = require('ansi-colors');
+const fancy_log = require('fancy-log');
 const gulp = require('gulp');
 const gulp_htmlmin = require('gulp-htmlmin');
 const gulp_replace = require('gulp-replace');
 const path = require('path');
+
+const warn = (...args) => setTimeout(
+    () => fancy_log(ansi_colors.yellow.bold(...args)), 0);
 
 const api_version = pkg.dizmo &&
     pkg.dizmo.settings && pkg.dizmo.settings['api-version'];
@@ -26,15 +31,35 @@ gulp.task('markup', () => {
 
     let stream = gulp.src(['src/**/*.html'])
         .pipe(gulp_replace(rgx_script('dizmojs'), (match, ...groups) => {
-            if (api_version) groups[1] = api_version;
+            if (api_version) {
+                if (api_version !== groups[1]) warn(
+                    `api-version=${api_version} from package.json overrides script tag ` +
+                    `with src="/scripts/dizmojs-${groups[1]}.js" in index.html`
+                );
+                groups[1] = api_version;
+            }
             return tag_script('dizmojs', ...groups);
         }))
         .pipe(gulp_replace(rgx_script('dizmoelements'), (match, ...groups) => {
-            if (elm_version) groups[1] = elm_version;
+            if (elm_version) {
+                if (elm_version !== groups[1]) warn(
+                    `elements-version=${elm_version} from package.json overrides script tag ` +
+                    `with src="/scripts/dizmoelements-${groups[1]}.js" in index.html`
+                );
+                groups[1] = elm_version;
+            }
             return tag_script('dizmoelements', ...groups);
         }))
         .pipe(gulp_replace(rgx_style('dizmoelements'), (match, ...groups) => {
-            if (elm_version) groups[1] = elm_version;
+            if (elm_version) {
+                if (elm_version !== groups[1]) {
+                    if (elm_version !== groups[1]) warn(
+                        `elements-version=${elm_version} from package.json overrides link tag ` +
+                        `with href="/styles/dizmoelements-${groups[1]}.css" in index.html`
+                    );
+                }
+                groups[1] = elm_version;
+            }
             return tag_style('dizmoelements', ...groups);
         }));
     if (typeof argv.htmlmin === 'string') {
