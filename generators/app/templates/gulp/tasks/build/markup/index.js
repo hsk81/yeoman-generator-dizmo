@@ -52,12 +52,10 @@ gulp.task('markup', () => {
         }))
         .pipe(gulp_replace(rgx_style('dizmoelements'), (match, ...groups) => {
             if (elm_version) {
-                if (elm_version !== groups[1]) {
-                    if (elm_version !== groups[1]) warn(
-                        `elements-version=${elm_version} from package.json overrides link tag ` +
-                        `with href="/styles/dizmoelements-${groups[1]}.css" in index.html`
-                    );
-                }
+                if (elm_version !== groups[1]) warn(
+                    `elements-version=${elm_version} from package.json overrides link tag ` +
+                    `with href="/styles/dizmoelements-${groups[1]}.css" in index.html`
+                );
                 groups[1] = elm_version;
             }
             return tag_style('dizmoelements', ...groups);
