@@ -433,15 +433,15 @@ module.exports = class extends Generator {
         }
         if (!upgrade || upgrade) {
             this.fs.copy(
-                this.templatePath('src/lib/i18n-2.0.1.min.js'),
-                this.destinationPath('src/lib/i18n-2.0.1.min.js')
+                this.templatePath('src/lib/i18n-2.0.2.min.js'),
+                this.destinationPath('src/lib/i18n-2.0.2.min.js')
             );
             this.fs.copy(
-                this.templatePath('src/lib/i18n-2.0.1.min.js.map'),
-                this.destinationPath('src/lib/i18n-2.0.1.min.js.map')
+                this.templatePath('src/lib/i18n-2.0.2.min.js.map'),
+                this.destinationPath('src/lib/i18n-2.0.2.min.js.map')
             );
             const html = this.fs.read('src/index.html').replace(
-                /lib\/i18n-\d.\d.\d.min.js/, 'lib/i18n-2.0.1.min.js'
+                /lib\/i18n-\d.\d.\d.min.js/, 'lib/i18n-2.0.2.min.js'
             );
             this.fs.write('src/index.html', html);
         }
