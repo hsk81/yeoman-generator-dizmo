@@ -306,19 +306,19 @@ module.exports = class extends Generator {
             const pkg = this.fs.readJSON(pkg_path);
             pkg.dependencies = sort(
                 lodash.assign(pkg.dependencies, {
-                    '@babel/polyfill': '^7.11.5'
+                    '@babel/polyfill': '^7.12.1'
                 })
             );
             pkg.devDependencies = sort(
                 lodash.assign(pkg.devDependencies, {
-                    '@babel/core': '^7.11.6',
-                    '@babel/preset-env': '^7.11.5'
+                    '@babel/core': '^7.12.3',
+                    '@babel/preset-env': '^7.12.1'
                 })
             );
             pkg.devDependencies = sort(
                 lodash.assign(pkg.devDependencies, {
                     'babel-loader': '^8.1.0',
-                    'webpack': '^4.44.2',
+                    'webpack': '^5.3.0',
                     'webpack-stream': '^6.1.0',
                 })
             );
@@ -340,7 +340,7 @@ module.exports = class extends Generator {
             pkg.devDependencies = sort(
                 lodash.assign(pkg.devDependencies, {
                     'ansi-colors': '^4.1.1',
-                    'eslint': '^7.10.0',
+                    'eslint': '^7.12.1',
                     'fancy-log': '^1.3.3',
                     'rimraf': '^3.0.2'
                 })
@@ -348,11 +348,11 @@ module.exports = class extends Generator {
             pkg.optionalDependencies = sort(
                 lodash.assign(pkg.optionalDependencies, {
                     'closure-webpack-plugin': '^2.3.0',
-                    'google-closure-compiler': '^20200927.0.0',
+                    'google-closure-compiler': '^20201006.0.0',
                     'jsdoc': '^3.6.6',
                     'minami': '^1.2.3',
                     'pump': '^3.0.0',
-                    'webpack-obfuscator': '^2.4.1'
+                    'webpack-obfuscator': '^3.0.0'
                 })
             );
             pkg.scripts = sort(
