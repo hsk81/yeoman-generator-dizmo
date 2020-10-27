@@ -54,7 +54,7 @@
 
 * Integrated generator tests with CI:
 
-    The JavaScript, CoffeeScript and TypeScript project generators are now automatically verified with `npm test`, which is also run by the https://travis-ci.org continuous integration service. The entire list of generated files is checked, plus the full content of `package.json`.
+    The JavaScript, CoffeeScript and TypeScript project generators are now automatically verified with `npm test`, which is also run by the https://travis-ci.com continuous integration service. The entire list of generated files is checked, plus the full content of `package.json`.
 
 ## v8.y.z
 
