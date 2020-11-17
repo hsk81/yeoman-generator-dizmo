@@ -82,8 +82,8 @@ describe('generator-dizmo:sub-typescript', function () {
                 'src/index.html',
                 'src/index.ts',
                 'src/lib',
-                'src/lib/i18n-2.0.2.min.js',
-                'src/lib/i18n-2.0.2.min.js.map',
+                'src/lib/i18n-2.1.0.min.js',
+                'src/lib/i18n-2.1.0.min.js.map',
                 'src/style',
                 'src/style/style.scss',
                 'tsconfig.json',
@@ -128,16 +128,16 @@ describe('generator-dizmo:sub-typescript', function () {
                 },
                 'dependencies': {
                     '@babel/polyfill': '^7.12.1',
-                    '@dizmo/dizmo.js': '^1.4.23'
+                    '@dizmo/dizmo.js': '^1.4.24'
                 },
                 'devDependencies': {
                     '@babel/core': '^7.12.3',
                     '@babel/preset-env': '^7.12.1',
-                    '@typescript-eslint/eslint-plugin': '4.6.0',
-                    '@typescript-eslint/parser': '4.6.0',
+                    '@typescript-eslint/eslint-plugin': '4.8.0',
+                    '@typescript-eslint/parser': '4.8.0',
                     'ansi-colors': '^4.1.1',
-                    'babel-loader': '^8.1.0',
-                    'eslint': '^7.12.1',
+                    'babel-loader': '^8.2.1',
+                    'eslint': '^7.13.0',
                     'fancy-log': '^1.3.3',
                     'gulp': '^4.0.2',
                     'gulp-copy': '^4.0.1',
@@ -147,21 +147,21 @@ describe('generator-dizmo:sub-typescript', function () {
                     'gulp-rename': '^2.0.0',
                     'gulp-replace': '^1.0.0',
                     'gulp-sass': '^4.1.0',
-                    'gulp-sourcemaps': '^2.6.5',
+                    'gulp-sourcemaps': '^3.0.0',
                     'gulp-ver': '^0.1.0',
                     'gulp-zip': '^5.0.2',
                     'rimraf': '^3.0.2',
-                    'ts-loader': '^8.0.7',
+                    'ts-loader': '^8.0.11',
                     'typescript': '^4.0.5',
-                    'webpack': '^5.3.0',
-                    'webpack-stream': '^6.1.0'
+                    'webpack': '^5.4.0',
+                    'webpack-stream': '^6.1.1'
                 },
                 'optionalDependencies': {
                     'closure-webpack-plugin': '^2.3.0',
-                    'google-closure-compiler': '^20201006.0.0',
+                    'google-closure-compiler': '^20201102.0.1',
                     'pump': '^3.0.0',
                     'typedoc': '^0.19.2',
-                    'webpack-obfuscator': '^3.0.0'
+                    'webpack-obfuscator': '^3.1.0'
                 },
                 'license': 'ISC',
                 'private': true,

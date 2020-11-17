@@ -317,9 +317,9 @@ module.exports = class extends Generator {
             );
             pkg.devDependencies = sort(
                 lodash.assign(pkg.devDependencies, {
-                    'babel-loader': '^8.1.0',
-                    'webpack': '^5.3.0',
-                    'webpack-stream': '^6.1.0',
+                    'babel-loader': '^8.2.1',
+                    'webpack': '^5.4.0',
+                    'webpack-stream': '^6.1.1',
                 })
             );
             pkg.devDependencies = sort(
@@ -332,7 +332,7 @@ module.exports = class extends Generator {
                     'gulp-rename': '^2.0.0',
                     'gulp-replace': '^1.0.0',
                     'gulp-sass': '^4.1.0',
-                    'gulp-sourcemaps': '^2.6.5',
+                    'gulp-sourcemaps': '^3.0.0',
                     'gulp-ver': '^0.1.0',
                     'gulp-zip': '^5.0.2'
                 })
@@ -340,7 +340,7 @@ module.exports = class extends Generator {
             pkg.devDependencies = sort(
                 lodash.assign(pkg.devDependencies, {
                     'ansi-colors': '^4.1.1',
-                    'eslint': '^7.12.1',
+                    'eslint': '^7.13.0',
                     'fancy-log': '^1.3.3',
                     'rimraf': '^3.0.2'
                 })
@@ -348,11 +348,11 @@ module.exports = class extends Generator {
             pkg.optionalDependencies = sort(
                 lodash.assign(pkg.optionalDependencies, {
                     'closure-webpack-plugin': '^2.3.0',
-                    'google-closure-compiler': '^20201006.0.0',
+                    'google-closure-compiler': '^20201102.0.1',
                     'jsdoc': '^3.6.6',
                     'minami': '^1.2.3',
                     'pump': '^3.0.0',
-                    'webpack-obfuscator': '^3.0.0'
+                    'webpack-obfuscator': '^3.1.0'
                 })
             );
             pkg.scripts = sort(
@@ -433,15 +433,15 @@ module.exports = class extends Generator {
         }
         if (!upgrade || upgrade) {
             this.fs.copy(
-                this.templatePath('src/lib/i18n-2.0.2.min.js'),
-                this.destinationPath('src/lib/i18n-2.0.2.min.js')
+                this.templatePath('src/lib/i18n-2.1.0.min.js'),
+                this.destinationPath('src/lib/i18n-2.1.0.min.js')
             );
             this.fs.copy(
-                this.templatePath('src/lib/i18n-2.0.2.min.js.map'),
-                this.destinationPath('src/lib/i18n-2.0.2.min.js.map')
+                this.templatePath('src/lib/i18n-2.1.0.min.js.map'),
+                this.destinationPath('src/lib/i18n-2.1.0.min.js.map')
             );
             const html = this.fs.read('src/index.html').replace(
-                /lib\/i18n-\d.\d.\d.min.js/, 'lib/i18n-2.0.2.min.js'
+                /lib\/i18n-\d.\d.\d.min.js/, 'lib/i18n-2.1.0.min.js'
             );
             this.fs.write('src/index.html', html);
         }

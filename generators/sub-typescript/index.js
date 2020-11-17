@@ -50,18 +50,18 @@ module.exports = class extends Generator {
             const pkg = this.fs.readJSON(pkg_path);
             pkg.dependencies = sort(
                 lodash.assign(pkg.dependencies, {
-                    '@dizmo/dizmo.js': '^1.4.23'
+                    '@dizmo/dizmo.js': '^1.4.24'
                 })
             );
             pkg.devDependencies = sort(
                 lodash.assign(pkg.devDependencies, {
-                    '@typescript-eslint/eslint-plugin': '4.6.0',
-                    '@typescript-eslint/parser': '4.6.0'
+                    '@typescript-eslint/eslint-plugin': '4.8.0',
+                    '@typescript-eslint/parser': '4.8.0'
                 })
             );
             pkg.devDependencies = sort(
                 lodash.assign(pkg.devDependencies, {
-                    'ts-loader': '^8.0.7',
+                    'ts-loader': '^8.0.11',
                     'typescript': '^4.0.5'
                 })
             );
