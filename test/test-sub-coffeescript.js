@@ -130,13 +130,13 @@ describe('generator-dizmo:sub-coffeescript', function () {
                     '@babel/polyfill': '^7.12.1'
                 },
                 'devDependencies': {
-                    '@babel/core': '^7.12.3',
-                    '@babel/preset-env': '^7.12.1',
+                    '@babel/core': '^7.12.7',
+                    '@babel/preset-env': '^7.12.7',
                     'ansi-colors': '^4.1.1',
                     'babel-loader': '^8.2.1',
                     'coffee-loader': '^1.0.1',
                     'coffeescript': '^2.5.1',
-                    'eslint': '^7.13.0',
+                    'eslint': '^7.14.0',
                     'fancy-log': '^1.3.3',
                     'gulp': '^4.0.2',
                     'gulp-coffeelint': '^0.6.0',
@@ -150,7 +150,7 @@ describe('generator-dizmo:sub-coffeescript', function () {
                     'gulp-ver': '^0.1.0',
                     'gulp-zip': '^5.0.2',
                     'rimraf': '^3.0.2',
-                    'webpack': '^5.4.0',
+                    'webpack': '^5.6.0',
                     'webpack-stream': '^6.1.1'
                 },
                 'optionalDependencies': {

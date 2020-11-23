@@ -311,14 +311,14 @@ module.exports = class extends Generator {
             );
             pkg.devDependencies = sort(
                 lodash.assign(pkg.devDependencies, {
-                    '@babel/core': '^7.12.3',
-                    '@babel/preset-env': '^7.12.1'
+                    '@babel/core': '^7.12.7',
+                    '@babel/preset-env': '^7.12.7'
                 })
             );
             pkg.devDependencies = sort(
                 lodash.assign(pkg.devDependencies, {
                     'babel-loader': '^8.2.1',
-                    'webpack': '^5.4.0',
+                    'webpack': '^5.6.0',
                     'webpack-stream': '^6.1.1',
                 })
             );
@@ -340,7 +340,7 @@ module.exports = class extends Generator {
             pkg.devDependencies = sort(
                 lodash.assign(pkg.devDependencies, {
                     'ansi-colors': '^4.1.1',
-                    'eslint': '^7.13.0',
+                    'eslint': '^7.14.0',
                     'fancy-log': '^1.3.3',
                     'rimraf': '^3.0.2'
                 })
