@@ -48,5 +48,5 @@
   "scripts": {
     "test": "npx mocha test --recursive"
   },
-  "version": "10.6.9"
+  "version": "10.6.10"
 }
