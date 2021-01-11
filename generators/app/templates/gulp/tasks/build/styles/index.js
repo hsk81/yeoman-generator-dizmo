@@ -1,11 +1,11 @@
 const pkg = require('../../../package.js');
 const gulp = require('gulp');
-const gulp_sass = require('gulp-sass');
+const gulp_sass = require('gulp-dart-sass');
 const gulp_sourcemaps = require('gulp-sourcemaps');
 const path = require('path');
 
 gulp.task('styles:copy', () =>
-    gulp.src(['src/style/**/*', '!src/style/**/*.scss'], { base: 'src' })
+    gulp.src(['src/styles/**/*', '!src/styles/**/*.scss'], { base: 'src' })
         .pipe(gulp.dest(path.join('build', pkg.name)))
 );
 gulp.task('styles:sass', () => {
@@ -15,7 +15,7 @@ gulp.task('styles:sass', () => {
         .default('sourcemaps', false)
         .default('sass', minify === true).argv;
 
-    let stream = gulp.src(['src/style/**/*.scss']);
+    let stream = gulp.src(['src/styles/**/*.scss']);
     if (typeof argv.sourcemaps === 'string') {
         argv.sourcemaps = JSON.parse(argv.sourcemaps);
     }
@@ -49,7 +49,7 @@ gulp.task('styles:sass', () => {
     ) {
         stream = stream.pipe(gulp_sourcemaps.write('./'));
     }
-    return stream.pipe(gulp.dest(path.join('build', pkg.name, 'style')));
+    return stream.pipe(gulp.dest(path.join('build', pkg.name, 'styles')));
 });
 gulp.task('styles', gulp.series(
     'styles:copy', 'styles:sass'

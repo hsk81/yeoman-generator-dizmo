@@ -1,5 +1,13 @@
 # CHANGE LOG
 
+## v10.6.z
+
+* Support for importing `*.[s]css` stylesheets:
+
+    The build system supports now importing stylesheets via for example `import './styles/styles-extra.scss'`. However, this feature is _not_ used for the default stylesheet at `./styles/styles.scss`, which is imported usind a regular `<link>` tag in `index.html`.
+
+    Also note, that the _old_ default stylesheet at `./style/style.scss` (under the `src` folder) has been moved and renamed to `./styles/styles.scss` (to follow the same naming pattern as in dizmoWeb). Upon an upgrade of the project the old default stylesheet will be automatically moved and renamed accordingly.
+
 ## v10.5.z
 
 * Support for `--webpack` option:

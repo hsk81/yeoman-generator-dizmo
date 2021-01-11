@@ -311,14 +311,18 @@ module.exports = class extends Generator {
             );
             pkg.devDependencies = sort(
                 lodash.assign(pkg.devDependencies, {
-                    '@babel/core': '^7.12.7',
-                    '@babel/preset-env': '^7.12.7'
+                    '@babel/core': '^7.12.10',
+                    '@babel/preset-env': '^7.12.11'
                 })
             );
             pkg.devDependencies = sort(
                 lodash.assign(pkg.devDependencies, {
-                    'babel-loader': '^8.2.1',
-                    'webpack': '^5.6.0',
+                    'babel-loader': '^8.2.2',
+                    'css-loader': '^5.0.1',
+                    'sass': '^1.32.2',
+                    'sass-loader': '^10.1.1',
+                    'style-loader': '^2.0.0',
+                    'webpack': '^5.12.3',
                     'webpack-stream': '^6.1.1',
                 })
             );
@@ -331,7 +335,7 @@ module.exports = class extends Generator {
                     'gulp-plist': '^0.9.0',
                     'gulp-rename': '^2.0.0',
                     'gulp-replace': '^1.0.0',
-                    'gulp-sass': '^4.1.0',
+                    'gulp-dart-sass': '^1.0.2',
                     'gulp-sourcemaps': '^3.0.0',
                     'gulp-ver': '^0.1.0',
                     'gulp-zip': '^5.0.2'
@@ -340,19 +344,20 @@ module.exports = class extends Generator {
             pkg.devDependencies = sort(
                 lodash.assign(pkg.devDependencies, {
                     'ansi-colors': '^4.1.1',
-                    'eslint': '^7.14.0',
+                    'eslint': '^7.17.0',
                     'fancy-log': '^1.3.3',
+                    'request': '^2.88.2',
                     'rimraf': '^3.0.2'
                 })
             );
             pkg.optionalDependencies = sort(
                 lodash.assign(pkg.optionalDependencies, {
-                    'closure-webpack-plugin': '^2.3.0',
-                    'google-closure-compiler': '^20201102.0.1',
+                    'closure-webpack-plugin': '^2.5.0',
+                    'google-closure-compiler': '^20210106.0.0',
                     'jsdoc': '^3.6.6',
                     'minami': '^1.2.3',
                     'pump': '^3.0.0',
-                    'webpack-obfuscator': '^3.1.0'
+                    'webpack-obfuscator': '^3.2.0'
                 })
             );
             pkg.scripts = sort(
@@ -440,9 +445,9 @@ module.exports = class extends Generator {
                 this.templatePath('src/lib/i18n-2.1.0.min.js.map'),
                 this.destinationPath('src/lib/i18n-2.1.0.min.js.map')
             );
-            const html = this.fs.read('src/index.html').replace(
-                /lib\/i18n-\d.\d.\d.min.js/, 'lib/i18n-2.1.0.min.js'
-            );
+            const html = this.fs.read('src/index.html')
+                .replace(/lib\/i18n-\d.\d.\d.min.js/, 'lib/i18n-2.1.0.min.js')
+                .replace(/style\/style.css/, 'styles/styles.css');
             this.fs.write('src/index.html', html);
         }
         this.conflicter.force = upgrade;
@@ -474,8 +479,23 @@ module.exports = class extends Generator {
             console.log(
                 '\nSetting the project root at:', this.destinationPath());
         }
+        this._mov();
         this._rim();
         this._git();
+    }
+    _mov() {
+        if (fs.existsSync(this.destinationPath('src/style'))) {
+            fs.renameSync(
+                this.destinationPath('src/style'),
+                this.destinationPath('src/styles')
+            );
+        }
+        if (fs.existsSync(this.destinationPath('src/styles/style.scss'))) {
+            fs.renameSync(
+                this.destinationPath('src/styles/style.scss'),
+                this.destinationPath('src/styles/styles.scss')
+            );
+        }
     }
     _rim() {
         rimraf.sync(
