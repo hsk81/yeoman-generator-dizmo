@@ -569,8 +569,8 @@ build/
 │   ├── index.js
 │   ├── lib
 │   │   └── i18n-*.min.js
-│   └── style
-│       └── style.css
+│   └── styles
+│       └── styles.css
 └── MyDizmo-0.0.0.dzm
 ```
 
@@ -585,7 +585,7 @@ build/
 * `MyDizmo/index.html`: the main HTML script;
 * `MyDizmo/index.js`: the main JavaScript bundle;
 * `MyDizmo/lib/i18n-*.min.js`: [i18n](https://www.npmjs.com/package/@dizmo/i18n) internationalization wrapper;
-* `MyDizmo/style/style.css`: cascading style sheets.
+* `MyDizmo/styles/styles.css`: cascading stylesheets.
 
 ### Dizmo instantiation
 
