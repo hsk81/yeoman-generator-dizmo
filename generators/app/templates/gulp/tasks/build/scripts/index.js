@@ -34,6 +34,21 @@ gulp.task('scripts', async () => {
         webpack_config = {
             ...webpack_config, ...argv.sourcemaps
         };
+    } else {
+        for (const rule of webpack_config.module?.rules ?? []) {
+            if (`${rule.test}` !== `${/\.(s[ac]ss|css)$/i}`) {
+                continue;
+            }
+            for (const u of rule.use ?? []) {
+                if (typeof u.loader === 'string' &&
+                    u.loader.match(/s?css-loader$/)
+                ) {
+                    u.options = {
+                        ...u.options, ...{ sourceMap: false }
+                    };
+                }
+            }
+        }
     }
     if (typeof argv.obfuscate === 'string') {
         argv.obfuscate = JSON.parse(argv.obfuscate);
