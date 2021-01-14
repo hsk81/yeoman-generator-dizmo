@@ -37,6 +37,7 @@ module.exports = {
     },
     output: {
         path: resolve(__dirname, 'build', '<%= dizmoName %>'),
+        environment: { arrowFunction: false },
         filename: 'index.js'
     },
     mode: 'none'
